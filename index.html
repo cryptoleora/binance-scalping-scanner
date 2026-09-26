@@ -24,7 +24,7 @@ justify-content:space-between;
 align-items:center;
 position:sticky;
 top:0;
-z-index:5
+z-index:10
 }
 
 .logo{
@@ -38,7 +38,7 @@ color:#35d88b
 }
 
 .container{
-max-width:1200px;
+max-width:1250px;
 margin:auto;
 padding:15px
 }
@@ -70,10 +70,6 @@ border-radius:8px;
 font-weight:bold
 }
 
-button:active{
-transform:scale(.97)
-}
-
 .scan{
 background:#087c50;
 border-color:#087c50
@@ -81,7 +77,7 @@ border-color:#087c50
 
 .cards{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(5,1fr);
 gap:10px;
 margin-bottom:15px
 }
@@ -128,11 +124,11 @@ overflow-x:auto
 table{
 width:100%;
 border-collapse:collapse;
-min-width:950px
+min-width:1150px
 }
 
 th,td{
-padding:12px;
+padding:11px;
 border-bottom:1px solid #1b2430;
 text-align:left;
 font-size:12px
@@ -171,15 +167,20 @@ color:#ffbf4a;
 background:#342915
 }
 
+.strong{
+font-weight:800
+}
+
 .empty{
 padding:35px;
 text-align:center;
 color:#8995a5
 }
 
-@media(max-width:700px){
+@media(max-width:800px){
+
 .cards{
-grid-template-columns:1fr 1fr
+grid-template-columns:repeat(2,1fr)
 }
 
 .container{
@@ -189,15 +190,22 @@ padding:10px
 header{
 padding:13px
 }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
+
 <div class="logo">🚀 CryptoLeora</div>
-<div class="live" id="status">● READY</div>
+
+<div class="live" id="status">
+● READY
+</div>
+
 </header>
 
 <div class="container">
@@ -206,45 +214,72 @@ padding:13px
 
 <input
 id="search"
-placeholder="Search coin e.g. BTC, ETH, SUI"
+placeholder="Search BTC, ETH, SUI..."
 oninput="render()">
 
-<button class="scan" onclick="scan()">🔎 SCAN</button>
+<button class="scan" onclick="scan()">
+🔎 SCAN
+</button>
 
-<button onclick="setFilter('ALL')">ALL</button>
-<button onclick="setFilter('BUY')">BUY</button>
-<button onclick="setFilter('SELL')">SELL</button>
+<button onclick="setFilter('ALL')">
+ALL
+</button>
+
+<button onclick="setFilter('BUY')">
+BUY
+</button>
+
+<button onclick="setFilter('SELL')">
+SELL
+</button>
 
 </div>
+
 
 <div class="cards">
 
 <div class="card">
 <div class="label">BTC PRICE</div>
-<div class="value" id="btc">$--</div>
+<div class="value" id="btc">
+$--
+</div>
 </div>
 
 <div class="card">
 <div class="label">COINS</div>
-<div class="value" id="total">0</div>
+<div class="value" id="total">
+0
+</div>
 </div>
 
 <div class="card">
 <div class="label">BUY SIGNALS</div>
-<div class="value green" id="buys">0</div>
+<div class="value green" id="buys">
+0
+</div>
 </div>
 
 <div class="card">
 <div class="label">MARKET</div>
-<div class="value yellow" id="market">--</div>
+<div class="value yellow" id="market">
+--
+</div>
+</div>
+
+<div class="card">
+<div class="label">AVG SCORE</div>
+<div class="value" id="avgScore">
+--
+</div>
 </div>
 
 </div>
+
 
 <div class="box">
 
 <div class="boxhead">
-Market Scanner
+🔥 Binance Spot Scalping Scanner
 </div>
 
 <div class="tablewrap">
@@ -254,14 +289,17 @@ Market Scanner
 <thead>
 
 <tr>
+
 <th>COIN</th>
 <th>PRICE</th>
 <th>24H %</th>
+<th>VOLUME</th>
 <th>RSI</th>
 <th>EMA TREND</th>
 <th>BTC STRENGTH</th>
 <th>SIGNAL</th>
 <th>SCORE</th>
+
 </tr>
 
 </thead>
@@ -269,7 +307,7 @@ Market Scanner
 <tbody id="rows">
 
 <tr>
-<td colspan="8" class="empty">
+<td colspan="9" class="empty">
 Press SCAN to load market
 </td>
 </tr>
@@ -284,12 +322,20 @@ Press SCAN to load market
 
 </div>
 
+
 <script>
 
 let data=[];
 let filter="ALL";
+let btcChange=0;
+
+
+/* -----------------------------
+   COIN UNIVERSE
+----------------------------- */
 
 const coins=[
+
 "BTCUSDT",
 "ETHUSDT",
 "XRPUSDT",
@@ -309,314 +355,865 @@ const coins=[
 "FILUSDT",
 "UNIUSDT",
 "AAVEUSDT",
-"PEPEUSDT"
+"PEPEUSDT",
+"TRXUSDT",
+"TONUSDT",
+"ICPUSDT",
+"HBARUSDT",
+"TAOUSDT",
+"RENDERUSDT",
+"FETUSDT",
+"JUPUSDT",
+"ENAUSDT",
+"ONDOUSDT"
+
 ];
+
+
+/* -----------------------------
+   API
+----------------------------- */
 
 async function getJSON(url){
 
-const r=await fetch(url);
+const response=await fetch(url);
 
-if(!r.ok) throw new Error("API");
+if(!response.ok){
 
-return await r.json();
+throw new Error("API ERROR");
 
 }
 
-function ema(values,period){
+return await response.json();
 
-if(values.length<period)return values[values.length-1];
+}
 
-let k=2/(period+1);
 
-let e=values
+/* -----------------------------
+   EMA
+----------------------------- */
+
+function EMA(values,period){
+
+if(values.length<period){
+
+return values[values.length-1];
+
+}
+
+let multiplier=2/(period+1);
+
+let ema=
+values
 .slice(0,period)
 .reduce((a,b)=>a+b,0)/period;
 
 for(let i=period;i<values.length;i++){
 
-e=values[i]*k+e*(1-k);
+ema=
+(values[i]-ema)*multiplier+ema;
 
 }
 
-return e;
+return ema;
 
 }
 
-function rsi(values){
 
-if(values.length<15)return 50;
+/* -----------------------------
+   RSI
+----------------------------- */
 
-let gain=0;
-let loss=0;
+function RSI(values){
 
-for(let i=values.length-14;i<values.length;i++){
+if(values.length<15){
 
-let d=values[i]-values[i-1];
-
-if(d>0)gain+=d;
-else loss-=d;
+return 50;
 
 }
 
-if(loss===0)return 100;
+let gains=0;
+let losses=0;
 
-let rs=gain/loss;
+for(
+let i=values.length-14;
+i<values.length;
+i++
+){
 
-return Math.round(100-(100/(1+rs)));
+let diff=
+values[i]-values[i-1];
+
+if(diff>0){
+
+gains+=diff;
+
+}else{
+
+losses-=diff;
 
 }
+
+}
+
+if(losses===0){
+
+return 100;
+
+}
+
+let rs=gains/losses;
+
+return Math.round(
+100-(100/(1+rs))
+);
+
+}
+
+
+/* -----------------------------
+   VOLUME FORMAT
+----------------------------- */
+
+function formatVolume(value){
+
+if(value>=1000000000){
+
+return(
+(value/1000000000).toFixed(2)+"B"
+);
+
+}
+
+if(value>=1000000){
+
+return(
+(value/1000000).toFixed(2)+"M"
+);
+
+}
+
+if(value>=1000){
+
+return(
+(value/1000).toFixed(2)+"K"
+);
+
+}
+
+return value.toFixed(0);
+
+}
+
+
+/* -----------------------------
+   ANALYZE COIN
+----------------------------- */
 
 async function analyze(symbol){
 
 let url=
-"https://api.binance.com/api/v3/klines?symbol="+
-symbol+
-"&interval=15m&limit=100";
+"https://api.binance.com/api/v3/klines"+
+"?symbol="+symbol+
+"&interval=15m"+
+"&limit=100";
 
-let candles=await getJSON(url);
+let candles=
+await getJSON(url);
 
-let close=candles.map(x=>Number(x[4]));
 
-let price=close[close.length-1];
+/* CLOSE */
 
-let e10=ema(close,10);
-let e20=ema(close,20);
-let e55=ema(close,55);
+let close=
+candles.map(
+x=>Number(x[4])
+);
 
-let R=rsi(close);
+
+/* VOLUME */
+
+let volumes=
+candles.map(
+x=>Number(x[7])
+);
+
+
+/* CURRENT */
+
+let price=
+close[close.length-1];
+
+
+/* EMA */
+
+let ema10=
+EMA(close,10);
+
+let ema20=
+EMA(close,20);
+
+let ema55=
+EMA(close,55);
+
+
+/* RSI */
+
+let rsi=
+RSI(close);
+
+
+/* VOLUME */
+
+let currentVolume=
+volumes[volumes.length-1];
+
+let oldVolumes=
+volumes.slice(-21,-1);
+
+let avgVolume=
+oldVolumes.reduce(
+(a,b)=>a+b,0
+)/oldVolumes.length;
+
+let volumeRatio=
+avgVolume>0
+?currentVolume/avgVolume
+:1;
+
+
+/* TREND */
 
 let trend="SIDEWAYS";
 
-if(e10>e20 && e20>e55)
+if(
+ema10>ema20 &&
+ema20>ema55
+){
+
 trend="BULLISH";
 
-else if(e10<e20 && e20<e55)
+}
+
+else if(
+ema10<ema20 &&
+ema20<ema55
+){
+
 trend="BEARISH";
+
+}
+
+
+/* MOMENTUM */
+
+let momentum=
+(
+close[close.length-1]/
+close[close.length-5]-1
+)*100;
+
+
+/* BTC RELATIVE STRENGTH */
+
+let btcStrength=
+momentum-btcChange;
+
+
+/* -----------------------------
+   SCORE
+----------------------------- */
 
 let score=50;
 
-if(e10>e20)score+=15;
-else score-=15;
 
-if(e20>e55)score+=15;
-else score-=15;
+/* EMA */
 
-if(R<40)score+=15;
-else if(R>70)score-=15;
+if(ema10>ema20){
 
-if(trend==="BULLISH")score+=10;
-if(trend==="BEARISH")score-=10;
+score+=10;
 
-score=Math.max(0,Math.min(100,Math.round(score)));
+}else{
+
+score-=10;
+
+}
+
+
+if(ema20>ema55){
+
+score+=10;
+
+}else{
+
+score-=10;
+
+}
+
+
+/* RSI */
+
+if(rsi>=40 && rsi<=60){
+
+score+=10;
+
+}
+
+else if(rsi<35){
+
+score+=5;
+
+}
+
+else if(rsi>70){
+
+score-=10;
+
+}
+
+
+/* VOLUME */
+
+if(volumeRatio>=1.5){
+
+score+=10;
+
+}
+
+else if(volumeRatio>=1.1){
+
+score+=5;
+
+}
+
+else if(volumeRatio<0.7){
+
+score-=5;
+
+}
+
+
+/* BTC STRENGTH */
+
+if(btcStrength>2){
+
+score+=10;
+
+}
+
+else if(btcStrength<-2){
+
+score-=10;
+
+}
+
+
+/* MOMENTUM */
+
+if(momentum>1){
+
+score+=5;
+
+}
+
+else if(momentum<-1){
+
+score-=5;
+
+}
+
+
+score=
+Math.max(
+0,
+Math.min(
+100,
+Math.round(score)
+)
+);
+
+
+/* -----------------------------
+   SIGNAL
+----------------------------- */
 
 let signal="WAIT";
 
-if(
-trend==="BULLISH" &&
-R>=40 &&
-R<65 &&
-score>=65
-){
-signal="BUY";
-}
+
+/*
+
+STRICT BUY:
+
+1. EMA10 > EMA20
+2. EMA20 > EMA55
+3. RSI 40-65
+4. BTC relative strength positive
+5. Score >=70
+6. Volume >= average
+
+*/
 
 if(
-trend==="BEARISH" &&
-R>70 &&
-score<=35
+
+ema10>ema20 &&
+
+ema20>ema55 &&
+
+rsi>=40 &&
+rsi<=65 &&
+
+btcStrength>0 &&
+
+score>=70 &&
+
+volumeRatio>=0.9
+
 ){
-signal="SELL";
+
+signal="BUY";
+
 }
+
+
+/*
+
+SELL:
+
+*/
+
+if(
+
+ema10<ema20 &&
+
+ema20<ema55 &&
+
+rsi>=35 &&
+rsi<=70 &&
+
+btcStrength<0 &&
+
+score<=30
+
+){
+
+signal="SELL";
+
+}
+
 
 return{
-symbol:symbol.replace("USDT",""),
+
+symbol:
+symbol.replace("USDT",""),
+
 price,
-rsi:R,
+change:0,
+volume:currentVolume,
+rsi,
 trend,
+btcStrength,
 score,
 signal
+
 };
 
 }
 
+
+/* -----------------------------
+   24H DATA
+----------------------------- */
+
+async function get24h(){
+
+let url=
+"https://api.binance.com/api/v3/ticker/24hr";
+
+let result=
+await getJSON(url);
+
+let map={};
+
+for(let x of result){
+
+map[x.symbol]={
+change:Number(x.priceChangePercent),
+volume:Number(x.quoteVolume),
+price:Number(x.lastPrice)
+};
+
+}
+
+return map;
+
+}
+
+
+/* -----------------------------
+   SCAN
+----------------------------- */
+
 async function scan(){
 
-document.getElementById("status").textContent="● SCANNING...";
-document.getElementById("status").style.color="#ffbf4a";
+document.getElementById("status")
+.textContent=
+"● SCANNING...";
+
+document.getElementById("status")
+.style.color=
+"#ffbf4a";
 
 data=[];
+
+
+try{
+
+/* 24H */
+
+let ticker=
+await get24h();
+
+
+/* BTC */
+
+if(ticker.BTCUSDT){
+
+btcChange=
+ticker.BTCUSDT.change;
+
+document.getElementById("btc")
+.textContent=
+"$"+
+ticker.BTCUSDT.price.toLocaleString(
+undefined,
+{maximumFractionDigits:2}
+);
+
+}
+
+
+/* ANALYZE */
 
 for(let symbol of coins){
 
 try{
 
-let x=await analyze(symbol);
+let result=
+await analyze(symbol);
 
-data.push(x);
+
+/* 24H */
+
+if(ticker[symbol]){
+
+result.change=
+ticker[symbol].change;
+
+result.volume=
+ticker[symbol].volume;
+
+}
+
+
+data.push(result);
 
 render();
 
-}catch(e){
+}
+catch(error){
 
-console.log(symbol,e);
+console.log(
+"Skipped:",
+symbol
+);
 
 }
 
 }
 
-document.getElementById("status").textContent="● LIVE";
-document.getElementById("status").style.color="#35d88b";
 
 updateStats();
 
+
+document.getElementById("status")
+.textContent=
+"● LIVE";
+
+document.getElementById("status")
+.style.color=
+"#35d88b";
+
+
 }
+catch(error){
+
+console.log(error);
+
+document.getElementById("status")
+.textContent=
+"● API ERROR";
+
+document.getElementById("status")
+.style.color=
+"#ff5968";
+
+}
+
+}
+
+
+/* -----------------------------
+   RENDER
+----------------------------- */
 
 function render(){
 
-let q=
-document.getElementById("search")
+let search=
+document
+.getElementById("search")
 .value
 .toUpperCase()
 .trim();
 
-let list=data.filter(x=>{
 
-let okSearch=
-!q ||
-x.symbol.includes(q);
+let list=
+data.filter(x=>{
 
-let okFilter=
+let searchOK=
+!search ||
+x.symbol.includes(search);
+
+let filterOK=
 filter==="ALL" ||
 x.signal===filter;
 
-return okSearch && okFilter;
+return searchOK && filterOK;
 
 });
 
+
 let html="";
+
 
 for(let x of list){
 
-let pc=
+let price=
 x.price>=1
-?x.price.toLocaleString(undefined,{maximumFractionDigits:4})
-:x.price.toFixed(6);
+?
+x.price.toLocaleString(
+undefined,
+{maximumFractionDigits:4}
+)
+:
+x.price.toFixed(6);
 
-let cls=
+
+let changeClass=
+x.change>=0
+?
+"green"
+:
+"red";
+
+
+let strengthClass=
+x.btcStrength>=0
+?
+"green"
+:
+"red";
+
+
+let signalClass=
 x.signal==="BUY"
-?"buy":
+?
+"buy"
+:
 x.signal==="SELL"
-?"sell":
+?
+"sell"
+:
 "wait";
+
 
 html+=`
 
 <tr>
 
-<td class="coin">${x.symbol}</td>
-
-<td>$${pc}</td>
-
-<td>--</td>
-
-<td>${x.rsi}</td>
-
-<td>${x.trend}</td>
-
-<td>--</td>
-
-<td>
-<span class="badge ${cls}">
-${x.signal}
-</span>
+<td class="coin">
+${x.symbol}
 </td>
 
-<td>${x.score}/100</td>
+<td>
+$${price}
+</td>
+
+<td class="${changeClass}">
+${x.change>=0?"+":""}
+${x.change.toFixed(2)}%
+</td>
+
+<td>
+${formatVolume(x.volume)}
+</td>
+
+<td>
+${x.rsi}
+</td>
+
+<td>
+${x.trend}
+</td>
+
+<td class="${strengthClass}">
+${x.btcStrength>=0?"+":""}
+${x.btcStrength.toFixed(2)}%
+</td>
+
+<td>
+
+<span class="badge ${signalClass}">
+${x.signal}
+</span>
+
+</td>
+
+<td class="strong">
+${x.score}/100
+</td>
 
 </tr>
 
 `;
 
 }
+
 
 if(!html){
 
 html=`
+
 <tr>
-<td colspan="8" class="empty">
-No results
+
+<td colspan="9"
+class="empty">
+
+No matching coins
+
 </td>
+
 </tr>
+
 `;
 
 }
 
-document.getElementById("rows").innerHTML=html;
+
+document.getElementById("rows")
+.innerHTML=
+html;
 
 }
 
-function setFilter(x){
 
-filter=x;
+/* -----------------------------
+   FILTER
+----------------------------- */
+
+function setFilter(value){
+
+filter=value;
 
 render();
 
 }
 
+
+/* -----------------------------
+   STATS
+----------------------------- */
+
 function updateStats(){
 
-document.getElementById("total").textContent=data.length;
+document.getElementById("total")
+.textContent=
+data.length;
 
-document.getElementById("buys").textContent=
-data.filter(x=>x.signal==="BUY").length;
+
+let buyCount=
+data.filter(
+x=>x.signal==="BUY"
+).length;
+
+
+document.getElementById("buys")
+.textContent=
+buyCount;
+
 
 let bullish=
-data.filter(x=>x.trend==="BULLISH").length;
+data.filter(
+x=>x.trend==="BULLISH"
+).length;
+
 
 let bearish=
-data.filter(x=>x.trend==="BEARISH").length;
+data.filter(
+x=>x.trend==="BEARISH"
+).length;
+
 
 let market="NEUTRAL";
 
-if(bullish>bearish)
+
+if(bullish>bearish){
+
 market="BULLISH";
 
-if(bearish>bullish)
+}
+
+else if(bearish>bullish){
+
 market="BEARISH";
 
-document.getElementById("market").textContent=market;
+}
+
+
+document.getElementById("market")
+.textContent=
+market;
+
+
+if(data.length){
+
+let average=
+data.reduce(
+(a,b)=>a+b.score,
+0
+)/data.length;
+
+
+document.getElementById("avgScore")
+.textContent=
+Math.round(average);
 
 }
 
-async function getBTC(){
+}
 
-try{
 
-let x=await getJSON(
-"https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+/* -----------------------------
+   START
+----------------------------- */
+
+scan();
+
+
+/* AUTO REFRESH */
+
+setInterval(
+scan,
+180000
 );
-
-document.getElementById("btc").textContent=
-"$"+Number(x.price).toLocaleString(
-undefined,
-{maximumFractionDigits:2}
-);
-
-}catch(e){
-
-document.getElementById("btc").textContent="--";
-
-}
-
-}
-
-async function start(){
-
-await getBTC();
-
-}
-
-start();
 
 </script>
 
