@@ -4,142 +4,300 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>CryptoLeora Scanner</title>
+<title>CryptoLeora Smart Scanner</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-margin:0;
-background:#080c12;
-color:#fff;
-font-family:Arial,sans-serif
+  margin:0;
+  background:#070b12;
+  color:#fff;
+  font-family:Arial,sans-serif;
 }
 
 .container{
-width:95%;
-max-width:1500px;
-margin:auto;
-padding:20px 0
+  width:100%;
+  max-width:1400px;
+  margin:auto;
+  padding:15px;
+}
+
+header{
+  background:#0d1420;
+  border:1px solid #1d2a3a;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:15px;
 }
 
 h1{
-text-align:center;
-color:#00ff99;
-margin:5px 0 20px
+  margin:0;
+  font-size:24px;
+}
+
+.subtitle{
+  color:#8c9aaa;
+  margin-top:6px;
+  font-size:13px;
 }
 
 .controls{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:15px
-}
-
-input,button{
-border:0;
-border-radius:8px;
-padding:12px;
-font-size:14px
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px;
 }
 
 input{
-background:#151b24;
-color:#fff;
-flex:1;
-min-width:180px
+  flex:1;
+  min-width:180px;
+  background:#080d15;
+  border:1px solid #263548;
+  color:#fff;
+  padding:12px;
+  border-radius:10px;
+  outline:none;
 }
 
 button{
-background:#00c878;
-color:#000;
-font-weight:bold;
-cursor:pointer
+  border:0;
+  border-radius:10px;
+  padding:11px 15px;
+  background:#182436;
+  color:#fff;
+  font-weight:bold;
 }
 
-button:hover{opacity:.85}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:10px;
-margin-bottom:20px
+button:active{
+  transform:scale(.97);
 }
 
-.stat{
-background:#111720;
-padding:15px;
-border-radius:10px;
-text-align:center
+button.active{
+  background:#1683ff;
 }
 
-.stat small{color:#8b96a5}
-
-.stat strong{
-display:block;
-margin-top:7px;
-font-size:18px
+#scanBtn{
+  background:#1683ff;
 }
 
-.table-wrap{
-overflow-x:auto;
-background:#0f141c;
-border-radius:10px
+.status{
+  margin-top:12px;
+  color:#8fa0b3;
+  font-size:13px;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-min-width:1100px
+.cards{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-bottom:15px;
 }
 
-th{
-background:#171e28;
-color:#8fffc9;
-padding:12px 8px;
-font-size:12px
+.card{
+  background:#0d1420;
+  border:1px solid #1d2a3a;
+  border-radius:14px;
+  padding:14px;
 }
 
-td{
-padding:11px 8px;
-border-bottom:1px solid #202733;
-text-align:center;
-font-size:13px
+.card-title{
+  font-size:11px;
+  color:#8291a3;
+  margin-bottom:8px;
+}
+
+.card-value{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.green{
+  color:#20d889;
+}
+
+.red{
+  color:#ff5364;
+}
+
+.yellow{
+  color:#ffd166;
+}
+
+.blue{
+  color:#45a3ff;
+}
+
+.section{
+  background:#0d1420;
+  border:1px solid #1d2a3a;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.section-title{
+  font-size:17px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.top-setups{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.setup{
+  background:#080d15;
+  border-radius:12px;
+  padding:14px;
+  border:1px solid #1d2a3a;
+}
+
+.setup-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.coin{
+  font-weight:bold;
+  font-size:17px;
+}
+
+.badge{
+  padding:5px 9px;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:bold;
 }
 
 .buy{
-color:#00ff99;
-font-weight:bold
+  background:#0b513b;
+  color:#48e5a3;
 }
 
 .sell{
-color:#ff4d67;
-font-weight:bold
+  background:#551d28;
+  color:#ff7381;
 }
 
-.neutral{
-color:#ffc857;
-font-weight:bold
+.watch{
+  background:#554516;
+  color:#ffd866;
 }
 
-.pos{color:#00ff99}
-.neg{color:#ff4d67}
-
-.loading{
-text-align:center;
-padding:25px;
-color:#8b96a5
+.setup-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
 }
 
-@media(max-width:700px){
-
-.stats{
-grid-template-columns:repeat(2,1fr)
+.metric{
+  background:#111a27;
+  border-radius:8px;
+  padding:8px;
 }
 
-h1{
-font-size:24px
+.metric-label{
+  color:#78889b;
+  font-size:9px;
 }
+
+.metric-value{
+  font-size:12px;
+  font-weight:bold;
+  margin-top:4px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1050px;
+}
+
+th{
+  color:#7f90a4;
+  font-size:11px;
+  text-align:left;
+  padding:11px 8px;
+  border-bottom:1px solid #233145;
+}
+
+td{
+  padding:11px 8px;
+  border-bottom:1px solid #172333;
+  font-size:12px;
+}
+
+tr:hover{
+  background:#111a27;
+}
+
+.score{
+  font-weight:bold;
+  font-size:14px;
+}
+
+.signal{
+  font-weight:bold;
+}
+
+.small{
+  color:#8191a4;
+  font-size:10px;
+}
+
+.progress{
+  height:4px;
+  background:#1b2736;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:5px;
+}
+
+.progress-bar{
+  height:100%;
+  background:#1683ff;
+}
+
+@media(max-width:800px){
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .top-setups{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:20px;
+  }
+
+}
+
+@media(max-width:430px){
+
+  .container{
+    padding:9px;
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .card-value{
+    font-size:16px;
+  }
 
 }
 </style>
@@ -149,64 +307,112 @@ font-size:24px
 
 <div class="container">
 
-<h1>🚀 CryptoLeora Scanner</h1>
+<header>
+
+<h1>🚀 CryptoLeora Smart Scanner</h1>
+
+<div class="subtitle">
+Binance Spot • USDT Market • 15m Technical Scanner
+</div>
 
 <div class="controls">
 
 <input
 id="search"
 type="text"
-placeholder="Search coin..."
-oninput="render()"
->
+placeholder="🔎 Search coin... e.g. ORDI"
+/>
 
-<button onclick="scan()">🔎 SCAN ALL</button>
+<button id="scanBtn" onclick="scanMarket()">
+SCAN ALL
+</button>
 
-<button onclick="setFilter('ALL')">
+<button class="active" onclick="setFilter('ALL',this)">
 ALL
 </button>
 
-<button onclick="setFilter('BUY')">
+<button onclick="setFilter('BUY',this)">
 BUY
 </button>
 
-<button onclick="setFilter('SELL')">
+<button onclick="setFilter('SELL',this)">
 SELL
+</button>
+
+<button onclick="setFilter('WATCH',this)">
+WATCH
 </button>
 
 </div>
 
-<div class="stats">
-
-<div class="stat">
-<small>BTC PRICE</small>
-<strong id="btcPrice">--</strong>
+<div class="status" id="status">
+Ready to scan...
 </div>
 
-<div class="stat">
-<small>USDT PAIRS</small>
-<strong id="coinCount">--</strong>
+</header>
+
+
+<!-- MARKET CARDS -->
+
+<div class="cards">
+
+<div class="card">
+<div class="card-title">BTC PRICE</div>
+<div class="card-value blue" id="btcPrice">--</div>
 </div>
 
-<div class="stat">
-<small>BUY SIGNALS</small>
-<strong id="buyCount">--</strong>
+<div class="card">
+<div class="card-title">USDT PAIRS</div>
+<div class="card-value" id="pairCount">--</div>
 </div>
 
-<div class="stat">
-<small>MARKET</small>
-<strong id="marketStatus">--</strong>
+<div class="card">
+<div class="card-title">BUY SIGNALS</div>
+<div class="card-value green" id="buyCount">--</div>
 </div>
 
-<div class="stat">
-<small>AVG SCORE</small>
-<strong id="avgScore">--</strong>
+<div class="card">
+<div class="card-title">SELL SIGNALS</div>
+<div class="card-value red" id="sellCount">--</div>
+</div>
+
+<div class="card">
+<div class="card-title">AVG SCORE</div>
+<div class="card-value yellow" id="avgScore">--</div>
 </div>
 
 </div>
 
-<div id="status" class="loading">
-Press SCAN ALL
+
+<!-- TOP SETUPS -->
+
+<div class="section">
+
+<div class="section-title">
+🔥 Top Setups
+</div>
+
+<div class="top-setups">
+
+<div class="setup" id="topBuy">
+Waiting for scan...
+</div>
+
+<div class="setup" id="topSell">
+Waiting for scan...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MARKET TABLE -->
+
+<div class="section">
+
+<div class="section-title">
+📊 Market Scanner
 </div>
 
 <div class="table-wrap">
@@ -216,6 +422,7 @@ Press SCAN ALL
 <thead>
 
 <tr>
+
 <th>COIN</th>
 <th>PRICE</th>
 <th>24H %</th>
@@ -225,13 +432,24 @@ Press SCAN ALL
 <th>BTC STRENGTH</th>
 <th>SIGNAL</th>
 <th>SCORE</th>
+
 </tr>
 
 </thead>
 
-<tbody id="tableBody"></tbody>
+<tbody id="tableBody">
+
+<tr>
+<td colspan="9" style="text-align:center">
+Press SCAN ALL
+</td>
+</tr>
+
+</tbody>
 
 </table>
+
+</div>
 
 </div>
 
@@ -242,11 +460,7 @@ Press SCAN ALL
 
 const API="https://api.binance.com";
 
-let results=[];
-let filter="ALL";
-
 const EXCLUDED_ASSETS=[
-
 "USDT",
 "USDC",
 "FDUSD",
@@ -257,176 +471,150 @@ const EXCLUDED_ASSETS=[
 "EURS",
 "LUSD",
 "EUR",
-
 "WBTC",
 "WETH"
-
 ];
 
+let marketData=[];
+let currentFilter="ALL";
+
 
 /* =========================
-   EMA
+   API
 ========================= */
 
-function ema(data,period){
+async function api(url){
 
-const k=2/(period+1);
+  const response=await fetch(
+    API+url,
+    {
+      cache:"no-store"
+    }
+  );
 
-let e=data[0];
+  if(!response.ok){
+    throw new Error(
+      "API error "+response.status
+    );
+  }
 
-for(let i=1;i<data.length;i++){
-
-e=data[i]*k+e*(1-k);
-
-}
-
-return e;
-
+  return await response.json();
 }
 
 
 /* =========================
-   RSI
+   EXCHANGE INFO
 ========================= */
 
-function rsi(data,period=14){
+async function getExchangeInfo(){
 
-if(data.length<=period) return 50;
-
-let gains=0;
-let losses=0;
-
-for(let i=1;i<=period;i++){
-
-const diff=data[i]-data[i-1];
-
-if(diff>=0) gains+=diff;
-else losses+=Math.abs(diff);
-
-}
-
-let avgGain=gains/period;
-let avgLoss=losses/period;
-
-for(let i=period+1;i<data.length;i++){
-
-const diff=data[i]-data[i-1];
-
-const gain=diff>0?diff:0;
-const loss=diff<0?Math.abs(diff):0;
-
-avgGain=((avgGain*(period-1))+gain)/period;
-
-avgLoss=((avgLoss*(period-1))+loss)/period;
-
-}
-
-if(avgLoss===0) return 100;
-
-const rs=avgGain/avgLoss;
-
-return 100-(100/(1+rs));
+  return await api(
+    "/api/v3/exchangeInfo"
+  );
 
 }
 
 
 /* =========================
-   VOLUME FORMAT
-========================= */
-
-function formatVolume(v){
-
-if(!Number.isFinite(v)) return "--";
-
-if(v>=1e12)
-return (v/1e12).toFixed(2)+"T";
-
-if(v>=1e9)
-return (v/1e9).toFixed(2)+"B";
-
-if(v>=1e6)
-return (v/1e6).toFixed(2)+"M";
-
-if(v>=1e3)
-return (v/1e3).toFixed(2)+"K";
-
-return v.toFixed(0);
-
-}
-
-
-/* =========================
-   ALL BINANCE TICKERS
+   ALL 24H TICKERS
 ========================= */
 
 async function getAllTickers(){
 
-const response=await fetch(
-API+"/api/v3/ticker/24hr",
-{cache:"no-store"}
-);
-
-if(!response.ok){
-
-throw new Error(
-"Ticker HTTP "+response.status
-);
-
-}
-
-return await response.json();
+  return await api(
+    "/api/v3/ticker/24hr"
+  );
 
 }
 
 
 /* =========================
-   FIND ALL USDT PAIRS
+   BUILD ALL USDT PAIRS
 ========================= */
 
 async function getUSDTCoins(){
 
-const tickers=await getAllTickers();
+  const [
+    info,
+    tickers
+  ]=await Promise.all([
 
-const coins=tickers.filter(x=>{
+    getExchangeInfo(),
+    getAllTickers()
 
-if(!x.symbol.endsWith("USDT"))
-return false;
-
-const base=x.symbol.replace("USDT","");
-
-if(EXCLUDED_ASSETS.includes(base))
-return false;
-
-const volume=Number(x.quoteVolume);
-
-if(!Number.isFinite(volume))
-return false;
-
-if(volume<=0)
-return false;
-
-return true;
-
-});
+  ]);
 
 
-/*
-Highest 24H quote volume first
-*/
+  const tickerMap=new Map();
 
-coins.sort(
-(a,b)=>
-Number(b.quoteVolume)-
-Number(a.quoteVolume)
-);
+  tickers.forEach(t=>{
+    tickerMap.set(
+      t.symbol,
+      t
+    );
+  });
 
 
-/*
-Technical analysis only on
-top 80 high-volume pairs
-*/
+  const coins=[];
 
-return coins.slice(0,80);
+
+  info.symbols.forEach(s=>{
+
+    if(
+      s.status!=="TRADING"
+      ||
+      s.quoteAsset!=="USDT"
+      ||
+      EXCLUDED_ASSETS.includes(
+        s.baseAsset
+      )
+    ){
+      return;
+    }
+
+
+    const ticker=tickerMap.get(
+      s.symbol
+    );
+
+    if(!ticker) return;
+
+
+    coins.push({
+
+      ...ticker,
+
+      baseAsset:s.baseAsset
+
+    });
+
+  });
+
+
+  coins.sort(
+    (a,b)=>
+      Number(b.quoteVolume)
+      -
+      Number(a.quoteVolume)
+  );
+
+
+  return coins;
+
+}
+
+
+/* =========================
+   BTC DATA
+========================= */
+
+async function getBTCData(){
+
+  const data=await api(
+    "/api/v3/ticker/24hr?symbol=BTCUSDT"
+  );
+
+  return data;
 
 }
 
@@ -437,591 +625,1320 @@ return coins.slice(0,80);
 
 async function getKlines(symbol){
 
-try{
-
-const response=await fetch(
-
-API+
-"/api/v3/klines?symbol="+
-encodeURIComponent(symbol)+
-"&interval=15m&limit=100",
-
-{cache:"no-store"}
-
-);
-
-if(!response.ok)
-throw new Error(
-"Kline HTTP "+response.status
-);
-
-return await response.json();
-
-}catch(error){
-
-console.log(
-"KLINE ERROR:",
-symbol,
-error
-);
-
-return [];
-
-}
+  return await api(
+    "/api/v3/klines"+
+    "?symbol="+symbol+
+    "&interval=15m"+
+    "&limit=100"
+  );
 
 }
 
 
 /* =========================
-   BTC 24H
+   EMA
 ========================= */
 
-async function getBTC24h(){
+function EMA(values,period){
 
-try{
+  if(values.length<period){
+    return null;
+  }
 
-const response=await fetch(
 
-API+
-"/api/v3/ticker/24hr?symbol=BTCUSDT",
+  const k=
+    2/(period+1);
 
-{cache:"no-store"}
 
-);
+  let ema=0;
 
-const data=await response.json();
 
-return Number(
-data.priceChangePercent
-);
+  for(
+    let i=0;
+    i<period;
+    i++
+  ){
 
-}catch(e){
+    ema+=values[i];
 
-return 0;
+  }
 
-}
+
+  ema/=period;
+
+
+  for(
+    let i=period;
+    i<values.length;
+    i++
+  ){
+
+    ema=
+      values[i]*k+
+      ema*(1-k);
+
+  }
+
+
+  return ema;
 
 }
 
 
 /* =========================
-   BTC PRICE
+   RSI
 ========================= */
 
-async function getBTCPrice(){
+function RSI(values,period=14){
 
-try{
+  if(values.length<=period){
+    return 50;
+  }
 
-const response=await fetch(
 
-API+
-"/api/v3/ticker/price?symbol=BTCUSDT",
+  let gains=0;
+  let losses=0;
 
-{cache:"no-store"}
 
-);
+  for(
+    let i=1;
+    i<=period;
+    i++
+  ){
 
-const data=await response.json();
+    const diff=
+      values[i]-values[i-1];
 
-return Number(data.price);
 
-}catch(e){
+    if(diff>=0){
 
-return 0;
+      gains+=diff;
 
-}
+    }else{
+
+      losses+=Math.abs(diff);
+
+    }
+
+  }
+
+
+  let avgGain=
+    gains/period;
+
+  let avgLoss=
+    losses/period;
+
+
+  for(
+    let i=period+1;
+    i<values.length;
+    i++
+  ){
+
+    const diff=
+      values[i]-values[i-1];
+
+
+    const gain=
+      diff>0 ? diff : 0;
+
+    const loss=
+      diff<0 ? Math.abs(diff) : 0;
+
+
+    avgGain=
+      (avgGain*(period-1)+gain)
+      /period;
+
+    avgLoss=
+      (avgLoss*(period-1)+loss)
+      /period;
+
+  }
+
+
+  if(avgLoss===0){
+    return 100;
+  }
+
+
+  const rs=
+    avgGain/avgLoss;
+
+
+  return 100-(100/(1+rs));
 
 }
 
 
 /* =========================
-   ANALYZE
+   ANALYSIS
 ========================= */
 
-async function analyze(
-ticker,
-btc24h
+function analyze(
+  ticker,
+  btc24h,
+  klines
 ){
 
-const symbol=ticker.symbol;
+  const closes=
+    klines.map(
+      x=>Number(x[4])
+    );
 
-const candles=
-await getKlines(symbol);
 
-if(!candles.length)
-return null;
+  const volumes=
+    klines.map(
+      x=>Number(x[5])
+    );
 
-const closes=
-candles.map(x=>Number(x[4]));
 
-const volumes=
-candles.map(x=>Number(x[7]));
+  const price=
+    closes[closes.length-1];
 
-const price=
-closes[closes.length-1];
 
-const ema10=
-ema(closes,10);
+  const ema10=
+    EMA(closes,10);
 
-const ema20=
-ema(closes,20);
+  const ema20=
+    EMA(closes,20);
 
-const ema55=
-ema(closes,55);
+  const ema55=
+    EMA(closes,55);
 
-const RSI=
-rsi(closes);
 
+  const rsi=
+    RSI(closes,14);
 
-/* Volume momentum */
 
-const currentVolume=
-volumes[volumes.length-1];
+  const recentVolume=
+    volumes
+      .slice(-5,-1)
+      .reduce(
+        (a,b)=>a+b,
+        0
+      )/4;
 
-const previousVolumes=
-volumes.slice(-21,-1);
 
-const avgVolume=
-previousVolumes.length
+  const currentVolume=
+    volumes[
+      volumes.length-1
+    ];
 
-?
 
-previousVolumes.reduce(
-(a,b)=>a+b,
-0
-)/
-previousVolumes.length
+  const volumeRatio=
+    recentVolume>0
+    ?
+    currentVolume/recentVolume
+    :
+    1;
 
-:
 
-currentVolume;
+  const momentum=
+    (
+      price/
+      closes[
+        Math.max(
+          0,
+          closes.length-5
+        )
+      ]-1
+    )*100;
 
-const volumeRatio=
-avgVolume>0
-?
-currentVolume/avgVolume
-:
-1;
 
+  const btcChange=
+    Number(
+      btc24h.priceChangePercent
+    );
 
-/* 15m momentum */
 
-const oldPrice=
-closes.length>=6
-?
-closes[closes.length-6]
-:
-closes[0];
+  const btcStrength=
+    momentum-btcChange;
 
-const momentum=
-oldPrice>0
 
-?
+  let score=50;
 
-((price-oldPrice)/
-oldPrice)*100
 
-:
+  /* EMA */
 
-0;
+  if(ema10>ema20){
 
+    score+=10;
 
-/*
-BTC relative strength
-*/
+  }else{
 
-const btcStrength=
-momentum-btc24h;
+    score-=10;
 
+  }
 
-/* =========================
-   SCORE
-========================= */
 
-let score=50;
+  if(ema20>ema55){
 
+    score+=10;
 
-/* EMA */
+  }else{
 
-if(ema10>ema20)
-score+=10;
-else
-score-=10;
+    score-=10;
 
-if(ema20>ema55)
-score+=10;
-else
-score-=10;
+  }
 
 
-/* RSI */
+  /* RSI */
 
-if(RSI>=40 && RSI<=60){
+  if(
+    rsi>=40 &&
+    rsi<=60
+  ){
 
-score+=10;
+    score+=10;
 
-}
-else if(RSI<35){
+  }
 
-score+=5;
+  else if(rsi<35){
 
-}
-else if(RSI>70){
+    score+=5;
 
-score-=10;
+  }
 
-}
+  else if(rsi>70){
 
+    score-=10;
 
-/* Volume */
+  }
 
-if(volumeRatio>=1.5){
 
-score+=10;
+  /* VOLUME */
 
-}
-else if(volumeRatio>=1.1){
+  if(volumeRatio>=1.5){
 
-score+=5;
+    score+=10;
 
-}
-else if(volumeRatio<0.7){
+  }
 
-score-=5;
+  else if(volumeRatio>=1.1){
 
-}
+    score+=5;
 
+  }
 
-/* BTC strength */
+  else if(volumeRatio<0.7){
 
-if(btcStrength>2){
+    score-=5;
 
-score+=10;
+  }
 
-}
-else if(btcStrength<-2){
 
-score-=10;
+  /* BTC STRENGTH */
 
-}
+  if(btcStrength>2){
 
+    score+=10;
 
-/* Momentum */
+  }
 
-if(momentum>1){
+  else if(btcStrength<-2){
 
-score+=5;
+    score-=10;
 
-}
-else if(momentum<-1){
+  }
 
-score-=5;
 
-}
+  /* MOMENTUM */
 
+  if(momentum>1){
 
-score=
-Math.max(
-0,
-Math.min(100,score)
-);
+    score+=5;
 
+  }
 
-/* =========================
-   SIGNAL
-========================= */
+  else if(momentum<-1){
 
-let signal="NEUTRAL";
+    score-=5;
 
+  }
 
-if(
 
-ema10>ema20 &&
+  score=
+    Math.max(
+      0,
+      Math.min(
+        100,
+        Math.round(score)
+      )
+    );
 
-ema20>ema55 &&
 
-RSI>=40 &&
-RSI<=65 &&
+  let signal="WATCH";
 
-btcStrength>0 &&
 
-score>=70 &&
+  /* BUY */
 
-volumeRatio>=0.9
+  if(
 
-){
+    ema10>ema20 &&
 
-signal="BUY";
+    ema20>ema55 &&
 
-}
+    rsi>=40 &&
+    rsi<=65 &&
 
+    btcStrength>0 &&
 
-else if(
+    score>=70 &&
 
-ema10<ema20 &&
+    volumeRatio>=0.9
 
-ema20<ema55 &&
+  ){
 
-RSI>=35 &&
-RSI<=70 &&
+    signal="BUY";
 
-btcStrength<0 &&
+  }
 
-score<=30
 
-){
+  /* SELL */
 
-signal="SELL";
+  else if(
 
-}
+    ema10<ema20 &&
 
+    ema20<ema55 &&
 
-/* =========================
-   TREND
-========================= */
+    rsi>=35 &&
+    rsi<=70 &&
 
-let trend="SIDEWAYS";
+    btcStrength<0 &&
 
+    score<=30
 
-if(
-ema10>ema20 &&
-ema20>ema55
-){
+  ){
 
-trend="BULLISH";
+    signal="SELL";
 
-}
+  }
 
-else if(
-ema10<ema20 &&
-ema20<ema55
-){
 
-trend="BEARISH";
+  return{
 
-}
+    symbol:ticker.symbol,
 
+    price:Number(
+      ticker.lastPrice
+    ),
 
-return{
+    change:Number(
+      ticker.priceChangePercent
+    ),
 
-symbol:symbol,
+    volume:Number(
+      ticker.quoteVolume
+    ),
 
-price:price,
+    rsi,
 
-change:Number(
-ticker.priceChangePercent
-),
+    ema10,
 
-volume:Number(
-ticker.quoteVolume
-),
+    ema20,
 
-RSI:RSI,
+    ema55,
 
-trend:trend,
+    volumeRatio,
 
-btcStrength:btcStrength,
+    momentum,
 
-signal:signal,
+    btcStrength,
 
-score:score,
+    signal,
 
-volumeRatio:volumeRatio,
+    score,
 
-momentum:momentum
+    analyzed:true
 
-};
+  };
 
 }
 
 
 /* =========================
-   SCAN
+   NUMBER FORMAT
 ========================= */
 
-async function scan(){
+function money(n){
 
-const status=
-document.getElementById("status");
-
-status.innerText=
-"Loading all Binance USDT pairs...";
-
-results=[];
-
-render();
+  if(!isFinite(n)){
+    return "--";
+  }
 
 
-try{
+  if(n>=1000000000000){
 
-const tickers=
-await getUSDTCoins();
+    return(
+      (n/1000000000000)
+      .toFixed(2)+"T"
+    );
 
-const btc24h=
-await getBTC24h();
-
-const btcPrice=
-await getBTCPrice();
+  }
 
 
-document.getElementById(
-"btcPrice"
-).innerText=
+  if(n>=1000000000){
 
-btcPrice
-?
-btcPrice.toLocaleString(
-undefined,
-{
-maximumFractionDigits:2
-}
-)
-:
-"--";
+    return(
+      (n/1000000000)
+      .toFixed(2)+"B"
+    );
+
+  }
 
 
-document.getElementById(
-"coinCount"
-).innerText=
-tickers.length;
+  if(n>=1000000){
+
+    return(
+      (n/1000000)
+      .toFixed(2)+"M"
+    );
+
+  }
 
 
-/*
-Scan sequentially.
-This is slower but much safer
-for Binance rate limits.
-*/
+  if(n>=1000){
 
-let completed=0;
+    return(
+      (n/1000)
+      .toFixed(2)+"K"
+    );
 
-let buySignals=0;
-
-let scoreTotal=0;
+  }
 
 
-for(const ticker of tickers){
-
-status.innerText=
-
-"Scanning "+
-(completed+1)+
-" / "+
-tickers.length+
-" : "+
-ticker.symbol;
-
-
-try{
-
-const data=
-await analyze(
-ticker,
-btc24h
-);
-
-if(data){
-
-results.push(data);
-
-scoreTotal+=data.score;
-
-if(data.signal==="BUY")
-buySignals++;
-
-}
-
-}catch(error){
-
-console.log(
-"ANALYZE ERROR",
-ticker.symbol,
-error
-);
-
-}
-
-completed++;
-
-render();
+  return n.toFixed(2);
 
 }
 
 
-/* Stats */
+function priceFormat(n){
 
-document.getElementById(
-"coinCount"
-).innerText=
-results.length;
+  if(n>=1000){
 
-document.getElementById(
-"buyCount"
-).innerText=
-buySignals;
+    return n.toLocaleString(
+      undefined,
+      {
+        maximumFractionDigits:2
+      }
+    );
 
-document.getElementById(
-"avgScore"
-).innerText=
-
-results.length
-
-?
-
-Math.round(
-scoreTotal/results.length
-)
-
-:
-
-"--";
+  }
 
 
-if(btc24h>0){
+  if(n>=1){
 
-document.getElementById(
-"marketStatus"
-).innerText=
-"BULLISH";
+    return n.toFixed(4);
 
-}
+  }
 
-else if(btc24h<0){
 
-document.getElementById(
-"marketStatus"
-).innerText=
-"BEARISH";
+  if(n>=0.01){
 
-}
+    return n.toFixed(5);
 
-else{
+  }
 
-document.getElementById(
-"marketStatus"
-).innerText=
-"NEUTRAL";
+
+  return n.toFixed(8);
 
 }
 
 
-status.innerText=
+/* =========================
+   EMA TEXT
+========================= */
 
-"Scan complete • "+
-results.length+
-" USDT pairs • BTC 24H: "+
-btc24h.toFixed(2)+
-"%";
+function emaText(x){
+
+  if(!x.analyzed){
+    return "--";
+  }
 
 
-}catch(error){
+  if(
+    x.ema10>x.ema20 &&
+    x.ema20>x.ema55
+  ){
 
-console.log(error);
+    return "BULLISH";
 
-status.innerText=
-"❌ Binance API Error: "+
-error.message;
+  }
+
+
+  if(
+    x.ema10<x.ema20 &&
+    x.ema20<x.ema55
+  ){
+
+    return "BEARISH";
+
+  }
+
+
+  return "MIXED";
 
 }
+
+
+/* =========================
+   SIGNAL HTML
+========================= */
+
+function signalHTML(signal){
+
+  if(signal==="BUY"){
+
+    return(
+      '<span class="badge buy">BUY</span>'
+    );
+
+  }
+
+
+  if(signal==="SELL"){
+
+    return(
+      '<span class="badge sell">SELL</span>'
+    );
+
+  }
+
+
+  return(
+    '<span class="badge watch">WATCH</span>'
+  );
+
+}
+
+
+/* =========================
+   RENDER TABLE
+========================= */
+
+function render(){
+
+  const search=
+    document
+      .getElementById("search")
+      .value
+      .trim()
+      .toUpperCase();
+
+
+  let data=[
+    ...marketData
+  ];
+
+
+  if(search){
+
+    data=
+      data.filter(
+        x=>
+          x.symbol
+          .includes(search)
+      );
+
+  }
+
+
+  if(currentFilter!=="ALL"){
+
+    data=
+      data.filter(
+        x=>
+          x.signal===
+          currentFilter
+      );
+
+  }
+
+
+  /* BUY/SELL first */
+
+  data.sort((a,b)=>{
+
+    if(
+      a.signal==="BUY" &&
+      b.signal!=="BUY"
+    ) return -1;
+
+    if(
+      b.signal==="BUY" &&
+      a.signal!=="BUY"
+    ) return 1;
+
+
+    if(
+      a.signal==="SELL" &&
+      b.signal!=="SELL"
+    ) return -1;
+
+    if(
+      b.signal==="SELL" &&
+      a.signal!=="SELL"
+    ) return 1;
+
+
+    return(
+      (b.score||0)-
+      (a.score||0)
+    );
+
+  });
+
+
+  const body=
+    document.getElementById(
+      "tableBody"
+    );
+
+
+  if(data.length===0){
+
+    body.innerHTML=
+      '<tr><td colspan="9" style="text-align:center">No results</td></tr>';
+
+    return;
+
+  }
+
+
+  body.innerHTML=
+    data.map(x=>{
+
+      const changeClass=
+        x.change>=0
+        ?
+        "green"
+        :
+        "red";
+
+
+      const btcClass=
+        x.btcStrength>=0
+        ?
+        "green"
+        :
+        "red";
+
+
+      const score=
+        x.analyzed
+        ?
+        x.score
+        :
+        "--";
+
+
+      return`
+
+<tr>
+
+<td>
+
+<strong>
+${x.symbol.replace("USDT","")}
+</strong>
+
+<div class="small">
+USDT
+</div>
+
+</td>
+
+
+<td>
+${priceFormat(x.price)}
+</td>
+
+
+<td class="${changeClass}">
+${x.change>=0?"+":""}
+${x.change.toFixed(2)}%
+</td>
+
+
+<td>
+${money(x.volume)}
+</td>
+
+
+<td>
+${
+  x.analyzed
+  ?
+  x.rsi.toFixed(1)
+  :
+  "--"
+}
+</td>
+
+
+<td>
+${
+  x.analyzed
+  ?
+  emaText(x)
+  :
+  "NOT SCANNED"
+}
+</td>
+
+
+<td class="${btcClass}">
+${
+  x.analyzed
+  ?
+  (x.btcStrength>=0?"+":"")
+  +
+  x.btcStrength.toFixed(2)
+  +
+  "%"
+  :
+  "--"
+}
+</td>
+
+
+<td class="signal">
+${
+  x.analyzed
+  ?
+  signalHTML(x.signal)
+  :
+  '<span class="badge watch">WATCH</span>'
+}
+</td>
+
+
+<td>
+
+<div class="score">
+${score}
+</div>
+
+${
+  x.analyzed
+  ?
+  `
+  <div class="progress">
+    <div
+      class="progress-bar"
+      style="width:${x.score}%"
+    ></div>
+  </div>
+  `
+  :
+  ""
+}
+
+</td>
+
+</tr>
+
+`;
+
+    }).join("");
+
+}
+
+
+/* =========================
+   TOP SETUPS
+========================= */
+
+function renderTopSetups(){
+
+  const analyzed=
+    marketData
+      .filter(x=>x.analyzed);
+
+
+  const buys=
+    analyzed
+      .filter(x=>x.signal==="BUY")
+      .sort(
+        (a,b)=>b.score-a.score
+      );
+
+
+  const sells=
+    analyzed
+      .filter(x=>x.signal==="SELL")
+      .sort(
+        (a,b)=>a.score-b.score
+      );
+
+
+  const buy=
+    buys[0];
+
+
+  const sell=
+    sells[0];
+
+
+  const buyBox=
+    document.getElementById(
+      "topBuy"
+    );
+
+
+  const sellBox=
+    document.getElementById(
+      "topSell"
+    );
+
+
+  if(buy){
+
+    buyBox.innerHTML=`
+
+<div class="setup-head">
+
+<div class="coin">
+🟢 ${buy.symbol.replace("USDT","")}
+</div>
+
+<span class="badge buy">
+BUY
+</span>
+
+</div>
+
+
+<div class="setup-grid">
+
+<div class="metric">
+<div class="metric-label">
+SCORE
+</div>
+<div class="metric-value green">
+${buy.score}
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+RSI
+</div>
+<div class="metric-value">
+${buy.rsi.toFixed(1)}
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+BTC STRENGTH
+</div>
+<div class="metric-value green">
++${buy.btcStrength.toFixed(2)}%
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+PRICE
+</div>
+<div class="metric-value">
+${priceFormat(buy.price)}
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+24H
+</div>
+<div class="metric-value green">
++${buy.change.toFixed(2)}%
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+VOLUME
+</div>
+<div class="metric-value">
+${money(buy.volume)}
+</div>
+</div>
+
+</div>
+
+`;
+
+  }else{
+
+    buyBox.innerHTML=
+      '<span class="small">No BUY setup currently found</span>';
+
+  }
+
+
+  if(sell){
+
+    sellBox.innerHTML=`
+
+<div class="setup-head">
+
+<div class="coin">
+🔴 ${sell.symbol.replace("USDT","")}
+</div>
+
+<span class="badge sell">
+SELL
+</span>
+
+</div>
+
+
+<div class="setup-grid">
+
+<div class="metric">
+<div class="metric-label">
+SCORE
+</div>
+<div class="metric-value red">
+${sell.score}
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+RSI
+</div>
+<div class="metric-value">
+${sell.rsi.toFixed(1)}
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+BTC STRENGTH
+</div>
+<div class="metric-value red">
+${sell.btcStrength.toFixed(2)}%
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+PRICE
+</div>
+<div class="metric-value">
+${priceFormat(sell.price)}
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+24H
+</div>
+<div class="metric-value red">
+${sell.change.toFixed(2)}%
+</div>
+</div>
+
+
+<div class="metric">
+<div class="metric-label">
+VOLUME
+</div>
+<div class="metric-value">
+${money(sell.volume)}
+</div>
+</div>
+
+</div>
+
+`;
+
+  }else{
+
+    sellBox.innerHTML=
+      '<span class="small">No SELL setup currently found</span>';
+
+  }
+
+}
+
+
+/* =========================
+   MAIN SCANNER
+========================= */
+
+async function scanMarket(){
+
+  const status=
+    document.getElementById(
+      "status"
+    );
+
+
+  const button=
+    document.getElementById(
+      "scanBtn"
+    );
+
+
+  button.disabled=true;
+
+  button.innerText=
+    "SCANNING...";
+
+
+  status.innerText=
+    "Loading Binance market...";
+
+
+  try{
+
+    const [
+      coins,
+      btc
+    ]=
+      await Promise.all([
+
+        getUSDTCoins(),
+        getBTCData()
+
+      ]);
+
+
+    document.getElementById(
+      "btcPrice"
+    ).innerText=
+      "$"+
+      priceFormat(
+        Number(btc.lastPrice)
+      );
+
+
+    document.getElementById(
+      "pairCount"
+    ).innerText=
+      coins.length;
+
+
+    /*
+      IMPORTANT:
+
+      All USDT pairs are displayed.
+
+      Only top 80 by volume
+      receive 15m technical analysis.
+    */
+
+    const technical=
+      coins.slice(0,80);
+
+
+    const results=[];
+
+
+    status.innerText=
+      "Technical analysis: 0 / "+
+      technical.length;
+
+
+    for(
+      let i=0;
+      i<technical.length;
+      i++
+    ){
+
+      const coin=
+        technical[i];
+
+
+      try{
+
+        const klines=
+          await getKlines(
+            coin.symbol
+          );
+
+
+        if(
+          !klines ||
+          klines.length<60
+        ){
+
+          continue;
+
+        }
+
+
+        const result=
+          analyze(
+            coin,
+            btc,
+            klines
+          );
+
+
+        results.push(result);
+
+
+        status.innerText=
+          "Technical analysis: "+
+          (i+1)+
+          " / "+
+          technical.length;
+
+      }
+
+      catch(error){
+
+        console.log(
+          coin.symbol,
+          error
+        );
+
+      }
+
+    }
+
+
+    /*
+      Merge technical analysis
+      into ALL market coins.
+    */
+
+    marketData=
+      coins.map(coin=>{
+
+        const found=
+          results.find(
+            r=>
+              r.symbol===
+              coin.symbol
+          );
+
+
+        if(found){
+
+          return found;
+
+        }
+
+
+        return{
+
+          symbol:coin.symbol,
+
+          price:Number(
+            coin.lastPrice
+          ),
+
+          change:Number(
+            coin.priceChangePercent
+          ),
+
+          volume:Number(
+            coin.quoteVolume
+          ),
+
+          signal:"WATCH",
+
+          score:null,
+
+          analyzed:false
+
+        };
+
+      });
+
+
+    const buyCount=
+      results.filter(
+        x=>x.signal==="BUY"
+      ).length;
+
+
+    const sellCount=
+      results.filter(
+        x=>x.signal==="SELL"
+      ).length;
+
+
+    const average=
+      results.length
+      ?
+      Math.round(
+        results.reduce(
+          (sum,x)=>
+            sum+x.score,
+          0
+        )/
+        results.length
+      )
+      :
+      0;
+
+
+    document.getElementById(
+      "buyCount"
+    ).innerText=
+      buyCount;
+
+
+    document.getElementById(
+      "sellCount"
+    ).innerText=
+      sellCount;
+
+
+    document.getElementById(
+      "avgScore"
+    ).innerText=
+      average;
+
+
+    renderTopSetups();
+
+    render();
+
+
+    status.innerText=
+      "✅ Scan complete • "+
+      coins.length+
+      " USDT pairs • "+
+      results.length+
+      " technically analyzed";
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+
+    status.innerText=
+      "❌ Error: "+
+      error.message;
+
+  }
+
+
+  button.disabled=false;
+
+  button.innerText=
+    "SCAN ALL";
 
 }
 
@@ -1030,180 +1947,47 @@ error.message;
    FILTER
 ========================= */
 
-function setFilter(value){
+function setFilter(
+  filter,
+  button
+){
 
-filter=value;
+  currentFilter=
+    filter;
 
-render();
+
+  document
+    .querySelectorAll(
+      ".controls button"
+    )
+    .forEach(
+      b=>
+        b.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  render();
 
 }
 
 
 /* =========================
-   RENDER
+   SEARCH
 ========================= */
 
-function render(){
-
-const body=
-document.getElementById(
-"tableBody"
-);
-
-const search=
-document.getElementById(
-"search"
-).value
-.toUpperCase()
-.trim();
-
-body.innerHTML="";
-
-
-const filtered=
-results.filter(x=>{
-
-if(
-search &&
-!x.symbol.includes(search)
-){
-
-return false;
-
-}
-
-if(
-filter==="BUY" &&
-x.signal!=="BUY"
-){
-
-return false;
-
-}
-
-if(
-filter==="SELL" &&
-x.signal!=="SELL"
-){
-
-return false;
-
-}
-
-return true;
-
-});
-
-
-for(const x of filtered){
-
-const tr=
-document.createElement("tr");
-
-
-const changeClass=
-x.change>=0
-?
-"pos"
-:
-"neg";
-
-
-const strengthClass=
-x.btcStrength>=0
-?
-"pos"
-:
-"neg";
-
-
-const signalClass=
-
-x.signal==="BUY"
-
-?
-"buy"
-
-:
-
-x.signal==="SELL"
-
-?
-"sell"
-
-:
-"neutral";
-
-
-let priceDisplay;
-
-if(x.price>=1){
-
-priceDisplay=
-x.price.toLocaleString(
-undefined,
-{
-maximumFractionDigits:4
-}
-);
-
-}else{
-
-priceDisplay=
-x.price.toPrecision(6);
-
-}
-
-
-tr.innerHTML=`
-
-<td>
-<strong>
-${x.symbol.replace("USDT","")}
-</strong>
-</td>
-
-<td>
-${priceDisplay}
-</td>
-
-<td class="${changeClass}">
-${x.change>=0?"+":""}
-${x.change.toFixed(2)}%
-</td>
-
-<td>
-${formatVolume(x.volume)}
-</td>
-
-<td>
-${x.RSI.toFixed(1)}
-</td>
-
-<td>
-${x.trend}
-</td>
-
-<td class="${strengthClass}">
-${x.btcStrength>=0?"+":""}
-${x.btcStrength.toFixed(2)}%
-</td>
-
-<td class="${signalClass}">
-${x.signal}
-</td>
-
-<td>
-<strong>${x.score}</strong>
-</td>
-
-`;
-
-body.appendChild(tr);
-
-}
-
-}
+document
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    render
+  );
 
 
 /* =========================
@@ -1211,11 +1995,16 @@ body.appendChild(tr);
 ========================= */
 
 setInterval(
-()=>{
-scan();
-},
-180000
+  scanMarket,
+  180000
 );
+
+
+/* =========================
+   START
+========================= */
+
+scanMarket();
 
 </script>
 
