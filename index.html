@@ -4,285 +4,284 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>CryptoLeora Smart Dashboard</title>
+<title>CryptoLeora Smart Dashboard V4</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
 margin:0;
-background:#070b12;
+font-family:Arial,sans-serif;
+background:#080d14;
 color:#fff;
-font-family:Arial,sans-serif
 }
 
 .container{
-max-width:1450px;
+max-width:1400px;
 margin:auto;
-padding:12px
-}
-
-header,.section,.card{
-background:#0d1420;
-border:1px solid #1c2a3b;
-border-radius:15px
-}
-
-header{
-padding:18px;
-margin-bottom:12px
+padding:16px;
 }
 
 h1{
 margin:0;
-font-size:24px
+font-size:25px;
 }
 
-.sub{
-color:#8492a5;
-font-size:12px;
-margin-top:6px
+.subtitle{
+color:#8d9aaa;
+margin:6px 0 18px;
+font-size:13px;
 }
 
-.controls{
+.topbar{
 display:flex;
-gap:7px;
+gap:8px;
+margin-bottom:15px;
 flex-wrap:wrap;
-margin-top:15px
 }
 
 input{
 flex:1;
 min-width:180px;
-background:#080d15;
-border:1px solid #263548;
-border-radius:9px;
 padding:12px;
+border-radius:10px;
+border:1px solid #263241;
+background:#111923;
 color:white;
-outline:none
+outline:none;
 }
 
 button{
+padding:11px 15px;
 border:0;
-background:#182536;
-color:white;
-padding:11px 14px;
 border-radius:9px;
-font-weight:bold
+background:#1769ff;
+color:white;
+font-weight:bold;
+cursor:pointer;
 }
 
-button.active{
-background:#1683ff
+button.secondary{
+background:#182330;
 }
 
-button:disabled{
-opacity:.5
-}
-
-.status{
-margin-top:10px;
-font-size:12px;
-color:#8291a4
-}
-
-.cards{
+.stats{
 display:grid;
 grid-template-columns:repeat(6,1fr);
-gap:9px;
-margin-bottom:12px
+gap:10px;
+margin-bottom:15px;
 }
 
 .card{
-padding:13px
+background:#101720;
+border:1px solid #202c39;
+border-radius:12px;
+padding:13px;
 }
 
 .label{
-font-size:10px;
-color:#8190a2;
-margin-bottom:7px
+font-size:11px;
+color:#7f8b9a;
 }
 
 .value{
-font-size:18px;
-font-weight:bold
-}
-
-.green{color:#20d889}
-.red{color:#ff5364}
-.yellow{color:#ffd166}
-.blue{color:#45a3ff}
-
-.section{
-padding:14px;
-margin-bottom:12px
-}
-
-.title{
-font-size:16px;
+font-size:19px;
 font-weight:bold;
-margin-bottom:12px
+margin-top:5px;
 }
+
+.green{color:#20d58b}
+.red{color:#ff5d6c}
+.yellow{color:#ffc857}
+.blue{color:#5ba7ff}
 
 .regime{
 display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:10px
+grid-template-columns:2fr 1fr 1fr;
+gap:10px;
+margin-bottom:15px;
 }
 
 .regimeBox{
-background:#080d15;
-border:1px solid #1c2a3b;
-border-radius:11px;
-padding:14px
+background:#101720;
+border:1px solid #202c39;
+border-radius:12px;
+padding:15px;
 }
 
-.regimeName{
-font-size:18px;
-font-weight:bold
+.regimeTitle{
+font-size:12px;
+color:#8995a5;
+margin-bottom:7px;
 }
 
-.regimeInfo{
-font-size:11px;
-color:#7e8da0;
-margin-top:5px
-}
-
-.topGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
+.regimeValue{
+font-size:22px;
+font-weight:bold;
 }
 
 .setup{
-background:#080d15;
-border:1px solid #1c2a3b;
-border-radius:11px;
-padding:14px
+background:#101720;
+border:1px solid #202c39;
+border-radius:12px;
+padding:15px;
+margin-bottom:15px;
 }
 
-.setupHead{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:12px
-}
-
-.coin{
-font-size:18px;
-font-weight:bold
-}
-
-.badge{
-padding:5px 9px;
-border-radius:7px;
-font-size:10px;
-font-weight:bold
-}
-
-.buy{background:#0b4d39;color:#4ce7a5}
-.sell{background:#541c27;color:#ff7180}
-.watch{background:#544516;color:#ffd968}
-.strong{background:#075b43;color:#62ffc0}
-
-.grid{
+.setupGrid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:7px
+grid-template-columns:repeat(8,1fr);
+gap:8px;
 }
 
-.metric{
-background:#111a27;
-border-radius:7px;
-padding:8px
+.setupItem{
+background:#0b1118;
+padding:10px;
+border-radius:8px;
 }
 
-.metricLabel{
-font-size:9px;
-color:#718196
+.setupItem small{
+display:block;
+color:#778494;
+font-size:10px;
+margin-bottom:5px;
 }
 
-.metricValue{
+.setupItem strong{
+font-size:14px;
+}
+
+.filters{
+display:flex;
+gap:7px;
+margin-bottom:12px;
+flex-wrap:wrap;
+}
+
+.filter{
+background:#151f2b;
+padding:8px 12px;
+border-radius:20px;
 font-size:12px;
-font-weight:bold;
-margin-top:4px
+cursor:pointer;
+}
+
+.filter.active{
+background:#1769ff;
 }
 
 .tableWrap{
-overflow-x:auto
+overflow:auto;
+background:#101720;
+border:1px solid #202c39;
+border-radius:12px;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-min-width:1200px
+min-width:1450px;
 }
 
 th{
+font-size:11px;
+color:#7f8b9a;
+background:#0d141c;
+padding:12px 8px;
 text-align:left;
-font-size:10px;
-color:#7f8ea1;
-padding:10px 7px;
-border-bottom:1px solid #263548
+position:sticky;
+top:0;
 }
 
 td{
-font-size:11px;
-padding:10px 7px;
-border-bottom:1px solid #172332
+padding:11px 8px;
+border-top:1px solid #1d2732;
+font-size:12px;
 }
 
 tr:hover{
-background:#111a27
+background:#151e28;
 }
 
-.score{
-font-size:14px;
-font-weight:bold
+.coin{
+font-weight:bold;
 }
 
-.bar{
-height:4px;
-background:#1b2736;
-border-radius:5px;
-margin-top:4px
+.badge{
+padding:5px 8px;
+border-radius:6px;
+font-size:10px;
+font-weight:bold;
+display:inline-block;
 }
 
-.fill{
-height:100%;
-background:#1683ff;
-border-radius:5px
+.buy{
+background:#103b2d;
+color:#31e09a;
 }
 
-.small{
-font-size:9px;
-color:#748398
+.sell{
+background:#401923;
+color:#ff6877;
+}
+
+.watch{
+background:#302b16;
+color:#ffd35a;
+}
+
+.bull{
+color:#25dc91;
+}
+
+.bear{
+color:#ff6370;
+}
+
+.range{
+color:#ffc857;
+}
+
+.mini{
+font-size:10px;
+color:#748293;
+}
+
+#status{
+color:#7f8b9a;
+font-size:12px;
+margin:10px 0;
 }
 
 @media(max-width:900px){
-.cards{
-grid-template-columns:repeat(3,1fr)
-}
-}
-
-@media(max-width:600px){
-.cards{
-grid-template-columns:repeat(2,1fr)
-}
-
-.topGrid{
-grid-template-columns:1fr
+.stats{
+grid-template-columns:repeat(3,1fr);
 }
 
 .regime{
-grid-template-columns:1fr
+grid-template-columns:1fr;
 }
 
-.grid{
-grid-template-columns:repeat(2,1fr)
+.setupGrid{
+grid-template-columns:repeat(4,1fr);
+}
+}
+
+@media(max-width:500px){
+.container{
+padding:10px;
+}
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.setupGrid{
+grid-template-columns:repeat(2,1fr);
 }
 
 h1{
-font-size:20px
+font-size:21px;
 }
 }
 </style>
@@ -292,158 +291,88 @@ font-size:20px
 
 <div class="container">
 
-<header>
-
-<h1>🚀 CryptoLeora Smart Dashboard</h1>
-
-<div class="sub">
-Binance Spot • USDT Market • Syndicate Analysis
+<h1>🚀 CryptoLeora Smart Dashboard V4</h1>
+<div class="subtitle">
+Binance Spot • USDT Market • Syndicate + Setup Engine
 </div>
 
-<div class="controls">
-
-<input
-id="search"
-placeholder="🔎 Search coin e.g. ORDI"
-/>
-
-<button id="scanBtn" onclick="scan()">
-SCAN MARKET
-</button>
-
-<button class="active" onclick="filterSet('ALL',this)">
-ALL
-</button>
-
-<button onclick="filterSet('BUY',this)">
-BUY
-</button>
-
-<button onclick="filterSet('SELL',this)">
-SELL
-</button>
-
-<button onclick="filterSet('WATCH',this)">
-WATCH
-</button>
-
+<div class="topbar">
+<input id="search" placeholder="Search coin e.g. ORDI">
+<button onclick="scan()">SCAN MARKET</button>
 </div>
 
-<div id="status" class="status">
-Ready...
-</div>
+<div id="status">Ready</div>
 
-</header>
-
-
-<!-- MARKET STATS -->
-
-<div class="cards">
+<div class="stats">
 
 <div class="card">
 <div class="label">BTC PRICE</div>
-<div id="btcPrice" class="value blue">--</div>
+<div id="btcPrice" class="value">--</div>
 </div>
 
 <div class="card">
 <div class="label">USDT PAIRS</div>
-<div id="pairs" class="value">--</div>
+<div id="pairCount" class="value">--</div>
 </div>
 
 <div class="card">
 <div class="label">BUY</div>
-<div id="buy" class="value green">--</div>
+<div id="buyCount" class="value green">--</div>
 </div>
 
 <div class="card">
 <div class="label">SELL</div>
-<div id="sell" class="value red">--</div>
+<div id="sellCount" class="value red">--</div>
 </div>
 
 <div class="card">
 <div class="label">AVG SCORE</div>
-<div id="avg" class="value yellow">--</div>
+<div id="avgScore" class="value blue">--</div>
 </div>
 
 <div class="card">
 <div class="label">BTC TREND</div>
-<div id="btcTrend" class="value blue">--</div>
+<div id="btcTrend" class="value">--</div>
 </div>
 
-</div>
-
-
-<!-- MARKET REGIME -->
-
-<div class="section">
-
-<div class="title">
-🌐 Market Regime
 </div>
 
 <div class="regime">
 
 <div class="regimeBox">
-<div id="regime" class="regimeName yellow">
---
-</div>
-<div class="regimeInfo">
-Overall market condition
-</div>
+<div class="regimeTitle">MARKET REGIME</div>
+<div id="marketRegime" class="regimeValue">--</div>
 </div>
 
 <div class="regimeBox">
-<div id="btcMomentum" class="regimeName blue">
---
-</div>
-<div class="regimeInfo">
-BTC momentum
-</div>
+<div class="regimeTitle">BTC MOMENTUM</div>
+<div id="btcMomentum" class="regimeValue">--</div>
 </div>
 
 <div class="regimeBox">
-<div id="marketBreadth" class="regimeName">
---
-</div>
-<div class="regimeInfo">
-BUY vs SELL breadth
-</div>
+<div class="regimeTitle">BUY / SELL BREADTH</div>
+<div id="breadth" class="regimeValue">--</div>
 </div>
 
 </div>
 
-</div>
+<div class="setup">
 
+<h3 style="margin-top:0">🎯 Best Current Setup</h3>
 
-<!-- TOP SETUPS -->
-
-<div class="section">
-
-<div class="title">
-🏆 Top Syndicate Setups
-</div>
-
-<div class="topGrid">
-
-<div id="topBuy" class="setup">
-Waiting...
-</div>
-
-<div id="topSell" class="setup">
-Waiting...
+<div id="bestSetup">
+No setup yet.
 </div>
 
 </div>
 
-</div>
+<div class="filters">
 
+<div class="filter active" onclick="setFilter('ALL',this)">ALL</div>
+<div class="filter" onclick="setFilter('BUY',this)">BUY</div>
+<div class="filter" onclick="setFilter('SELL',this)">SELL</div>
+<div class="filter" onclick="setFilter('WATCH',this)">WATCH</div>
 
-<!-- TABLE -->
-
-<div class="section">
-
-<div class="title">
-📊 Smart Market Scanner
 </div>
 
 <div class="tableWrap">
@@ -453,7 +382,6 @@ Waiting...
 <thead>
 
 <tr>
-
 <th>COIN</th>
 <th>PRICE</th>
 <th>24H %</th>
@@ -462,22 +390,19 @@ Waiting...
 <th>EMA</th>
 <th>BTC STRENGTH</th>
 <th>REGIME</th>
-<th>SIGNAL</th>
 <th>SYNDICATE</th>
-
+<th>SIGNAL</th>
+<th>ENTRY</th>
+<th>TP1</th>
+<th>TP2</th>
+<th>SL</th>
+<th>R:R</th>
+<th>CONF.</th>
 </tr>
 
 </thead>
 
-<tbody id="body">
-
-<tr>
-<td colspan="10" style="text-align:center">
-Press SCAN MARKET
-</td>
-</tr>
-
-</tbody>
+<tbody id="rows"></tbody>
 
 </table>
 
@@ -485,325 +410,436 @@ Press SCAN MARKET
 
 </div>
 
-</div>
-
-
 <script>
 
 const API="https://api.binance.com";
 
+let allRows=[];
+let currentFilter="ALL";
+
 const EXCLUDED=[
-"USDT","USDC","FDUSD","USDE",
-"TUSD","DAI","GUSD","EURS",
-"LUSD","EUR","WBTC","WETH"
+"USDT","USDC","FDUSD","USDE","TUSD",
+"DAI","GUSD","EURS","LUSD","EUR",
+"WBTC","WETH"
 ];
 
-let data=[];
-let filter="ALL";
-
-
-/* =========================
-API
-========================= */
-
-async function get(url){
-
-const r=await fetch(
-API+url,
-{cache:"no-store"}
-);
-
-if(!r.ok)
-throw new Error("API "+r.status);
-
-return await r.json();
-
+function num(x){
+return Number(x)||0;
 }
 
+function fmtPrice(x){
 
-/* =========================
-MARKET
-========================= */
+if(!x || !isFinite(x)) return "--";
 
-async function market(){
+if(x>=1000) return x.toLocaleString(undefined,{maximumFractionDigits:2});
+if(x>=1) return x.toFixed(4);
+if(x>=0.01) return x.toFixed(5);
+if(x>=0.0001) return x.toFixed(7);
 
-const [info,tickers]=await Promise.all([
-
-get("/api/v3/exchangeInfo"),
-
-get("/api/v3/ticker/24hr")
-
-]);
-
-
-const map=new Map();
-
-tickers.forEach(x=>{
-map.set(x.symbol,x);
-});
-
-
-return info.symbols
-
-.filter(s=>
-s.status==="TRADING" &&
-s.quoteAsset==="USDT" &&
-!EXCLUDED.includes(s.baseAsset)
-)
-
-.map(s=>{
-
-const t=map.get(s.symbol);
-
-if(!t)return null;
-
-return{
-
-symbol:s.symbol,
-price:Number(t.lastPrice),
-change:Number(t.priceChangePercent),
-volume:Number(t.quoteVolume)
-
-};
-
-})
-
-.filter(Boolean)
-
-.sort((a,b)=>b.volume-a.volume);
-
+return x.toPrecision(5);
 }
 
-
-/* =========================
-KLINES
-========================= */
-
-async function klines(symbol){
-
-return await get(
-"/api/v3/klines"+
-"?symbol="+symbol+
-"&interval=15m"+
-"&limit=100"
-);
-
+function fmtPct(x){
+if(!isFinite(x)) return "--";
+return (x>=0?"+":"")+x.toFixed(2)+"%";
 }
 
+function fmtVol(x){
 
-/* =========================
-EMA
-========================= */
+x=num(x);
 
-function ema(v,p){
+if(x>=1e12) return (x/1e12).toFixed(2)+"T";
+if(x>=1e9) return (x/1e9).toFixed(2)+"B";
+if(x>=1e6) return (x/1e6).toFixed(2)+"M";
+if(x>=1e3) return (x/1e3).toFixed(2)+"K";
 
-if(v.length<p)return null;
+return x.toFixed(0);
+}
 
-const k=2/(p+1);
+function ema(values,period){
 
-let e=0;
+if(values.length<period) return null;
 
-for(let i=0;i<p;i++)
-e+=v[i];
+let k=2/(period+1);
+let e=values.slice(0,period)
+.reduce((a,b)=>a+b,0)/period;
 
-e/=p;
-
-for(let i=p;i<v.length;i++)
-e=v[i]*k+e*(1-k);
+for(let i=period;i<values.length;i++){
+e=values[i]*k+e*(1-k);
+}
 
 return e;
+}
+
+function rsi(values,period=14){
+
+if(values.length<=period) return 50;
+
+let gains=0;
+let losses=0;
+
+for(let i=1;i<=period;i++){
+
+let d=values[i]-values[i-1];
+
+if(d>=0) gains+=d;
+else losses+=Math.abs(d);
 
 }
 
+let avgGain=gains/period;
+let avgLoss=losses/period;
 
-/* =========================
-RSI
-========================= */
+for(let i=period+1;i<values.length;i++){
 
-function rsi(v,p=14){
+let d=values[i]-values[i-1];
 
-if(v.length<=p)return 50;
+let gain=d>0?d:0;
+let loss=d<0?Math.abs(d):0;
 
-let gain=0;
-let loss=0;
-
-for(let i=1;i<=p;i++){
-
-let d=v[i]-v[i-1];
-
-if(d>0)gain+=d;
-else loss+=Math.abs(d);
-
+avgGain=(avgGain*(period-1)+gain)/period;
+avgLoss=(avgLoss*(period-1)+loss)/period;
 }
 
-let ag=gain/p;
-let al=loss/p;
+if(avgLoss===0) return 100;
 
-for(let i=p+1;i<v.length;i++){
-
-let d=v[i]-v[i-1];
-
-let g=d>0?d:0;
-let l=d<0?Math.abs(d):0;
-
-ag=(ag*(p-1)+g)/p;
-al=(al*(p-1)+l)/p;
-
-}
-
-if(al===0)return 100;
-
-let rs=ag/al;
+let rs=avgGain/avgLoss;
 
 return 100-(100/(1+rs));
+}
+
+function atr(klines,period=14){
+
+if(klines.length<=period) return 0;
+
+let trs=[];
+
+for(let i=1;i<klines.length;i++){
+
+let high=num(klines[i][2]);
+let low=num(klines[i][3]);
+let prev=num(klines[i-1][4]);
+
+let tr=Math.max(
+high-low,
+Math.abs(high-prev),
+Math.abs(low-prev)
+);
+
+trs.push(tr);
+}
+
+let slice=trs.slice(-period);
+
+return slice.reduce((a,b)=>a+b,0)/slice.length;
+}
+
+async function getKlines(symbol){
+
+const url=
+API+
+"/api/v3/klines?symbol="+
+symbol+
+"&interval=15m&limit=100";
+
+const r=await fetch(url);
+
+if(!r.ok) throw new Error("Kline error");
+
+return await r.json();
+}
+
+async function getBTC(){
+
+try{
+
+const k=await getKlines("BTCUSDT");
+
+const closes=k.map(x=>num(x[4]));
+
+const e20=ema(closes,20);
+const e55=ema(closes,55);
+
+const last=closes[closes.length-1];
+const old=closes[closes.length-5];
+
+const momentum=((last-old)/old)*100;
+
+let trend="RANGE";
+
+if(e20>e55 && momentum>0) trend="BULL";
+else if(e20<e55 && momentum<0) trend="BEAR";
+
+return{
+price:last,
+e20,
+e55,
+momentum,
+trend
+};
+
+}catch(e){
+
+return{
+price:0,
+e20:0,
+e55:0,
+momentum:0,
+trend:"RANGE"
+};
 
 }
 
+}
 
-/* =========================
-SYNDICATE SCORE
-========================= */
+function calculateScore(
+e10,
+e20,
+e55,
+rsiValue,
+volRatio,
+momentum,
+btcStrength
+){
 
-function analyze(c,k,btcChange){
+let trendScore=0;
 
-const close=k.map(x=>Number(x[4]));
-const volume=k.map(x=>Number(x[5]));
+if(e10>e20) trendScore+=10;
+if(e20>e55) trendScore+=10;
 
-const price=close.at(-1);
-
-const e10=ema(close,10);
-const e20=ema(close,20);
-const e55=ema(close,55);
-
-const R=rsi(close);
-
-const avgVol=
-volume.slice(-6,-1)
-.reduce((a,b)=>a+b,0)/5;
-
-const volRatio=
-avgVol>0
-?volume.at(-1)/avgVol
-:1;
-
-const momentum=
-(price/close.at(-5)-1)*100;
-
-const btcStrength=
-momentum-btcChange;
-
-
-/* TREND SCORE 0-25 */
-
-let trend=0;
-
-if(e10>e20)trend+=10;
-if(e20>e55)trend+=10;
-if(e10>e20 && e20>e55)trend+=5;
-
-
-/* RSI SCORE 0-20 */
+if(e10>e20 && e20>e55)
+trendScore+=5;
 
 let rsiScore=0;
 
-if(R>=35 && R<=45)
+if(rsiValue>=30 && rsiValue<40)
 rsiScore=20;
 
-else if(R>45 && R<=55)
-rsiScore=15;
+else if(rsiValue>=40 && rsiValue<=50)
+rsiScore=16;
 
-else if(R>55 && R<=65)
+else if(rsiValue>50 && rsiValue<=55)
 rsiScore=8;
 
-else if(R<35)
-rsiScore=12;
+else if(rsiValue<30)
+rsiScore=10;
 
 else
 rsiScore=0;
 
-
-/* VOLUME SCORE 0-20 */
-
 let volumeScore=0;
 
-if(volRatio>=2)
-volumeScore=20;
-
-else if(volRatio>=1.5)
-volumeScore=16;
-
-else if(volRatio>=1.1)
-volumeScore=10;
-
-else if(volRatio>=0.8)
-volumeScore=5;
-
-
-/* MOMENTUM SCORE 0-15 */
+if(volRatio>=2) volumeScore=20;
+else if(volRatio>=1.5) volumeScore=16;
+else if(volRatio>=1.1) volumeScore=10;
+else if(volRatio>=0.8) volumeScore=5;
 
 let momentumScore=0;
 
-if(momentum>=2)
-momentumScore=15;
-
-else if(momentum>=1)
-momentumScore=11;
-
-else if(momentum>=0)
-momentumScore=6;
-
-else if(momentum>=-1)
-momentumScore=3;
-
-
-/* BTC STRENGTH SCORE 0-20 */
+if(momentum>=2) momentumScore=15;
+else if(momentum>=1) momentumScore=11;
+else if(momentum>=0) momentumScore=6;
+else if(momentum>=-1) momentumScore=3;
 
 let btcScore=0;
 
-if(btcStrength>=3)
-btcScore=20;
+if(btcStrength>=3) btcScore=20;
+else if(btcStrength>=2) btcScore=16;
+else if(btcStrength>=1) btcScore=12;
+else if(btcStrength>=0) btcScore=7;
+else if(btcStrength>=-1) btcScore=3;
 
-else if(btcStrength>=2)
-btcScore=16;
-
-else if(btcStrength>=1)
-btcScore=12;
-
-else if(btcStrength>=0)
-btcScore=7;
-
-else if(btcStrength>=-1)
-btcScore=3;
-
-
-/* TOTAL */
-
-let score=
-trend+
+let total=
+trendScore+
 rsiScore+
 volumeScore+
 momentumScore+
 btcScore;
 
-score=Math.max(
-0,
-Math.min(
-100,
-Math.round(score)
-)
+return{
+total:Math.max(0,Math.min(100,Math.round(total))),
+trendScore,
+rsiScore,
+volumeScore,
+momentumScore,
+btcScore
+};
+
+}
+
+function setupLevels(
+price,
+atrValue,
+signal,
+score
+){
+
+if(!atrValue || atrValue<=0){
+
+return{
+entry:price,
+tp1:0,
+tp2:0,
+sl:0,
+rr:"--"
+};
+
+}
+
+let risk=atrValue;
+
+if(signal.includes("BUY")){
+
+let entry=price;
+
+let sl=entry-risk;
+
+let tp1=entry+risk;
+
+let tp2=entry+(risk*2);
+
+return{
+entry,
+tp1,
+tp2,
+sl,
+rr:"1:2"
+};
+
+}
+
+if(signal.includes("SELL")){
+
+let entry=price;
+
+let sl=entry+risk;
+
+let tp1=entry-risk;
+
+let tp2=entry-(risk*2);
+
+return{
+entry,
+tp1,
+tp2,
+sl,
+rr:"1:2"
+};
+
+}
+
+return{
+entry:0,
+tp1:0,
+tp2:0,
+sl:0,
+rr:"--"
+};
+
+}
+
+function getConfidence(score,btcStrength,volRatio,signal){
+
+if(signal==="WATCH")
+return Math.max(45,Math.min(69,score));
+
+let confidence=score;
+
+if(
+(signal.includes("BUY") && btcStrength>0) ||
+(signal.includes("SELL") && btcStrength<0)
+){
+confidence+=5;
+}
+
+if(volRatio>=1.1)
+confidence+=5;
+
+return Math.min(95,Math.round(confidence));
+
+}
+
+async function analyzeCoin(ticker,btc){
+
+try{
+
+const k=await getKlines(ticker.symbol);
+
+if(!k || k.length<60)
+return null;
+
+const closes=k.map(x=>num(x[4]));
+const volumes=k.map(x=>num(x[5]));
+
+const price=closes[closes.length-1];
+
+const e10=ema(closes,10);
+const e20=ema(closes,20);
+const e55=ema(closes,55);
+
+const rsiValue=rsi(closes,14);
+
+const currentVol=volumes[volumes.length-1];
+
+const avgVol=
+volumes.slice(-21,-1)
+.reduce((a,b)=>a+b,0)/20;
+
+const volRatio=
+avgVol>0?currentVol/avgVol:0;
+
+const old=closes[closes.length-5];
+
+const momentum=
+old>0?((price-old)/old)*100:0;
+
+const coinChange=num(ticker.priceChangePercent);
+
+const btcStrength=coinChange-num(btc.change24h||0);
+
+let regime="RANGE";
+
+if(
+e10>e20 &&
+e20>e55 &&
+momentum>0
+){
+regime="BULL";
+}
+
+else if(
+e10<e20 &&
+e20<e55 &&
+momentum<0
+){
+regime="BEAR";
+}
+
+const scoreData=calculateScore(
+e10,
+e20,
+e55,
+rsiValue,
+volRatio,
+momentum,
+btcStrength
 );
 
-
-/* SIGNAL */
+const score=scoreData.total;
 
 let signal="WATCH";
+
+/*
+BUY RULE
+RSI MUST NOT BE ABOVE 55.
+*/
 
 if(
 score>=80 &&
 e10>e20 &&
 e20>e55 &&
-R>=35 &&
-R<=65 &&
+rsiValue>=30 &&
+rsiValue<=55 &&
 btcStrength>0
 ){
 
@@ -815,8 +851,8 @@ else if(
 score>=70 &&
 e10>e20 &&
 e20>e55 &&
-R>=35 &&
-R<=65 &&
+rsiValue>=30 &&
+rsiValue<=55 &&
 btcStrength>=0
 ){
 
@@ -828,6 +864,8 @@ else if(
 score<=20 &&
 e10<e20 &&
 e20<e55 &&
+rsiValue>=30 &&
+rsiValue<=70 &&
 btcStrength<0
 ){
 
@@ -846,858 +884,512 @@ signal="SELL";
 
 }
 
+const levels=setupLevels(
+price,
+atr(k,14),
+signal,
+score
+);
 
-/* LOCAL REGIME */
-
-let localRegime="RANGE";
-
-if(
-e10>e20 &&
-e20>e55 &&
-momentum>0
-)
-localRegime="BULL";
-
-else if(
-e10<e20 &&
-e20<e55 &&
-momentum<0
-)
-localRegime="BEAR";
-
+const confidence=
+getConfidence(
+score,
+btcStrength,
+volRatio,
+signal
+);
 
 return{
 
-...c,
+symbol:ticker.symbol,
+coin:ticker.symbol.replace("USDT",""),
+price,
+change24h:coinChange,
+volume:num(ticker.quoteVolume),
 
-rsi:R,
+rsi:rsiValue,
 
-ema10:e10,
-ema20:e20,
-ema55:e55,
+e10,
+e20,
+e55,
 
-volumeRatio:volRatio,
-
+volRatio,
 momentum,
-
 btcStrength,
 
+regime,
 score,
-
 signal,
+confidence,
 
-localRegime,
+entry:levels.entry,
+tp1:levels.tp1,
+tp2:levels.tp2,
+sl:levels.sl,
+rr:levels.rr,
 
-trendScore:trend,
-rsiScore,
-volumeScore,
-momentumScore,
-btcScore,
-
-analyzed:true
-
-};
-
-}
-
-
-/* =========================
-BTC
-========================= */
-
-async function getBTC(){
-
-const t=await get(
-"/api/v3/ticker/24hr?symbol=BTCUSDT"
-);
-
-const k=await klines("BTCUSDT");
-
-const close=k.map(x=>Number(x[4]));
-
-const e20=ema(close,20);
-const e55=ema(close,55);
-
-const momentum=
-(
-close.at(-1)/
-close.at(-5)-1
-)*100;
-
-let trend="RANGE";
-
-if(
-e20>e55 &&
-momentum>0
-)
-trend="BULL";
-
-else if(
-e20<e55 &&
-momentum<0
-)
-trend="BEAR";
-
-return{
-
-price:Number(t.lastPrice),
-
-change:Number(
-t.priceChangePercent
-),
-
-trend,
-momentum
+scoreData
 
 };
 
+}catch(e){
+
+return null;
+
 }
 
+}
 
-/* =========================
-FORMAT
-========================= */
+async function market(){
 
-function price(n){
+const [
+exchangeRes,
+tickerRes
+]=await Promise.all([
 
-if(n>=1000)
-return n.toLocaleString(
-undefined,
-{maximumFractionDigits:2}
+fetch(API+"/api/v3/exchangeInfo"),
+fetch(API+"/api/v3/ticker/24hr")
+
+]);
+
+const exchange=await exchangeRes.json();
+const tickers=await tickerRes.json();
+
+const validSymbols=new Set(
+exchange.symbols
+.filter(s=>
+s.status==="TRADING" &&
+s.quoteAsset==="USDT" &&
+!EXCLUDED.includes(s.baseAsset)
+)
+.map(s=>s.symbol)
 );
 
-if(n>=1)
-return n.toFixed(4);
-
-if(n>=.01)
-return n.toFixed(5);
-
-return n.toFixed(8);
-
-}
-
-
-function volume(n){
-
-if(n>=1e12)
-return(n/1e12).toFixed(2)+"T";
-
-if(n>=1e9)
-return(n/1e9).toFixed(2)+"B";
-
-if(n>=1e6)
-return(n/1e6).toFixed(2)+"M";
-
-if(n>=1e3)
-return(n/1e3).toFixed(2)+"K";
-
-return n.toFixed(2);
+return tickers
+.filter(t=>
+validSymbols.has(t.symbol) &&
+num(t.quoteVolume)>0
+)
+.sort(
+(a,b)=>
+num(b.quoteVolume)-num(a.quoteVolume)
+);
 
 }
 
+function signalClass(signal){
 
-/* =========================
-SIGNAL
-========================= */
-
-function badge(s){
-
-if(s==="STRONG BUY")
-return '<span class="badge strong">STRONG BUY</span>';
-
-if(s==="BUY")
-return '<span class="badge buy">BUY</span>';
-
-if(s==="SELL")
-return '<span class="badge sell">SELL</span>';
-
-if(s==="STRONG SELL")
-return '<span class="badge sell">STRONG SELL</span>';
-
-return '<span class="badge watch">WATCH</span>';
+if(signal.includes("BUY")) return "buy";
+if(signal.includes("SELL")) return "sell";
+return "watch";
 
 }
 
+function trendClass(trend){
 
-/* =========================
-RENDER
-========================= */
+if(trend==="BULL") return "bull";
+if(trend==="BEAR") return "bear";
+return "range";
+
+}
 
 function render(){
 
-let list=[...data];
-
-const q=
-document
-.getElementById("search")
+const search=
+document.getElementById("search")
 .value
 .trim()
 .toUpperCase();
 
+let data=allRows.filter(x=>{
 
-if(q)
-list=list.filter(x=>
-x.symbol.includes(q)
-);
+if(currentFilter==="BUY" &&
+!x.signal.includes("BUY"))
+return false;
 
+if(currentFilter==="SELL" &&
+!x.signal.includes("SELL"))
+return false;
 
-if(filter!=="ALL")
-list=list.filter(x=>{
+if(currentFilter==="WATCH" &&
+x.signal!=="WATCH")
+return false;
 
-if(filter==="BUY")
-return x.signal==="BUY" ||
-x.signal==="STRONG BUY";
+if(search &&
+!x.symbol.includes(search))
+return false;
 
-if(filter==="SELL")
-return x.signal==="SELL" ||
-x.signal==="STRONG SELL";
-
-return x.signal==="WATCH";
+return true;
 
 });
 
+let html="";
 
-list.sort((a,b)=>
-(b.score||0)-(a.score||0)
-);
+for(const x of data){
 
-
-const body=
-document.getElementById("body");
-
-
-body.innerHTML=list.map(x=>{
-
-const ch=
-x.change>=0
-?"green"
-:"red";
-
-const bs=
-x.btcStrength>=0
-?"green"
-:"red";
-
-
-return`
+html+=`
 
 <tr>
 
-<td>
-<strong>
-${x.symbol.replace("USDT","")}
-</strong>
-<div class="small">
-${x.analyzed?"15m ANALYZED":"MARKET ONLY"}
-</div>
+<td class="coin">${x.coin}</td>
+
+<td>${fmtPrice(x.price)}</td>
+
+<td class="${x.change24h>=0?"green":"red"}">
+${fmtPct(x.change24h)}
 </td>
 
-<td>
-${price(x.price)}
-</td>
+<td>${fmtVol(x.volume)}</td>
 
-<td class="${ch}">
-${x.change>=0?"+":""}
-${x.change.toFixed(2)}%
-</td>
+<td>${x.rsi.toFixed(1)}</td>
 
-<td>
-${volume(x.volume)}
-</td>
-
-<td>
-${x.analyzed?x.rsi.toFixed(1):"--"}
-</td>
-
-<td>
-${x.analyzed?
-x.ema10>x.ema20 &&
-x.ema20>x.ema55
+<td class="${
+x.e10>x.e20 && x.e20>x.e55
+?"green":
+x.e10<x.e20 && x.e20<x.e55
+?"red":"yellow"
+}">
+${x.e10>x.e20 && x.e20>x.e55
 ?"BULL"
 :
-x.ema10<x.ema20 &&
-x.ema20<x.ema55
-?"BEAR"
-:"MIXED"
-:"--"}
+x.e10<x.e20 && x.e20<x.e55
+?"BEAR":"MIXED"}
 </td>
 
-<td class="${bs}">
-${x.analyzed?
-(x.btcStrength>=0?"+":"")
-+x.btcStrength.toFixed(2)+"%"
-:"--"}
+<td class="${
+x.btcStrength>0?"green":
+x.btcStrength<0?"red":"yellow"
+}">
+${fmtPct(x.btcStrength)}
 </td>
 
-<td>
-${x.analyzed?
-x.localRegime
-:"--"}
+<td class="${trendClass(x.regime)}">
+${x.regime}
 </td>
 
 <td>
-${x.analyzed?
-badge(x.signal):
-'<span class="badge watch">WATCH</span>'}
+<strong>${x.score}</strong>/100
 </td>
 
 <td>
+<span class="badge ${signalClass(x.signal)}">
+${x.signal}
+</span>
+</td>
 
-<div class="score">
-${x.analyzed?x.score:"--"}
-</div>
+<td>${x.entry?fmtPrice(x.entry):"--"}</td>
 
-${x.analyzed?
+<td class="green">
+${x.tp1?fmtPrice(x.tp1):"--"}
+</td>
 
-`<div class="bar">
-<div class="fill"
-style="width:${x.score}%">
-</div>
-</div>`
+<td class="green">
+${x.tp2?fmtPrice(x.tp2):"--"}
+</td>
 
-:""}
+<td class="red">
+${x.sl?fmtPrice(x.sl):"--"}
+</td>
 
+<td>${x.rr}</td>
+
+<td>
+<strong>${x.confidence}%</strong>
 </td>
 
 </tr>
 
 `;
 
-}).join("");
+}
+
+document.getElementById("rows").innerHTML=
+html ||
+`<tr><td colspan="16" style="text-align:center">
+No results
+</td></tr>`;
 
 }
 
+function setFilter(filter,el){
 
-/* =========================
-TOP SETUPS
-========================= */
+currentFilter=filter;
 
-function topSetups(){
+document
+.querySelectorAll(".filter")
+.forEach(x=>x.classList.remove("active"));
 
-const analyzed=
-data.filter(x=>x.analyzed);
+el.classList.add("active");
 
+render();
+
+}
+
+function renderBestSetup(){
 
 const buys=
-analyzed
-.filter(x=>
-x.signal==="BUY" ||
-x.signal==="STRONG BUY"
-)
+allRows
+.filter(x=>x.signal.includes("BUY"))
 .sort((a,b)=>b.score-a.score);
 
+const best=buys[0];
 
-const sells=
-analyzed
-.filter(x=>
-x.signal==="SELL" ||
-x.signal==="STRONG SELL"
-)
-.sort((a,b)=>a.score-b.score);
+if(!best){
 
+document.getElementById("bestSetup").innerHTML=
+"No strong BUY setup found.";
 
-const b=buys[0];
-const s=sells[0];
+return;
 
+}
 
-const buyBox=
-document.getElementById("topBuy");
+document.getElementById("bestSetup").innerHTML=`
 
-const sellBox=
-document.getElementById("topSell");
+<div class="setupGrid">
 
-
-if(b){
-
-buyBox.innerHTML=`
-
-<div class="setupHead">
-
-<div class="coin">
-🟢 ${b.symbol.replace("USDT","")}
+<div class="setupItem">
+<small>COIN</small>
+<strong>${best.coin}</strong>
 </div>
 
-${badge(b.signal)}
-
+<div class="setupItem">
+<small>SIGNAL</small>
+<strong class="green">${best.signal}</strong>
 </div>
 
-<div class="grid">
-
-<div class="metric">
-<div class="metricLabel">
-SYNDICATE
-</div>
-<div class="metricValue green">
-${b.score}/100
-</div>
+<div class="setupItem">
+<small>SYNDICATE</small>
+<strong>${best.score}/100</strong>
 </div>
 
-<div class="metric">
-<div class="metricLabel">
-RSI
-</div>
-<div class="metricValue">
-${b.rsi.toFixed(1)}
-</div>
+<div class="setupItem">
+<small>CONFIDENCE</small>
+<strong>${best.confidence}%</strong>
 </div>
 
-<div class="metric">
-<div class="metricLabel">
-BTC STRENGTH
-</div>
-<div class="metricValue green">
-+${b.btcStrength.toFixed(2)}%
-</div>
+<div class="setupItem">
+<small>ENTRY</small>
+<strong>${fmtPrice(best.entry)}</strong>
 </div>
 
-<div class="metric">
-<div class="metricLabel">
-REGIME
-</div>
-<div class="metricValue">
-${b.localRegime}
-</div>
+<div class="setupItem">
+<small>TP1</small>
+<strong class="green">${fmtPrice(best.tp1)}</strong>
 </div>
 
-<div class="metric">
-<div class="metricLabel">
-VOLUME
-</div>
-<div class="metricValue">
-${b.volumeRatio.toFixed(2)}x
-</div>
+<div class="setupItem">
+<small>TP2</small>
+<strong class="green">${fmtPrice(best.tp2)}</strong>
 </div>
 
-<div class="metric">
-<div class="metricLabel">
-MOMENTUM
-</div>
-<div class="metricValue">
-${b.momentum.toFixed(2)}%
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-TREND
-</div>
-<div class="metricValue">
-${b.trendScore}/25
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-PRICE
-</div>
-<div class="metricValue">
-${price(b.price)}
-</div>
+<div class="setupItem">
+<small>STOP LOSS</small>
+<strong class="red">${fmtPrice(best.sl)}</strong>
 </div>
 
 </div>
+
+<div style="margin-top:12px" class="mini">
+
+Trend Score: ${best.scoreData.trendScore}/25 •
+RSI Score: ${best.scoreData.rsiScore}/20 •
+Volume Score: ${best.scoreData.volumeScore}/20 •
+Momentum: ${best.scoreData.momentumScore}/15 •
+BTC Strength: ${best.scoreData.btcScore}/20
+
+</div>
+
 `;
 
-}else{
-
-buyBox.innerHTML=
-"No BUY setup found";
-
 }
-
-
-if(s){
-
-sellBox.innerHTML=`
-
-<div class="setupHead">
-
-<div class="coin">
-🔴 ${s.symbol.replace("USDT","")}
-</div>
-
-${badge(s.signal)}
-
-</div>
-
-<div class="grid">
-
-<div class="metric">
-<div class="metricLabel">
-SYNDICATE
-</div>
-<div class="metricValue red">
-${s.score}/100
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-RSI
-</div>
-<div class="metricValue">
-${s.rsi.toFixed(1)}
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-BTC STRENGTH
-</div>
-<div class="metricValue red">
-${s.btcStrength.toFixed(2)}%
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-REGIME
-</div>
-<div class="metricValue">
-${s.localRegime}
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-VOLUME
-</div>
-<div class="metricValue">
-${s.volumeRatio.toFixed(2)}x
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-MOMENTUM
-</div>
-<div class="metricValue">
-${s.momentum.toFixed(2)}%
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-TREND
-</div>
-<div class="metricValue">
-${s.trendScore}/25
-</div>
-</div>
-
-<div class="metric">
-<div class="metricLabel">
-PRICE
-</div>
-<div class="metricValue">
-${price(s.price)}
-</div>
-</div>
-
-</div>
-`;
-
-}else{
-
-sellBox.innerHTML=
-"No SELL setup found";
-
-}
-
-}
-
-
-/* =========================
-SCAN
-========================= */
 
 async function scan(){
 
-const btn=
-document.getElementById("scanBtn");
-
-const status=
-document.getElementById("status");
-
-btn.disabled=true;
-
-btn.innerText="SCANNING...";
-
-
 try{
 
-status.innerText=
+document.getElementById("status").innerText=
 "Loading Binance market...";
 
+const tickers=await market();
 
-const [coins,btc]=
-await Promise.all([
+document.getElementById("pairCount").innerText=
+tickers.length;
 
-market(),
-getBTC()
+const btc=await getBTC();
 
-]);
+const btcTicker=
+tickers.find(x=>x.symbol==="BTCUSDT");
 
+if(btcTicker){
+btc.change24h=num(btcTicker.priceChangePercent);
+}
 
-document.getElementById("btcPrice")
-.innerText="$"+price(btc.price);
+document.getElementById("btcPrice").innerText=
+fmtPrice(btc.price);
 
-document.getElementById("pairs")
-.innerText=coins.length;
+document.getElementById("btcMomentum").innerText=
+fmtPct(btc.momentum);
 
-document.getElementById("btcTrend")
-.innerText=btc.trend;
+document.getElementById("btcTrend").innerText=
+btc.trend;
 
-document.getElementById("btcMomentum")
-.innerText=
-(btc.momentum>=0?"+":"")
-+btc.momentum.toFixed(2)+"%";
-
+document.getElementById("btcTrend").className=
+"value "+
+trendClass(btc.trend);
 
 /*
-Top 80 receive technical analysis.
+Analyze top 80 by volume.
 All pairs remain visible.
 */
 
-const candidates=
-coins.slice(0,80);
+const candidates=tickers.slice(0,80);
 
+let analyzed=[];
 
-const results=[];
+for(let i=0;i<candidates.length;i+=5){
 
+const batch=candidates.slice(i,i+5);
 
-for(let i=0;i<candidates.length;i++){
+document.getElementById("status").innerText=
+"Analyzing "+Math.min(i+5,candidates.length)+
+"/"+candidates.length+" high-volume pairs...";
 
-const c=candidates[i];
+const results=
+await Promise.all(
+batch.map(x=>analyzeCoin(x,btc))
+);
 
-
-try{
-
-status.innerText=
-"Analyzing "+
-c.symbol+
-" • "+
-(i+1)+
-"/"+
-candidates.length;
-
-
-const k=
-await klines(c.symbol);
-
-
-if(k.length>=60){
-
-results.push(
-analyze(
-c,
-k,
-btc.change
-)
+analyzed.push(
+...results.filter(Boolean)
 );
 
 }
 
-}catch(e){
-
-console.log(
-"Skip",
-c.symbol,
-e
+const analyzedMap=new Map(
+analyzed.map(x=>[x.symbol,x])
 );
 
-}
+allRows=tickers.map(t=>{
 
-}
-
+if(analyzedMap.has(t.symbol))
+return analyzedMap.get(t.symbol);
 
 /*
-Merge
+Unanalyzed pairs still appear.
 */
 
-data=
-coins.map(c=>{
+return{
 
-const r=
-results.find(
-x=>x.symbol===c.symbol
-);
+symbol:t.symbol,
+coin:t.symbol.replace("USDT",""),
+price:num(t.lastPrice),
+change24h:num(t.priceChangePercent),
+volume:num(t.quoteVolume),
 
-return r||{
+rsi:0,
+e10:0,
+e20:0,
+e55:0,
 
-...c,
+volRatio:0,
+momentum:0,
+btcStrength:num(t.priceChangePercent)-num(btc.change24h||0),
 
+regime:"--",
+score:0,
 signal:"WATCH",
-score:null,
-analyzed:false
+confidence:0,
+
+entry:0,
+tp1:0,
+tp2:0,
+sl:0,
+rr:"--",
+
+scoreData:{
+trendScore:0,
+rsiScore:0,
+volumeScore:0,
+momentumScore:0,
+btcScore:0
+}
 
 };
 
 });
 
+const buyCount=
+allRows.filter(x=>x.signal.includes("BUY")).length;
 
-/* COUNTS */
+const sellCount=
+allRows.filter(x=>x.signal.includes("SELL")).length;
 
-const buys=
-results.filter(x=>
-x.signal==="BUY" ||
-x.signal==="STRONG BUY"
-).length;
+const scored=
+allRows.filter(x=>x.score>0);
 
-
-const sells=
-results.filter(x=>
-x.signal==="SELL" ||
-x.signal==="STRONG SELL"
-).length;
-
-
-const average=
-results.length
+const avg=
+scored.length
 ?
-Math.round(
-results.reduce(
-(a,b)=>a+b.score,0
-)/
-results.length
-)
+scored.reduce((a,b)=>a+b.score,0)/scored.length
 :0;
 
+document.getElementById("buyCount").innerText=
+buyCount;
 
-document.getElementById("buy")
-.innerText=buys;
+document.getElementById("sellCount").innerText=
+sellCount;
 
-document.getElementById("sell")
-.innerText=sells;
+document.getElementById("avgScore").innerText=
+avg.toFixed(1);
 
-document.getElementById("avg")
-.innerText=average;
+const bull=
+allRows.filter(x=>x.regime==="BULL").length;
 
+const bear=
+allRows.filter(x=>x.regime==="BEAR").length;
 
-/* MARKET REGIME */
+let overall="RANGE";
 
-const strongBull=
-results.filter(x=>
-x.localRegime==="BULL"
-).length;
+if(btc.trend==="BULL" && bull>bear)
+overall="BULL";
 
+else if(btc.trend==="BEAR" && bear>bull)
+overall="BEAR";
 
-const strongBear=
-results.filter(x=>
-x.localRegime==="BEAR"
-).length;
+document.getElementById("marketRegime").innerText=
+overall;
 
+document.getElementById("marketRegime").className=
+"regimeValue "+trendClass(overall);
 
-let regime="RANGE";
+document.getElementById("breadth").innerText=
+buyCount+" / "+sellCount;
 
-if(
-btc.trend==="BULL" &&
-strongBull>strongBear
-){
-
-regime="BULL";
-
-}else if(
-btc.trend==="BEAR" &&
-strongBear>strongBull
-){
-
-regime="BEAR";
-
-}
-
-
-document.getElementById("regime")
-.innerText=regime;
-
-
-document.getElementById("marketBreadth")
-.innerText=
-buys+
-" BUY / "+
-sells+
-" SELL";
-
-
-topSetups();
+renderBestSetup();
 
 render();
 
-
-status.innerText=
-"✅ Complete • "+
-coins.length+
-" pairs • "+
-results.length+
-" analyzed • "+
-new Date().toLocaleTimeString();
-
+document.getElementById("status").innerText=
+"Updated • "+new Date().toLocaleTimeString();
 
 }catch(e){
 
 console.error(e);
 
-status.innerText=
-"❌ "+e.message;
+document.getElementById("status").innerText=
+"Scan error. Tap SCAN MARKET again.";
 
 }
 
-
-btn.disabled=false;
-
-btn.innerText="SCAN MARKET";
-
 }
-
-
-/* =========================
-FILTER
-========================= */
-
-function filterSet(f,b){
-
-filter=f;
-
-document
-.querySelectorAll(".controls button")
-.forEach(x=>
-x.classList.remove("active")
-);
-
-b.classList.add("active");
-
-render();
-
-}
-
-
-/* =========================
-SEARCH
-========================= */
 
 document
 .getElementById("search")
-.addEventListener(
-"input",
-render
-);
-
-
-/* =========================
-AUTO REFRESH
-========================= */
-
-setInterval(
-scan,
-180000
-);
-
-
-/* =========================
-START
-========================= */
+.addEventListener("input",render);
 
 scan();
+
+setInterval(scan,180000);
 
 </script>
 
