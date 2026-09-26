@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>CryptoLeora Smart Dashboard V4</title>
+<title>CryptoLeora Smart Dashboard V5</title>
 
 <style>
 *{box-sizing:border-box}
@@ -17,9 +17,9 @@ color:#fff;
 }
 
 .container{
-max-width:1400px;
+max-width:1450px;
 margin:auto;
-padding:16px;
+padding:15px;
 }
 
 h1{
@@ -28,23 +28,21 @@ font-size:25px;
 }
 
 .subtitle{
-color:#8d9aaa;
-margin:6px 0 18px;
+color:#8996a6;
 font-size:13px;
+margin:6px 0 18px;
 }
 
 .topbar{
 display:flex;
 gap:8px;
-margin-bottom:15px;
-flex-wrap:wrap;
+margin-bottom:12px;
 }
 
 input{
 flex:1;
-min-width:180px;
 padding:12px;
-border-radius:10px;
+border-radius:9px;
 border:1px solid #263241;
 background:#111923;
 color:white;
@@ -56,113 +54,113 @@ padding:11px 15px;
 border:0;
 border-radius:9px;
 background:#1769ff;
-color:white;
+color:#fff;
 font-weight:bold;
-cursor:pointer;
 }
 
-button.secondary{
-background:#182330;
+.status{
+font-size:12px;
+color:#7f8b9a;
+margin-bottom:12px;
 }
 
 .stats{
 display:grid;
 grid-template-columns:repeat(6,1fr);
-gap:10px;
-margin-bottom:15px;
+gap:9px;
+margin-bottom:12px;
 }
 
 .card{
 background:#101720;
 border:1px solid #202c39;
-border-radius:12px;
-padding:13px;
+border-radius:11px;
+padding:12px;
 }
 
 .label{
-font-size:11px;
-color:#7f8b9a;
+font-size:10px;
+color:#778494;
 }
 
 .value{
-font-size:19px;
+font-size:18px;
 font-weight:bold;
 margin-top:5px;
 }
 
-.green{color:#20d58b}
-.red{color:#ff5d6c}
+.green{color:#22d995}
+.red{color:#ff6372}
 .yellow{color:#ffc857}
 .blue{color:#5ba7ff}
 
 .regime{
 display:grid;
 grid-template-columns:2fr 1fr 1fr;
-gap:10px;
-margin-bottom:15px;
+gap:9px;
+margin-bottom:12px;
 }
 
 .regimeBox{
 background:#101720;
 border:1px solid #202c39;
-border-radius:12px;
-padding:15px;
+border-radius:11px;
+padding:13px;
 }
 
 .regimeTitle{
-font-size:12px;
-color:#8995a5;
-margin-bottom:7px;
+font-size:10px;
+color:#7f8b9a;
 }
 
 .regimeValue{
-font-size:22px;
+font-size:20px;
 font-weight:bold;
+margin-top:5px;
 }
 
 .setup{
 background:#101720;
 border:1px solid #202c39;
-border-radius:12px;
-padding:15px;
-margin-bottom:15px;
+border-radius:11px;
+padding:13px;
+margin-bottom:12px;
 }
 
 .setupGrid{
 display:grid;
 grid-template-columns:repeat(8,1fr);
-gap:8px;
+gap:7px;
 }
 
 .setupItem{
 background:#0b1118;
-padding:10px;
-border-radius:8px;
+border-radius:7px;
+padding:9px;
 }
 
 .setupItem small{
 display:block;
-color:#778494;
-font-size:10px;
-margin-bottom:5px;
+font-size:9px;
+color:#748293;
+margin-bottom:4px;
 }
 
 .setupItem strong{
-font-size:14px;
+font-size:13px;
 }
 
 .filters{
 display:flex;
 gap:7px;
-margin-bottom:12px;
-flex-wrap:wrap;
+margin-bottom:10px;
 }
 
 .filter{
 background:#151f2b;
 padding:8px 12px;
 border-radius:20px;
-font-size:12px;
+font-size:11px;
 cursor:pointer;
 }
 
@@ -174,45 +172,47 @@ background:#1769ff;
 overflow:auto;
 background:#101720;
 border:1px solid #202c39;
-border-radius:12px;
+border-radius:11px;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-min-width:1450px;
+min-width:1500px;
 }
 
 th{
-font-size:11px;
-color:#7f8b9a;
+padding:11px 8px;
 background:#0d141c;
-padding:12px 8px;
+color:#7d8998;
+font-size:10px;
 text-align:left;
-position:sticky;
-top:0;
 }
 
 td{
-padding:11px 8px;
+padding:10px 8px;
 border-top:1px solid #1d2732;
-font-size:12px;
+font-size:11px;
 }
 
-tr:hover{
+tbody tr{
+cursor:pointer;
+}
+
+tbody tr:hover{
 background:#151e28;
 }
 
 .coin{
 font-weight:bold;
+font-size:12px;
 }
 
 .badge{
-padding:5px 8px;
+padding:5px 7px;
 border-radius:6px;
-font-size:10px;
+font-size:9px;
 font-weight:bold;
-display:inline-block;
 }
 
 .buy{
@@ -230,44 +230,141 @@ background:#302b16;
 color:#ffd35a;
 }
 
-.bull{
-color:#25dc91;
+.bull{color:#24dc91}
+.bear{color:#ff6370}
+.range{color:#ffc857}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.78);
+z-index:999;
+overflow:auto;
+padding:15px;
 }
 
-.bear{
-color:#ff6370;
+.modalBox{
+max-width:1000px;
+margin:20px auto;
+background:#101720;
+border:1px solid #293746;
+border-radius:14px;
+padding:16px;
 }
 
-.range{
-color:#ffc857;
+.modalTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:15px;
 }
 
-.mini{
-font-size:10px;
-color:#748293;
+.close{
+background:#26313d;
+padding:8px 12px;
 }
 
-#status{
-color:#7f8b9a;
+.tfGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:9px;
+margin-bottom:12px;
+}
+
+.tf{
+background:#0b1118;
+border:1px solid #202c39;
+border-radius:10px;
+padding:13px;
+}
+
+.tf h3{
+margin:0 0 8px;
+font-size:14px;
+}
+
+.tfRow{
+display:flex;
+justify-content:space-between;
+padding:5px 0;
+font-size:11px;
+border-bottom:1px solid #18222d;
+}
+
+.detailSetup{
+background:#0b1118;
+border-radius:10px;
+padding:13px;
+margin-top:10px;
+}
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:7px;
+}
+
+.detailItem{
+padding:9px;
+background:#101720;
+border-radius:7px;
+}
+
+.detailItem small{
+display:block;
+font-size:9px;
+color:#718092;
+margin-bottom:4px;
+}
+
+.detailItem strong{
+font-size:13px;
+}
+
+.reason{
+margin-top:12px;
+padding:12px;
+background:#101720;
+border-radius:8px;
 font-size:12px;
-margin:10px 0;
+line-height:1.6;
+color:#b8c2cf;
+}
+
+.loading{
+text-align:center;
+padding:20px;
+color:#8290a0;
 }
 
 @media(max-width:900px){
+
 .stats{
 grid-template-columns:repeat(3,1fr);
+}
+
+.setupGrid{
+grid-template-columns:repeat(4,1fr);
 }
 
 .regime{
 grid-template-columns:1fr;
 }
 
-.setupGrid{
-grid-template-columns:repeat(4,1fr);
+.tfGrid{
+grid-template-columns:1fr;
 }
+
+.detailGrid{
+grid-template-columns:repeat(3,1fr);
+}
+
 }
 
 @media(max-width:500px){
+
 .container{
 padding:10px;
 }
@@ -280,9 +377,14 @@ grid-template-columns:repeat(2,1fr);
 grid-template-columns:repeat(2,1fr);
 }
 
+.detailGrid{
+grid-template-columns:repeat(2,1fr);
+}
+
 h1{
 font-size:21px;
 }
+
 }
 </style>
 </head>
@@ -291,17 +393,26 @@ font-size:21px;
 
 <div class="container">
 
-<h1>🚀 CryptoLeora Smart Dashboard V4</h1>
+<h1>🚀 CryptoLeora Smart Dashboard V5</h1>
+
 <div class="subtitle">
-Binance Spot • USDT Market • Syndicate + Setup Engine
+Binance Spot • Syndicate Score • Multi-Timeframe Confirmation
 </div>
 
 <div class="topbar">
-<input id="search" placeholder="Search coin e.g. ORDI">
+
+<input
+id="search"
+placeholder="Search coin e.g. ORDI"
+>
+
 <button onclick="scan()">SCAN MARKET</button>
+
 </div>
 
-<div id="status">Ready</div>
+<div id="status" class="status">
+Ready
+</div>
 
 <div class="stats">
 
@@ -340,25 +451,48 @@ Binance Spot • USDT Market • Syndicate + Setup Engine
 <div class="regime">
 
 <div class="regimeBox">
-<div class="regimeTitle">MARKET REGIME</div>
-<div id="marketRegime" class="regimeValue">--</div>
+
+<div class="regimeTitle">
+MARKET REGIME
+</div>
+
+<div id="marketRegime" class="regimeValue">
+--
+</div>
+
 </div>
 
 <div class="regimeBox">
-<div class="regimeTitle">BTC MOMENTUM</div>
-<div id="btcMomentum" class="regimeValue">--</div>
+
+<div class="regimeTitle">
+BTC MOMENTUM
+</div>
+
+<div id="btcMomentum" class="regimeValue">
+--
+</div>
+
 </div>
 
 <div class="regimeBox">
-<div class="regimeTitle">BUY / SELL BREADTH</div>
-<div id="breadth" class="regimeValue">--</div>
+
+<div class="regimeTitle">
+BUY / SELL
+</div>
+
+<div id="breadth" class="regimeValue">
+--
+</div>
+
 </div>
 
 </div>
 
 <div class="setup">
 
-<h3 style="margin-top:0">🎯 Best Current Setup</h3>
+<h3 style="margin-top:0">
+🎯 Best Current Setup
+</h3>
 
 <div id="bestSetup">
 No setup yet.
@@ -368,10 +502,25 @@ No setup yet.
 
 <div class="filters">
 
-<div class="filter active" onclick="setFilter('ALL',this)">ALL</div>
-<div class="filter" onclick="setFilter('BUY',this)">BUY</div>
-<div class="filter" onclick="setFilter('SELL',this)">SELL</div>
-<div class="filter" onclick="setFilter('WATCH',this)">WATCH</div>
+<div class="filter active"
+onclick="setFilter('ALL',this)">
+ALL
+</div>
+
+<div class="filter"
+onclick="setFilter('BUY',this)">
+BUY
+</div>
+
+<div class="filter"
+onclick="setFilter('SELL',this)">
+SELL
+</div>
+
+<div class="filter"
+onclick="setFilter('WATCH',this)">
+WATCH
+</div>
 
 </div>
 
@@ -382,6 +531,7 @@ No setup yet.
 <thead>
 
 <tr>
+
 <th>COIN</th>
 <th>PRICE</th>
 <th>24H %</th>
@@ -390,7 +540,7 @@ No setup yet.
 <th>EMA</th>
 <th>BTC STRENGTH</th>
 <th>REGIME</th>
-<th>SYNDICATE</th>
+<th>SCORE</th>
 <th>SIGNAL</th>
 <th>ENTRY</th>
 <th>TP1</th>
@@ -398,6 +548,7 @@ No setup yet.
 <th>SL</th>
 <th>R:R</th>
 <th>CONF.</th>
+
 </tr>
 
 </thead>
@@ -410,18 +561,67 @@ No setup yet.
 
 </div>
 
+
+<!-- DETAIL MODAL -->
+
+<div id="modal" class="modal">
+
+<div class="modalBox">
+
+<div class="modalTop">
+
+<div>
+<h2 id="detailTitle" style="margin:0">
+Coin Detail
+</h2>
+
+<div id="detailSub"
+style="font-size:11px;color:#7d8998;margin-top:4px">
+</div>
+
+</div>
+
+<button class="close"
+onclick="closeDetail()">
+✕ CLOSE
+</button>
+
+</div>
+
+<div id="detailContent">
+
+<div class="loading">
+Loading multi-timeframe analysis...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
 
 const API="https://api.binance.com";
 
+const EXCLUDED=[
+"USDT",
+"USDC",
+"FDUSD",
+"USDE",
+"TUSD",
+"DAI",
+"GUSD",
+"EURS",
+"LUSD",
+"EUR",
+"WBTC",
+"WETH"
+];
+
 let allRows=[];
 let currentFilter="ALL";
-
-const EXCLUDED=[
-"USDT","USDC","FDUSD","USDE","TUSD",
-"DAI","GUSD","EURS","LUSD","EUR",
-"WBTC","WETH"
-];
 
 function num(x){
 return Number(x)||0;
@@ -429,61 +629,104 @@ return Number(x)||0;
 
 function fmtPrice(x){
 
-if(!x || !isFinite(x)) return "--";
+if(!x || !isFinite(x))
+return "--";
 
-if(x>=1000) return x.toLocaleString(undefined,{maximumFractionDigits:2});
-if(x>=1) return x.toFixed(4);
-if(x>=0.01) return x.toFixed(5);
-if(x>=0.0001) return x.toFixed(7);
+if(x>=1000)
+return x.toLocaleString(undefined,{
+maximumFractionDigits:2
+});
+
+if(x>=1)
+return x.toFixed(4);
+
+if(x>=0.01)
+return x.toFixed(5);
+
+if(x>=0.0001)
+return x.toFixed(7);
 
 return x.toPrecision(5);
 }
 
 function fmtPct(x){
-if(!isFinite(x)) return "--";
-return (x>=0?"+":"")+x.toFixed(2)+"%";
+
+if(!isFinite(x))
+return "--";
+
+return(
+x>=0?"+":""
+)+x.toFixed(2)+"%";
+
 }
 
 function fmtVol(x){
 
 x=num(x);
 
-if(x>=1e12) return (x/1e12).toFixed(2)+"T";
-if(x>=1e9) return (x/1e9).toFixed(2)+"B";
-if(x>=1e6) return (x/1e6).toFixed(2)+"M";
-if(x>=1e3) return (x/1e3).toFixed(2)+"K";
+if(x>=1e12)
+return(x/1e12).toFixed(2)+"T";
+
+if(x>=1e9)
+return(x/1e9).toFixed(2)+"B";
+
+if(x>=1e6)
+return(x/1e6).toFixed(2)+"M";
+
+if(x>=1e3)
+return(x/1e3).toFixed(2)+"K";
 
 return x.toFixed(0);
+
 }
+
+
+/* =========================
+   INDICATORS
+========================= */
 
 function ema(values,period){
 
-if(values.length<period) return null;
+if(values.length<period)
+return null;
 
-let k=2/(period+1);
-let e=values.slice(0,period)
+const k=2/(period+1);
+
+let e=
+values
+.slice(0,period)
 .reduce((a,b)=>a+b,0)/period;
 
 for(let i=period;i<values.length;i++){
-e=values[i]*k+e*(1-k);
+
+e=
+values[i]*k+
+e*(1-k);
+
 }
 
 return e;
+
 }
+
 
 function rsi(values,period=14){
 
-if(values.length<=period) return 50;
+if(values.length<=period)
+return 50;
 
 let gains=0;
 let losses=0;
 
 for(let i=1;i<=period;i++){
 
-let d=values[i]-values[i-1];
+const d=
+values[i]-values[i-1];
 
-if(d>=0) gains+=d;
-else losses+=Math.abs(d);
+if(d>=0)
+gains+=d;
+else
+losses+=Math.abs(d);
 
 }
 
@@ -492,164 +735,306 @@ let avgLoss=losses/period;
 
 for(let i=period+1;i<values.length;i++){
 
-let d=values[i]-values[i-1];
+const d=
+values[i]-values[i-1];
 
-let gain=d>0?d:0;
-let loss=d<0?Math.abs(d):0;
+const gain=d>0?d:0;
+const loss=d<0?Math.abs(d):0;
 
-avgGain=(avgGain*(period-1)+gain)/period;
-avgLoss=(avgLoss*(period-1)+loss)/period;
+avgGain=
+(avgGain*(period-1)+gain)/period;
+
+avgLoss=
+(avgLoss*(period-1)+loss)/period;
+
 }
 
-if(avgLoss===0) return 100;
+if(avgLoss===0)
+return 100;
 
-let rs=avgGain/avgLoss;
+const rs=avgGain/avgLoss;
 
 return 100-(100/(1+rs));
+
 }
+
 
 function atr(klines,period=14){
 
-if(klines.length<=period) return 0;
+if(klines.length<=period)
+return 0;
 
 let trs=[];
 
 for(let i=1;i<klines.length;i++){
 
-let high=num(klines[i][2]);
-let low=num(klines[i][3]);
-let prev=num(klines[i-1][4]);
+const high=num(klines[i][2]);
+const low=num(klines[i][3]);
+const prev=num(klines[i-1][4]);
 
-let tr=Math.max(
+trs.push(
+Math.max(
 high-low,
 Math.abs(high-prev),
 Math.abs(low-prev)
+)
 );
 
-trs.push(tr);
 }
 
-let slice=trs.slice(-period);
+const data=trs.slice(-period);
 
-return slice.reduce((a,b)=>a+b,0)/slice.length;
+return data.reduce((a,b)=>a+b,0)/data.length;
+
 }
 
-async function getKlines(symbol){
+
+/* =========================
+   KLINES
+========================= */
+
+async function getKlines(symbol,interval="15m",limit=100){
 
 const url=
 API+
 "/api/v3/klines?symbol="+
-symbol+
-"&interval=15m&limit=100";
+encodeURIComponent(symbol)+
+"&interval="+
+interval+
+"&limit="+
+limit;
 
 const r=await fetch(url);
 
-if(!r.ok) throw new Error("Kline error");
+if(!r.ok)
+throw new Error("Kline request failed");
 
 return await r.json();
+
 }
+
+
+/* =========================
+   TIMEFRAME ANALYSIS
+========================= */
+
+function analyzeTF(k){
+
+if(!k || k.length<60)
+return null;
+
+const closes=
+k.map(x=>num(x[4]));
+
+const volumes=
+k.map(x=>num(x[5]));
+
+const price=
+closes[closes.length-1];
+
+const e10=
+ema(closes,10);
+
+const e20=
+ema(closes,20);
+
+const e55=
+ema(closes,55);
+
+const rsiValue=
+rsi(closes,14);
+
+const old=
+closes[closes.length-5];
+
+const momentum=
+old?
+((price-old)/old)*100
+:0;
+
+const currentVol=
+volumes[volumes.length-1];
+
+const avgVol=
+volumes
+.slice(-21,-1)
+.reduce((a,b)=>a+b,0)/20;
+
+const volRatio=
+avgVol?
+currentVol/avgVol
+:0;
+
+let trend="RANGE";
+
+if(
+e10>e20 &&
+e20>e55 &&
+momentum>0
+)
+trend="BULL";
+
+else if(
+e10<e20 &&
+e20<e55 &&
+momentum<0
+)
+trend="BEAR";
+
+return{
+price,
+e10,
+e20,
+e55,
+rsi:rsiValue,
+momentum,
+volRatio,
+atr:atr(k,14),
+trend
+};
+
+}
+
+
+/* =========================
+   BTC
+========================= */
 
 async function getBTC(){
 
 try{
 
-const k=await getKlines("BTCUSDT");
+const k=
+await getKlines(
+"BTCUSDT",
+"15m",
+100
+);
 
-const closes=k.map(x=>num(x[4]));
+const a=
+analyzeTF(k);
 
-const e20=ema(closes,20);
-const e55=ema(closes,55);
+const ticker=
+await fetch(
+API+"/api/v3/ticker/24hr?symbol=BTCUSDT"
+);
 
-const last=closes[closes.length-1];
-const old=closes[closes.length-5];
-
-const momentum=((last-old)/old)*100;
-
-let trend="RANGE";
-
-if(e20>e55 && momentum>0) trend="BULL";
-else if(e20<e55 && momentum<0) trend="BEAR";
+const t=
+await ticker.json();
 
 return{
-price:last,
-e20,
-e55,
-momentum,
-trend
+...a,
+change24h:num(t.priceChangePercent)
 };
 
 }catch(e){
 
 return{
 price:0,
+e10:0,
 e20:0,
 e55:0,
+rsi:50,
 momentum:0,
-trend:"RANGE"
+volRatio:0,
+atr:0,
+trend:"RANGE",
+change24h:0
 };
 
 }
 
 }
 
+
+/* =========================
+   SCORE
+========================= */
+
 function calculateScore(
-e10,
-e20,
-e55,
-rsiValue,
-volRatio,
-momentum,
+a,
 btcStrength
 ){
 
 let trendScore=0;
 
-if(e10>e20) trendScore+=10;
-if(e20>e55) trendScore+=10;
+if(a.e10>a.e20)
+trendScore+=10;
 
-if(e10>e20 && e20>e55)
+if(a.e20>a.e55)
+trendScore+=10;
+
+if(
+a.e10>a.e20 &&
+a.e20>a.e55
+)
 trendScore+=5;
+
 
 let rsiScore=0;
 
-if(rsiValue>=30 && rsiValue<40)
+if(a.rsi>=30 && a.rsi<40)
 rsiScore=20;
 
-else if(rsiValue>=40 && rsiValue<=50)
+else if(a.rsi>=40 && a.rsi<=50)
 rsiScore=16;
 
-else if(rsiValue>50 && rsiValue<=55)
+else if(a.rsi>50 && a.rsi<=55)
 rsiScore=8;
 
-else if(rsiValue<30)
+else if(a.rsi<30)
 rsiScore=10;
 
-else
-rsiScore=0;
 
 let volumeScore=0;
 
-if(volRatio>=2) volumeScore=20;
-else if(volRatio>=1.5) volumeScore=16;
-else if(volRatio>=1.1) volumeScore=10;
-else if(volRatio>=0.8) volumeScore=5;
+if(a.volRatio>=2)
+volumeScore=20;
+
+else if(a.volRatio>=1.5)
+volumeScore=16;
+
+else if(a.volRatio>=1.1)
+volumeScore=10;
+
+else if(a.volRatio>=0.8)
+volumeScore=5;
+
 
 let momentumScore=0;
 
-if(momentum>=2) momentumScore=15;
-else if(momentum>=1) momentumScore=11;
-else if(momentum>=0) momentumScore=6;
-else if(momentum>=-1) momentumScore=3;
+if(a.momentum>=2)
+momentumScore=15;
+
+else if(a.momentum>=1)
+momentumScore=11;
+
+else if(a.momentum>=0)
+momentumScore=6;
+
+else if(a.momentum>=-1)
+momentumScore=3;
+
 
 let btcScore=0;
 
-if(btcStrength>=3) btcScore=20;
-else if(btcStrength>=2) btcScore=16;
-else if(btcStrength>=1) btcScore=12;
-else if(btcStrength>=0) btcScore=7;
-else if(btcStrength>=-1) btcScore=3;
+if(btcStrength>=3)
+btcScore=20;
 
-let total=
+else if(btcStrength>=2)
+btcScore=16;
+
+else if(btcStrength>=1)
+btcScore=12;
+
+else if(btcStrength>=0)
+btcScore=7;
+
+else if(btcStrength>=-1)
+btcScore=3;
+
+
+const total=
 trendScore+
 rsiScore+
 volumeScore+
@@ -657,73 +1042,78 @@ momentumScore+
 btcScore;
 
 return{
-total:Math.max(0,Math.min(100,Math.round(total))),
+
+total:Math.max(
+0,
+Math.min(100,Math.round(total))
+),
+
 trendScore,
 rsiScore,
 volumeScore,
 momentumScore,
 btcScore
+
 };
 
 }
 
-function setupLevels(
-price,
-atrValue,
-signal,
-score
-){
 
-if(!atrValue || atrValue<=0){
+/* =========================
+   SETUP
+========================= */
 
+function makeSetup(price,atrValue,signal){
+
+if(!atrValue)
 return{
-entry:price,
+entry:0,
 tp1:0,
 tp2:0,
 sl:0,
 rr:"--"
 };
 
-}
-
-let risk=atrValue;
+const risk=atrValue;
 
 if(signal.includes("BUY")){
 
-let entry=price;
-
-let sl=entry-risk;
-
-let tp1=entry+risk;
-
-let tp2=entry+(risk*2);
-
 return{
-entry,
-tp1,
-tp2,
-sl,
+
+entry:price,
+
+tp1:
+price+risk,
+
+tp2:
+price+(risk*2),
+
+sl:
+price-risk,
+
 rr:"1:2"
+
 };
 
 }
 
 if(signal.includes("SELL")){
 
-let entry=price;
-
-let sl=entry+risk;
-
-let tp1=entry-risk;
-
-let tp2=entry-(risk*2);
-
 return{
-entry,
-tp1,
-tp2,
-sl,
+
+entry:price,
+
+tp1:
+price-risk,
+
+tp2:
+price-(risk*2),
+
+sl:
+price+risk,
+
 rr:"1:2"
+
 };
 
 }
@@ -738,195 +1128,260 @@ rr:"--"
 
 }
 
-function getConfidence(score,btcStrength,volRatio,signal){
 
-if(signal==="WATCH")
-return Math.max(45,Math.min(69,score));
+/* =========================
+   SIGNAL
+========================= */
 
-let confidence=score;
-
-if(
-(signal.includes("BUY") && btcStrength>0) ||
-(signal.includes("SELL") && btcStrength<0)
-){
-confidence+=5;
-}
-
-if(volRatio>=1.1)
-confidence+=5;
-
-return Math.min(95,Math.round(confidence));
-
-}
-
-async function analyzeCoin(ticker,btc){
-
-try{
-
-const k=await getKlines(ticker.symbol);
-
-if(!k || k.length<60)
-return null;
-
-const closes=k.map(x=>num(x[4]));
-const volumes=k.map(x=>num(x[5]));
-
-const price=closes[closes.length-1];
-
-const e10=ema(closes,10);
-const e20=ema(closes,20);
-const e55=ema(closes,55);
-
-const rsiValue=rsi(closes,14);
-
-const currentVol=volumes[volumes.length-1];
-
-const avgVol=
-volumes.slice(-21,-1)
-.reduce((a,b)=>a+b,0)/20;
-
-const volRatio=
-avgVol>0?currentVol/avgVol:0;
-
-const old=closes[closes.length-5];
-
-const momentum=
-old>0?((price-old)/old)*100:0;
-
-const coinChange=num(ticker.priceChangePercent);
-
-const btcStrength=coinChange-num(btc.change24h||0);
-
-let regime="RANGE";
-
-if(
-e10>e20 &&
-e20>e55 &&
-momentum>0
-){
-regime="BULL";
-}
-
-else if(
-e10<e20 &&
-e20<e55 &&
-momentum<0
-){
-regime="BEAR";
-}
-
-const scoreData=calculateScore(
-e10,
-e20,
-e55,
-rsiValue,
-volRatio,
-momentum,
+function getSignal(
+score,
+a,
 btcStrength
-);
-
-const score=scoreData.total;
-
-let signal="WATCH";
+){
 
 /*
-BUY RULE
-RSI MUST NOT BE ABOVE 55.
+IMPORTANT:
+BUY RSI MAX = 55
 */
 
 if(
 score>=80 &&
-e10>e20 &&
-e20>e55 &&
-rsiValue>=30 &&
-rsiValue<=55 &&
+a.e10>a.e20 &&
+a.e20>a.e55 &&
+a.rsi>=30 &&
+a.rsi<=55 &&
 btcStrength>0
-){
+)
+return"STRONG BUY";
 
-signal="STRONG BUY";
 
-}
-
-else if(
+if(
 score>=70 &&
-e10>e20 &&
-e20>e55 &&
-rsiValue>=30 &&
-rsiValue<=55 &&
+a.e10>a.e20 &&
+a.e20>a.e55 &&
+a.rsi>=30 &&
+a.rsi<=55 &&
 btcStrength>=0
-){
+)
+return"BUY";
 
-signal="BUY";
 
-}
-
-else if(
+if(
 score<=20 &&
-e10<e20 &&
-e20<e55 &&
-rsiValue>=30 &&
-rsiValue<=70 &&
+a.e10<a.e20 &&
+a.e20<a.e55 &&
 btcStrength<0
-){
+)
+return"STRONG SELL";
 
-signal="STRONG SELL";
 
-}
-
-else if(
+if(
 score<=30 &&
-e10<e20 &&
-e20<e55 &&
+a.e10<a.e20 &&
+a.e20<a.e55 &&
 btcStrength<=0
-){
+)
+return"SELL";
 
-signal="SELL";
+
+return"WATCH";
 
 }
 
-const levels=setupLevels(
-price,
-atr(k,14),
+
+/* =========================
+   CONFIDENCE
+========================= */
+
+function confidence(
+score,
 signal,
-score
+btcStrength,
+volRatio
+){
+
+if(signal==="WATCH")
+return 0;
+
+let c=score;
+
+if(
+(signal.includes("BUY") && btcStrength>0) ||
+(signal.includes("SELL") && btcStrength<0)
+)
+c+=5;
+
+if(volRatio>=1.1)
+c+=5;
+
+return Math.min(
+95,
+Math.round(c)
 );
 
-const confidence=
-getConfidence(
-score,
-btcStrength,
-volRatio,
+}
+
+
+/* =========================
+   MARKET
+========================= */
+
+async function market(){
+
+const[
+exchangeRes,
+tickerRes
+]=await Promise.all([
+
+fetch(
+API+"/api/v3/exchangeInfo"
+),
+
+fetch(
+API+"/api/v3/ticker/24hr"
+)
+
+]);
+
+const exchange=
+await exchangeRes.json();
+
+const tickers=
+await tickerRes.json();
+
+const valid=
+new Set(
+
+exchange.symbols
+.filter(s=>
+
+s.status==="TRADING" &&
+s.quoteAsset==="USDT" &&
+!EXCLUDED.includes(
+s.baseAsset
+)
+
+)
+.map(s=>s.symbol)
+
+);
+
+return tickers
+
+.filter(t=>
+valid.has(t.symbol) &&
+num(t.quoteVolume)>0
+)
+
+.sort(
+(a,b)=>
+num(b.quoteVolume)-
+num(a.quoteVolume)
+);
+
+}
+
+
+/* =========================
+   COIN ANALYSIS
+========================= */
+
+async function analyzeCoin(
+ticker,
+btc
+){
+
+try{
+
+const k=
+await getKlines(
+ticker.symbol,
+"15m",
+100
+);
+
+const a=
+analyzeTF(k);
+
+if(!a)
+return null;
+
+const btcStrength=
+num(ticker.priceChangePercent)-
+num(btc.change24h);
+
+const scoreData=
+calculateScore(
+a,
+btcStrength
+);
+
+const signal=
+getSignal(
+scoreData.total,
+a,
+btcStrength
+);
+
+const setup=
+makeSetup(
+a.price,
+a.atr,
 signal
+);
+
+const conf=
+confidence(
+scoreData.total,
+signal,
+btcStrength,
+a.volRatio
 );
 
 return{
 
 symbol:ticker.symbol,
-coin:ticker.symbol.replace("USDT",""),
-price,
-change24h:coinChange,
-volume:num(ticker.quoteVolume),
 
-rsi:rsiValue,
+coin:
+ticker.symbol.replace(
+"USDT",
+""
+),
 
-e10,
-e20,
-e55,
+price:a.price,
 
-volRatio,
-momentum,
+change24h:
+num(ticker.priceChangePercent),
+
+volume:
+num(ticker.quoteVolume),
+
+rsi:a.rsi,
+
+e10:a.e10,
+e20:a.e20,
+e55:a.e55,
+
+momentum:a.momentum,
+volRatio:a.volRatio,
+atr:a.atr,
+
 btcStrength,
 
-regime,
-score,
-signal,
-confidence,
+regime:a.trend,
 
-entry:levels.entry,
-tp1:levels.tp1,
-tp2:levels.tp2,
-sl:levels.sl,
-rr:levels.rr,
+score:
+scoreData.total,
+
+signal,
+
+confidence:conf,
+
+entry:setup.entry,
+tp1:setup.tp1,
+tp2:setup.tp2,
+sl:setup.sl,
+rr:setup.rr,
 
 scoreData
 
@@ -940,88 +1395,77 @@ return null;
 
 }
 
-async function market(){
 
-const [
-exchangeRes,
-tickerRes
-]=await Promise.all([
-
-fetch(API+"/api/v3/exchangeInfo"),
-fetch(API+"/api/v3/ticker/24hr")
-
-]);
-
-const exchange=await exchangeRes.json();
-const tickers=await tickerRes.json();
-
-const validSymbols=new Set(
-exchange.symbols
-.filter(s=>
-s.status==="TRADING" &&
-s.quoteAsset==="USDT" &&
-!EXCLUDED.includes(s.baseAsset)
-)
-.map(s=>s.symbol)
-);
-
-return tickers
-.filter(t=>
-validSymbols.has(t.symbol) &&
-num(t.quoteVolume)>0
-)
-.sort(
-(a,b)=>
-num(b.quoteVolume)-num(a.quoteVolume)
-);
-
-}
+/* =========================
+   RENDER TABLE
+========================= */
 
 function signalClass(signal){
 
-if(signal.includes("BUY")) return "buy";
-if(signal.includes("SELL")) return "sell";
-return "watch";
+if(signal.includes("BUY"))
+return"buy";
+
+if(signal.includes("SELL"))
+return"sell";
+
+return"watch";
 
 }
+
 
 function trendClass(trend){
 
-if(trend==="BULL") return "bull";
-if(trend==="BEAR") return "bear";
-return "range";
+if(trend==="BULL")
+return"bull";
+
+if(trend==="BEAR")
+return"bear";
+
+return"range";
 
 }
+
 
 function render(){
 
 const search=
-document.getElementById("search")
+document
+.getElementById("search")
 .value
 .trim()
 .toUpperCase();
 
-let data=allRows.filter(x=>{
+let data=
+allRows.filter(x=>{
 
-if(currentFilter==="BUY" &&
-!x.signal.includes("BUY"))
+if(
+currentFilter==="BUY" &&
+!x.signal.includes("BUY")
+)
 return false;
 
-if(currentFilter==="SELL" &&
-!x.signal.includes("SELL"))
+if(
+currentFilter==="SELL" &&
+!x.signal.includes("SELL")
+)
 return false;
 
-if(currentFilter==="WATCH" &&
-x.signal!=="WATCH")
+if(
+currentFilter==="WATCH" &&
+x.signal!=="WATCH"
+)
 return false;
 
-if(search &&
-!x.symbol.includes(search))
+if(
+search &&
+!x.symbol.includes(search)
+)
 return false;
 
 return true;
 
 });
+
 
 let html="";
 
@@ -1029,36 +1473,53 @@ for(const x of data){
 
 html+=`
 
-<tr>
+<tr onclick="openDetail('${x.symbol}')">
 
-<td class="coin">${x.coin}</td>
+<td class="coin">
+${x.coin}
+</td>
 
-<td>${fmtPrice(x.price)}</td>
+<td>
+${fmtPrice(x.price)}
+</td>
 
-<td class="${x.change24h>=0?"green":"red"}">
+<td class="${
+x.change24h>=0?"green":"red"
+}">
 ${fmtPct(x.change24h)}
 </td>
 
-<td>${fmtVol(x.volume)}</td>
+<td>
+${fmtVol(x.volume)}
+</td>
 
-<td>${x.rsi.toFixed(1)}</td>
-
-<td class="${
-x.e10>x.e20 && x.e20>x.e55
-?"green":
-x.e10<x.e20 && x.e20<x.e55
-?"red":"yellow"
-}">
-${x.e10>x.e20 && x.e20>x.e55
-?"BULL"
-:
-x.e10<x.e20 && x.e20<x.e55
-?"BEAR":"MIXED"}
+<td>
+${x.rsi?x.rsi.toFixed(1):"--"}
 </td>
 
 <td class="${
-x.btcStrength>0?"green":
-x.btcStrength<0?"red":"yellow"
+x.e10>x.e20 &&
+x.e20>x.e55
+?"green":
+x.e10<x.e20 &&
+x.e20<x.e55
+?"red":"yellow"
+}">
+${
+x.e10>x.e20 &&
+x.e20>x.e55
+?"BULL":
+x.e10<x.e20 &&
+x.e20<x.e55
+?"BEAR":"MIXED"
+}
+</td>
+
+<td class="${
+x.btcStrength>0
+?"green":
+x.btcStrength<0
+?"red":"yellow"
 }">
 ${fmtPct(x.btcStrength)}
 </td>
@@ -1077,7 +1538,9 @@ ${x.signal}
 </span>
 </td>
 
-<td>${x.entry?fmtPrice(x.entry):"--"}</td>
+<td>
+${x.entry?fmtPrice(x.entry):"--"}
+</td>
 
 <td class="green">
 ${x.tp1?fmtPrice(x.tp1):"--"}
@@ -1091,10 +1554,14 @@ ${x.tp2?fmtPrice(x.tp2):"--"}
 ${x.sl?fmtPrice(x.sl):"--"}
 </td>
 
-<td>${x.rr}</td>
+<td>
+${x.rr}
+</td>
 
 <td>
-<strong>${x.confidence}%</strong>
+<strong>
+${x.confidence?x.confidence+"%":"--"}
+</strong>
 </td>
 
 </tr>
@@ -1104,46 +1571,48 @@ ${x.sl?fmtPrice(x.sl):"--"}
 }
 
 document.getElementById("rows").innerHTML=
-html ||
-`<tr><td colspan="16" style="text-align:center">
+html||
+`
+<tr>
+<td colspan="16"
+style="text-align:center;padding:25px">
 No results
-</td></tr>`;
+</td>
+</tr>
+`;
 
 }
 
-function setFilter(filter,el){
 
-currentFilter=filter;
-
-document
-.querySelectorAll(".filter")
-.forEach(x=>x.classList.remove("active"));
-
-el.classList.add("active");
-
-render();
-
-}
+/* =========================
+   BEST SETUP
+========================= */
 
 function renderBestSetup(){
 
 const buys=
 allRows
 .filter(x=>x.signal.includes("BUY"))
-.sort((a,b)=>b.score-a.score);
+.sort(
+(a,b)=>b.score-a.score
+);
 
 const best=buys[0];
 
 if(!best){
 
-document.getElementById("bestSetup").innerHTML=
+document.getElementById(
+"bestSetup"
+).innerHTML=
 "No strong BUY setup found.";
 
 return;
 
 }
 
-document.getElementById("bestSetup").innerHTML=`
+document.getElementById(
+"bestSetup"
+).innerHTML=`
 
 <div class="setupGrid">
 
@@ -1154,48 +1623,60 @@ document.getElementById("bestSetup").innerHTML=`
 
 <div class="setupItem">
 <small>SIGNAL</small>
-<strong class="green">${best.signal}</strong>
+<strong class="green">
+${best.signal}
+</strong>
 </div>
 
 <div class="setupItem">
-<small>SYNDICATE</small>
-<strong>${best.score}/100</strong>
+<small>SCORE</small>
+<strong>
+${best.score}/100
+</strong>
 </div>
 
 <div class="setupItem">
 <small>CONFIDENCE</small>
-<strong>${best.confidence}%</strong>
+<strong>
+${best.confidence}%
+</strong>
 </div>
 
 <div class="setupItem">
 <small>ENTRY</small>
-<strong>${fmtPrice(best.entry)}</strong>
+<strong>
+${fmtPrice(best.entry)}
+</strong>
 </div>
 
 <div class="setupItem">
 <small>TP1</small>
-<strong class="green">${fmtPrice(best.tp1)}</strong>
+<strong class="green">
+${fmtPrice(best.tp1)}
+</strong>
 </div>
 
 <div class="setupItem">
 <small>TP2</small>
-<strong class="green">${fmtPrice(best.tp2)}</strong>
+<strong class="green">
+${fmtPrice(best.tp2)}
+</strong>
 </div>
 
 <div class="setupItem">
-<small>STOP LOSS</small>
-<strong class="red">${fmtPrice(best.sl)}</strong>
+<small>SL</small>
+<strong class="red">
+${fmtPrice(best.sl)}
+</strong>
 </div>
 
 </div>
 
-<div style="margin-top:12px" class="mini">
+<div style="margin-top:10px"
+class="status">
 
-Trend Score: ${best.scoreData.trendScore}/25 •
-RSI Score: ${best.scoreData.rsiScore}/20 •
-Volume Score: ${best.scoreData.volumeScore}/20 •
-Momentum: ${best.scoreData.momentumScore}/15 •
-BTC Strength: ${best.scoreData.btcScore}/20
+Click the coin row for
+5M / 15M / 1H confirmation.
 
 </div>
 
@@ -1203,107 +1684,698 @@ BTC Strength: ${best.scoreData.btcScore}/20
 
 }
 
+
+/* =========================
+   FILTER
+========================= */
+
+function setFilter(
+filter,
+el
+){
+
+currentFilter=filter;
+
+document
+.querySelectorAll(".filter")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+el.classList.add("active");
+
+render();
+
+}
+
+
+/* =========================
+   MULTI TIMEFRAME
+========================= */
+
+async function getMultiTF(symbol){
+
+const[
+k5,
+k15,
+k1h
+]=await Promise.all([
+
+getKlines(symbol,"5m",100),
+
+getKlines(symbol,"15m",100),
+
+getKlines(symbol,"1h",100)
+
+]);
+
+return{
+
+"5m":analyzeTF(k5),
+"15m":analyzeTF(k15),
+"1h":analyzeTF(k1h)
+
+};
+
+}
+
+
+/* =========================
+   FINAL MTF DECISION
+========================= */
+
+function mtfDecision(tf){
+
+const five=tf["5m"];
+const fifteen=tf["15m"];
+const one=tf["1h"];
+
+let bull=0;
+let bear=0;
+
+for(
+const x of [five,fifteen,one]
+){
+
+if(x.trend==="BULL")
+bull++;
+
+if(x.trend==="BEAR")
+bear++;
+
+}
+
+if(bull===3)
+return{
+signal:"MULTI-TIMEFRAME BULL",
+class:"green"
+};
+
+if(bear===3)
+return{
+signal:"MULTI-TIMEFRAME BEAR",
+class:"red"
+};
+
+if(bull>=2)
+return{
+signal:"BULL CONFIRMATION",
+class:"green"
+};
+
+if(bear>=2)
+return{
+signal:"BEAR CONFIRMATION",
+class:"red"
+};
+
+return{
+signal:"MIXED",
+class:"yellow"
+};
+
+}
+
+
+/* =========================
+   DETAIL MODAL
+========================= */
+
+async function openDetail(symbol){
+
+const modal=
+document.getElementById("modal");
+
+modal.style.display="block";
+
+document.getElementById(
+"detailTitle"
+).innerText=
+symbol.replace("USDT","");
+
+document.getElementById(
+"detailSub"
+).innerText=
+"5M • 15M • 1H Multi-Timeframe Analysis";
+
+document.getElementById(
+"detailContent"
+).innerHTML=
+`
+<div class="loading">
+Loading 5M / 15M / 1H...
+</div>
+`;
+
+try{
+
+const tf=
+await getMultiTF(symbol);
+
+const decision=
+mtfDecision(tf);
+
+const base=
+allRows.find(
+x=>x.symbol===symbol
+);
+
+renderDetail(
+symbol,
+tf,
+decision,
+base
+);
+
+}catch(e){
+
+document.getElementById(
+"detailContent"
+).innerHTML=
+`
+<div class="loading">
+Unable to load multi-timeframe data.
+<br><br>
+Try again in a few seconds.
+</div>
+`;
+
+}
+
+}
+
+
+function closeDetail(){
+
+document.getElementById(
+"modal"
+).style.display="none";
+
+}
+
+
+window.onclick=function(e){
+
+const modal=
+document.getElementById("modal");
+
+if(e.target===modal)
+closeDetail();
+
+}
+
+
+/* =========================
+   DETAIL RENDER
+========================= */
+
+function tfCard(title,a){
+
+return`
+
+<div class="tf">
+
+<h3>${title}</h3>
+
+<div class="tfRow">
+<span>Trend</span>
+<strong class="${trendClass(a.trend)}">
+${a.trend}
+</strong>
+</div>
+
+<div class="tfRow">
+<span>Price</span>
+<strong>
+${fmtPrice(a.price)}
+</strong>
+</div>
+
+<div class="tfRow">
+<span>RSI</span>
+<strong>
+${a.rsi.toFixed(1)}
+</strong>
+</div>
+
+<div class="tfRow">
+<span>EMA10</span>
+<strong>
+${fmtPrice(a.e10)}
+</strong>
+</div>
+
+<div class="tfRow">
+<span>EMA20</span>
+<strong>
+${fmtPrice(a.e20)}
+</strong>
+</div>
+
+<div class="tfRow">
+<span>EMA55</span>
+<strong>
+${fmtPrice(a.e55)}
+</strong>
+</div>
+
+<div class="tfRow">
+<span>Momentum</span>
+<strong class="${
+a.momentum>=0?"green":"red"
+}">
+${fmtPct(a.momentum)}
+</strong>
+</div>
+
+<div class="tfRow">
+<span>Volume Ratio</span>
+<strong>
+${a.volRatio.toFixed(2)}x
+</strong>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function renderDetail(
+symbol,
+tf,
+decision,
+base
+){
+
+const five=tf["5m"];
+const fifteen=tf["15m"];
+const one=tf["1h"];
+
+let setupHtml="";
+
+if(base && base.signal.includes("BUY")){
+
+setupHtml=`
+
+<div class="detailSetup">
+
+<h3 style="margin-top:0">
+🎯 Rule-Based Setup
+</h3>
+
+<div class="detailGrid">
+
+<div class="detailItem">
+<small>SIGNAL</small>
+<strong class="green">
+${base.signal}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>SYNDICATE</small>
+<strong>
+${base.score}/100
+</strong>
+</div>
+
+<div class="detailItem">
+<small>ENTRY</small>
+<strong>
+${fmtPrice(base.entry)}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>TP1</small>
+<strong class="green">
+${fmtPrice(base.tp1)}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>TP2</small>
+<strong class="green">
+${fmtPrice(base.tp2)}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>STOP LOSS</small>
+<strong class="red">
+${fmtPrice(base.sl)}
+</strong>
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+else if(base && base.signal.includes("SELL")){
+
+setupHtml=`
+
+<div class="detailSetup">
+
+<h3 style="margin-top:0">
+⚠️ Rule-Based Sell Setup
+</h3>
+
+<div class="detailGrid">
+
+<div class="detailItem">
+<small>SIGNAL</small>
+<strong class="red">
+${base.signal}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>SCORE</small>
+<strong>
+${base.score}/100
+</strong>
+</div>
+
+<div class="detailItem">
+<small>ENTRY</small>
+<strong>
+${fmtPrice(base.entry)}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>TP1</small>
+<strong class="green">
+${fmtPrice(base.tp1)}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>TP2</small>
+<strong class="green">
+${fmtPrice(base.tp2)}
+</strong>
+</div>
+
+<div class="detailItem">
+<small>STOP LOSS</small>
+<strong class="red">
+${fmtPrice(base.sl)}
+</strong>
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+else{
+
+setupHtml=`
+
+<div class="detailSetup">
+
+<strong>
+No final BUY/SELL setup.
+</strong>
+
+<div class="reason">
+The current 15M conditions do not satisfy
+the scanner's final entry rules.
+</div>
+
+</div>
+
+`;
+
+}
+
+
+let reason="";
+
+if(five.trend==="BULL")
+reason+="5M bullish. ";
+
+if(five.trend==="BEAR")
+reason+="5M bearish. ";
+
+if(fifteen.trend==="BULL")
+reason+="15M bullish. ";
+
+if(fifteen.trend==="BEAR")
+reason+="15M bearish. ";
+
+if(one.trend==="BULL")
+reason+="1H bullish. ";
+
+if(one.trend==="BEAR")
+reason+="1H bearish. ";
+
+if(
+five.trend==="BULL" &&
+fifteen.trend==="BULL" &&
+one.trend==="BULL"
+){
+
+reason+=
+"All three timeframes agree bullish.";
+
+}
+
+else if(
+five.trend==="BEAR" &&
+fifteen.trend==="BEAR" &&
+one.trend==="BEAR"
+){
+
+reason+=
+"All three timeframes agree bearish.";
+
+}
+
+else{
+
+reason+=
+"Timeframes are not fully aligned.";
+
+}
+
+
+document.getElementById(
+"detailContent"
+).innerHTML=`
+
+<div style="
+padding:12px;
+background:#0b1118;
+border-radius:9px;
+margin-bottom:12px
+">
+
+<div style="font-size:10px;color:#7b8898">
+MULTI-TIMEFRAME VERDICT
+</div>
+
+<div class="${decision.class}"
+style="font-size:20px;font-weight:bold;margin-top:5px">
+${decision.signal}
+</div>
+
+</div>
+
+<div class="tfGrid">
+
+${tfCard("5 MINUTES",five)}
+
+${tfCard("15 MINUTES",fifteen)}
+
+${tfCard("1 HOUR",one)}
+
+</div>
+
+${setupHtml}
+
+<div class="reason">
+
+<strong>🧠 Analysis:</strong><br>
+
+${reason}
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   MAIN SCAN
+========================= */
+
 async function scan(){
 
 try{
 
-document.getElementById("status").innerText=
+document.getElementById(
+"status"
+).innerText=
 "Loading Binance market...";
 
-const tickers=await market();
 
-document.getElementById("pairCount").innerText=
+const tickers=
+await market();
+
+document.getElementById(
+"pairCount"
+).innerText=
 tickers.length;
 
-const btc=await getBTC();
 
-const btcTicker=
-tickers.find(x=>x.symbol==="BTCUSDT");
+const btc=
+await getBTC();
 
-if(btcTicker){
-btc.change24h=num(btcTicker.priceChangePercent);
-}
 
-document.getElementById("btcPrice").innerText=
+document.getElementById(
+"btcPrice"
+).innerText=
 fmtPrice(btc.price);
 
-document.getElementById("btcMomentum").innerText=
+
+document.getElementById(
+"btcMomentum"
+).innerText=
 fmtPct(btc.momentum);
 
-document.getElementById("btcTrend").innerText=
+
+document.getElementById(
+"btcTrend"
+).innerText=
 btc.trend;
 
-document.getElementById("btcTrend").className=
-"value "+
-trendClass(btc.trend);
+
+document.getElementById(
+"btcTrend"
+).className=
+"value "+trendClass(btc.trend);
+
 
 /*
-Analyze top 80 by volume.
-All pairs remain visible.
+Only top 80 are technically analyzed
+during the main scan.
 */
 
-const candidates=tickers.slice(0,80);
+const candidates=
+tickers.slice(0,80);
 
 let analyzed=[];
 
-for(let i=0;i<candidates.length;i+=5){
 
-const batch=candidates.slice(i,i+5);
+for(
+let i=0;
+i<candidates.length;
+i+=5
+){
 
-document.getElementById("status").innerText=
-"Analyzing "+Math.min(i+5,candidates.length)+
-"/"+candidates.length+" high-volume pairs...";
+const batch=
+candidates.slice(i,i+5);
 
-const results=
+
+document.getElementById(
+"status"
+).innerText=
+"Analyzing "+
+Math.min(
+i+5,
+candidates.length
+)+
+"/"+
+candidates.length+
+"...";
+
+
+const result=
 await Promise.all(
-batch.map(x=>analyzeCoin(x,btc))
+batch.map(
+x=>analyzeCoin(x,btc)
+)
 );
 
+
 analyzed.push(
-...results.filter(Boolean)
+...result.filter(Boolean)
 );
 
 }
 
-const analyzedMap=new Map(
-analyzed.map(x=>[x.symbol,x])
+
+const map=
+new Map(
+analyzed.map(
+x=>[x.symbol,x]
+)
 );
 
-allRows=tickers.map(t=>{
 
-if(analyzedMap.has(t.symbol))
-return analyzedMap.get(t.symbol);
+allRows=
+tickers.map(t=>{
 
-/*
-Unanalyzed pairs still appear.
-*/
+if(map.has(t.symbol))
+return map.get(t.symbol);
+
 
 return{
 
 symbol:t.symbol,
-coin:t.symbol.replace("USDT",""),
-price:num(t.lastPrice),
-change24h:num(t.priceChangePercent),
-volume:num(t.quoteVolume),
+
+coin:
+t.symbol.replace("USDT",""),
+
+price:
+num(t.lastPrice),
+
+change24h:
+num(t.priceChangePercent),
+
+volume:
+num(t.quoteVolume),
 
 rsi:0,
+
 e10:0,
 e20:0,
 e55:0,
 
-volRatio:0,
 momentum:0,
-btcStrength:num(t.priceChangePercent)-num(btc.change24h||0),
+volRatio:0,
+atr:0,
+
+btcStrength:
+num(t.priceChangePercent)-
+num(btc.change24h),
 
 regime:"--",
+
 score:0,
+
 signal:"WATCH",
+
 confidence:0,
 
 entry:0,
 tp1:0,
 tp2:0,
 sl:0,
+
 rr:"--",
 
 scoreData:{
@@ -1318,78 +2390,149 @@ btcScore:0
 
 });
 
-const buyCount=
-allRows.filter(x=>x.signal.includes("BUY")).length;
 
-const sellCount=
-allRows.filter(x=>x.signal.includes("SELL")).length;
+const buys=
+allRows.filter(
+x=>x.signal.includes("BUY")
+).length;
+
+
+const sells=
+allRows.filter(
+x=>x.signal.includes("SELL")
+).length;
+
 
 const scored=
-allRows.filter(x=>x.score>0);
+allRows.filter(
+x=>x.score>0
+);
+
 
 const avg=
 scored.length
 ?
-scored.reduce((a,b)=>a+b.score,0)/scored.length
+scored.reduce(
+(a,b)=>a+b.score,0
+)/scored.length
 :0;
 
-document.getElementById("buyCount").innerText=
-buyCount;
 
-document.getElementById("sellCount").innerText=
-sellCount;
+document.getElementById(
+"buyCount"
+).innerText=
+buys;
 
-document.getElementById("avgScore").innerText=
+
+document.getElementById(
+"sellCount"
+).innerText=
+sells;
+
+
+document.getElementById(
+"avgScore"
+).innerText=
 avg.toFixed(1);
 
+
 const bull=
-allRows.filter(x=>x.regime==="BULL").length;
+allRows.filter(
+x=>x.regime==="BULL"
+).length;
+
 
 const bear=
-allRows.filter(x=>x.regime==="BEAR").length;
+allRows.filter(
+x=>x.regime==="BEAR"
+).length;
+
 
 let overall="RANGE";
 
-if(btc.trend==="BULL" && bull>bear)
+
+if(
+btc.trend==="BULL" &&
+bull>bear
+)
 overall="BULL";
 
-else if(btc.trend==="BEAR" && bear>bull)
+
+else if(
+btc.trend==="BEAR" &&
+bear>bull
+)
 overall="BEAR";
 
-document.getElementById("marketRegime").innerText=
+
+document.getElementById(
+"marketRegime"
+).innerText=
 overall;
 
-document.getElementById("marketRegime").className=
-"regimeValue "+trendClass(overall);
 
-document.getElementById("breadth").innerText=
-buyCount+" / "+sellCount;
+document.getElementById(
+"marketRegime"
+).className=
+"regimeValue "+
+trendClass(overall);
+
+
+document.getElementById(
+"breadth"
+).innerText=
+buys+" / "+sells;
+
 
 renderBestSetup();
 
 render();
 
-document.getElementById("status").innerText=
-"Updated • "+new Date().toLocaleTimeString();
+
+document.getElementById(
+"status"
+).innerText=
+"Updated • "+
+new Date().toLocaleTimeString();
+
 
 }catch(e){
 
 console.error(e);
 
-document.getElementById("status").innerText=
+document.getElementById(
+"status"
+).innerText=
 "Scan error. Tap SCAN MARKET again.";
 
 }
 
 }
 
+
+/* SEARCH */
+
 document
 .getElementById("search")
-.addEventListener("input",render);
+.addEventListener(
+"input",
+render
+);
+
+
+/* START */
 
 scan();
 
-setInterval(scan,180000);
+
+/*
+Refresh every 3 minutes.
+*/
+
+setInterval(
+scan,
+180000
+);
 
 </script>
 
