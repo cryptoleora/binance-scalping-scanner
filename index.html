@@ -29,6 +29,7 @@ body{
   border-radius:18px;
   padding:20px;
   margin-bottom:14px;
+  position:relative;
 }
 
 .header h1{
@@ -281,6 +282,100 @@ td{
   color:#6f7c8f;
 }
 
+/* MENU */
+
+.menu-wrap{
+  position:absolute;
+  top:16px;
+  right:16px;
+}
+
+.menu-btn{
+  width:42px;
+  height:42px;
+  padding:0;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+}
+
+.menu-dropdown{
+  position:absolute;
+  top:50px;
+  right:0;
+  min-width:190px;
+  background:#10151f;
+  border:1px solid #293447;
+  border-radius:14px;
+  padding:8px;
+  display:none;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  z-index:50;
+}
+
+.menu-dropdown.open{
+  display:block;
+}
+
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:11px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:14px;
+  color:#f3f5f7;
+}
+
+.menu-item:hover{
+  background:#1d2635;
+}
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(4,6,10,.72);
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding:40px 16px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.modal-overlay.open{
+  display:flex;
+}
+
+.modal-box{
+  background:#0c1119;
+  border:1px solid #293447;
+  border-radius:18px;
+  padding:18px;
+  width:100%;
+  max-width:1300px;
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+
+.modal-header h2{
+  margin:0;
+  font-size:18px;
+}
+
+.modal-close{
+  padding:8px 12px;
+  border-radius:10px;
+}
+
 @media(max-width:1000px){
   .grid{grid-template-columns:repeat(2,1fr)}
   .market-grid{grid-template-columns:1fr}
@@ -296,6 +391,7 @@ td{
   .big{font-size:18px}
   .header h1{font-size:20px}
   .regime-main{font-size:26px}
+  .menu-wrap{top:10px;right:10px}
 }
 </style>
 </head>
@@ -305,6 +401,13 @@ td{
 <div class="container">
 
 <div class="header">
+
+<div class="menu-wrap">
+<button id="menuBtn" class="menu-btn" onclick="toggleMenu(event)">☰</button>
+<div id="menuDropdown" class="menu-dropdown">
+<div class="menu-item" onclick="openHoldings()">📁 My Holdings</div>
+</div>
+</div>
 
 <h1>🧠 Q4 Crypto Market Regime Dashboard</h1>
 
@@ -676,49 +779,6 @@ ALTCOIN ENVIRONMENT
 </div>
 
 
-<!-- HOLDINGS -->
-
-<div class="section">
-💼 My Holdings
-</div>
-
-<div class="watchlist">
-
-<table>
-
-<thead>
-<tr>
-<th>RANK</th>
-<th>COIN</th>
-<th>MARKET CAP</th>
-<th>PRICE</th>
-<th>24H</th>
-<th>RSI 1H</th>
-<th>EMA20</th>
-<th>EMA55</th>
-<th>TREND</th>
-<th>VOLUME</th>
-<th>BTC RELATIVE</th>
-<th>SCORE</th>
-<th>SIGNAL</th>
-</tr>
-</thead>
-
-<tbody id="holdingsBody">
-
-<tr>
-<td colspan="13" class="loading">
-Loading holdings...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-
 <!-- WATCHLIST -->
 
 <div class="section">
@@ -846,7 +906,89 @@ Q4 Crypto Market Regime Dashboard • Public market data • No trading guarante
 </div>
 
 
+<!-- HOLDINGS MODAL (moved out of main flow, opened via top-right menu) -->
+
+<div id="holdingsOverlay" class="modal-overlay" onclick="closeHoldingsOnOverlay(event)">
+<div class="modal-box">
+
+<div class="modal-header">
+<h2>💼 My Holdings</h2>
+<button class="modal-close" onclick="closeHoldings()">✕ Close</button>
+</div>
+
+<div class="watchlist">
+
+<table>
+
+<thead>
+<tr>
+<th>RANK</th>
+<th>COIN</th>
+<th>MARKET CAP</th>
+<th>PRICE</th>
+<th>24H</th>
+<th>RSI 1H</th>
+<th>EMA20</th>
+<th>EMA55</th>
+<th>TREND</th>
+<th>VOLUME</th>
+<th>BTC RELATIVE</th>
+<th>SCORE</th>
+<th>SIGNAL</th>
+</tr>
+</thead>
+
+<tbody id="holdingsBody">
+
+<tr>
+<td colspan="13" class="loading">
+Loading holdings...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+
+
 <script>
+
+/* =========================================================
+MENU / HOLDINGS MODAL
+========================================================= */
+
+function toggleMenu(e){
+e.stopPropagation();
+$("menuDropdown").classList.toggle("open");
+}
+
+function openHoldings(){
+$("menuDropdown").classList.remove("open");
+$("holdingsOverlay").classList.add("open");
+}
+
+function closeHoldings(){
+$("holdingsOverlay").classList.remove("open");
+}
+
+function closeHoldingsOnOverlay(e){
+if(e.target.id==="holdingsOverlay"){
+closeHoldings();
+}
+}
+
+document.addEventListener("click",function(e){
+const wrap=document.querySelector(".menu-wrap");
+if(wrap && !wrap.contains(e.target)){
+$("menuDropdown").classList.remove("open");
+}
+});
+
 
 /* =========================================================
 CONFIG
