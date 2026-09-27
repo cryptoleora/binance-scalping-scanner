@@ -1,311 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Binance Spot Swing Scanner V8.2</title>
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0"
+>
+
+<title>Binance Spot Swing Scanner V8.3</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
 
 body{
-  margin:0;
-  background:#080c12;
-  color:#edf2f7;
-  font-family:Arial,sans-serif;
+margin:0;
+background:#080c12;
+color:#edf2f7;
+font-family:Arial,sans-serif;
 }
 
 .container{
-  max-width:1500px;
-  margin:auto;
-  padding:15px;
+max-width:1500px;
+margin:auto;
+padding:15px;
 }
 
 h1{
-  margin:0;
-  font-size:24px;
+margin:0;
+font-size:24px;
 }
 
 .sub{
-  color:#8491a1;
-  font-size:12px;
-  margin-top:6px;
+color:#8491a1;
+font-size:12px;
+margin-top:6px;
 }
 
 .topbar{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin:17px 0;
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin:17px 0;
 }
 
-input,button{
-  background:#111923;
-  color:#fff;
-  border:1px solid #283444;
-  border-radius:8px;
-  padding:10px 12px;
+input,
+button{
+background:#111923;
+color:#fff;
+border:1px solid #283444;
+border-radius:8px;
+padding:10px 12px;
 }
 
 button{
-  cursor:pointer;
+cursor:pointer;
 }
 
 button:hover{
-  background:#192535;
+background:#192535;
 }
 
 .primary{
-  background:#146c43;
-  border-color:#228b58;
+background:#146c43;
+border-color:#228b58;
 }
 
 .search{
-  flex:1;
-  min-width:190px;
+flex:1;
+min-width:190px;
 }
 
 .status{
-  background:#101721;
-  border:1px solid #202b39;
-  border-radius:9px;
-  padding:11px;
-  margin-bottom:13px;
-  color:#aab5c2;
-  font-size:12px;
+background:#101721;
+border:1px solid #202b39;
+border-radius:9px;
+padding:11px;
+margin-bottom:13px;
+color:#aab5c2;
+font-size:12px;
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:9px;
-  margin-bottom:15px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:9px;
+margin-bottom:15px;
 }
 
 .card{
-  background:#0f151e;
-  border:1px solid #202b39;
-  border-radius:11px;
-  padding:13px;
+background:#0f151e;
+border:1px solid #202b39;
+border-radius:11px;
+padding:13px;
 }
 
 .label{
-  font-size:11px;
-  color:#7e8b9a;
+font-size:11px;
+color:#7e8b9a;
 }
 
 .value{
-  font-size:18px;
-  font-weight:bold;
-  margin-top:7px;
+font-size:18px;
+font-weight:bold;
+margin-top:7px;
 }
 
-.green{color:#3bdd82}
-.red{color:#ff687b}
-.yellow{color:#f3ce63}
-.blue{color:#64a8ff}
+.green{
+color:#3bdd82;
+}
+
+.red{
+color:#ff687b;
+}
+
+.yellow{
+color:#f3ce63;
+}
+
+.blue{
+color:#64a8ff;
+}
 
 .section{
-  margin-top:16px;
+margin-top:16px;
 }
 
 .title{
-  font-size:16px;
-  font-weight:bold;
-  margin-bottom:9px;
+font-size:16px;
+font-weight:bold;
+margin-bottom:9px;
 }
 
 .table-wrap{
-  overflow:auto;
-  border:1px solid #202b39;
-  border-radius:11px;
+overflow:auto;
+border:1px solid #202b39;
+border-radius:11px;
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:1550px;
+width:100%;
+border-collapse:collapse;
+min-width:1650px;
 }
 
 th{
-  background:#111923;
-  color:#8996a6;
-  padding:10px 7px;
-  font-size:10px;
-  text-align:left;
-  white-space:nowrap;
+background:#111923;
+color:#8996a6;
+padding:10px 7px;
+font-size:10px;
+text-align:left;
+white-space:nowrap;
 }
 
 td{
-  border-top:1px solid #1b2530;
-  padding:9px 7px;
-  font-size:11px;
-  white-space:nowrap;
+border-top:1px solid #1b2530;
+padding:9px 7px;
+font-size:11px;
+white-space:nowrap;
 }
 
 tr:hover{
-  background:#101923;
+background:#101923;
 }
 
 .coin{
-  font-weight:bold;
+font-weight:bold;
 }
 
 .badge{
-  display:inline-block;
-  border-radius:6px;
-  padding:4px 7px;
-  font-size:9px;
-  font-weight:bold;
+display:inline-block;
+border-radius:6px;
+padding:4px 7px;
+font-size:9px;
+font-weight:bold;
 }
 
 .buy{
-  background:#103b29;
-  color:#55e392;
+background:#103b29;
+color:#55e392;
 }
 
 .strong{
-  background:#075f3a;
-  color:#6ff0a5;
+background:#075f3a;
+color:#6ff0a5;
 }
 
 .watch{
-  background:#493a0b;
-  color:#f5d46c;
+background:#493a0b;
+color:#f5d46c;
 }
 
 .no{
-  background:#351923;
-  color:#ff7889;
+background:#351923;
+color:#ff7889;
 }
 
 .neutral{
-  background:#202a35;
-  color:#aeb8c4;
+background:#202a35;
+color:#aeb8c4;
 }
 
 .monitor{
-  background:#173658;
-  border-color:#2b6096;
-  padding:6px 8px;
-  font-size:10px;
+background:#173658;
+border-color:#2b6096;
+padding:6px 8px;
+font-size:10px;
 }
 
 .small{
-  font-size:10px;
-  color:#7f8c9b;
+font-size:10px;
+color:#7f8c9b;
+white-space:normal;
+}
+
+.reason{
+max-width:330px;
+white-space:normal;
+line-height:1.4;
 }
 
 .detail{
-  display:none;
-  margin-top:15px;
-  background:#0e151e;
-  border:1px solid #273343;
-  border-radius:13px;
-  padding:15px;
+display:none;
+margin-top:15px;
+background:#0e151e;
+border:1px solid #273343;
+border-radius:13px;
+padding:15px;
 }
 
 .detail-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
 }
 
 .metric{
-  background:#111923;
-  border-radius:8px;
-  padding:10px;
+background:#111923;
+border-radius:8px;
+padding:10px;
 }
 
 .metric span{
-  display:block;
-  color:#7d8a99;
-  font-size:10px;
-  margin-bottom:5px;
+display:block;
+color:#7d8a99;
+font-size:10px;
+margin-bottom:5px;
 }
 
 .metric strong{
-  font-size:13px;
+font-size:13px;
 }
 
 .close{
-  float:right;
-  background:#321923;
+float:right;
+background:#321923;
 }
 
 .monitor-card{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  background:#111923;
-  border:1px solid #202b39;
-  padding:10px;
-  border-radius:8px;
-  margin-bottom:7px;
+display:flex;
+justify-content:space-between;
+gap:10px;
+align-items:center;
+background:#111923;
+border:1px solid #202b39;
+padding:10px;
+border-radius:8px;
+margin-bottom:7px;
 }
 
 .progress{
-  height:6px;
-  background:#202a35;
-  border-radius:8px;
-  margin-top:7px;
-  overflow:hidden;
+height:6px;
+background:#202a35;
+border-radius:8px;
+margin-top:7px;
+overflow:hidden;
 }
 
 .progress-bar{
-  height:100%;
-  background:#36d17f;
+height:100%;
+background:#36d17f;
 }
 
 .reason-box{
-  margin-top:8px;
-  padding:8px;
-  background:#111923;
-  border-radius:7px;
-  color:#9da9b7;
-  white-space:normal;
-  max-width:400px;
+margin-top:8px;
+padding:9px;
+background:#111923;
+border-radius:7px;
+color:#9da9b7;
+white-space:normal;
+line-height:1.5;
 }
 
 .footer{
-  margin-top:20px;
-  color:#667484;
-  font-size:10px;
-  line-height:1.6;
+margin-top:20px;
+color:#667484;
+font-size:10px;
+line-height:1.6;
 }
 
 @media(max-width:900px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
 
-  .detail-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.detail-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
 }
 
 @media(max-width:550px){
-  .grid{
-    grid-template-columns:1fr 1fr;
-  }
 
-  .detail-grid{
-    grid-template-columns:1fr 1fr;
-  }
+.grid{
+grid-template-columns:1fr 1fr;
 }
+
+.detail-grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🟢 Binance Spot Swing Scanner V8.2</h1>
+<h1>
+🟢 Binance Spot Swing Scanner V8.3
+</h1>
 
 <div class="sub">
-BUY-only • 1D + 4H + 1H • 2–7 day Spot Swing
+BUY-only • 1D + 4H + 1H • 2–7 Day Spot Swing
 </div>
+
 
 <div class="topbar">
 
@@ -315,9 +352,14 @@ class="search"
 placeholder="Search NEAR, SEI, CORE..."
 >
 
-<button onclick="searchCoin()">Search</button>
+<button onclick="searchCoin()">
+Search
+</button>
 
-<button class="primary" onclick="scanMarket()">
+<button
+class="primary"
+onclick="scanMarket()"
+>
 🔄 Scan Market
 </button>
 
@@ -327,36 +369,97 @@ placeholder="Search NEAR, SEI, CORE..."
 
 </div>
 
-<div id="status" class="status">
+
+<div
+id="status"
+class="status"
+>
 Press Scan Market.
 </div>
 
+
 <div class="grid">
 
-<div class="card">
-<div class="label">BTC 1D</div>
-<div id="btc1d" class="value">--</div>
-</div>
 
 <div class="card">
-<div class="label">BTC 4H</div>
-<div id="btc4h" class="value">--</div>
+
+<div class="label">
+BTC 1D
 </div>
 
-<div class="card">
-<div class="label">Market Regime</div>
-<div id="regime" class="value">--</div>
+<div
+id="btc1d"
+class="value"
+>
+--
 </div>
 
-<div class="card">
-<div class="label">BUY Candidates</div>
-<div id="buyCount" class="value">--</div>
 </div>
 
+
 <div class="card">
-<div class="label">WATCH Candidates</div>
-<div id="watchCount" class="value">--</div>
+
+<div class="label">
+BTC 4H
 </div>
+
+<div
+id="btc4h"
+class="value"
+>
+--
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Market Regime
+</div>
+
+<div
+id="regime"
+class="value"
+>
+--
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+BUY Candidates
+</div>
+
+<div
+id="buyCount"
+class="value"
+>
+--
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+WATCH Candidates
+</div>
+
+<div
+id="watchCount"
+class="value"
+>
+--
+</div>
+
+</div>
+
 
 </div>
 
@@ -367,6 +470,7 @@ Press Scan Market.
 🔥 Spot Swing Opportunities
 </div>
 
+
 <div class="table-wrap">
 
 <table>
@@ -374,34 +478,59 @@ Press Scan Market.
 <thead>
 
 <tr>
+
 <th>#</th>
+
 <th>Coin</th>
+
 <th>Score</th>
+
 <th>Status</th>
+
 <th>Setup</th>
+
 <th>1D</th>
+
 <th>4H</th>
+
 <th>1H</th>
+
 <th>RSI</th>
+
 <th>Buy Zone</th>
+
 <th>TP1</th>
+
 <th>TP2</th>
+
 <th>Invalidation</th>
+
 <th>R:R</th>
+
 <th>Hold</th>
+
 <th>Why</th>
+
 <th>Monitor</th>
+
 </tr>
 
 </thead>
 
+
 <tbody id="results">
 
 <tr>
-<td colspan="17"
-style="text-align:center;padding:30px">
+
+<td
+colspan="17"
+style="text-align:center;padding:30px"
+>
+
 No scan yet
+
 </td>
+
 </tr>
 
 </tbody>
@@ -428,16 +557,22 @@ style="display:none"
 </div>
 
 
-<div id="detail" class="detail"></div>
+<div
+id="detail"
+class="detail"
+>
+</div>
 
 
 <div class="footer">
 
 Technical research scanner only.
 BUY signals do not guarantee profit.
-Spot BUY setups only. No leverage. No short signals.
+Spot BUY setups only.
+No leverage. No short signals.
 
 </div>
+
 
 </div>
 
@@ -449,9 +584,13 @@ Spot BUY setups only. No leverage. No short signals.
    CONFIG
 ===================================================== */
 
-const API="https://api.binance.com";
+const API =
+"https://api.binance.com";
 
-const EXCLUDED=new Set([
+
+const EXCLUDED =
+new Set([
+
 "USDT",
 "USDC",
 "FDUSD",
@@ -464,51 +603,72 @@ const EXCLUDED=new Set([
 "EUR",
 "WBTC",
 "WETH"
+
 ]);
 
-const MONITOR_KEY="SPOT_SWING_V82";
+
+const MONITOR_KEY =
+"SPOT_SWING_V83";
+
 
 let allSymbols=[];
+
 let tickerMap={};
+
 let currentResults=[];
+
 let btcData=null;
+
 let btcTickerPercent=0;
 
 
 /* =====================================================
-   BASIC
+   HELPERS
 ===================================================== */
 
 function setStatus(text){
-  document.getElementById("status").textContent=text;
+
+document.getElementById(
+"status"
+).textContent=text;
+
 }
 
+
 function sleep(ms){
-  return new Promise(resolve=>setTimeout(resolve,ms));
+
+return new Promise(
+resolve=>setTimeout(resolve,ms)
+);
+
 }
+
 
 function getMonitor(){
 
-  try{
+try{
 
-    return JSON.parse(
-      localStorage.getItem(MONITOR_KEY)||"[]"
-    );
+return JSON.parse(
+localStorage.getItem(
+MONITOR_KEY
+)||"[]"
+);
 
-  }catch(e){
+}catch(e){
 
-    return [];
-
-  }
+return [];
 
 }
 
+}
+
+
 function saveMonitor(data){
 
-  localStorage.setItem(
-    MONITOR_KEY,
-    JSON.stringify(data)
-  );
+localStorage.setItem(
+MONITOR_KEY,
+JSON.stringify(data)
+);
 
 }
 
@@ -519,72 +679,78 @@ function saveMonitor(data){
 
 async function api(path){
 
-  const urls=[
+const urls=[
 
-    API+path,
+API+path,
 
-    "https://api-gcp.binance.com"+path,
+"https://api-gcp.binance.com"+path,
 
-    "https://api1.binance.com"+path
+"https://api1.binance.com"+path
 
-  ];
+];
 
-  let lastError;
 
-  for(const url of urls){
+let lastError;
 
-    try{
 
-      const controller=new AbortController();
+for(const url of urls){
 
-      const timer=setTimeout(
-        ()=>controller.abort(),
-        12000
-      );
+try{
 
-      const response=await fetch(
-        url,
-        {
-          signal:controller.signal
-        }
-      );
+const controller=
+new AbortController();
 
-      clearTimeout(timer);
 
-      if(!response.ok){
+const timer=
+setTimeout(
+()=>controller.abort(),
+15000
+);
 
-        throw new Error(
-          "HTTP "+response.status
-        );
 
-      }
+const response=
+await fetch(
+url,
+{
+signal:
+controller.signal
+}
+);
 
-      const data=await response.json();
 
-      if(
-        data &&
-        data.code &&
-        data.code<0
-      ){
+clearTimeout(timer);
 
-        throw new Error(
-          data.msg||"Binance API error"
-        );
 
-      }
+if(!response.ok){
 
-      return data;
+throw new Error(
+"HTTP "+
+response.status
+);
 
-    }catch(error){
+}
 
-      lastError=error;
 
-    }
+const data=
+await response.json();
 
-  }
 
-  throw lastError||
-    new Error("Binance API unavailable");
+return data;
+
+
+}catch(error){
+
+lastError=error;
+
+}
+
+}
+
+
+throw lastError||
+new Error(
+"Binance API unavailable"
+);
 
 }
 
@@ -595,236 +761,357 @@ async function api(path){
 
 function average(values){
 
-  if(!values.length)
-    return 0;
+if(!values.length)
+return 0;
 
-  return values.reduce(
-    (a,b)=>a+b,
-    0
-  )/values.length;
+return values.reduce(
+(a,b)=>a+b,
+0
+)/values.length;
 
 }
 
 
 function ema(values,period){
 
-  if(values.length<period)
-    return null;
+if(values.length<period)
+return null;
 
-  let e=average(
-    values.slice(0,period)
-  );
 
-  const k=2/(period+1);
+let e=
+average(
+values.slice(
+0,
+period
+)
+);
 
-  for(
-    let i=period;
-    i<values.length;
-    i++
-  ){
 
-    e=
-      values[i]*k+
-      e*(1-k);
+const k=
+2/(period+1);
 
-  }
 
-  return e;
+for(
+let i=period;
+i<values.length;
+i++
+){
+
+e=
+values[i]*k+
+e*(1-k);
+
+}
+
+
+return e;
 
 }
 
 
 function rsi(values,period=14){
 
-  if(values.length<=period)
-    return 50;
+if(values.length<=period)
+return 50;
 
-  let gains=0;
-  let losses=0;
 
-  for(
-    let i=1;
-    i<=period;
-    i++
-  ){
+let gains=0;
+let losses=0;
 
-    const difference=
-      values[i]-values[i-1];
 
-    if(difference>0)
-      gains+=difference;
-    else
-      losses-=difference;
+for(
+let i=1;
+i<=period;
+i++
+){
 
-  }
+const diff=
+values[i]-
+values[i-1];
 
-  let avgGain=
-    gains/period;
 
-  let avgLoss=
-    losses/period;
+if(diff>0)
+gains+=diff;
+else
+losses-=diff;
 
-  for(
-    let i=period+1;
-    i<values.length;
-    i++
-  ){
+}
 
-    const difference=
-      values[i]-values[i-1];
 
-    const gain=
-      Math.max(difference,0);
+let avgGain=
+gains/period;
 
-    const loss=
-      Math.max(-difference,0);
 
-    avgGain=
-      (
-        avgGain*(period-1)+gain
-      )/period;
+let avgLoss=
+losses/period;
 
-    avgLoss=
-      (
-        avgLoss*(period-1)+loss
-      )/period;
 
-  }
+for(
+let i=period+1;
+i<values.length;
+i++
+){
 
-  if(avgLoss===0)
-    return 100;
+const diff=
+values[i]-
+values[i-1];
 
-  const rs=
-    avgGain/avgLoss;
 
-  return 100-
-    (100/(1+rs));
+const gain=
+Math.max(diff,0);
+
+
+const loss=
+Math.max(-diff,0);
+
+
+avgGain=
+(
+avgGain*(period-1)+
+gain
+)/period;
+
+
+avgLoss=
+(
+avgLoss*(period-1)+
+loss
+)/period;
+
+}
+
+
+if(avgLoss===0)
+return 100;
+
+
+const rs=
+avgGain/avgLoss;
+
+
+return 100-
+100/(1+rs);
 
 }
 
 
 function atr(candles,period=14){
 
-  if(candles.length<period+1)
-    return 0;
+if(candles.length<period+1)
+return 0;
 
-  const ranges=[];
 
-  for(
-    let i=1;
-    i<candles.length;
-    i++
-  ){
+const ranges=[];
 
-    const current=candles[i];
-    const previous=candles[i-1];
 
-    ranges.push(
-      Math.max(
+for(
+let i=1;
+i<candles.length;
+i++
+){
 
-        current.h-current.l,
+const current=
+candles[i];
 
-        Math.abs(
-          current.h-previous.c
-        ),
+const previous=
+candles[i-1];
 
-        Math.abs(
-          current.l-previous.c
-        )
 
-      )
-    );
+ranges.push(
 
-  }
+Math.max(
 
-  return average(
-    ranges.slice(-period)
-  );
+current.h-current.l,
+
+Math.abs(
+current.h-
+previous.c
+),
+
+Math.abs(
+current.l-
+previous.c
+)
+
+)
+
+);
+
+}
+
+
+return average(
+ranges.slice(-period)
+);
 
 }
 
 
 function volumeRatio(candles){
 
-  if(candles.length<25)
-    return 1;
-
-  const latest=
-    candles.at(-1).v;
-
-  const previous=
-    candles
-    .slice(-21,-1)
-    .map(x=>x.v);
-
-  const avg=
-    average(previous);
-
-  if(!avg)
-    return 1;
-
-  return latest/avg;
-
-}
+if(candles.length<25)
+return 1;
 
 
-function momentum(candles,bars=5){
+const latest=
+candles.at(-1).v;
 
-  if(candles.length<=bars)
-    return 0;
 
-  const latest=
-    candles.at(-1).c;
+const previous=
+candles
+.slice(-21,-1)
+.map(x=>x.v);
 
-  const old=
-    candles.at(-1-bars).c;
 
-  return(
-    (latest-old)/old
-  )*100;
+const avg=
+average(previous);
+
+
+if(!avg)
+return 1;
+
+
+return latest/avg;
 
 }
 
 
-function highest(candles,count){
+function momentum(
+candles,
+bars=5
+){
 
-  return Math.max(
-    ...candles
-      .slice(-count)
-      .map(x=>x.h)
-  );
+if(candles.length<=bars)
+return 0;
+
+
+const latest=
+candles.at(-1).c;
+
+
+const old=
+candles.at(-1-bars).c;
+
+
+return(
+(latest-old)/old
+)*100;
 
 }
 
 
-function lowest(candles,count){
+function highest(
+candles,
+count
+){
 
-  return Math.min(
-    ...candles
-      .slice(-count)
-      .map(x=>x.l)
-  );
+if(!candles.length)
+return 0;
+
+
+return Math.max(
+...candles
+.slice(-count)
+.map(x=>x.h)
+);
+
+}
+
+
+function lowest(
+candles,
+count
+){
+
+if(!candles.length)
+return 0;
+
+
+return Math.min(
+...candles
+.slice(-count)
+.map(x=>x.l)
+);
 
 }
 
 
 function parseKlines(raw){
 
-  return raw.map(x=>({
+return raw.map(
+x=>({
 
-    t:x[0],
+t:x[0],
 
-    o:+x[1],
+o:+x[1],
 
-    h:+x[2],
+h:+x[2],
 
-    l:+x[3],
+l:+x[3],
 
-    c:+x[4],
+c:+x[4],
 
-    v:+x[5]
+v:+x[5]
 
-  }));
+})
+);
+
+}
+
+
+/* =====================================================
+   IMPORTANT:
+   RESISTANCE FROM PREVIOUS CANDLES ONLY
+===================================================== */
+
+function nearestResistance(
+candles,
+price,
+lookback=40
+){
+
+/*
+ Do NOT include the current candle.
+ We look for previous swing highs
+ that are actually above current price.
+*/
+
+const previous=
+candles.slice(
+Math.max(
+0,
+candles.length-
+lookback-
+1
+),
+candles.length-1
+);
+
+
+const highs=
+previous
+.map(x=>x.h)
+.filter(
+h=>
+h>price*1.015
+);
+
+
+if(!highs.length){
+
+return price*1.15;
+
+}
+
+
+/*
+ Nearest meaningful resistance
+ above current price.
+*/
+
+return Math.min(
+...highs
+);
 
 }
 
@@ -835,112 +1122,156 @@ function parseKlines(raw){
 
 function analyze(candles){
 
-  const closes=
-    candles.map(x=>x.c);
+const closes=
+candles.map(x=>x.c);
 
-  const price=
-    closes.at(-1);
 
-  const ema20=
-    ema(closes,20);
+const price=
+closes.at(-1);
 
-  const ema55=
-    ema(closes,55);
 
-  const ema100=
-    ema(closes,100);
+const ema20=
+ema(
+closes,
+20
+);
 
-  const previousEma20=
-    ema(
-      closes.slice(0,-3),
-      20
-    );
 
-  const slope=
-    previousEma20
-    ?
-    (
-      (ema20-previousEma20)/
-      previousEma20
-    )*100
-    :
-    0;
+const ema55=
+ema(
+closes,
+55
+);
 
-  const R=
-    rsi(closes,14);
 
-  const A=
-    atr(candles,14);
+const ema100=
+ema(
+closes,
+100
+);
 
-  const V=
-    volumeRatio(candles);
 
-  const M=
-    momentum(candles,5);
+const previousEma20=
+ema(
+closes.slice(0,-3),
+20
+);
 
-  let trend="NEUTRAL";
 
-  if(
-    price>ema20 &&
-    ema20>ema55 &&
-    ema55>ema100
-  ){
+const slope=
+previousEma20
+?
+(
+(ema20-previousEma20)/
+previousEma20
+)*100
+:
+0;
 
-    trend="BULLISH";
 
-  }
-  else if(
-    price>=ema20 &&
-    ema20>ema55
-  ){
+const R=
+rsi(
+closes,
+14
+);
 
-    trend="RECOVERY";
 
-  }
-  else if(
-    price<ema20 &&
-    ema20<ema55
-  ){
+const A=
+atr(
+candles,
+14
+);
 
-    trend="BEARISH";
 
-  }
+const V=
+volumeRatio(
+candles
+);
 
-  return{
 
-    price,
+const M=
+momentum(
+candles,
+5
+);
 
-    ema20,
 
-    ema55,
+let trend=
+"NEUTRAL";
 
-    ema100,
 
-    rsi:R,
+if(
+price>ema20 &&
+ema20>ema55 &&
+ema55>ema100
+){
 
-    atr:A,
+trend=
+"BULLISH";
 
-    volumeRatio:V,
+}
+else if(
+price>=ema20 &&
+ema20>=ema55
+){
 
-    momentum:M,
+trend=
+"RECOVERY";
 
-    slope,
+}
+else if(
+price<ema20 &&
+ema20<ema55
+){
 
-    trend,
+trend=
+"BEARISH";
 
-    resistance20:
-      highest(candles,20),
+}
 
-    resistance30:
-      highest(candles,30),
 
-    support10:
-      lowest(candles,10),
+return{
 
-    support20:
-      lowest(candles,20)
+price,
 
-  };
+ema20,
+
+ema55,
+
+ema100,
+
+rsi:R,
+
+atr:A,
+
+volumeRatio:V,
+
+momentum:M,
+
+slope,
+
+trend,
+
+resistance:
+nearestResistance(
+candles,
+price,
+40
+),
+
+support10:
+lowest(
+candles,
+10
+),
+
+support20:
+lowest(
+candles,
+20
+)
+
+};
 
 }
 
@@ -951,193 +1282,210 @@ function analyze(candles){
 
 async function getBTC(){
 
-  const daily=
-    await api(
-      "/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=150"
-    );
+const daily=
+await api(
+"/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=150"
+);
 
-  const fourHour=
-    await api(
-      "/api/v3/klines?symbol=BTCUSDT&interval=4h&limit=150"
-    );
 
-  return{
+const fourHour=
+await api(
+"/api/v3/klines?symbol=BTCUSDT&interval=4h&limit=150"
+);
 
-    d:
-      analyze(
-        parseKlines(daily)
-      ),
 
-    h4:
-      analyze(
-        parseKlines(fourHour)
-      )
+return{
 
-  };
+d:
+analyze(
+parseKlines(daily)
+),
+
+h4:
+analyze(
+parseKlines(fourHour)
+)
+
+};
 
 }
 
 
 /* =====================================================
-   LOAD SYMBOLS
+   SYMBOLS
 ===================================================== */
 
 async function loadSymbols(){
 
-  const data=
-    await api(
-      "/api/v3/exchangeInfo"
-    );
+const data=
+await api(
+"/api/v3/exchangeInfo"
+);
 
-  allSymbols=
-    data.symbols
 
-    .filter(symbol=>
+allSymbols=
+data.symbols
 
-      symbol.status==="TRADING" &&
+.filter(
+symbol=>
 
-      symbol.quoteAsset==="USDT" &&
+symbol.status==="TRADING" &&
 
-      symbol.isSpotTradingAllowed!==false &&
+symbol.quoteAsset==="USDT" &&
 
-      !EXCLUDED.has(
-        symbol.baseAsset
-      )
+symbol.isSpotTradingAllowed!==false &&
 
-    )
+!EXCLUDED.has(
+symbol.baseAsset
+)
 
-    .map(
-      symbol=>symbol.symbol
-    );
+)
+
+.map(
+symbol=>
+symbol.symbol
+);
 
 }
 
 
 /* =====================================================
-   LOAD 24H DATA
+   24H TICKERS
 ===================================================== */
 
 async function loadTickers(){
 
-  const data=
-    await api(
-      "/api/v3/ticker/24hr"
-    );
+const data=
+await api(
+"/api/v3/ticker/24hr"
+);
 
-  tickerMap={};
 
-  data.forEach(ticker=>{
+tickerMap={};
 
-    tickerMap[
-      ticker.symbol
-    ]=ticker;
 
-  });
+data.forEach(
+ticker=>{
 
-  const btc=
-    tickerMap["BTCUSDT"];
+tickerMap[
+ticker.symbol
+]=ticker;
 
-  btcTickerPercent=
-    btc
-    ?
-    +btc.priceChangePercent
-    :
-    0;
+});
+
+
+const btc=
+tickerMap[
+"BTCUSDT"
+];
+
+
+btcTickerPercent=
+btc
+?
++btc.priceChangePercent
+:
+0;
 
 }
 
 
 /* =====================================================
-   MARKET PRE-SCORE
+   MARKET CANDIDATES
 ===================================================== */
 
 function getCandidates(){
 
-  const rows=[];
-
-  for(
-    const symbol of allSymbols
-  ){
-
-    const ticker=
-      tickerMap[symbol];
-
-    if(!ticker)
-      continue;
-
-    const volume=
-      +ticker.quoteVolume||0;
-
-    const change=
-      +ticker.priceChangePercent||0;
-
-    if(volume<=0)
-      continue;
+const rows=[];
 
 
-    const liquidityScore=
-      Math.min(
-        40,
-        Math.log10(
-          volume+1
-        )*4
-      );
+for(
+const symbol of allSymbols
+){
+
+const ticker=
+tickerMap[symbol];
 
 
-    const momentumScore=
-      Math.max(
-        0,
-        Math.min(
-          25,
-          change+10
-        )
-      );
+if(!ticker)
+continue;
 
 
-    const relative=
-      change-btcTickerPercent;
+const volume=
++ticker.quoteVolume||0;
 
 
-    const relativeScore=
-      Math.max(
-        0,
-        Math.min(
-          35,
-          relative+12
-        )
-      );
+const change=
++ticker.priceChangePercent||0;
 
 
-    rows.push({
-
-      symbol,
-
-      marketScore:
-        liquidityScore+
-        momentumScore+
-        relativeScore,
-
-      volume,
-
-      change
-
-    });
-
-  }
+if(volume<=0)
+continue;
 
 
-  rows.sort(
-    (a,b)=>
-      b.marketScore-
-      a.marketScore
-  );
+const liquidity=
+Math.min(
+40,
+Math.log10(
+volume+1
+)*4
+);
 
 
-  /*
-    100 candidates
-  */
+const momentum=
+Math.max(
+0,
+Math.min(
+25,
+change+10
+)
+);
 
-  return rows.slice(0,100);
+
+const relative=
+change-
+btcTickerPercent;
+
+
+const relativeScore=
+Math.max(
+0,
+Math.min(
+35,
+relative+12
+)
+);
+
+
+rows.push({
+
+symbol,
+
+marketScore:
+liquidity+
+momentum+
+relativeScore,
+
+volume,
+
+change
+
+});
+
+}
+
+
+rows.sort(
+(a,b)=>
+b.marketScore-
+a.marketScore
+);
+
+
+return rows.slice(
+0,
+100
+);
 
 }
 
@@ -1147,749 +1495,939 @@ function getCandidates(){
 ===================================================== */
 
 function buildSetup(
-  symbol,
-  ticker,
-  d,
-  h4,
-  h1
+symbol,
+ticker,
+d,
+h4,
+h1
 ){
 
-  const price=
-    +ticker.lastPrice;
+const price=
++ticker.lastPrice;
 
 
-  let score=0;
+let score=0;
 
-  const reasons=[];
+const reasons=[];
 
-  const relative=
-    (+ticker.priceChangePercent)-
-    btcTickerPercent;
 
+/* -----------------------------------------------------
+   DAILY
+----------------------------------------------------- */
 
-  /* DAILY */
+if(
+d.trend==="BULLISH"
+){
 
-  if(d.trend==="BULLISH"){
+score+=22;
 
-    score+=22;
-    reasons.push(
-      "Daily bullish"
-    );
+reasons.push(
+"Daily bullish"
+);
 
-  }
-  else if(d.trend==="RECOVERY"){
+}
+else if(
+d.trend==="RECOVERY"
+){
 
-    score+=16;
-    reasons.push(
-      "Daily recovery"
-    );
+score+=18;
 
-  }
-  else if(
-    d.price>d.ema20 &&
-    d.ema20>d.ema55
-  ){
+reasons.push(
+"Daily recovery"
+);
 
-    score+=12;
-    reasons.push(
-      "Daily improving"
-    );
+}
+else if(
+d.price>d.ema20
+){
 
-  }
-  else{
+score+=10;
 
-    score+=4;
-    reasons.push(
-      "Daily weak"
-    );
+reasons.push(
+"Daily above EMA20"
+);
 
-  }
+}
+else{
 
+score+=2;
 
-  if(d.slope>0)
-    score+=3;
+reasons.push(
+"Daily weak"
+);
 
+}
 
-  /* 4H */
 
-  if(h4.trend==="BULLISH"){
+if(d.slope>0){
 
-    score+=18;
-    reasons.push(
-      "4H bullish"
-    );
+score+=3;
 
-  }
-  else if(h4.trend==="RECOVERY"){
+}
 
-    score+=13;
-    reasons.push(
-      "4H recovery"
-    );
 
-  }
-  else if(
-    h4.price>h4.ema20
-  ){
+/* -----------------------------------------------------
+   4H
+----------------------------------------------------- */
 
-    score+=7;
-    reasons.push(
-      "4H above EMA20"
-    );
+if(
+h4.trend==="BULLISH"
+){
 
-  }
-  else{
+score+=20;
 
-    score+=2;
-    reasons.push(
-      "4H weak"
-    );
+reasons.push(
+"4H bullish"
+);
 
-  }
+}
+else if(
+h4.trend==="RECOVERY"
+){
 
+score+=16;
 
-  /* 1H */
+reasons.push(
+"4H recovery"
+);
 
-  if(h1.trend==="BULLISH"){
+}
+else if(
+h4.price>h4.ema20
+){
 
-    score+=12;
-    reasons.push(
-      "1H bullish"
-    );
+score+=8;
 
-  }
-  else if(h1.trend==="RECOVERY"){
+reasons.push(
+"4H above EMA20"
+);
 
-    score+=10;
-    reasons.push(
-      "1H recovery"
-    );
+}
+else{
 
-  }
-  else if(
-    h1.price>h1.ema20
-  ){
+score+=1;
 
-    score+=6;
-    reasons.push(
-      "1H improving"
-    );
+reasons.push(
+"4H weak"
+);
 
-  }
-  else{
+}
 
-    score+=2;
-    reasons.push(
-      "1H weak"
-    );
 
-  }
+/* -----------------------------------------------------
+   1H
+----------------------------------------------------- */
 
+if(
+h1.trend==="BULLISH"
+){
 
-  /* RSI */
+score+=12;
 
-  if(
-    d.rsi>=42 &&
-    d.rsi<=68
-  ){
+reasons.push(
+"1H bullish"
+);
 
-    score+=5;
+}
+else if(
+h1.trend==="RECOVERY"
+){
 
-  }
-  else{
+score+=10;
 
-    reasons.push(
-      "Daily RSI outside preferred zone"
-    );
+reasons.push(
+"1H recovery"
+);
 
-  }
+}
+else if(
+h1.price>h1.ema20
+){
 
+score+=6;
 
-  if(
-    h4.rsi>=42 &&
-    h4.rsi<=70
-  ){
+}
+else{
 
-    score+=5;
+score+=1;
 
-  }
-  else{
+}
 
-    reasons.push(
-      "4H RSI outside preferred zone"
-    );
 
-  }
+/* -----------------------------------------------------
+   RSI
+----------------------------------------------------- */
 
+if(
+d.rsi>=40 &&
+d.rsi<=70
+){
 
-  if(
-    h1.rsi>=40 &&
-    h1.rsi<=68
-  ){
+score+=5;
 
-    score+=4;
+}
+else{
 
-  }
-  else{
+reasons.push(
+"Daily RSI not ideal"
+);
 
-    reasons.push(
-      "1H RSI outside preferred zone"
-    );
+}
 
-  }
 
+if(
+h4.rsi>=40 &&
+h4.rsi<=72
+){
 
-  /* MOMENTUM */
+score+=5;
 
-  if(h4.momentum>0){
+}
+else{
 
-    score+=4;
+reasons.push(
+"4H RSI not ideal"
+);
 
-  }
-  else if(h4.momentum>-1){
+}
 
-    score+=2;
 
-  }
-  else{
+if(
+h1.rsi>=38 &&
+h1.rsi<=70
+){
 
-    reasons.push(
-      "4H momentum weak"
-    );
+score+=3;
 
-  }
+}
 
 
-  if(h1.momentum>0)
-    score+=3;
+/* -----------------------------------------------------
+   MOMENTUM
+----------------------------------------------------- */
 
+if(
+h4.momentum>1
+){
 
-  /* VOLUME */
+score+=5;
 
-  if(h4.volumeRatio>=1.20){
+}
+else if(
+h4.momentum>-1
+){
 
-    score+=6;
+score+=3;
 
-    reasons.push(
-      "Volume expansion"
-    );
+}
+else{
 
-  }
-  else if(
-    h4.volumeRatio>=0.90
-  ){
+reasons.push(
+"4H momentum weak"
+);
 
-    score+=4;
+}
 
-  }
-  else if(
-    h4.volumeRatio>=0.75
-  ){
 
-    score+=2;
+if(
+h1.momentum>0
+){
 
-  }
-  else{
+score+=3;
 
-    reasons.push(
-      "Volume weak"
-    );
+}
 
-  }
 
+/* -----------------------------------------------------
+   VOLUME
+----------------------------------------------------- */
 
-  /* BTC */
+if(
+h4.volumeRatio>=1.25
+){
 
-  if(
-    btcData.d.trend==="BULLISH" &&
-    btcData.h4.trend!=="BEARISH"
-  ){
+score+=7;
 
-    score+=5;
+reasons.push(
+"Volume expansion"
+);
 
-  }
-  else if(
-    btcData.d.trend!=="BEARISH"
-  ){
+}
+else if(
+h4.volumeRatio>=0.95
+){
 
-    score+=3;
+score+=5;
 
-  }
-  else{
+}
+else if(
+h4.volumeRatio>=0.75
+){
 
-    reasons.push(
-      "BTC weak"
-    );
+score+=3;
 
-  }
+}
+else{
 
+reasons.push(
+"Low volume"
+);
 
-  /* RELATIVE STRENGTH */
+}
 
-  if(relative>=3){
 
-    score+=5;
+/* -----------------------------------------------------
+   BTC
+----------------------------------------------------- */
 
-    reasons.push(
-      "Strong vs BTC"
-    );
+if(
+btcData.d.trend==="BULLISH" &&
+btcData.h4.trend!=="BEARISH"
+){
 
-  }
-  else if(relative>=1){
+score+=5;
 
-    score+=4;
+reasons.push(
+"BTC supportive"
+);
 
-  }
-  else if(relative>=-1){
+}
+else if(
+btcData.d.trend!=="BEARISH"
+){
 
-    score+=2;
+score+=3;
 
-  }
-  else{
+}
+else{
 
-    reasons.push(
-      "Weak vs BTC"
-    );
+reasons.push(
+"BTC weak"
+);
 
-  }
+}
 
 
-  /* RESISTANCE */
+/* -----------------------------------------------------
+   RELATIVE STRENGTH
+----------------------------------------------------- */
 
-  const resistance=
-    Math.max(
-      h4.resistance20,
-      d.resistance20
-    );
+const relative=
+(+ticker.priceChangePercent)-
+btcTickerPercent;
 
-  const room=
-    ((resistance-price)/
-      price)*100;
 
+if(relative>=3){
 
-  if(room>=10){
+score+=5;
 
-    score+=7;
+reasons.push(
+"Strong vs BTC"
+);
 
-  }
-  else if(room>=7){
+}
+else if(relative>=1){
 
-    score+=6;
+score+=4;
 
-  }
-  else if(room>=5){
+}
+else if(relative>=-1){
 
-    score+=4;
+score+=2;
 
-  }
-  else if(room>=2){
+}
+else{
 
-    score+=2;
+reasons.push(
+"Weak vs BTC"
+);
 
-  }
-  else{
+}
 
-    reasons.push(
-      "Resistance too close"
-    );
 
-  }
+/* -----------------------------------------------------
+   RESISTANCE
+----------------------------------------------------- */
 
+const resistanceCandidates=[
 
-  /* EXTENSION */
+d.resistance,
 
-  const extension=
-    ((price-h4.ema20)/
-      h4.ema20)*100;
+h4.resistance
 
+]
+.filter(
+x=>
+x>price*1.015
+);
 
-  if(extension<=4){
 
-    score+=3;
+const resistance=
+resistanceCandidates.length
+?
+Math.min(
+...resistanceCandidates
+)
+:
+price*1.15;
 
-  }
-  else if(extension<=7){
 
-    score+=2;
+const room=
+(
+(resistance-price)/
+price
+)*100;
 
-  }
-  else if(extension<=10){
 
-    score+=1;
+if(room>=12){
 
-  }
-  else{
+score+=8;
 
-    reasons.push(
-      "Price overextended"
-    );
+}
+else if(room>=8){
 
-  }
+score+=6;
 
+}
+else if(room>=5){
 
-  /* SETUP TYPE */
+score+=4;
 
-  let setupType=
-    "Pullback Buy";
+}
+else if(room>=3){
 
+score+=2;
 
-  const breakout=
-    price>=
-    h4.resistance20*0.995;
+}
+else{
 
+reasons.push(
+"Resistance close"
+);
 
-  if(
-    breakout &&
-    h4.volumeRatio>=1.25 &&
-    h1.momentum>0
-  ){
+}
 
-    setupType=
-      "Breakout / Reclaim";
 
-    score+=4;
+/* -----------------------------------------------------
+   EXTENSION
+----------------------------------------------------- */
 
-    reasons.push(
-      "Breakout confirmation"
-    );
+const extension=
+(
+(price-h4.ema20)/
+h4.ema20
+)*100;
 
-  }
 
+if(extension<=4){
 
-  /* BUY ZONE */
+score+=4;
 
-  const supportCandidates=[
+}
+else if(extension<=7){
 
-    h1.ema20,
+score+=3;
 
-    h4.ema20,
+}
+else if(extension<=10){
 
-    h1.support10,
+score+=1;
 
-    h4.support20
+}
+else{
 
-  ]
-  .filter(
-    value=>
-      value>0 &&
-      value<price
-  );
+reasons.push(
+"Price extended"
+);
 
+}
 
-  const support=
-    supportCandidates.length
-    ?
-    Math.max(
-      ...supportCandidates
-    )
-    :
-    price*0.97;
 
+/* -----------------------------------------------------
+   SETUP TYPE
+----------------------------------------------------- */
 
-  const buyLow=
-    Math.max(
-      support,
-      price*0.965
-    );
+let setupType=
+"Pullback Buy";
 
 
-  const buyHigh=
-    price*1.008;
+const nearResistance=
+price>=
+resistance*0.985;
 
 
-  /* INVALIDATION */
+if(
+nearResistance &&
+h4.volumeRatio>=1.25 &&
+h1.momentum>0
+){
 
-  const structureLow=
-    Math.min(
-      h1.support10,
-      h4.support20
-    );
+setupType=
+"Breakout / Reclaim";
 
+score+=5;
 
-  const atrRisk=
-    Math.max(
-      h4.atr*1.10,
-      price*0.025
-    );
+reasons.push(
+"Breakout confirmation"
+);
 
+}
 
-  let invalidation=
-    Math.min(
-      structureLow*0.995,
-      price-atrRisk
-    );
 
+/* -----------------------------------------------------
+   SUPPORT / BUY ZONE
+----------------------------------------------------- */
 
-  if(invalidation<=0)
-    invalidation=
-      price*0.94;
+const supports=[
 
+h1.ema20,
 
-  const risk=
-    price-invalidation;
+h4.ema20,
 
+h1.support10,
 
-  const riskPct=
-    (risk/price)*100;
+h4.support20
 
+]
+.filter(
+x=>
+x>0 &&
+x<price
+);
 
-  /* TARGETS */
 
-  let tp1=
-    price+
-    Math.max(
-      risk*1.65,
-      price*0.035
-    );
+let support=
+supports.length
+?
+Math.max(
+...supports
+)
+:
+price*0.97;
 
 
-  let tp2=
-    price+
-    Math.max(
-      risk*2.45,
-      price*0.065
-    );
+/*
+ Do not put buy zone
+ unrealistically far away.
+*/
 
+support=
+Math.max(
+support,
+price*0.94
+);
 
-  if(
-    resistance>price &&
-    resistance<tp1
-  ){
 
-    tp1=
-      resistance*0.985;
+const buyLow=
+Math.max(
+support,
+price*0.965
+);
 
-  }
 
+const buyHigh=
+price*1.008;
 
-  if(tp2<=tp1){
 
-    tp2=
-      tp1*1.035;
+/* -----------------------------------------------------
+   INVALIDATION
+----------------------------------------------------- */
 
-  }
+const structureLow=
+Math.min(
+h1.support10,
+h4.support20
+);
 
 
-  const rr=
-    (tp1-price)/risk;
+const atrRisk=
+Math.max(
+h4.atr*1.10,
+price*0.025
+);
 
 
-  /* HARD FAIL */
+let invalidation=
+Math.min(
+structureLow*0.995,
+price-atrRisk
+);
 
-  const hardFail=[];
 
+if(
+!isFinite(invalidation) ||
+invalidation<=0 ||
+invalidation>=price
+){
 
-  if(d.trend==="BEARISH"){
+invalidation=
+price*0.94;
 
-    hardFail.push(
-      "Daily trend bearish"
-    );
+}
 
-  }
 
+const risk=
+price-
+invalidation;
 
-  if(h4.trend==="BEARISH"){
 
-    hardFail.push(
-      "4H trend bearish"
-    );
+const riskPct=
+(
+risk/price
+)*100;
 
-  }
 
+/* -----------------------------------------------------
+   TARGETS
+----------------------------------------------------- */
 
-  if(d.rsi>73){
+let tp1=
+price+
+Math.max(
+risk*1.60,
+price*0.035
+);
 
-    hardFail.push(
-      "Daily RSI overbought"
-    );
 
-  }
+let tp2=
+price+
+Math.max(
+risk*2.40,
+price*0.065
+);
 
 
-  if(h4.rsi>73){
+/*
+ If resistance is before TP1,
+ book TP1 slightly before resistance.
+*/
 
-    hardFail.push(
-      "4H RSI overbought"
-    );
+if(
+resistance>price &&
+resistance<tp1
+){
 
-  }
+tp1=
+resistance*0.985;
 
+}
 
-  if(room<2){
 
-    hardFail.push(
-      "Resistance too close"
-    );
+if(
+tp1<=price
+){
 
-  }
+tp1=
+price*1.035;
 
+}
 
-  if(extension>12){
 
-    hardFail.push(
-      "Price overextended"
-    );
+if(
+tp2<=tp1
+){
 
-  }
+tp2=
+tp1*1.04;
 
+}
 
-  if(riskPct>9){
 
-    hardFail.push(
-      "Risk too high"
-    );
+const rr=
+(tp1-price)/
+risk;
 
-  }
 
+/* -----------------------------------------------------
+   HARD FAIL
+----------------------------------------------------- */
 
-  /*
-    Practical BUY rule
-  */
+const hardFail=[];
 
-  const buy=
-    hardFail.length===0 &&
-    score>=64 &&
-    rr>=1.5;
 
+/*
+ Daily bearish = no swing buy.
+*/
 
-  const strongBuy=
-    hardFail.length===0 &&
-    score>=76 &&
-    rr>=1.8 &&
-    d.trend!=="BEARISH" &&
-    h4.trend!=="BEARISH";
+if(
+d.trend==="BEARISH"
+){
 
+hardFail.push(
+"Daily trend bearish"
+);
 
-  let status=
-    "NO SETUP";
+}
 
 
-  if(strongBuy){
+/*
+ 4H bearish only fails if
+ daily is not strongly bullish.
 
-    status=
-      "STRONG BUY";
+This allows some deep pullbacks
+inside a strong daily trend.
+*/
 
-  }
-  else if(buy){
+if(
+h4.trend==="BEARISH" &&
+d.trend!=="BULLISH"
+){
 
-    status=
-      "BUY";
+hardFail.push(
+"4H trend bearish"
+);
 
-  }
-  else if(score>=58){
+}
 
-    status=
-      "WATCH";
 
-  }
+if(
+d.rsi>75
+){
 
+hardFail.push(
+"Daily RSI overheated"
+);
 
-  let why="";
+}
 
 
-  if(hardFail.length){
+if(
+h4.rsi>76
+){
 
-    why=
-      hardFail[0];
+hardFail.push(
+"4H RSI overheated"
+);
 
-  }
-  else if(status==="STRONG BUY"){
+}
 
-    why=
-      "Strong multi-timeframe confirmation";
 
-  }
-  else if(status==="BUY"){
+if(
+room<2.5
+){
 
-    why=
-      "Good swing conditions";
+hardFail.push(
+"Resistance too close"
+);
 
-  }
-  else{
+}
 
-    why=
-      reasons[0]||
-      "Needs confirmation";
 
-  }
+if(
+extension>14
+){
 
+hardFail.push(
+"Price too extended"
+);
 
-  let hold=
-    "3–7 days";
+}
 
 
-  if(
-    setupType==="Breakout / Reclaim"
-  ){
+if(
+riskPct>10
+){
 
-    hold=
-      "2–5 days";
+hardFail.push(
+"Risk too high"
+);
 
-  }
+}
 
 
-  if(
-    h4.momentum>3 &&
-    h4.volumeRatio>1.3
-  ){
+/* -----------------------------------------------------
+   FINAL STATUS
+----------------------------------------------------- */
 
-    hold=
-      "2–4 days";
+const strongBuy=
+hardFail.length===0 &&
+score>=78 &&
+rr>=1.75 &&
+(
+d.trend==="BULLISH" ||
+d.trend==="RECOVERY"
+) &&
+(
+h4.trend==="BULLISH" ||
+h4.trend==="RECOVERY"
+);
 
-  }
 
+const buy=
+hardFail.length===0 &&
+score>=65 &&
+rr>=1.50 &&
+(
+d.trend==="BULLISH" ||
+d.trend==="RECOVERY"
+);
 
-  return{
 
-    symbol,
+let status=
+"NO SETUP";
 
-    price,
 
-    score:
-      Math.round(
-        Math.min(
-          100,
-          score
-        )
-      ),
+if(strongBuy){
 
-    status,
+status=
+"STRONG BUY";
 
-    setupType,
+}
+else if(buy){
 
-    why,
+status=
+"BUY";
 
-    d,
+}
+else if(
+score>=52
+){
 
-    h4,
+status=
+"WATCH";
 
-    h1,
+}
 
-    buyLow,
 
-    buyHigh,
+/* -----------------------------------------------------
+   WHY
+----------------------------------------------------- */
 
-    tp1,
+let why="";
 
-    tp2,
 
-    invalidation,
+if(hardFail.length){
 
-    riskPct,
+why=
+hardFail[0];
 
-    rr,
+}
+else if(
+status==="STRONG BUY"
+){
 
-    hold,
+why=
+"Strong multi-timeframe setup";
 
-    room,
+}
+else if(
+status==="BUY"
+){
 
-    relative,
+why=
+"Valid swing BUY conditions";
 
-    reasons,
+}
+else if(
+status==="WATCH"
+){
 
-    hardFail
+why=
+reasons[
+0
+]||
+"Needs confirmation";
 
-  };
+}
+else{
+
+why=
+reasons[
+0
+]||
+"Conditions not ready";
+
+}
+
+
+/* -----------------------------------------------------
+   HOLD
+----------------------------------------------------- */
+
+let hold=
+"3–7 days";
+
+
+if(
+setupType==="Breakout / Reclaim"
+){
+
+hold=
+"2–5 days";
+
+}
+
+
+if(
+h4.momentum>3 &&
+h4.volumeRatio>1.3
+){
+
+hold=
+"2–4 days";
+
+}
+
+
+/* -----------------------------------------------------
+   RETURN
+----------------------------------------------------- */
+
+return{
+
+symbol,
+
+price,
+
+score:
+Math.round(
+Math.min(
+100,
+score
+)
+),
+
+status,
+
+setupType,
+
+why,
+
+d,
+
+h4,
+
+h1,
+
+buyLow,
+
+buyHigh,
+
+tp1,
+
+tp2,
+
+invalidation,
+
+riskPct,
+
+rr,
+
+hold,
+
+room,
+
+relative,
+
+resistance,
+
+extension,
+
+reasons,
+
+hardFail
+
+};
 
 }
 
@@ -1898,139 +2436,146 @@ function buildSetup(
    ANALYZE SYMBOL
 ===================================================== */
 
-async function analyzeSymbol(symbol){
+async function analyzeSymbol(
+symbol
+){
 
-  try{
+try{
 
-    const ticker=
-      tickerMap[symbol];
-
-    if(!ticker)
-      return null;
-
-
-    const daily=
-      await api(
-        `/api/v3/klines?symbol=${symbol}&interval=1d&limit=150`
-      );
+const ticker=
+tickerMap[symbol];
 
 
-    const fourHour=
-      await api(
-        `/api/v3/klines?symbol=${symbol}&interval=4h&limit=150`
-      );
+if(!ticker)
+return null;
 
 
-    const oneHour=
-      await api(
-        `/api/v3/klines?symbol=${symbol}&interval=1h&limit=180`
-      );
+const daily=
+await api(
+`/api/v3/klines?symbol=${symbol}&interval=1d&limit=150`
+);
 
 
-    return buildSetup(
+const fourHour=
+await api(
+`/api/v3/klines?symbol=${symbol}&interval=4h&limit=150`
+);
 
-      symbol,
 
-      ticker,
+const oneHour=
+await api(
+`/api/v3/klines?symbol=${symbol}&interval=1h&limit=180`
+);
 
-      analyze(
-        parseKlines(daily)
-      ),
 
-      analyze(
-        parseKlines(fourHour)
-      ),
+return buildSetup(
 
-      analyze(
-        parseKlines(oneHour)
-      )
+symbol,
 
-    );
+ticker,
 
-  }
-  catch(error){
+analyze(
+parseKlines(daily)
+),
 
-    console.log(
-      "Failed:",
-      symbol,
-      error
-    );
+analyze(
+parseKlines(fourHour)
+),
 
-    return null;
+analyze(
+parseKlines(oneHour)
+)
 
-  }
+);
+
+
+}catch(error){
+
+console.log(
+"Failed:",
+symbol,
+error
+);
+
+return null;
+
+}
 
 }
 
 
 /* =====================================================
-   WORKER
+   CONCURRENT WORKERS
 ===================================================== */
 
 async function mapLimit(
-  items,
-  limit,
-  callback
+items,
+limit,
+callback
 ){
 
-  const results=
-    new Array(
-      items.length
-    );
-
-  let index=0;
+const results=
+new Array(
+items.length
+);
 
 
-  async function worker(){
-
-    while(true){
-
-      const current=index++;
-
-      if(
-        current>=items.length
-      )
-        break;
+let index=0;
 
 
-      results[current]=
-        await callback(
-          items[current]
-        );
+async function worker(){
+
+while(true){
+
+const current=
+index++;
 
 
-      await sleep(50);
-
-    }
-
-  }
-
-
-  const workers=[];
+if(
+current>=items.length
+)
+break;
 
 
-  for(
-    let i=0;
-    i<Math.min(
-      limit,
-      items.length
-    );
-    i++
-  ){
-
-    workers.push(
-      worker()
-    );
-
-  }
+results[current]=
+await callback(
+items[current]
+);
 
 
-  await Promise.all(
-    workers
-  );
+await sleep(60);
+
+}
+
+}
 
 
-  return results;
+const workers=[];
+
+
+for(
+let i=0;
+i<
+Math.min(
+limit,
+items.length
+);
+i++
+){
+
+workers.push(
+worker()
+);
+
+}
+
+
+await Promise.all(
+workers
+);
+
+
+return results;
 
 }
 
@@ -2041,258 +2586,266 @@ async function mapLimit(
 
 async function scanMarket(){
 
-  try{
+try{
 
-    document.getElementById(
-      "results"
-    ).innerHTML=
-    `<tr>
-      <td colspan="17"
-      style="text-align:center;padding:30px">
-      Scanning Binance...
-      </td>
-    </tr>`;
+document.getElementById(
+"results"
+).innerHTML=
 
+`
+<tr>
 
-    setStatus(
-      "Loading all Binance Spot symbols..."
-    );
+<td
+colspan="17"
+style="text-align:center;padding:30px"
+>
 
+Loading...
 
-    await loadSymbols();
+</td>
 
-
-    setStatus(
-      `Found ${allSymbols.length} active USDT Spot pairs. Loading market data...`
-    );
+</tr>
+`;
 
 
-    await loadTickers();
+setStatus(
+"Loading Binance Spot symbols..."
+);
 
 
-    setStatus(
-      "Checking BTC market..."
-    );
+await loadSymbols();
 
 
-    btcData=
-      await getBTC();
+setStatus(
+`Found ${allSymbols.length} active USDT Spot pairs. Loading 24H market data...`
+);
 
 
-    updateBTC();
+await loadTickers();
 
 
-    const candidates=
-      getCandidates();
+setStatus(
+"Checking BTC trend..."
+);
 
 
-    setStatus(
-      `100 liquid/strong candidates selected. Running 1D + 4H + 1H analysis...`
-    );
+btcData=
+await getBTC();
 
 
-    const results=
-      await mapLimit(
-        candidates,
-        6,
-        analyzeSymbol
-      );
+updateBTC();
 
 
-    currentResults=
-      results
-      .filter(Boolean)
-      .sort(
-        (a,b)=>{
-
-          const order={
-
-            "STRONG BUY":4,
-
-            "BUY":3,
-
-            "WATCH":2,
-
-            "NO SETUP":1
-
-          };
+const candidates=
+getCandidates();
 
 
-          if(
-            order[b.status] !==
-            order[a.status]
-          ){
-
-            return(
-              order[b.status]-
-              order[a.status]
-            );
-
-          }
+setStatus(
+`100 candidates selected. Running 1D + 4H + 1H swing analysis...`
+);
 
 
-          return(
-            b.score-a.score
-          );
-
-        }
-      );
-
-
-    renderResults();
-
-    updateMonitors();
+const results=
+await mapLimit(
+candidates,
+6,
+analyzeSymbol
+);
 
 
-    const buys=
-      currentResults.filter(
-        x=>
-          x.status==="BUY"||
-          x.status==="STRONG BUY"
-      ).length;
+currentResults=
+results
+.filter(Boolean)
+.sort(
+(a,b)=>{
+
+const order={
+
+"STRONG BUY":4,
+
+"BUY":3,
+
+"WATCH":2,
+
+"NO SETUP":1
+
+};
 
 
-    const watch=
-      currentResults.filter(
-        x=>
-          x.status==="WATCH"
-      ).length;
+if(
+order[b.status] !==
+order[a.status]
+){
+
+return
+order[b.status]-
+order[a.status];
+
+}
 
 
-    setStatus(
-      `Done • ${buys} BUY • ${watch} WATCH • ${candidates.length} technical candidates`
-    );
+return
+b.score-
+a.score;
+
+}
+);
 
 
-  }
-  catch(error){
+renderResults();
 
-    console.error(error);
+updateMonitors();
 
 
-    setStatus(
-      "Scan failed: "+
-      (
-        error.message||
-        error
-      )
-    );
+const buys=
+currentResults.filter(
+x=>
+x.status==="BUY" ||
+x.status==="STRONG BUY"
+).length;
 
-  }
+
+const watch=
+currentResults.filter(
+x=>
+x.status==="WATCH"
+).length;
+
+
+setStatus(
+`Done • ${buys} BUY • ${watch} WATCH • ${currentResults.length} analyzed`
+);
+
+
+}
+catch(error){
+
+console.error(error);
+
+
+setStatus(
+"Scan failed: "+
+(
+error.message||
+error
+)
+);
+
+}
 
 }
 
 
 /* =====================================================
-   BTC DASHBOARD
+   BTC UI
 ===================================================== */
 
 function updateBTC(){
 
-  const daily=
-    btcData.d;
+const d=
+btcData.d;
 
-  const fourHour=
-    btcData.h4;
-
-
-  const dailyElement=
-    document.getElementById(
-      "btc1d"
-    );
+const h4=
+btcData.h4;
 
 
-  const fourElement=
-    document.getElementById(
-      "btc4h"
-    );
+const dEl=
+document.getElementById(
+"btc1d"
+);
 
 
-  dailyElement.textContent=
-    daily.trend;
+const h4El=
+document.getElementById(
+"btc4h"
+);
 
 
-  fourElement.textContent=
-    fourHour.trend;
+dEl.textContent=
+d.trend;
 
 
-  dailyElement.className=
-    "value "+
-    (
-      daily.trend==="BULLISH"
-      ?
-      "green"
-      :
-      daily.trend==="BEARISH"
-      ?
-      "red"
-      :
-      "yellow"
-    );
+h4El.textContent=
+h4.trend;
 
 
-  fourElement.className=
-    "value "+
-    (
-      fourHour.trend==="BULLISH"
-      ?
-      "green"
-      :
-      fourHour.trend==="BEARISH"
-      ?
-      "red"
-      :
-      "yellow"
-    );
+dEl.className=
+"value "+
+(
+d.trend==="BULLISH"
+?
+"green"
+:
+d.trend==="BEARISH"
+?
+"red"
+:
+"yellow"
+);
 
 
-  let regime=
-    "MIXED";
+h4El.className=
+"value "+
+(
+h4.trend==="BULLISH"
+?
+"green"
+:
+h4.trend==="BEARISH"
+?
+"red"
+:
+"yellow"
+);
 
 
-  if(
-    daily.trend==="BULLISH" &&
-    fourHour.trend==="BULLISH"
-  ){
-
-    regime=
-      "RISK ON";
-
-  }
-  else if(
-    daily.trend==="BEARISH" &&
-    fourHour.trend==="BEARISH"
-  ){
-
-    regime=
-      "RISK OFF";
-
-  }
+let regime=
+"MIXED";
 
 
-  const regimeElement=
-    document.getElementById(
-      "regime"
-    );
+if(
+d.trend==="BULLISH" &&
+h4.trend==="BULLISH"
+){
+
+regime=
+"RISK ON";
+
+}
+else if(
+d.trend==="BEARISH" &&
+h4.trend==="BEARISH"
+){
+
+regime=
+"RISK OFF";
+
+}
 
 
-  regimeElement.textContent=
-    regime;
+const r=
+document.getElementById(
+"regime"
+);
 
 
-  regimeElement.className=
-    "value "+
-    (
-      regime==="RISK ON"
-      ?
-      "green"
-      :
-      regime==="RISK OFF"
-      ?
-      "red"
-      :
-      "yellow"
-    );
+r.textContent=
+regime;
+
+
+r.className=
+"value "+
+(
+regime==="RISK ON"
+?
+"green"
+:
+regime==="RISK OFF"
+?
+"red"
+:
+"yellow"
+);
 
 }
 
@@ -2303,138 +2856,173 @@ function updateBTC(){
 
 function formatPrice(value){
 
-  if(
-    value===undefined||
-    value===null||
-    !isFinite(value)
-  )
-    return"--";
+if(
+value===undefined ||
+value===null ||
+!isFinite(value)
+){
+
+return "--";
+
+}
 
 
-  if(value>=1000){
+if(value>=1000){
 
-    return value.toLocaleString(
-      undefined,
-      {
-        maximumFractionDigits:2
-      }
-    );
+return value.toLocaleString(
+undefined,
+{
+maximumFractionDigits:2
+}
+);
 
-  }
-
-
-  if(value>=1)
-    return value.toFixed(4);
+}
 
 
-  if(value>=0.01)
-    return value.toFixed(5);
+if(value>=1){
+
+return value.toFixed(4);
+
+}
 
 
-  if(value>=0.0001)
-    return value.toFixed(7);
+if(value>=0.01){
+
+return value.toFixed(5);
+
+}
 
 
-  return value.toFixed(10);
+if(value>=0.0001){
+
+return value.toFixed(7);
+
+}
+
+
+return value.toFixed(10);
 
 }
 
 
 function formatPercent(value){
 
-  if(
-    value===undefined||
-    value===null||
-    !isFinite(value)
-  )
-    return"--";
+if(
+value===undefined ||
+value===null ||
+!isFinite(value)
+){
+
+return "--";
+
+}
 
 
-  return value.toFixed(1)+"%";
+return value.toFixed(1)+"%";
 
 }
 
 
 /* =====================================================
-   BADGE
+   BADGES
 ===================================================== */
 
 function badge(status){
 
-  if(status==="STRONG BUY"){
+if(
+status==="STRONG BUY"
+){
 
-    return`
-    <span class="badge strong">
-    STRONG BUY
-    </span>`;
+return `
+<span class="badge strong">
+STRONG BUY
+</span>
+`;
 
-  }
-
-
-  if(status==="BUY"){
-
-    return`
-    <span class="badge buy">
-    BUY
-    </span>`;
-
-  }
+}
 
 
-  if(status==="WATCH"){
+if(
+status==="BUY"
+){
 
-    return`
-    <span class="badge watch">
-    WATCH
-    </span>`;
+return `
+<span class="badge buy">
+BUY
+</span>
+`;
 
-  }
+}
 
 
-  return`
-  <span class="badge no">
-  NO SETUP
-  </span>`;
+if(
+status==="WATCH"
+){
+
+return `
+<span class="badge watch">
+WATCH
+</span>
+`;
+
+}
+
+
+return `
+<span class="badge no">
+NO SETUP
+</span>
+`;
 
 }
 
 
 function trendBadge(value){
 
-  if(value==="BULLISH"){
+if(
+value==="BULLISH"
+){
 
-    return`
-    <span class="green">
-    Bullish
-    </span>`;
+return `
+<span class="green">
+Bullish
+</span>
+`;
 
-  }
-
-
-  if(value==="RECOVERY"){
-
-    return`
-    <span class="blue">
-    Recovery
-    </span>`;
-
-  }
+}
 
 
-  if(value==="BEARISH"){
+if(
+value==="RECOVERY"
+){
 
-    return`
-    <span class="red">
-    Bearish
-    </span>`;
+return `
+<span class="blue">
+Recovery
+</span>
+`;
 
-  }
+}
 
 
-  return`
-  <span class="yellow">
-  Neutral
-  </span>`;
+if(
+value==="BEARISH"
+){
+
+return `
+<span class="red">
+Bearish
+</span>
+`;
+
+}
+
+
+return `
+<span class="yellow">
+Neutral
+</span>
+`;
 
 }
 
@@ -2445,80 +3033,109 @@ function trendBadge(value){
 
 function renderResults(){
 
-  const tbody=
-    document.getElementById(
-      "results"
-    );
+const tbody=
+document.getElementById(
+"results"
+);
 
 
-  const visible=
-    currentResults
-    .filter(
-      x=>
-        x.status!=="NO SETUP"
-    )
-    .slice(
-      0,
-      25
-    );
+/*
+ Show BUY/WATCH first.
+ If none exist, show the top
+ NO SETUP candidates so we
+ can see why they failed.
+*/
+
+let visible=
+currentResults
+.filter(
+x=>
+x.status!=="NO SETUP"
+)
+.slice(
+0,
+25
+);
 
 
-  const buyCount=
-    currentResults.filter(
-      x=>
-        x.status==="BUY"||
-        x.status==="STRONG BUY"
-    ).length;
+if(!visible.length){
+
+visible=
+currentResults
+.slice(
+0,
+20
+);
+
+}
 
 
-  const watchCount=
-    currentResults.filter(
-      x=>
-        x.status==="WATCH"
-    ).length;
+const buyCount=
+currentResults.filter(
+x=>
+x.status==="BUY" ||
+x.status==="STRONG BUY"
+).length;
 
 
-  document.getElementById(
-    "buyCount"
-  ).textContent=
-    buyCount;
+const watchCount=
+currentResults.filter(
+x=>
+x.status==="WATCH"
+).length;
 
 
-  document.getElementById(
-    "watchCount"
-  ).textContent=
-    watchCount;
+document.getElementById(
+"buyCount"
+).textContent=
+buyCount;
 
 
-  if(!visible.length){
-
-    tbody.innerHTML=
-    `<tr>
-      <td colspan="17"
-      style="text-align:center;padding:30px">
-      No BUY/WATCH candidate.
-      </td>
-    </tr>`;
-
-    return;
-
-  }
+document.getElementById(
+"watchCount"
+).textContent=
+watchCount;
 
 
-  tbody.innerHTML=
-    visible.map(
-      (x,index)=>{
+if(!visible.length){
 
-        const monitored=
-          getMonitor()
-          .some(
-            m=>
-              m.symbol===
-              x.symbol
-          );
+tbody.innerHTML=
+`
+<tr>
+
+<td
+colspan="17"
+style="text-align:center;padding:30px"
+>
+
+No technical data available.
+
+</td>
+
+</tr>
+`;
+
+return;
+
+}
 
 
-        return`
+tbody.innerHTML=
+visible
+.map(
+(x,index)=>{
+
+
+const monitored=
+getMonitor()
+.some(
+m=>
+m.symbol===
+x.symbol
+);
+
+
+return `
 
 <tr
 onclick="openDetail('${x.symbol}')"
@@ -2530,22 +3147,32 @@ ${index+1}
 
 
 <td class="coin">
+
 ${x.symbol.replace(
-  "USDT",
-  ""
+"USDT",
+""
 )}
+
 </td>
 
 
 <td>
+
 <strong>
 ${x.score}
-</strong>/100
+</strong>
+
+/100
+
 </td>
 
 
 <td>
-${badge(x.status)}
+
+${badge(
+x.status
+)}
+
 </td>
 
 
@@ -2555,17 +3182,23 @@ ${x.setupType}
 
 
 <td>
-${trendBadge(x.d.trend)}
+${trendBadge(
+x.d.trend
+)}
 </td>
 
 
 <td>
-${trendBadge(x.h4.trend)}
+${trendBadge(
+x.h4.trend
+)}
 </td>
 
 
 <td>
-${trendBadge(x.h1.trend)}
+${trendBadge(
+x.h1.trend
+)}
 </td>
 
 
@@ -2575,49 +3208,84 @@ ${x.h4.rsi.toFixed(1)}
 
 
 <td>
-${formatPrice(x.buyLow)}
+
+${formatPrice(
+x.buyLow
+)}
+
 -
-${formatPrice(x.buyHigh)}
+
+${formatPrice(
+x.buyHigh
+)}
+
 </td>
 
 
 <td class="green">
-${formatPrice(x.tp1)}
+
+${formatPrice(
+x.tp1
+)}
+
 </td>
 
 
 <td class="green">
-${formatPrice(x.tp2)}
+
+${formatPrice(
+x.tp2
+)}
+
 </td>
 
 
 <td class="red">
+
 ${formatPrice(
-  x.invalidation
+x.invalidation
 )}
+
 </td>
 
 
 <td>
+
 ${x.rr.toFixed(1)}R
+
 </td>
 
 
 <td>
+
 ${x.hold}
+
 </td>
 
 
-<td>
+<td class="reason">
 
-<div class="small">
+<b>
 ${x.why}
-</div>
+</b>
 
-<div class="small">
+<br>
+
+<span class="small">
+
 Room:
-${formatPercent(x.room)}
-</div>
+${formatPercent(
+x.room
+)}
+
+•
+
+Relative:
+${formatPercent(
+x.relative
+)}
+
+</span>
 
 </td>
 
@@ -2633,23 +3301,25 @@ toggleMonitor('${x.symbol}')
 >
 
 ${
-  monitored
-  ?
-  "✓ Monitoring"
-  :
-  "＋ Monitor"
+monitored
+?
+"✓ Monitoring"
+:
+"＋ Monitor"
 }
 
 </button>
 
 </td>
 
+
 </tr>
 
 `;
 
-      }
-    ).join("");
+}
+)
+.join("");
 
 }
 
@@ -2658,111 +3328,115 @@ ${
    DETAIL
 ===================================================== */
 
-async function openDetail(symbol){
+async function openDetail(
+symbol
+){
 
-  let setup=
-    currentResults.find(
-      x=>
-        x.symbol===
-        symbol
-    );
-
-
-  if(!setup){
-
-    try{
-
-      setStatus(
-        "Analyzing "+
-        symbol+
-        "..."
-      );
+let setup=
+currentResults.find(
+x=>
+x.symbol===
+symbol
+);
 
 
-      const ticker=
-        tickerMap[symbol]||
-        await api(
-          `/api/v3/ticker/24hr?symbol=${symbol}`
-        );
+if(!setup){
+
+try{
+
+setStatus(
+"Analyzing "+
+symbol+
+"..."
+);
 
 
-      const daily=
-        await api(
-          `/api/v3/klines?symbol=${symbol}&interval=1d&limit=150`
-        );
+const ticker=
+tickerMap[symbol] ||
+await api(
+`/api/v3/ticker/24hr?symbol=${symbol}`
+);
 
 
-      const fourHour=
-        await api(
-          `/api/v3/klines?symbol=${symbol}&interval=4h&limit=150`
-        );
+const daily=
+await api(
+`/api/v3/klines?symbol=${symbol}&interval=1d&limit=150`
+);
 
 
-      const oneHour=
-        await api(
-          `/api/v3/klines?symbol=${symbol}&interval=1h&limit=180`
-        );
+const fourHour=
+await api(
+`/api/v3/klines?symbol=${symbol}&interval=4h&limit=150`
+);
 
 
-      setup=
-        buildSetup(
-
-          symbol,
-
-          ticker,
-
-          analyze(
-            parseKlines(daily)
-          ),
-
-          analyze(
-            parseKlines(fourHour)
-          ),
-
-          analyze(
-            parseKlines(oneHour)
-          )
-
-        );
+const oneHour=
+await api(
+`/api/v3/klines?symbol=${symbol}&interval=1h&limit=180`
+);
 
 
-    }
-    catch(error){
+setup=
+buildSetup(
 
-      setStatus(
-        "Could not analyze "+
-        symbol+
-        ": "+
-        error.message
-      );
+symbol,
 
-      return;
+ticker,
 
-    }
+analyze(
+parseKlines(daily)
+),
 
-  }
+analyze(
+parseKlines(fourHour)
+),
 
+analyze(
+parseKlines(oneHour)
+)
 
-  const detail=
-    document.getElementById(
-      "detail"
-    );
-
-
-  const monitored=
-    getMonitor()
-    .some(
-      m=>
-        m.symbol===
-        symbol
-    );
+);
 
 
-  detail.style.display=
-    "block";
+}
+catch(error){
+
+setStatus(
+"Could not analyze "+
+symbol+
+": "+
+error.message
+);
+
+return;
+
+}
+
+}
 
 
-  detail.innerHTML=`
+const detail=
+document.getElementById(
+"detail"
+);
+
+
+const monitored=
+getMonitor()
+.some(
+m=>
+m.symbol===
+symbol
+);
+
+
+detail.style.display=
+"block";
+
+
+detail.innerHTML=
+
+`
 
 <button
 class="close"
@@ -2778,7 +3452,9 @@ ${symbol}
 
 
 <div class="small">
+
 ${setup.why}
+
 </div>
 
 
@@ -2789,180 +3465,315 @@ ${setup.why}
 
 
 <div class="metric">
-<span>Status</span>
+
+<span>
+Status
+</span>
+
 <strong>
-${badge(setup.status)}
+${badge(
+setup.status
+)}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Score</span>
+
+<span>
+Score
+</span>
+
 <strong>
 ${setup.score}/100
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Price</span>
+
+<span>
+Current Price
+</span>
+
 <strong>
-${formatPrice(setup.price)}
+${formatPrice(
+setup.price
+)}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Setup</span>
+
+<span>
+Setup
+</span>
+
 <strong>
 ${setup.setupType}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>1D Trend</span>
+
+<span>
+1D Trend
+</span>
+
 <strong>
 ${setup.d.trend}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>1D RSI</span>
+
+<span>
+1D RSI
+</span>
+
 <strong>
 ${setup.d.rsi.toFixed(1)}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>4H Trend</span>
+
+<span>
+4H Trend
+</span>
+
 <strong>
 ${setup.h4.trend}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>4H RSI</span>
+
+<span>
+4H RSI
+</span>
+
 <strong>
 ${setup.h4.rsi.toFixed(1)}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>4H Volume</span>
+
+<span>
+4H Volume
+</span>
+
 <strong>
 ${setup.h4.volumeRatio.toFixed(2)}x
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>4H Momentum</span>
+
+<span>
+4H Momentum
+</span>
+
 <strong>
 ${formatPercent(
-  setup.h4.momentum
+setup.h4.momentum
 )}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>1H Trend</span>
+
+<span>
+1H Trend
+</span>
+
 <strong>
 ${setup.h1.trend}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>1H RSI</span>
+
+<span>
+1H RSI
+</span>
+
 <strong>
 ${setup.h1.rsi.toFixed(1)}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Buy Zone</span>
+
+<span>
+Buy Zone
+</span>
+
 <strong>
 ${formatPrice(
-  setup.buyLow
+setup.buyLow
 )}
 -
 ${formatPrice(
-  setup.buyHigh
+setup.buyHigh
 )}
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>TP1</span>
+
+<span>
+TP1
+</span>
+
 <strong class="green">
+
 ${formatPrice(
-  setup.tp1
+setup.tp1
 )}
+
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>TP2</span>
+
+<span>
+TP2
+</span>
+
 <strong class="green">
+
 ${formatPrice(
-  setup.tp2
+setup.tp2
 )}
+
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Invalidation</span>
+
+<span>
+Invalidation
+</span>
+
 <strong class="red">
+
 ${formatPrice(
-  setup.invalidation
+setup.invalidation
 )}
+
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Risk</span>
+
+<span>
+Risk
+</span>
+
 <strong>
+
 ${formatPercent(
-  setup.riskPct
+setup.riskPct
 )}
+
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>R:R</span>
+
+<span>
+R:R
+</span>
+
 <strong>
+
 ${setup.rr.toFixed(1)}R
+
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Resistance Room</span>
+
+<span>
+Resistance
+</span>
+
 <strong>
-${formatPercent(
-  setup.room
+
+${formatPrice(
+setup.resistance
 )}
+
 </strong>
+
 </div>
 
 
 <div class="metric">
-<span>Expected Hold</span>
+
+<span>
+Room
+</span>
+
 <strong>
-${setup.hold}
+
+${formatPercent(
+setup.room
+)}
+
 </strong>
+
+</div>
+
+
+<div class="metric">
+
+<span>
+Expected Hold
+</span>
+
+<strong>
+
+${setup.hold}
+
+</strong>
+
 </div>
 
 
@@ -2974,29 +3785,59 @@ ${setup.hold}
 
 <div class="reason-box">
 
-<b>Why:</b><br>
+<b>
+Analysis:
+</b>
+
+<br>
 
 ${setup.reasons.join(
-  " • "
+" • "
 )}
 
 </div>
 
 
 ${
-  setup.hardFail.length
-  ?
-  `
-  <div class="reason-box">
-  <b>Blocking conditions:</b><br>
-  ${setup.hardFail.join(
-    " • "
-  )}
-  </div>
-  `
-  :
-  ""
+setup.hardFail.length
+?
+`
+
+<div class="reason-box">
+
+<b>
+Blocking conditions:
+</b>
+
+<br>
+
+${setup.hardFail.join(
+" • "
+)}
+
+</div>
+
+`
+:
+""
 }
+
+
+<div class="reason-box">
+
+<b>
+Strategy:
+</b>
+
+<br>
+
+Buy only inside the displayed
+Buy Zone.
+TP1 is the first profit area.
+TP2 is the extended target.
+Invalidation means the setup is no longer valid.
+
+</div>
 
 
 <br>
@@ -3010,11 +3851,11 @@ toggleMonitor('${symbol}')
 >
 
 ${
-  monitored
-  ?
-  "✓ Remove From Monitor"
-  :
-  "📌 Add To Monitor"
+monitored
+?
+"✓ Remove From Monitor"
+:
+"📌 Add To Monitor"
 }
 
 </button>
@@ -3022,20 +3863,20 @@ ${
 `;
 
 
-  detail.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+detail.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
 }
 
 
 function closeDetail(){
 
-  document.getElementById(
-    "detail"
-  ).style.display=
-    "none";
+document.getElementById(
+"detail"
+).style.display=
+"none";
 
 }
 
@@ -3046,92 +3887,87 @@ function closeDetail(){
 
 async function searchCoin(){
 
-  let query=
-    document.getElementById(
-      "search"
-    )
-    .value
-    .trim()
-    .toUpperCase();
+let query=
+document.getElementById(
+"search"
+)
+.value
+.trim()
+.toUpperCase();
 
 
-  if(!query)
-    return;
+if(!query)
+return;
 
 
-  query=
-    query
-    .replace("/","")
-    .replace("-","");
+query=
+query
+.replace("/","")
+.replace("-","");
 
 
-  if(
-    !query.endsWith("USDT")
-  ){
+if(
+!query.endsWith("USDT")
+){
 
-    query+=
-      "USDT";
+query+=
+"USDT";
 
-  }
-
-
-  try{
-
-    setStatus(
-      "Checking "+
-      query+
-      "..."
-    );
+}
 
 
-    const info=
-      await api(
-        `/api/v3/exchangeInfo?symbol=${query}`
-      );
+try{
+
+setStatus(
+"Checking "+
+query+
+"..."
+);
 
 
-    /*
-      Binance can return HTTP 200
-      with empty symbols.
-    */
-
-    if(
-      !info||
-      !info.symbols||
-      !info.symbols.length||
-      info.symbols[0].status!=="TRADING"
-    ){
-
-      setStatus(
-        query+
-        " is not an active Binance Spot pair."
-      );
-
-      return;
-
-    }
+const info=
+await api(
+`/api/v3/exchangeInfo?symbol=${query}`
+);
 
 
-    await openDetail(
-      query
-    );
+if(
+!info ||
+!info.symbols ||
+!info.symbols.length ||
+info.symbols[0].status!=="TRADING"
+){
+
+setStatus(
+query+
+" is not an active Binance Spot pair."
+);
+
+return;
+
+}
 
 
-    setStatus(
-      "Showing "+
-      query
-    );
+await openDetail(
+query
+);
 
 
-  }
-  catch(error){
+setStatus(
+"Showing "+
+query
+);
 
-    setStatus(
-      "Coin not found: "+
-      query
-    );
 
-  }
+}
+catch(error){
+
+setStatus(
+"Coin not found: "+
+query
+);
+
+}
 
 }
 
@@ -3140,123 +3976,129 @@ async function searchCoin(){
    MONITOR
 ===================================================== */
 
-function toggleMonitor(symbol){
+function toggleMonitor(
+symbol
+){
 
-  let list=
-    getMonitor();
-
-
-  const index=
-    list.findIndex(
-      item=>
-        item.symbol===
-        symbol
-    );
+let list=
+getMonitor();
 
 
-  if(index>=0){
-
-    list.splice(
-      index,
-      1
-    );
-
-    saveMonitor(list);
-
-  }
-  else{
-
-    const setup=
-      currentResults.find(
-        item=>
-          item.symbol===
-          symbol
-      );
+const index=
+list.findIndex(
+item=>
+item.symbol===
+symbol
+);
 
 
-    if(!setup){
+if(index>=0){
 
-      setStatus(
-        "Scan the market first."
-      );
+list.splice(
+index,
+1
+);
 
-      return;
+saveMonitor(
+list
+);
 
-    }
+}
+else{
 
-
-    if(
-      setup.status!=="BUY" &&
-      setup.status!=="STRONG BUY"
-    ){
-
-      setStatus(
-        "Only BUY setups can be monitored."
-      );
-
-      return;
-
-    }
+const setup=
+currentResults.find(
+item=>
+item.symbol===
+symbol
+);
 
 
-    list.push({
+if(!setup){
 
-      symbol,
+setStatus(
+"Scan the market first."
+);
 
-      addedAt:
-        Date.now(),
+return;
 
-      entry:
-        setup.price,
-
-      buyLow:
-        setup.buyLow,
-
-      buyHigh:
-        setup.buyHigh,
-
-      tp1:
-        setup.tp1,
-
-      tp2:
-        setup.tp2,
-
-      invalidation:
-        setup.invalidation,
-
-      score:
-        setup.score,
-
-      setupType:
-        setup.setupType,
-
-      state:
-        "ACTIVE"
-
-    });
+}
 
 
-    saveMonitor(list);
+if(
+setup.status!=="BUY" &&
+setup.status!=="STRONG BUY"
+){
 
-  }
+setStatus(
+"Only BUY setups can be monitored."
+);
+
+return;
+
+}
 
 
-  updateMonitors();
+list.push({
 
-  renderResults();
+symbol,
+
+addedAt:
+Date.now(),
+
+entry:
+setup.price,
+
+buyLow:
+setup.buyLow,
+
+buyHigh:
+setup.buyHigh,
+
+tp1:
+setup.tp1,
+
+tp2:
+setup.tp2,
+
+invalidation:
+setup.invalidation,
+
+score:
+setup.score,
+
+setupType:
+setup.setupType,
+
+state:
+"ACTIVE"
+
+});
 
 
-  if(
-    document.getElementById(
-      "detail"
-    ).style.display!=="none"
-  ){
+saveMonitor(
+list
+);
 
-    openDetail(
-      symbol
-    );
+}
 
-  }
+
+updateMonitors();
+
+renderResults();
+
+
+if(
+document.getElementById(
+"detail"
+).style.display!=="none"
+){
+
+openDetail(
+symbol
+);
+
+}
 
 }
 
@@ -3265,92 +4107,93 @@ function toggleMonitor(symbol){
    MONITOR STATE
 ===================================================== */
 
-function getMonitorState(item){
+function getMonitorState(
+item
+){
 
-  const ticker=
-    tickerMap[
-      item.symbol
-    ];
-
-
-  if(!ticker){
-
-    return{
-
-      state:
-        "WAITING",
-
-      price:
-        null
-
-    };
-
-  }
+const ticker=
+tickerMap[
+item.symbol
+];
 
 
-  const current=
-    +ticker.lastPrice;
+if(!ticker){
+
+return{
+
+state:
+"WAITING",
+
+price:null
+
+};
+
+}
 
 
-  let state=
-    "ACTIVE";
+const current=
++ticker.lastPrice;
 
 
-  if(
-    current<=
-    item.invalidation
-  ){
-
-    state=
-      "INVALIDATED";
-
-  }
-  else if(
-    current>=
-    item.tp2
-  ){
-
-    state=
-      "TP2 HIT";
-
-  }
-  else if(
-    current>=
-    item.tp1
-  ){
-
-    state=
-      "TP1 HIT";
-
-  }
-  else if(
-    current<
-    item.entry*0.985
-  ){
-
-    state=
-      "WEAKENING";
-
-  }
-  else if(
-    current>=
-    item.entry*1.015
-  ){
-
-    state=
-      "CONFIRMED";
-
-  }
+let state=
+"ACTIVE";
 
 
-  return{
+if(
+current<=
+item.invalidation
+){
 
-    state,
+state=
+"INVALIDATED";
 
-    price:
-      current
+}
+else if(
+current>=
+item.tp2
+){
 
-  };
+state=
+"TP2 HIT";
+
+}
+else if(
+current>=
+item.tp1
+){
+
+state=
+"TP1 HIT";
+
+}
+else if(
+current<
+item.entry*0.985
+){
+
+state=
+"WEAKENING";
+
+}
+else if(
+current>=
+item.entry*1.015
+){
+
+state=
+"CONFIRMED";
+
+}
+
+
+return{
+
+state,
+
+price:
+current
+
+};
 
 }
 
@@ -3361,100 +4204,103 @@ function getMonitorState(item){
 
 function updateMonitors(){
 
-  const list=
-    getMonitor();
+const list=
+getMonitor();
 
 
-  const section=
-    document.getElementById(
-      "monitorSection"
-    );
+const section=
+document.getElementById(
+"monitorSection"
+);
 
 
-  if(!list.length){
+if(!list.length){
 
-    section.style.display=
-      "none";
+section.style.display=
+"none";
 
-    return;
+return;
 
-  }
-
-
-  section.style.display=
-    "block";
+}
 
 
-  const box=
-    document.getElementById(
-      "monitorList"
-    );
+section.style.display=
+"block";
 
 
-  box.innerHTML=
-    list.map(
-      item=>{
-
-        const state=
-          getMonitorState(
-            item
-          );
+const box=
+document.getElementById(
+"monitorList"
+);
 
 
-        let progress=0;
+box.innerHTML=
+list
+.map(
+item=>{
 
 
-        if(state.price){
-
-          progress=
-            (
-              (state.price-item.entry)/
-              (item.tp2-item.entry)
-            )*100;
+const state=
+getMonitorState(
+item
+);
 
 
-          progress=
-            Math.max(
-              0,
-              Math.min(
-                100,
-                progress
-              )
-            );
-
-        }
+let progress=0;
 
 
-        let stateClass=
-          "neutral";
+if(state.price){
+
+progress=
+(
+(state.price-item.entry)/
+(item.tp2-item.entry)
+)*100;
 
 
-        if(
-          state.state==="CONFIRMED"||
-          state.state==="TP1 HIT"||
-          state.state==="TP2 HIT"
-        ){
+progress=
+Math.max(
+0,
+Math.min(
+100,
+progress
+)
+);
 
-          stateClass=
-            "buy";
-
-        }
-
-
-        if(
-          state.state==="WEAKENING"||
-          state.state==="INVALIDATED"
-        ){
-
-          stateClass=
-            "no";
-
-        }
+}
 
 
-        return`
+let stateClass=
+"neutral";
+
+
+if(
+state.state==="CONFIRMED" ||
+state.state==="TP1 HIT" ||
+state.state==="TP2 HIT"
+){
+
+stateClass=
+"buy";
+
+}
+
+
+if(
+state.state==="WEAKENING" ||
+state.state==="INVALIDATED"
+){
+
+stateClass=
+"no";
+
+}
+
+
+return `
 
 <div class="monitor-card">
+
 
 <div>
 
@@ -3462,24 +4308,25 @@ function updateMonitors(){
 ${item.symbol}
 </strong>
 
+
 <div class="small">
 
 Entry:
 ${formatPrice(
-  item.entry
+item.entry
 )}
 
 •
 
 Now:
 ${
-  state.price
-  ?
-  formatPrice(
-    state.price
-  )
-  :
-  "--"
+state.price
+?
+formatPrice(
+state.price
+)
+:
+"--"
 }
 
 </div>
@@ -3503,8 +4350,11 @@ style="width:${progress}%"
 <span
 class="badge ${stateClass}"
 >
+
 ${state.state}
+
 </span>
+
 
 <br>
 
@@ -3528,14 +4378,17 @@ toggleMonitor('${item.symbol}')
 Remove
 </button>
 
+
 </div>
+
 
 </div>
 
 `;
 
-      }
-    ).join("");
+}
+)
+.join("");
 
 }
 
@@ -3546,98 +4399,98 @@ Remove
 
 function showMonitor(){
 
-  const section=
-    document.getElementById(
-      "monitorSection"
-    );
+const section=
+document.getElementById(
+"monitorSection"
+);
 
 
-  section.style.display=
-    section.style.display==="none"
-    ?
-    "block"
-    :
-    "none";
+section.style.display=
+section.style.display==="none"
+?
+"block"
+:
+"none";
 
 
-  updateMonitors();
+updateMonitors();
 
 }
 
 
 /* =====================================================
-   AUTO REFRESH MONITOR
+   AUTO MONITOR REFRESH
 ===================================================== */
 
 setInterval(
-  async()=>{
+async()=>{
 
-    const list=
-      getMonitor();
-
-
-    if(!list.length)
-      return;
+const list=
+getMonitor();
 
 
-    try{
-
-      const data=
-        await api(
-          "/api/v3/ticker/24hr"
-        );
+if(!list.length)
+return;
 
 
-      tickerMap={};
+try{
+
+const data=
+await api(
+"/api/v3/ticker/24hr"
+);
 
 
-      data.forEach(
-        ticker=>{
-
-          tickerMap[
-            ticker.symbol
-          ]=
-            ticker;
-
-        }
-      );
+tickerMap={};
 
 
-      updateMonitors();
+data.forEach(
+ticker=>{
 
-    }
-    catch(error){
+tickerMap[
+ticker.symbol
+]=ticker;
 
-      console.log(
-        "Monitor refresh failed"
-      );
+});
 
-    }
 
-  },
-  60000
+updateMonitors();
+
+}
+catch(error){
+
+console.log(
+"Monitor refresh failed"
+);
+
+}
+
+},
+60000
 );
 
 
 /* =====================================================
-   ENTER KEY
+   ENTER SEARCH
 ===================================================== */
 
 document
-.getElementById("search")
+.getElementById(
+"search"
+)
 .addEventListener(
-  "keydown",
-  event=>{
+"keydown",
+event=>{
 
-    if(
-      event.key==="Enter"
-    ){
+if(
+event.key==="Enter"
+){
 
-      searchCoin();
+searchCoin();
 
-    }
+}
 
-  }
+}
 );
 
 
@@ -3646,6 +4499,7 @@ document
 ===================================================== */
 
 updateMonitors();
+
 
 </script>
 
