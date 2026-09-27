@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#080b12">
 
-<title>Q4 Crypto Market Regime Dashboard</title>
+<title>Dashboard</title>
 
 <style>
 *{box-sizing:border-box}
@@ -409,7 +409,7 @@ td{
 </div>
 </div>
 
-<h1>🧠 Q4 Crypto Market Regime Dashboard</h1>
+<h1>🧠 Dashboard</h1>
 
 <p>
 Macro + BTC/ETH Technical + Liquidity + Derivatives + Altcoin Rotation
@@ -473,6 +473,128 @@ Collecting market data...
 <div class="card-title">FEAR & GREED</div>
 <div id="fearGreed" class="big loading">--</div>
 <div id="fearText" class="small">--</div>
+</div>
+
+</div>
+
+
+<!-- MARKET MODEL -->
+
+<div class="section">
+🧭 Market Model
+</div>
+
+<div class="market-grid">
+
+<div class="card">
+
+<div class="card-title">
+BTC MOMENTUM
+</div>
+
+<div id="btcMomentum" class="big">
+--
+</div>
+
+<div class="small">
+Multi-timeframe technical structure
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+LIQUIDITY SCORE
+</div>
+
+<div id="liquidityScore" class="big">
+--
+</div>
+
+<div class="bar">
+<div id="liquidityBar" class="bar-fill"></div>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+ALTCOIN ENVIRONMENT
+</div>
+
+<div id="altEnvironment" class="big">
+--
+</div>
+
+<div id="altEnvironmentDesc" class="small">
+--
+</div>
+
+</div>
+
+</div>
+
+
+<!-- LIQUIDITY -->
+
+<div class="section">
+💧 Liquidity & On-chain
+</div>
+
+<div class="market-grid">
+
+<div class="card">
+
+<div class="card-title">
+STABLECOIN LIQUIDITY
+</div>
+
+<div id="stablecoinTotal" class="big">
+--
+</div>
+
+<div id="stablecoinStatus" class="small">
+Loading...
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+BTC MARKET CAP
+</div>
+
+<div id="btcMarketCap" class="big">
+--
+</div>
+
+<div class="small">
+Estimated from total market cap × BTC dominance
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+ALT MARKET CAP
+</div>
+
+<div id="altMarketCap" class="big">
+--
+</div>
+
+<div class="small">
+Total market cap minus BTC + ETH
+</div>
+
 </div>
 
 </div>
@@ -657,128 +779,6 @@ The dashboard compares current OI with its locally stored previous readings to i
 </div>
 
 
-<!-- LIQUIDITY -->
-
-<div class="section">
-💧 Liquidity & On-chain
-</div>
-
-<div class="market-grid">
-
-<div class="card">
-
-<div class="card-title">
-STABLECOIN LIQUIDITY
-</div>
-
-<div id="stablecoinTotal" class="big">
---
-</div>
-
-<div id="stablecoinStatus" class="small">
-Loading...
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-BTC MARKET CAP
-</div>
-
-<div id="btcMarketCap" class="big">
---
-</div>
-
-<div class="small">
-Estimated from total market cap × BTC dominance
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-ALT MARKET CAP
-</div>
-
-<div id="altMarketCap" class="big">
---
-</div>
-
-<div class="small">
-Total market cap minus BTC + ETH
-</div>
-
-</div>
-
-</div>
-
-
-<!-- Q4 MODEL -->
-
-<div class="section">
-🧭 Q4 Market Model
-</div>
-
-<div class="market-grid">
-
-<div class="card">
-
-<div class="card-title">
-BTC MOMENTUM
-</div>
-
-<div id="btcMomentum" class="big">
---
-</div>
-
-<div class="small">
-Multi-timeframe technical structure
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-LIQUIDITY SCORE
-</div>
-
-<div id="liquidityScore" class="big">
---
-</div>
-
-<div class="bar">
-<div id="liquidityBar" class="bar-fill"></div>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-ALTCOIN ENVIRONMENT
-</div>
-
-<div id="altEnvironment" class="big">
---
-</div>
-
-<div id="altEnvironmentDesc" class="small">
---
-</div>
-
-</div>
-
-</div>
-
-
 <!-- WATCHLIST -->
 
 <div class="section">
@@ -823,6 +823,8 @@ Loading watchlist...
 
 
 <!-- SIGNAL LOGIC -->
+
+<div id="signalLogicSection" style="display:none">
 
 <div class="section">
 📊 Coin Signal Logic
@@ -883,6 +885,8 @@ Trend + RSI + volume + BTC relative strength + market conditions combine into a 
 40–74 = WAIT<br>
 Below 40 = AVOID
 </div>
+</div>
+
 </div>
 
 </div>
