@@ -2,293 +2,300 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#080b12">
 
 <title>Q4 Crypto Market Regime Dashboard</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#080c12;
-  color:#f4f7fb;
+  background:#080b12;
+  color:#f3f5f7;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
 .container{
-  width:100%;
-  max-width:1500px;
+  max-width:1400px;
   margin:auto;
-  padding:18px;
+  padding:16px;
 }
 
-header{
-  background:linear-gradient(135deg,#111927,#0b111c);
-  border:1px solid #202b3a;
-  border-radius:16px;
+.header{
+  background:linear-gradient(135deg,#111827,#0d1119);
+  border:1px solid #202938;
+  border-radius:18px;
   padding:20px;
-  margin-bottom:16px;
+  margin-bottom:14px;
 }
 
-header h1{
+.header h1{
   margin:0;
-  font-size:26px;
+  font-size:25px;
 }
 
-header p{
+.header p{
   margin:7px 0 0;
-  color:#8997aa;
-  font-size:14px;
-}
-
-.header-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.update{
-  margin-top:15px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#8f9bad;
+  color:#8f9aaa;
   font-size:13px;
 }
 
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
 button{
-  border:1px solid #344256;
-  background:#121b28;
+  border:1px solid #293447;
+  background:#151c28;
   color:#fff;
   padding:10px 15px;
-  border-radius:9px;
+  border-radius:10px;
   cursor:pointer;
 }
 
 button:hover{
-  background:#1a2637;
+  background:#1d2635;
 }
 
-.section-title{
-  font-size:17px;
-  font-weight:bold;
-  margin:22px 0 10px;
+.status{
+  color:#8995a7;
+  font-size:12px;
 }
 
 .regime{
-  border:1px solid #273344;
-  border-radius:14px;
-  padding:18px;
-  background:#0e151f;
-  margin-bottom:15px;
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:14px;
+  border:1px solid #293447;
+  background:#10151f;
+}
+
+.regime.green{
+  border-color:#1d9d63;
+  box-shadow:0 0 30px rgba(22,163,74,.08);
+}
+
+.regime.yellow{
+  border-color:#b78b16;
+}
+
+.regime.red{
+  border-color:#a83c3c;
+}
+
+.regime-title{
+  font-size:13px;
+  color:#9aa6b8;
+  margin-bottom:7px;
 }
 
 .regime-main{
-  font-size:24px;
-  font-weight:bold;
+  font-size:32px;
+  font-weight:800;
 }
 
 .regime-desc{
-  color:#8e9aac;
-  margin-top:8px;
-  line-height:1.6;
-  font-size:13px;
+  color:#9ba6b5;
+  margin-top:7px;
+  line-height:1.5;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:12px;
+  margin-bottom:14px;
 }
 
-.grid-3{
+.card{
+  background:#10151f;
+  border:1px solid #202938;
+  border-radius:16px;
+  padding:16px;
+}
+
+.card-title{
+  color:#8995a7;
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.big{
+  font-size:23px;
+  font-weight:800;
+}
+
+.small{
+  color:#8995a7;
+  font-size:12px;
+  margin-top:5px;
+  line-height:1.45;
+}
+
+.green-text{color:#32d583}
+.red-text{color:#ff6464}
+.yellow-text{color:#f6c84c}
+.neutral-text{color:#9ca7b7}
+
+.section{
+  margin-top:18px;
+  margin-bottom:10px;
+  font-size:17px;
+  font-weight:750;
+}
+
+.market-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
 
-.card{
-  background:#0e151f;
-  border:1px solid #202b3a;
-  border-radius:13px;
-  padding:15px;
+.metric{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid #1c2430;
 }
 
-.card-title{
-  color:#8491a3;
-  font-size:12px;
-  margin-bottom:8px;
+.metric:last-child{
+  border-bottom:0;
 }
 
-.card-value{
-  font-size:22px;
-  font-weight:bold;
+.metric span:first-child{
+  color:#8e99aa;
+  font-size:13px;
 }
 
-.card-small{
-  color:#8e9aac;
-  font-size:12px;
-  margin-top:7px;
-  line-height:1.5;
-}
-
-.up{
-  color:#20d88a;
-}
-
-.down{
-  color:#ff5364;
-}
-
-.neutral{
-  color:#ffc857;
-}
-
-.table-wrap{
-  width:100%;
-  overflow-x:auto;
-  border:1px solid #202b3a;
-  border-radius:13px;
-}
-
-table{
-  width:100%;
-  min-width:1250px;
-  border-collapse:collapse;
-  background:#0d141d;
-}
-
-th{
-  background:#111a26;
-  color:#7f8ca0;
-  font-size:11px;
-  text-align:left;
-  padding:13px 10px;
-  white-space:nowrap;
-}
-
-td{
-  padding:13px 10px;
-  border-top:1px solid #1b2634;
-  font-size:12px;
-  white-space:nowrap;
-}
-
-.coin-name{
-  font-weight:bold;
-  color:#fff;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 8px;
-  border-radius:7px;
-  font-size:10px;
-  font-weight:bold;
-}
-
-.badge-green{
-  background:#0c3327;
-  color:#39e69b;
-}
-
-.badge-yellow{
-  background:#3a3014;
-  color:#ffd35a;
-}
-
-.badge-red{
-  background:#3b1820;
-  color:#ff6372;
-}
-
-.badge-blue{
-  background:#112d45;
-  color:#62baff;
+.metric span:last-child{
+  font-weight:700;
+  text-align:right;
 }
 
 .bar{
-  height:7px;
   width:100%;
-  background:#202a37;
+  height:8px;
+  background:#1c2430;
   border-radius:20px;
   overflow:hidden;
-  margin-top:8px;
+  margin-top:9px;
 }
 
 .bar-fill{
   height:100%;
   border-radius:20px;
+  width:0%;
+  background:#32d583;
+  transition:.5s;
 }
 
-.alert{
-  margin-top:16px;
-  background:#111924;
-  border:1px solid #293548;
-  border-radius:14px;
-  padding:16px;
+.watchlist{
+  overflow-x:auto;
+  background:#10151f;
+  border:1px solid #202938;
+  border-radius:16px;
 }
 
-.alert-title{
-  font-weight:bold;
-  margin-bottom:8px;
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1200px;
 }
 
-.alert-text{
-  color:#98a4b5;
-  line-height:1.6;
+th{
+  text-align:left;
+  color:#7f8b9d;
+  font-size:11px;
+  padding:13px;
+  border-bottom:1px solid #252e3c;
+  white-space:nowrap;
+}
+
+td{
+  padding:13px;
+  border-bottom:1px solid #1b2330;
   font-size:13px;
+  white-space:nowrap;
 }
 
-footer{
-  color:#657184;
-  text-align:center;
-  padding:25px 0 10px;
+.coin{
+  font-weight:800;
+}
+
+.signal{
+  font-weight:800;
+}
+
+.buy{color:#32d583}
+.wait{color:#f6c84c}
+.avoid{color:#ff6464}
+
+.score{
+  display:inline-flex;
+  min-width:45px;
+  justify-content:center;
+  padding:5px 8px;
+  border-radius:8px;
+  background:#192130;
+}
+
+.rank{
+  color:#687487;
   font-size:11px;
 }
 
-.loading{
-  color:#748196;
-  padding:20px;
-  text-align:center;
+.alert{
+  padding:15px;
+  border-radius:13px;
+  background:#121925;
+  border:1px solid #273142;
+  color:#aab4c3;
+  line-height:1.6;
 }
 
-.error{
-  color:#ff6878;
+.info-box{
+  padding:14px;
+  border-radius:13px;
+  background:#0e141e;
+  border:1px solid #222d3d;
+  color:#9da9b9;
+  line-height:1.6;
+  font-size:12px;
+}
+
+.footer{
+  text-align:center;
+  color:#687487;
+  font-size:11px;
+  padding:25px 0 10px;
+}
+
+.loading{
+  color:#6f7c8f;
 }
 
 @media(max-width:1000px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .grid-3{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .market-grid{grid-template-columns:1fr}
 }
 
 @media(max-width:600px){
-  .container{
-    padding:10px;
+  .container{padding:10px}
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
   }
-
-  header h1{
-    font-size:21px;
-  }
-
-  .grid,
-  .grid-3{
-    grid-template-columns:1fr;
-  }
-
-  .card-value{
-    font-size:20px;
-  }
+  .card{padding:12px}
+  .big{font-size:18px}
+  .header h1{font-size:20px}
+  .regime-main{font-size:26px}
 }
 </style>
 </head>
@@ -297,283 +304,414 @@ footer{
 
 <div class="container">
 
-<header>
-  <div class="header-row">
-    <div>
-      <h1>🧠 Q4 Crypto Market Regime Dashboard</h1>
-      <p>Macro + BTC/ETH Technical + On-chain + Liquidity + Derivatives + Altcoin Rotation</p>
-    </div>
+<div class="header">
 
-    <button onclick="refreshMarket()">🔄 Refresh Market</button>
-  </div>
+<h1>🧠 Q4 Crypto Market Regime Dashboard</h1>
 
-  <div class="update">
-    Last update:
-    <span id="lastUpdate">Loading...</span>
-  </div>
-</header>
+<p>
+Macro + BTC/ETH Technical + Liquidity + Derivatives + Altcoin Rotation
+</p>
 
+<div class="topbar">
 
-<div class="section-title">Current Market Regime</div>
+<div class="status">
+Last update:
+<span id="lastUpdate">Loading...</span>
+</div>
 
-<div class="regime">
-  <div id="regimeMain" class="regime-main">
-    🟡 Loading Market Regime...
-  </div>
+<button onclick="refreshAll()">🔄 Refresh Market</button>
 
-  <div id="regimeDesc" class="regime-desc">
-    Collecting BTC, ETH, liquidity and derivatives data...
-  </div>
+</div>
 </div>
 
 
-<div class="section-title">Market Overview</div>
+<!-- REGIME -->
+
+<div id="regimeBox" class="regime yellow">
+
+<div class="regime-title">
+CURRENT MARKET REGIME
+</div>
+
+<div id="regimeMain" class="regime-main">
+🟡 LOADING
+</div>
+
+<div id="regimeDesc" class="regime-desc">
+Collecting market data...
+</div>
+
+</div>
+
+
+<!-- TOP METRICS -->
 
 <div class="grid">
 
-  <div class="card">
-    <div class="card-title">BTC Price / 24H</div>
-    <div id="btcPrice" class="card-value">--</div>
-    <div id="btcChange" class="card-small">--</div>
-  </div>
+<div class="card">
+<div class="card-title">BTC PRICE</div>
+<div id="btcPrice" class="big loading">--</div>
+<div id="btcChange" class="small">--</div>
+</div>
 
-  <div class="card">
-    <div class="card-title">ETH Price / 24H</div>
-    <div id="ethPrice" class="card-value">--</div>
-    <div id="ethChange" class="card-small">--</div>
-  </div>
+<div class="card">
+<div class="card-title">ETH PRICE</div>
+<div id="ethPrice" class="big loading">--</div>
+<div id="ethChange" class="small">--</div>
+</div>
 
-  <div class="card">
-    <div class="card-title">BTC Dominance</div>
-    <div id="btcDom" class="card-value">--</div>
-    <div class="card-small">Global market share</div>
-  </div>
+<div class="card">
+<div class="card-title">BTC DOMINANCE</div>
+<div id="btcDom" class="big loading">--</div>
+<div class="small">BTC share of total crypto market</div>
+</div>
 
-  <div class="card">
-    <div class="card-title">Fear & Greed</div>
-    <div id="fearGreed" class="card-value">--</div>
-    <div id="fearText" class="card-small">--</div>
-  </div>
+<div class="card">
+<div class="card-title">FEAR & GREED</div>
+<div id="fearGreed" class="big loading">--</div>
+<div id="fearText" class="small">--</div>
+</div>
 
 </div>
 
 
-<div class="section-title">Market Structure</div>
+<!-- MARKET STRUCTURE -->
 
-<div class="grid-3">
+<div class="section">
+📊 Market Structure
+</div>
 
-  <div class="card">
-    <div class="card-title">BTC Technical</div>
+<div class="market-grid">
 
-    <div class="card-small">
-      15M Trend:
-      <strong id="btc15m">--</strong>
-    </div>
+<div class="card">
 
-    <div class="card-small">
-      1H Trend:
-      <strong id="btc1h">--</strong>
-    </div>
+<div class="card-title">BTC TECHNICAL</div>
 
-    <div class="card-small">
-      4H Trend:
-      <strong id="btc4h">--</strong>
-    </div>
+<div class="metric">
+<span>15M Trend</span>
+<span id="btc15">--</span>
+</div>
 
-    <div class="card-small">
-      RSI 1H:
-      <strong id="btcRsi">--</strong>
-    </div>
+<div class="metric">
+<span>1H Trend</span>
+<span id="btc1h">--</span>
+</div>
 
-    <div class="card-small">
-      EMA20 / EMA55:
-      <strong id="btcEma">--</strong>
-    </div>
-  </div>
+<div class="metric">
+<span>4H Trend</span>
+<span id="btc4h">--</span>
+</div>
 
+<div class="metric">
+<span>RSI 1H</span>
+<span id="btcRsi">--</span>
+</div>
 
-  <div class="card">
-    <div class="card-title">BTC Levels</div>
+<div class="metric">
+<span>EMA20 / EMA55</span>
+<span id="btcEma">--</span>
+</div>
 
-    <div class="card-small">
-      Current:
-      <strong id="btcLevelCurrent">--</strong>
-    </div>
-
-    <div class="card-small">
-      Resistance:
-      <strong id="btcResistance">--</strong>
-    </div>
-
-    <div class="card-small">
-      Support 1:
-      <strong id="btcSupport1">--</strong>
-    </div>
-
-    <div class="card-small">
-      Support 2:
-      <strong id="btcSupport2">--</strong>
-    </div>
-
-    <div class="card-small">
-      Position:
-      <strong id="btcPosition">--</strong>
-    </div>
-  </div>
-
-
-  <div class="card">
-    <div class="card-title">Alt Rotation</div>
-
-    <div class="card-small">
-      ETH/BTC:
-      <strong id="ethbtc">--</strong>
-    </div>
-
-    <div class="card-small">
-      ETH/BTC 24H:
-      <strong id="ethbtcChange">--</strong>
-    </div>
-
-    <div class="card-small">
-      Alt Market Direction:
-      <strong id="altDirection">--</strong>
-    </div>
-
-    <div class="card-small">
-      Rotation Score:
-      <strong id="rotationScore">--</strong>/100
-    </div>
-
-    <div class="bar">
-      <div id="rotationBar" class="bar-fill" style="width:0%"></div>
-    </div>
-  </div>
+<div class="metric">
+<span>Volume Ratio</span>
+<span id="btcVolumeRatio">--</span>
+</div>
 
 </div>
 
 
-<div class="section-title">Derivatives & Leverage</div>
+<div class="card">
+
+<div class="card-title">BTC LEVELS</div>
+
+<div class="metric">
+<span>Current</span>
+<span id="levelCurrent">--</span>
+</div>
+
+<div class="metric">
+<span>Resistance</span>
+<span id="resistance">--</span>
+</div>
+
+<div class="metric">
+<span>Support 1</span>
+<span id="support1">--</span>
+</div>
+
+<div class="metric">
+<span>Support 2</span>
+<span id="support2">--</span>
+</div>
+
+<div class="metric">
+<span>Position</span>
+<span id="btcPosition">--</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">ALT ROTATION</div>
+
+<div class="metric">
+<span>ETH/BTC</span>
+<span id="ethbtc">--</span>
+</div>
+
+<div class="metric">
+<span>ETH/BTC 24H</span>
+<span id="ethbtcChange">--</span>
+</div>
+
+<div class="metric">
+<span>Alt Market Direction</span>
+<span id="altDirection">--</span>
+</div>
+
+<div class="metric">
+<span>Rotation Score</span>
+<span id="rotationScore">--</span>
+</div>
+
+<div class="bar">
+<div id="rotationBar" class="bar-fill"></div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- DERIVATIVES -->
+
+<div class="section">
+⚡ Derivatives & Leverage
+</div>
 
 <div class="grid">
 
-  <div class="card">
-    <div class="card-title">BTC Funding</div>
-    <div id="funding" class="card-value">--</div>
-    <div id="fundingStatus" class="card-small">Checking condition...</div>
-  </div>
+<div class="card">
 
-  <div class="card">
-    <div class="card-title">BTC Open Interest</div>
-    <div id="openInterest" class="card-value">--</div>
-    <div id="oiStatus" class="card-small">Building baseline...</div>
-  </div>
+<div class="card-title">BTC FUNDING</div>
 
-  <div class="card">
-    <div class="card-title">Leverage Risk</div>
-    <div id="leverageRisk" class="card-value">--</div>
-    <div id="leverageDesc" class="card-small">--</div>
-  </div>
+<div id="funding" class="big">--</div>
 
-  <div class="card">
-    <div class="card-title">Pullback Risk</div>
-    <div id="pullbackRisk" class="card-value">--</div>
-    <div id="pullbackDesc" class="card-small">--</div>
-  </div>
+<div id="fundingStatus" class="small">
+Loading...
+</div>
 
 </div>
 
 
-<div class="section-title">Liquidity & On-chain</div>
+<div class="card">
 
-<div class="grid">
+<div class="card-title">BTC OPEN INTEREST</div>
 
-  <div class="card">
-    <div class="card-title">Stablecoin Liquidity</div>
-    <div id="stableLiquidity" class="card-value">--</div>
-    <div id="stableStatus" class="card-small">--</div>
-  </div>
+<div id="oi" class="big">--</div>
 
-  <div class="card">
-    <div class="card-title">BTC Market Cap</div>
-    <div id="btcMarketCap" class="card-value">--</div>
-    <div class="card-small">Estimated from global data</div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">ALT Market Cap</div>
-    <div id="altMarketCap" class="card-value">--</div>
-    <div class="card-small">Excluding BTC & ETH</div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Total Crypto Market Cap</div>
-    <div id="totalMarketCap" class="card-value">--</div>
-    <div class="card-small">Global crypto market</div>
-  </div>
+<div id="oiStatus" class="small">
+Loading...
+</div>
 
 </div>
 
 
-<div class="section-title">Q4 Market Model</div>
+<div class="card">
 
-<div class="grid-3">
+<div class="card-title">LEVERAGE RISK</div>
 
-  <div class="card">
-    <div class="card-title">BTC Momentum</div>
-    <div id="btcMomentum" class="card-value">--</div>
-    <div class="bar">
-      <div id="btcMomentumBar" class="bar-fill" style="width:0%"></div>
-    </div>
-  </div>
+<div id="leverageRisk" class="big">--</div>
 
-  <div class="card">
-    <div class="card-title">Liquidity Score</div>
-    <div id="liquidityScore" class="card-value">--</div>
-    <div class="bar">
-      <div id="liquidityBar" class="bar-fill" style="width:0%"></div>
-    </div>
-  </div>
+<div id="leverageDesc" class="small">--</div>
 
-  <div class="card">
-    <div class="card-title">Altcoin Environment</div>
-    <div id="altEnvironment" class="card-value">--</div>
-    <div id="altEnvironmentDesc" class="card-small">--</div>
-  </div>
+</div>
+
+
+<div class="card">
+
+<div class="card-title">PULLBACK RISK</div>
+
+<div id="pullbackRisk" class="big">--</div>
+
+<div id="pullbackDesc" class="small">--</div>
+
+</div>
+
+</div>
+
+
+<div class="info-box">
+<b>Funding:</b> positive = longs paying shorts; negative = shorts paying longs.
+Higher absolute funding means positioning is becoming more one-sided.
+<br><br>
+<b>Open Interest:</b> shows how much BTC futures positioning is currently open.
+The dashboard compares current OI with its locally stored previous readings to identify whether leverage is rising or falling.
+<br><br>
+<b>Important:</b> OI alone does not tell whether longs or shorts dominate. Funding + OI + price are interpreted together.
+</div>
+
+
+<!-- LIQUIDITY -->
+
+<div class="section">
+💧 Liquidity & On-chain
+</div>
+
+<div class="market-grid">
+
+<div class="card">
+
+<div class="card-title">
+STABLECOIN LIQUIDITY
+</div>
+
+<div id="stablecoinTotal" class="big">
+--
+</div>
+
+<div id="stablecoinStatus" class="small">
+Loading...
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+BTC MARKET CAP
+</div>
+
+<div id="btcMarketCap" class="big">
+--
+</div>
+
+<div class="small">
+Estimated from total market cap × BTC dominance
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+ALT MARKET CAP
+</div>
+
+<div id="altMarketCap" class="big">
+--
+</div>
+
+<div class="small">
+Total market cap minus BTC + ETH
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Q4 MODEL -->
+
+<div class="section">
+🧭 Q4 Market Model
+</div>
+
+<div class="market-grid">
+
+<div class="card">
+
+<div class="card-title">
+BTC MOMENTUM
+</div>
+
+<div id="btcMomentum" class="big">
+--
+</div>
+
+<div class="small">
+Multi-timeframe technical structure
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+LIQUIDITY SCORE
+</div>
+
+<div id="liquidityScore" class="big">
+--
+</div>
+
+<div class="bar">
+<div id="liquidityBar" class="bar-fill"></div>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+ALTCOIN ENVIRONMENT
+</div>
+
+<div id="altEnvironment" class="big">
+--
+</div>
+
+<div id="altEnvironmentDesc" class="small">
+--
+</div>
+
+</div>
 
 </div>
 
 
 <!-- HOLDINGS -->
 
-<div class="section-title">💼 My Holdings</div>
+<div class="section">
+💼 My Holdings
+</div>
 
-<div class="table-wrap">
+<div class="watchlist">
 
 <table>
 
 <thead>
 <tr>
-  <th>COIN</th>
-  <th>MARKET CAP</th>
-  <th>PRICE</th>
-  <th>24H</th>
-  <th>RSI 1H</th>
-  <th>EMA20/55</th>
-  <th>TREND</th>
-  <th>VOLUME</th>
-  <th>BTC RELATIVE</th>
-  <th>SCORE</th>
-  <th>SIGNAL</th>
+<th>RANK</th>
+<th>COIN</th>
+<th>MARKET CAP</th>
+<th>PRICE</th>
+<th>24H</th>
+<th>RSI 1H</th>
+<th>EMA20</th>
+<th>EMA55</th>
+<th>TREND</th>
+<th>VOLUME</th>
+<th>BTC RELATIVE</th>
+<th>SCORE</th>
+<th>SIGNAL</th>
 </tr>
 </thead>
 
 <tbody id="holdingsBody">
+
 <tr>
-<td colspan="11" class="loading">
+<td colspan="13" class="loading">
 Loading holdings...
 </td>
 </tr>
+
 </tbody>
 
 </table>
@@ -583,34 +721,40 @@ Loading holdings...
 
 <!-- WATCHLIST -->
 
-<div class="section-title">🔎 Q4 Watchlist</div>
+<div class="section">
+👀 Watchlist
+</div>
 
-<div class="table-wrap">
+<div class="watchlist">
 
 <table>
 
 <thead>
 <tr>
-  <th>COIN</th>
-  <th>MARKET CAP</th>
-  <th>PRICE</th>
-  <th>24H</th>
-  <th>RSI 1H</th>
-  <th>EMA20/55</th>
-  <th>TREND</th>
-  <th>VOLUME</th>
-  <th>BTC RELATIVE</th>
-  <th>SCORE</th>
-  <th>SIGNAL</th>
+<th>RANK</th>
+<th>COIN</th>
+<th>MARKET CAP</th>
+<th>PRICE</th>
+<th>24H</th>
+<th>RSI 1H</th>
+<th>EMA20</th>
+<th>EMA55</th>
+<th>TREND</th>
+<th>VOLUME</th>
+<th>BTC RELATIVE</th>
+<th>SCORE</th>
+<th>SIGNAL</th>
 </tr>
 </thead>
 
 <tbody id="watchlistBody">
+
 <tr>
-<td colspan="11" class="loading">
+<td colspan="13" class="loading">
 Loading watchlist...
 </td>
 </tr>
+
 </tbody>
 
 </table>
@@ -618,3071 +762,2343 @@ Loading watchlist...
 </div>
 
 
-<div class="section-title">🚨 Market Alert</div>
+<!-- SIGNAL LOGIC -->
 
-<div class="alert">
+<div class="section">
+📊 Coin Signal Logic
+</div>
 
-  <div class="alert-title" id="alertTitle">
-    Market Analysis
-  </div>
+<div class="market-grid">
 
-  <div class="alert-text" id="alertText">
-    Loading market conditions...
-  </div>
+<div class="card">
+<div class="card-title">RSI</div>
+<div class="small">
+40–68 = healthier momentum zone.<br>
+&gt;75 = overheated risk.<br>
+&lt;30 = deeply weak / possible rebound zone.
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">EMA STRUCTURE</div>
+<div class="small">
+Price &gt; EMA20 &gt; EMA55 = bullish structure.<br>
+Price &lt; EMA20 &lt; EMA55 = bearish structure.<br>
+Anything between = mixed.
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">VOLUME</div>
+<div class="small">
+Volume &gt;1.5× average = strong confirmation.<br>
+Volume &lt;0.6× average = weak participation.
+</div>
+</div>
+
+</div>
+
+<div class="market-grid">
+
+<div class="card">
+<div class="card-title">BTC RELATIVE STRENGTH</div>
+<div class="small">
+Coin 24H performance is compared against BTC.
+Positive = outperforming BTC.
+Negative = underperforming BTC.
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">SCORE</div>
+<div class="small">
+Trend + RSI + volume + BTC relative strength + market conditions combine into a 0–100 score.
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">SIGNAL</div>
+<div class="small">
+75+ = BUY setup<br>
+40–74 = WAIT<br>
+Below 40 = AVOID
+</div>
+</div>
 
 </div>
 
 
-<footer>
-  Q4 Crypto Market Regime Dashboard • Data from public market APIs • Auto refresh every 60 seconds
-</footer>
+<!-- ALERT -->
+
+<div class="section">
+🚨 Market Alert
+</div>
+
+<div id="marketAlert" class="alert">
+Loading market conditions...
+</div>
+
+
+<div class="footer">
+Q4 Crypto Market Regime Dashboard • Public market data • No trading guarantee
+</div>
 
 </div>
 
 
 <script>
 
-const BINANCE_SPOT = "https://data-api.binance.vision";
-const BINANCE_FUTURES = "https://fapi.binance.com";
-const COINGECKO = "https://api.coingecko.com/api/v3";
-const DEFILLAMA = "https://stablecoins.llama.fi";
-const FEAR_GREED = "https://api.alternative.me/fng/";
-
-
 /* =========================================================
-   COINS
+CONFIG
 ========================================================= */
+
+const BINANCE_SPOT =
+"https://data-api.binance.vision";
+
+const BINANCE_FUTURES =
+"https://fapi.binance.com";
+
+const COINGECKO =
+"https://api.coingecko.com/api/v3";
+
+const DEFILLAMA =
+"https://stablecoins.llama.fi";
+
+const FEAR_GREED =
+"https://api.alternative.me/fng/";
+
+
+/* USER HOLDINGS */
 
 const HOLDINGS = [
-  "RENDER",
-  "SUI",
-  "XRP",
-  "CORE",
-  "JUP",
-  "AVAX",
-  "LINK",
-  "ASTER",
-  "WLFI",
-  "ROSE",
-  "PYTH",
-  "SEI",
-  "ONDO",
-  "ENA"
+"RENDER",
+"SUI",
+"XRP",
+"CORE",
+"JUP",
+"AVAX",
+"LINK",
+"ASTER",
+"WLFI",
+"ROSE",
+"PYTH",
+"SEI",
+"ONDO",
+"ENA"
 ];
+
+
+/* USER WATCHLIST */
 
 const WATCHLIST = [
-  "AAVE",
-  "UNI",
-  "ARB",
-  "INJ",
-  "LDO",
-  "PENDLE",
-  "LTC",
-  "SOL"
+"AAVE",
+"UNI",
+"ARB",
+"INJ",
+"LDO",
+"PENDLE",
+"LTC",
+"SOL"
 ];
 
-const COINS = [...new Set([
-  ...HOLDINGS,
-  ...WATCHLIST
-])];
 
-
-/* =========================================================
-   BINANCE SYMBOLS
-========================================================= */
+/* BINANCE SYMBOLS */
 
 const SYMBOLS = {
 
-  RENDER:"RENDERUSDT",
-  SUI:"SUIUSDT",
-  XRP:"XRPUSDT",
-  CORE:"COREUSDT",
-  JUP:"JUPUSDT",
-  AVAX:"AVAXUSDT",
-  LINK:"LINKUSDT",
-  ASTER:"ASTERUSDT",
-  WLFI:"WLFIUSDT",
-  ROSE:"ROSEUSDT",
-  PYTH:"PYTHUSDT",
-  SEI:"SEIUSDT",
-  ONDO:"ONDOUSDT",
-  ENA:"ENAUSDT",
+RENDER:"RENDERUSDT",
+SUI:"SUIUSDT",
+XRP:"XRPUSDT",
+CORE:"COREUSDT",
+JUP:"JUPUSDT",
+AVAX:"AVAXUSDT",
+LINK:"LINKUSDT",
+ASTER:"ASTERUSDT",
+WLFI:"WLFIUSDT",
+ROSE:"ROSEUSDT",
+PYTH:"PYTHUSDT",
+SEI:"SEIUSDT",
+ONDO:"ONDOUSDT",
+ENA:"ENAUSDT",
 
-  AAVE:"AAVEUSDT",
-  UNI:"UNIUSDT",
-  ARB:"ARBUSDT",
-  INJ:"INJUSDT",
-  LDO:"LDOUSDT",
-  PENDLE:"PENDLEUSDT",
-  LTC:"LTCUSDT",
-  SOL:"SOLUSDT"
+AAVE:"AAVEUSDT",
+UNI:"UNIUSDT",
+ARB:"ARBUSDT",
+INJ:"INJUSDT",
+LDO:"LDOUSDT",
+PENDLE:"PENDLEUSDT",
+LTC:"LTCUSDT",
+SOL:"SOLUSDT"
+
 };
 
 
 /* =========================================================
-   COINGECKO IDS
-========================================================= */
-
-const CG_IDS = {
-
-  RENDER:"render-token",
-  SUI:"sui",
-  XRP:"ripple",
-  CORE:"coredao",
-  JUP:"jupiter-exchange-solana",
-  AVAX:"avalanche-2",
-  LINK:"chainlink",
-  ASTER:"aster-2",
-  WLFI:"world-liberty-financial",
-  ROSE:"oasis-network",
-  PYTH:"pyth-network",
-  SEI:"sei-network",
-  ONDO:"ondo-finance",
-  ENA:"ethena",
-
-  AAVE:"aave",
-  UNI:"uniswap",
-  ARB:"arbitrum",
-  INJ:"injective-protocol",
-  LDO:"lido-dao",
-  PENDLE:"pendle",
-  LTC:"litecoin",
-  SOL:"solana"
-};
-
-
-/* =========================================================
-   GLOBAL DATA
+GLOBAL STATE
 ========================================================= */
 
 let DATA = {
 
-  btc:null,
-  eth:null,
+btc:null,
+eth:null,
+btcDom:null,
+fearGreed:null,
+ethbtc:null,
+funding:null,
+oi:null,
+oiChange:null,
+stablecoins:null,
+totalMarketCap:null,
 
-  btc15:null,
-  btc1h:null,
-  btc4h:null,
+holdings:[],
+watch:[]
 
-  btcDom:null,
-
-  fearGreed:null,
-
-  ethbtc:null,
-
-  funding:null,
-  fundingInfo:null,
-
-  oi:null,
-  oiInfo:null,
-
-  stablecoins:null,
-
-  totalMarketCap:null,
-  btcMarketCap:null,
-  altMarketCap:null,
-
-  rotationScore:50,
-  liquidityScore:50,
-  btcMomentum:50,
-
-  coins:[]
 };
 
 
 /* =========================================================
-   API HELPER
+HELPERS
 ========================================================= */
 
-async function getJSON(url, timeout=15000){
-
-  const controller = new AbortController();
-
-  const timer = setTimeout(
-    ()=>controller.abort(),
-    timeout
-  );
-
-  try{
-
-    const response = await fetch(
-      url,
-      {
-        signal:controller.signal,
-        cache:"no-store"
-      }
-    );
-
-    if(!response.ok){
-      throw new Error(
-        "HTTP " + response.status
-      );
-    }
-
-    return await response.json();
-
-  }finally{
-
-    clearTimeout(timer);
-
-  }
-}
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function clamp(value,min,max){
-
-  return Math.max(
-    min,
-    Math.min(max,value)
-  );
-
-}
-
-
-function avg(arr){
-
-  if(!arr.length) return null;
-
-  return arr.reduce(
-    (a,b)=>a+b,
-    0
-  ) / arr.length;
-
+function $(id){
+return document.getElementById(id);
 }
 
 
 function fmtPrice(v){
 
-  if(v===null || v===undefined || !isFinite(v))
-    return "N/A";
+if(v===null || v===undefined || isNaN(v)){
+return "--";
+}
 
-  if(v>=1000)
-    return "$"+v.toLocaleString(
-      undefined,
-      {maximumFractionDigits:0}
-    );
+if(v>=1000){
+return "$"+Number(v).toLocaleString(
+undefined,
+{maximumFractionDigits:0}
+);
+}
 
-  if(v>=1)
-    return "$"+v.toFixed(2);
+if(v>=1){
+return "$"+Number(v).toFixed(2);
+}
 
-  if(v>=0.01)
-    return "$"+v.toFixed(4);
+if(v>=0.01){
+return "$"+Number(v).toFixed(4);
+}
 
-  return "$"+v.toFixed(6);
+return "$"+Number(v).toFixed(8);
 
 }
 
 
 function fmtPct(v){
 
-  if(v===null || v===undefined || !isFinite(v))
-    return "N/A";
+if(v===null || v===undefined || isNaN(v)){
+return "--";
+}
 
-  return (v>=0?"+":"")+
-    v.toFixed(2)+"%";
+const n=Number(v);
+
+return (n>=0?"+":"")+
+n.toFixed(2)+"%";
 
 }
 
 
 function fmtCompact(v){
 
-  if(v===null || v===undefined || !isFinite(v))
-    return "N/A";
+if(v===null || v===undefined || isNaN(v)){
+return "--";
+}
 
-  const abs=Math.abs(v);
+const n=Number(v);
 
-  if(abs>=1e12)
-    return "$"+(v/1e12).toFixed(2)+"T";
+if(n>=1e12){
+return "$"+(n/1e12).toFixed(2)+"T";
+}
 
-  if(abs>=1e9)
-    return "$"+(v/1e9).toFixed(2)+"B";
+if(n>=1e9){
+return "$"+(n/1e9).toFixed(2)+"B";
+}
 
-  if(abs>=1e6)
-    return "$"+(v/1e6).toFixed(2)+"M";
+if(n>=1e6){
+return "$"+(n/1e6).toFixed(2)+"M";
+}
 
-  if(abs>=1e3)
-    return "$"+(v/1e3).toFixed(2)+"K";
+if(n>=1e3){
+return "$"+(n/1e3).toFixed(2)+"K";
+}
 
-  return "$"+v.toFixed(0);
+return "$"+n.toFixed(2);
 
 }
 
 
-function fmtNumber(v){
+function cls(value){
 
-  if(v===null || v===undefined || !isFinite(v))
-    return "N/A";
+if(value>0){
+return "green-text";
+}
 
-  return Number(v).toLocaleString(
-    undefined,
-    {
-      maximumFractionDigits:2
-    }
-  );
+if(value<0){
+return "red-text";
+}
+
+return "neutral-text";
 
 }
 
 
-function colorClass(v){
+function trendClass(value){
 
-  if(v>0) return "up";
-  if(v<0) return "down";
-  return "neutral";
+if(value==="BULLISH"){
+return "green-text";
+}
+
+if(value==="BEARISH"){
+return "red-text";
+}
+
+return "yellow-text";
 
 }
 
 
-function trendClass(trend){
+async function getJSON(url){
 
-  if(trend==="BULLISH")
-    return "up";
+const response=await fetch(
+url,
+{cache:"no-store"}
+);
 
-  if(trend==="BEARISH")
-    return "down";
-
-  return "neutral";
-
+if(!response.ok){
+throw new Error("HTTP "+response.status);
 }
 
-
-/* =========================================================
-   EMA
-========================================================= */
-
-function EMA(values,period){
-
-  if(!values || values.length<period)
-    return null;
-
-  let sum=0;
-
-  for(let i=0;i<period;i++)
-    sum+=values[i];
-
-  let ema=sum/period;
-
-  const multiplier=
-    2/(period+1);
-
-  for(let i=period;i<values.length;i++){
-
-    ema=
-      (
-        values[i]-ema
-      )*multiplier+ema;
-
-  }
-
-  return ema;
-}
-
-
-/* =========================================================
-   RSI
-========================================================= */
-
-function RSI(values,period=14){
-
-  if(!values || values.length<period+1)
-    return null;
-
-  let gains=0;
-  let losses=0;
-
-  for(let i=1;i<=period;i++){
-
-    const diff=
-      values[i]-values[i-1];
-
-    if(diff>=0)
-      gains+=diff;
-    else
-      losses+=Math.abs(diff);
-
-  }
-
-  let avgGain=
-    gains/period;
-
-  let avgLoss=
-    losses/period;
-
-  for(let i=period+1;i<values.length;i++){
-
-    const diff=
-      values[i]-values[i-1];
-
-    const gain=
-      diff>0?diff:0;
-
-    const loss=
-      diff<0?Math.abs(diff):0;
-
-    avgGain=
-      ((avgGain*(period-1))+gain)/period;
-
-    avgLoss=
-      ((avgLoss*(period-1))+loss)/period;
-
-  }
-
-  if(avgLoss===0)
-    return 100;
-
-  const rs=
-    avgGain/avgLoss;
-
-  return 100-(100/(1+rs));
+return await response.json();
 
 }
 
 
 /* =========================================================
-   TECHNICAL ANALYSIS
+BINANCE
 ========================================================= */
 
-function analyzeKlines(klines){
+async function ticker(symbol){
 
-  if(!klines || klines.length<60)
-    return null;
-
-  const closes=
-    klines.map(x=>Number(x[4]));
-
-  const volumes=
-    klines.map(x=>Number(x[5]));
-
-  const ema20=
-    EMA(closes,20);
-
-  const ema55=
-    EMA(closes,55);
-
-  const rsi=
-    RSI(closes,14);
-
-  const current=
-    closes[closes.length-1];
-
-  let trend="NEUTRAL";
-
-  if(
-    current>ema20 &&
-    ema20>ema55
-  ){
-
-    trend="BULLISH";
-
-  }else if(
-    current<ema20 &&
-    ema20<ema55
-  ){
-
-    trend="BEARISH";
-
-  }
-
-  const recentVol=
-    avg(
-      volumes.slice(-5)
-    );
-
-  const previousVol=
-    avg(
-      volumes.slice(-25,-5)
-    );
-
-  const volumeRatio=
-    previousVol?
-    recentVol/previousVol:
-    null;
-
-  return {
-
-    current,
-    ema20,
-    ema55,
-    rsi,
-    trend,
-    volumeRatio
-
-  };
+return await getJSON(
+BINANCE_SPOT+
+"/api/v3/ticker/24hr?symbol="+
+symbol
+);
 
 }
 
 
-/* =========================================================
-   FETCH KLINES
-========================================================= */
-
-async function getKlines(
-  symbol,
-  interval,
-  limit=120
+async function klines(
+symbol,
+interval,
+limit=120
 ){
 
-  return await getJSON(
-    BINANCE_SPOT+
-    "/api/v3/klines?symbol="+
-    encodeURIComponent(symbol)+
-    "&interval="+interval+
-    "&limit="+limit
-  );
+return await getJSON(
+BINANCE_SPOT+
+"/api/v3/klines?symbol="+
+symbol+
+"&interval="+
+interval+
+"&limit="+
+limit
+);
 
 }
 
 
 /* =========================================================
-   FETCH ALL SPOT TICKERS
+TECHNICALS
 ========================================================= */
 
-async function fetchAllTickers(){
+function closes(k){
+return k.map(x=>Number(x[4]));
+}
 
-  const list=
-    await getJSON(
-      BINANCE_SPOT+
-      "/api/v3/ticker/24hr"
-    );
 
-  const map={};
+function volumes(k){
+return k.map(x=>Number(x[5]));
+}
 
-  for(const item of list){
 
-    map[item.symbol]=item;
+function ema(values,period){
 
-  }
+if(values.length<period){
+return null;
+}
 
-  return map;
+const multiplier=
+2/(period+1);
+
+let value=0;
+
+for(let i=0;i<period;i++){
+value+=values[i];
+}
+
+value/=period;
+
+for(
+let i=period;
+i<values.length;
+i++
+){
+
+value=
+(values[i]-value)*
+multiplier+
+value;
+
+}
+
+return value;
+
+}
+
+
+function rsi(values,period=14){
+
+if(values.length<=period){
+return null;
+}
+
+let gain=0;
+let loss=0;
+
+for(
+let i=1;
+i<=period;
+i++
+){
+
+const change=
+values[i]-values[i-1];
+
+if(change>=0){
+gain+=change;
+}else{
+loss+=Math.abs(change);
+}
+
+}
+
+let avgGain=
+gain/period;
+
+let avgLoss=
+loss/period;
+
+for(
+let i=period+1;
+i<values.length;
+i++
+){
+
+const change=
+values[i]-values[i-1];
+
+const g=
+change>0?change:0;
+
+const l=
+change<0?Math.abs(change):0;
+
+avgGain=
+(
+avgGain*(period-1)+g
+)/period;
+
+avgLoss=
+(
+avgLoss*(period-1)+l
+)/period;
+
+}
+
+if(avgLoss===0){
+return 100;
+}
+
+const rs=
+avgGain/avgLoss;
+
+return 100-(100/(1+rs));
+
+}
+
+
+function technical(k){
+
+const c=closes(k);
+const v=volumes(k);
+
+const last=
+c[c.length-1];
+
+const e20=
+ema(c,20);
+
+const e55=
+ema(c,55);
+
+const r=
+rsi(c,14);
+
+const avgVol=
+v.slice(-20)
+.reduce((a,b)=>a+b,0)/
+Math.min(20,v.length);
+
+const currentVol=
+v[v.length-1];
+
+let trend="NEUTRAL";
+
+if(e20 && e55){
+
+if(last>e20 && e20>e55){
+trend="BULLISH";
+}
+
+else if(
+last<e20 &&
+e20<e55
+){
+trend="BEARISH";
+}
+
+else{
+trend="MIXED";
+}
+
+}
+
+return {
+
+price:last,
+ema20:e20,
+ema55:e55,
+rsi:r,
+volume:currentVol,
+avgVolume:avgVol,
+volumeRatio:
+avgVol?
+currentVol/avgVol:
+0,
+trend
+
+};
 
 }
 
 
 /* =========================================================
-   BTC DATA
+BTC
 ========================================================= */
 
-async function loadBTC(){
+async function loadBTCTechnical(){
 
-  const [
-    ticker,
-    k15,
-    k1h,
-    k4h
-  ]=await Promise.all([
+const [
+k15,
+k1h,
+k4h,
+btcTicker
+]=await Promise.all([
 
-    getJSON(
-      BINANCE_SPOT+
-      "/api/v3/ticker/24hr?symbol=BTCUSDT"
-    ),
+klines("BTCUSDT","15m",120),
+klines("BTCUSDT","1h",120),
+klines("BTCUSDT","4h",120),
+ticker("BTCUSDT")
 
-    getKlines(
-      "BTCUSDT",
-      "15m",
-      120
-    ),
+]);
 
-    getKlines(
-      "BTCUSDT",
-      "1h",
-      150
-    ),
 
-    getKlines(
-      "BTCUSDT",
-      "4h",
-      100
-    )
+const t15=technical(k15);
+const t1h=technical(k1h);
+const t4h=technical(k4h);
 
-  ]);
 
-  DATA.btc={
-    price:Number(ticker.lastPrice),
-    change:Number(ticker.priceChangePercent)
-  };
+DATA.btc={
+t15,
+t1h,
+t4h,
+price:Number(btcTicker.lastPrice),
+change:Number(btcTicker.priceChangePercent)
+};
 
-  DATA.btc15=
-    analyzeKlines(k15);
 
-  DATA.btc1h=
-    analyzeKlines(k1h);
+$("btc15").textContent=t15.trend;
+$("btc15").className=trendClass(t15.trend);
 
-  DATA.btc4h=
-    analyzeKlines(k4h);
+$("btc1h").textContent=t1h.trend;
+$("btc1h").className=trendClass(t1h.trend);
+
+$("btc4h").textContent=t4h.trend;
+$("btc4h").className=trendClass(t4h.trend);
+
+
+$("btcRsi").textContent=
+t1h.rsi?
+t1h.rsi.toFixed(1):
+"--";
+
+
+$("btcEma").textContent=
+t1h.ema20 &&
+t1h.ema55
+?
+fmtPrice(t1h.ema20)+
+" / "+
+fmtPrice(t1h.ema55)
+:
+"--";
+
+
+$("btcVolumeRatio").textContent=
+t1h.volumeRatio?
+t1h.volumeRatio.toFixed(2)+"x":
+"--";
+
+
+$("btcPrice").textContent=
+fmtPrice(DATA.btc.price);
+
+$("btcChange").textContent=
+fmtPct(DATA.btc.change);
+
+$("btcChange").className=
+"small "+cls(DATA.btc.change);
+
+
+$("levelCurrent").textContent=
+fmtPrice(DATA.btc.price);
+
+
+calculateLevels(k4h);
 
 }
 
 
 /* =========================================================
-   ETH DATA
+BTC LEVELS
+========================================================= */
+
+function calculateLevels(k){
+
+const recent=
+k.slice(-40);
+
+const highs=
+recent.map(x=>Number(x[2]));
+
+const lows=
+recent.map(x=>Number(x[3]));
+
+const resistance=
+Math.max(...highs);
+
+const lowest=
+Math.min(...lows);
+
+const range=
+resistance-lowest;
+
+const support1=
+lowest+range*.25;
+
+const support2=
+lowest;
+
+
+$("resistance").textContent=
+fmtPrice(resistance);
+
+$("support1").textContent=
+fmtPrice(support1);
+
+$("support2").textContent=
+fmtPrice(support2);
+
+
+const current=
+DATA.btc?
+DATA.btc.price:
+Number(k[k.length-1][4]);
+
+
+let pos="MID-RANGE";
+
+if(current>=resistance*.98){
+pos="NEAR RESISTANCE";
+}
+
+else if(current<=support1*1.02){
+pos="NEAR SUPPORT";
+}
+
+$("btcPosition").textContent=pos;
+
+}
+
+
+/* =========================================================
+ETH
 ========================================================= */
 
 async function loadETH(){
 
-  const [
-    ticker,
-    k1h
-  ]=await Promise.all([
+const [
+t,
+k
+]=await Promise.all([
 
-    getJSON(
-      BINANCE_SPOT+
-      "/api/v3/ticker/24hr?symbol=ETHUSDT"
-    ),
+ticker("ETHUSDT"),
+klines("ETHUSDT","1h",120)
 
-    getKlines(
-      "ETHUSDT",
-      "1h",
-      150
-    )
+]);
 
-  ]);
+const tech=technical(k);
 
-  DATA.eth={
-    price:Number(ticker.lastPrice),
-    change:Number(ticker.priceChangePercent),
-    technical:analyzeKlines(k1h)
-  };
+DATA.eth=tech;
+
+$("ethPrice").textContent=
+fmtPrice(Number(t.lastPrice));
+
+$("ethChange").textContent=
+fmtPct(Number(t.priceChangePercent));
+
+$("ethChange").className=
+"small "+
+cls(Number(t.priceChangePercent));
 
 }
 
 
 /* =========================================================
-   ETH/BTC
+ETH/BTC
 ========================================================= */
 
 async function loadETHBTC(){
 
-  try{
+const data=
+await ticker("ETHBTC");
 
-    const ticker=
-      await getJSON(
-        BINANCE_SPOT+
-        "/api/v3/ticker/24hr?symbol=ETHBTC"
-      );
+DATA.ethbtc={
 
-    DATA.ethbtc={
-      price:Number(ticker.lastPrice),
-      change:Number(ticker.priceChangePercent)
-    };
+price:Number(data.lastPrice),
+change:Number(data.priceChangePercent)
 
-  }catch(e){
+};
 
-    DATA.ethbtc=null;
+$("ethbtc").textContent=
+Number(data.lastPrice).toFixed(6);
 
-  }
+$("ethbtcChange").textContent=
+fmtPct(Number(data.priceChangePercent));
+
+$("ethbtcChange").className=
+cls(Number(data.priceChangePercent));
 
 }
 
 
 /* =========================================================
-   GLOBAL MARKET
+GLOBAL MARKET
 ========================================================= */
 
 async function loadGlobal(){
 
-  try{
+try{
 
-    const data=
-      await getJSON(
-        COINGECKO+
-        "/global"
-      );
+const data=
+await getJSON(
+COINGECKO+"/global"
+);
 
-    const g=data.data;
+const market=
+Number(
+data.data.total_market_cap.usd
+);
 
-    DATA.totalMarketCap=
-      g.total_market_cap.usd;
+const btcDom=
+Number(
+data.data.market_cap_percentage.btc
+);
 
-    DATA.btcDom=
-      g.market_cap_percentage.btc;
+const ethDom=
+Number(
+data.data.market_cap_percentage.eth
+);
 
-    const ethDom=
-      g.market_cap_percentage.eth || 0;
+DATA.totalMarketCap=market;
+DATA.btcDom=btcDom;
 
-    DATA.btcMarketCap=
-      DATA.totalMarketCap*
-      DATA.btcDom/100;
 
-    DATA.altMarketCap=
-      DATA.totalMarketCap-
-      DATA.btcMarketCap-
-      (
-        DATA.totalMarketCap*
-        ethDom/100
-      );
+$("btcDom").textContent=
+btcDom.toFixed(2)+"%";
 
-  }catch(e){
 
-    DATA.totalMarketCap=null;
-    DATA.btcDom=null;
-    DATA.btcMarketCap=null;
-    DATA.altMarketCap=null;
+const btcCap=
+market*(btcDom/100);
 
-  }
+const ethCap=
+market*(ethDom/100);
+
+
+$("btcMarketCap").textContent=
+fmtCompact(btcCap);
+
+$("altMarketCap").textContent=
+fmtCompact(
+Math.max(
+0,
+market-btcCap-ethCap
+)
+);
+
+}catch(e){
+
+$("btcDom").textContent="N/A";
+
+}
 
 }
 
 
 /* =========================================================
-   FEAR & GREED
+FEAR & GREED
 ========================================================= */
 
 async function loadFearGreed(){
 
-  try{
+try{
 
-    const data=
-      await getJSON(
-        FEAR_GREED+
-        "?limit=1"
-      );
+const data=
+await getJSON(
+FEAR_GREED+"?limit=1"
+);
 
-    if(
-      data &&
-      data.data &&
-      data.data[0]
-    ){
+const value=
+Number(data.data[0].value);
 
-      DATA.fearGreed={
-        value:Number(
-          data.data[0].value
-        ),
-        text:data.data[0].value_classification
-      };
+const text=
+data.data[0].value_classification;
 
-    }
+DATA.fearGreed=value;
 
-  }catch(e){
 
-    DATA.fearGreed=null;
+$("fearGreed").textContent=value;
+$("fearText").textContent=text;
 
-  }
+
+if(value>=75){
+
+$("fearGreed").className=
+"big red-text";
+
+}
+
+else if(value>=55){
+
+$("fearGreed").className=
+"big green-text";
+
+}
+
+else if(value>=40){
+
+$("fearGreed").className=
+"big yellow-text";
+
+}
+
+else{
+
+$("fearGreed").className=
+"big red-text";
+
+}
+
+}catch(e){
+
+$("fearGreed").textContent="N/A";
+
+}
 
 }
 
 
 /* =========================================================
-   FUNDING
+FUNDING
 ========================================================= */
-
-function classifyFunding(rate){
-
-  if(rate===null)
-    return {
-      level:"N/A",
-      label:"N/A",
-      desc:"Funding unavailable"
-    };
-
-  const pct=
-    rate*100;
-
-  if(pct>=0.05){
-
-    return {
-      level:"HIGH",
-      label:"🔴 OVERHEATED",
-      desc:"Longs heavily crowded"
-    };
-
-  }
-
-  if(pct>=0.03){
-
-    return {
-      level:"ELEVATED",
-      label:"🟡 ELEVATED",
-      desc:"Long leverage rising"
-    };
-
-  }
-
-  if(pct>-0.03){
-
-    if(Math.abs(pct)<0.01){
-
-      return {
-        level:"CONTROLLED",
-        label:"🟢 VERY CONTROLLED",
-        desc:"Funding pressure is low"
-      };
-
-    }
-
-    return {
-      level:"CONTROLLED",
-      label:"🟢 CONTROLLED",
-      desc:pct>0?
-        "Longs paying, but controlled":
-        "Shorts paying, but controlled"
-    };
-
-  }
-
-  if(pct<=-0.05){
-
-    return {
-      level:"SHORT_CROWDED",
-      label:"🔴 SHORT CROWDED",
-      desc:"Shorts heavily crowded"
-    };
-
-  }
-
-  return {
-    level:"ELEVATED_SHORT",
-    label:"🟡 ELEVATED",
-    desc:"Short pressure rising"
-  };
-
-}
-
 
 async function loadFunding(){
 
-  try{
+try{
 
-    const data=
-      await getJSON(
-        BINANCE_FUTURES+
-        "/fapi/v1/premiumIndex?symbol=BTCUSDT"
-      );
+const data=
+await getJSON(
+BINANCE_FUTURES+
+"/fapi/v1/premiumIndex?symbol=BTCUSDT"
+);
 
-    const rate=
-      Number(data.lastFundingRate);
+const funding=
+Number(data.lastFundingRate)*100;
 
-    DATA.funding=rate;
+DATA.funding=funding;
 
-    DATA.fundingInfo=
-      classifyFunding(rate);
 
-  }catch(e){
+$("funding").textContent=
+funding.toFixed(4)+"%";
 
-    DATA.funding=null;
-    DATA.fundingInfo=null;
 
-  }
+/*
+FUNDING LEVELS
+
+0 to .03 = controlled
+.03 to .06 = elevated
+> .06 = overheated
+negative = shorts crowded
+*/
+
+let status;
+let color;
+
+if(funding>=.06){
+
+status="🔴 OVERHEATED — LONGS CROWDED";
+color="red-text";
+
+}
+
+else if(funding>=.03){
+
+status="🟡 ELEVATED — LONG BIAS";
+color="yellow-text";
+
+}
+
+else if(funding<=-.06){
+
+status="🔴 EXTREME SHORT CROWDING";
+color="red-text";
+
+}
+
+else if(funding<=-.03){
+
+status="🟡 ELEVATED — SHORT BIAS";
+color="yellow-text";
+
+}
+
+else{
+
+status="🟢 CONTROLLED";
+color="green-text";
+
+}
+
+
+$("fundingStatus").textContent=
+status;
+
+$("fundingStatus").className=
+"small "+color;
+
+}catch(e){
+
+DATA.funding=null;
+
+$("funding").textContent="N/A";
+$("fundingStatus").textContent=
+"Funding unavailable";
+
+}
 
 }
 
 
 /* =========================================================
-   OPEN INTEREST
+OPEN INTEREST
 ========================================================= */
-
-function classifyOI(current,history){
-
-  if(
-    current===null ||
-    !history ||
-    history.length<5
-  ){
-
-    return {
-      level:"BASELINE",
-      label:"🟡 BASELINE BUILDING",
-      ratio:null,
-      desc:"Collecting OI history"
-    };
-
-  }
-
-  const recent=
-    history.slice(-24);
-
-  const average=
-    avg(recent);
-
-  if(!average){
-
-    return {
-      level:"BASELINE",
-      label:"🟡 BASELINE BUILDING",
-      ratio:null,
-      desc:"Collecting OI history"
-    };
-
-  }
-
-  const ratio=
-    current/average;
-
-  if(ratio>1.15){
-
-    return {
-      level:"HIGH",
-      label:"🔴 HIGH LEVERAGE",
-      ratio,
-      desc:"OI is well above recent average"
-    };
-
-  }
-
-  if(ratio>1.05){
-
-    return {
-      level:"ELEVATED",
-      label:"🟡 ELEVATED",
-      ratio,
-      desc:"OI is above recent average"
-    };
-
-  }
-
-  if(ratio<0.95){
-
-    return {
-      level:"COOLING",
-      label:"🟢 COOLING",
-      ratio,
-      desc:"Leverage is reducing"
-    };
-
-  }
-
-  return {
-    level:"CONTROLLED",
-    label:"🟢 CONTROLLED",
-    ratio,
-    desc:"OI is near recent average"
-  };
-
-}
-
 
 async function loadOI(){
 
-  try{
+try{
 
-    const currentData=
-      await getJSON(
-        BINANCE_FUTURES+
-        "/fapi/v1/openInterest?symbol=BTCUSDT"
-      );
+const data=
+await getJSON(
+BINANCE_FUTURES+
+"/fapi/v1/openInterest?symbol=BTCUSDT"
+);
 
-    const current=
-      Number(
-        currentData.openInterest
-      );
+const oi=
+Number(data.openInterest);
 
-    let history=[];
-
-    try{
-
-      const hist=
-        await getJSON(
-          BINANCE_FUTURES+
-          "/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=30"
-        );
-
-      if(Array.isArray(hist)){
-
-        history=
-          hist
-          .map(x=>Number(x.sumOpenInterest))
-          .filter(x=>isFinite(x));
-
-      }
-
-    }catch(e){
-
-      try{
-
-        const saved=
-          localStorage.getItem(
-            "q4_btc_oi_history"
-          );
-
-        if(saved)
-          history=JSON.parse(saved);
-
-      }catch(err){}
-
-    }
+DATA.oi=oi;
 
 
-    try{
+let previous=null;
 
-      const saved=
-        localStorage.getItem(
-          "q4_btc_oi_history"
-        );
+try{
 
-      let localHistory=
-        saved?
-        JSON.parse(saved):
-        [];
+previous=
+Number(
+localStorage.getItem(
+"btc_previous_oi"
+)
+);
 
-      localHistory.push(current);
-
-      localHistory=
-        localHistory.slice(-48);
-
-      localStorage.setItem(
-        "q4_btc_oi_history",
-        JSON.stringify(localHistory)
-      );
-
-      if(history.length<5)
-        history=localHistory;
-
-    }catch(e){}
+}catch(e){}
 
 
-    DATA.oi=current;
+let change=null;
 
-    DATA.oiInfo=
-      classifyOI(
-        current,
-        history
-      );
+if(previous && previous>0){
 
-  }catch(e){
+change=
+(
+(oi-previous)/
+previous
+)*100;
 
-    DATA.oi=null;
-    DATA.oiInfo=null;
+}
 
-  }
+DATA.oiChange=change;
+
+
+try{
+
+localStorage.setItem(
+"btc_previous_oi",
+String(oi)
+);
+
+}catch(e){}
+
+
+$("oi").textContent=
+oi.toLocaleString(
+undefined,
+{
+maximumFractionDigits:0
+}
+)+" BTC";
+
+
+/*
+OI LEVEL
+
+change vs previous dashboard reading:
+
+< -5% = falling
+-5 to +5 = stable
++5 to +15 = elevated
+> +15 = extreme increase
+*/
+
+let status;
+let color;
+
+if(change===null){
+
+status="🟡 BASELINE — COLLECTING HISTORY";
+color="yellow-text";
+
+}
+
+else if(change>15){
+
+status=
+"🔴 EXTREME RISE "+
+"("+fmtPct(change)+")";
+
+color="red-text";
+
+}
+
+else if(change>5){
+
+status=
+"🟡 ELEVATED "+
+"("+fmtPct(change)+")";
+
+color="yellow-text";
+
+}
+
+else if(change<-5){
+
+status=
+"🟢 FALLING "+
+"("+fmtPct(change)+")";
+
+color="green-text";
+
+}
+
+else{
+
+status=
+"🟢 STABLE / CONTROLLED "+
+"("+fmtPct(change)+")";
+
+color="green-text";
+
+}
+
+
+$("oiStatus").textContent=
+status;
+
+$("oiStatus").className=
+"small "+color;
+
+}catch(e){
+
+DATA.oi=null;
+DATA.oiChange=null;
+
+$("oi").textContent="N/A";
+$("oiStatus").textContent=
+"Open Interest unavailable";
+
+}
 
 }
 
 
 /* =========================================================
-   STABLECOIN LIQUIDITY
+STABLECOINS
 ========================================================= */
 
 async function loadStablecoins(){
 
-  try{
+try{
 
-    const data=
-      await getJSON(
-        DEFILLAMA+
-        "/stablecoins?includePrices=true"
-      );
+const data=
+await getJSON(
+DEFILLAMA+
+"/stablecoins?includePrices=true"
+);
 
-    let total=0;
+let total=0;
 
-    if(
-      data &&
-      Array.isArray(data.peggedAssets)
-    ){
+if(data.peggedAssets){
 
-      for(
-        const coin of data.peggedAssets
-      ){
+data.peggedAssets.forEach(
+coin=>{
 
-        const values=
-          coin.circulating &&
-          coin.circulating.peggedUSD;
+const supply=
+Number(
+coin.circulating?.peggedUSD||0
+);
 
-        if(
-          values!==undefined &&
-          values!==null
-        ){
+total+=supply;
 
-          total+=Number(values);
+}
+);
 
-        }
+}
 
-      }
+DATA.stablecoins=total;
 
-    }
 
-    DATA.stablecoins=
-      total>0?total:null;
+$("stablecoinTotal").textContent=
+fmtCompact(total);
 
-  }catch(e){
+$("stablecoinStatus").textContent=
+"Current aggregate stablecoin supply";
 
-    DATA.stablecoins=null;
+}catch(e){
 
-  }
+$("stablecoinTotal").textContent=
+"N/A";
+
+$("stablecoinStatus").textContent=
+"Data unavailable";
+
+}
 
 }
 
 
 /* =========================================================
-   COINGECKO MARKET CAPS
+COINGECKO MARKET CAPS
 ========================================================= */
 
 async function loadMarketCaps(){
 
-  const result={};
-
-  try{
-
-    const ids=
-      COINS
-      .map(c=>CG_IDS[c])
-      .filter(Boolean)
-      .join(",");
-
-    const url=
-      COINGECKO+
-      "/coins/markets?vs_currency=usd"+
-      "&ids="+encodeURIComponent(ids)+
-      "&order=market_cap_desc"+
-      "&per_page=100"+
-      "&page=1"+
-      "&sparkline=false";
-
-    const markets=
-      await getJSON(url);
-
-    if(Array.isArray(markets)){
-
-      for(
-        const item of markets
-      ){
-
-        result[
-          item.symbol.toUpperCase()
-        ]={
-          marketCap:
-            Number(item.market_cap),
-          price:
-            Number(item.current_price),
-          change:
-            Number(item.price_change_percentage_24h)
-        };
-
-      }
-
-    }
-
-  }catch(e){}
+const coins=
+[
+...new Set([
+...HOLDINGS,
+...WATCHLIST,
+"BTC",
+"ETH"
+])
+];
 
 
-  return result;
+try{
+
+const data=
+await getJSON(
+COINGECKO+
+"/coins/markets"+
+"?vs_currency=usd"+
+"&order=market_cap_desc"+
+"&per_page=250"+
+"&page=1"+
+"&sparkline=false"
+);
+
+
+const map={};
+
+
+data.forEach(c=>{
+
+map[c.symbol.toUpperCase()]={
+marketCap:Number(c.market_cap||0),
+rank:Number(c.market_cap_rank||999999)
+};
+
+});
+
+
+return map;
+
+}catch(e){
+
+console.log(
+"CoinGecko market cap error",
+e
+);
+
+return {};
+
+}
 
 }
 
 
 /* =========================================================
-   COIN ANALYSIS
+COIN ANALYSIS
 ========================================================= */
 
 async function analyzeCoin(
-  coin,
-  tickerMap,
-  marketCaps,
-  btcChange
+coin,
+btcChange
 ){
 
-  const symbol=
-    SYMBOLS[coin];
+const symbol=
+SYMBOLS[coin];
 
-  const ticker=
-    tickerMap[symbol];
+if(!symbol){
+throw new Error(
+"No symbol for "+coin
+);
+}
 
-  if(!ticker){
 
-    return {
-      coin,
-      error:true
-    };
+const [
+t,
+k
+]=await Promise.all([
 
-  }
+ticker(symbol),
+klines(symbol,"1h",100)
 
-  let technical=null;
+]);
 
-  try{
 
-    const klines=
-      await getKlines(
-        symbol,
-        "1h",
-        120
-      );
+const tech=
+technical(k);
 
-    technical=
-      analyzeKlines(
-        klines
-      );
 
-  }catch(e){
+const coinChange=
+Number(t.priceChangePercent);
 
-    technical=null;
 
-  }
+const relative=
+coinChange-btcChange;
 
 
-  const price=
-    Number(ticker.lastPrice);
+let score=50;
 
-  const change=
-    Number(ticker.priceChangePercent);
 
-  const volume=
-    Number(ticker.quoteVolume);
+/* TREND */
 
-  const market=
-    marketCaps[coin];
+if(tech.trend==="BULLISH"){
+score+=15;
+}
 
-  const marketCap=
-    market?
-    market.marketCap:
-    null;
+else if(tech.trend==="BEARISH"){
+score-=15;
+}
 
-  const relative=
-    change-btcChange;
 
-  let score=50;
+/* RSI */
 
+if(
+tech.rsi>=40 &&
+tech.rsi<=68
+){
+score+=10;
+}
 
-  /* Trend */
+if(tech.rsi>75){
+score-=12;
+}
 
-  if(technical){
+if(tech.rsi<30){
+score+=4;
+}
 
-    if(
-      technical.trend==="BULLISH"
-    ){
 
-      score+=15;
+/* BTC RELATIVE */
 
-    }else if(
-      technical.trend==="BEARISH"
-    ){
+if(relative>3){
+score+=15;
+}
 
-      score-=15;
+else if(relative>0){
+score+=8;
+}
 
-    }
+else if(relative<-3){
+score-=12;
+}
 
 
-    /* RSI */
+/* VOLUME */
 
-    if(
-      technical.rsi>=40 &&
-      technical.rsi<=68
-    ){
+if(tech.volumeRatio>1.5){
+score+=8;
+}
 
-      score+=10;
+else if(
+tech.volumeRatio<.6
+){
+score-=5;
+}
 
-    }
 
-    if(
-      technical.rsi>75
-    ){
+/* MARKET SENTIMENT */
 
-      score-=10;
+if(
+DATA.fearGreed!==null &&
+DATA.fearGreed<25
+){
+score-=5;
+}
 
-    }
 
-    if(
-      technical.rsi<30
-    ){
+/* FUNDING */
 
-      score+=4;
+if(
+DATA.funding!==null &&
+DATA.funding>.06
+){
+score-=5;
+}
 
-    }
 
+score=
+Math.max(
+0,
+Math.min(
+100,
+Math.round(score)
+)
+);
 
-    /* Volume */
 
-    if(
-      technical.volumeRatio!==null
-    ){
+let signal="WAIT";
 
-      if(
-        technical.volumeRatio>1.5
-      ){
+if(score>=75){
+signal="BUY";
+}
 
-        score+=8;
+else if(score<40){
+signal="AVOID";
+}
 
-      }else if(
-        technical.volumeRatio<0.6
-      ){
 
-        score-=5;
+return{
 
-      }
+coin,
+price:Number(t.lastPrice),
+change:coinChange,
+rsi:tech.rsi,
+ema20:tech.ema20,
+ema55:tech.ema55,
+trend:tech.trend,
+relative,
+volumeRatio:tech.volumeRatio,
+score,
+signal
 
-    }
-
-  }
-
-
-  /* Relative strength */
-
-  if(relative>2){
-
-    score+=15;
-
-  }else if(relative>0){
-
-    score+=8;
-
-  }else if(relative<-3){
-
-    score-=12;
-
-  }
-
-
-  score=
-    clamp(
-      Math.round(score),
-      0,
-      100
-    );
-
-
-  return {
-
-    coin,
-    error:false,
-
-    price,
-    change,
-    volume,
-    marketCap,
-
-    relative,
-
-    rsi:
-      technical?
-      technical.rsi:
-      null,
-
-    ema20:
-      technical?
-      technical.ema20:
-      null,
-
-    ema55:
-      technical?
-      technical.ema55:
-      null,
-
-    trend:
-      technical?
-      technical.trend:
-      "N/A",
-
-    volumeRatio:
-      technical?
-      technical.volumeRatio:
-      null,
-
-    score
-
-  };
+};
 
 }
 
 
 /* =========================================================
-   HOLDINGS SIGNAL
+LOAD COINS
 ========================================================= */
 
-function getHoldingSignal(row){
+async function loadCoins(){
 
-  if(!row || row.error){
+const btcChange=
+DATA.btc?
+DATA.btc.change:
+0;
 
-    return {
-      label:"N/A",
-      cls:"badge-blue"
-    };
 
-  }
+const allCoins=
+[
+...new Set([
+...HOLDINGS,
+...WATCHLIST
+])
+];
 
-  const trend=
-    row.trend;
 
-  const rsi=
-    row.rsi;
+const results=[];
 
-  const relative=
-    row.relative;
 
-  const score=
-    row.score;
+/*
+Do requests in small batches
+to reduce API pressure.
+*/
 
-  const volume=
-    row.volumeRatio;
-
-
-  /*
-     IMPORTANT:
-     RSI alone NEVER creates SELL.
-  */
-
-  let bearishPoints=0;
-
-  let bullishPoints=0;
-
-
-  /* Trend */
-
-  if(trend==="BEARISH")
-    bearishPoints+=2;
-
-  if(trend==="BULLISH")
-    bullishPoints+=2;
-
-
-  /* EMA */
-
-  if(
-    row.ema20!==null &&
-    row.ema55!==null
-  ){
-
-    if(
-      row.ema20<row.ema55
-    ){
-
-      bearishPoints+=1;
-
-    }else{
-
-      bullishPoints+=1;
-
-    }
-
-  }
-
-
-  /* Relative strength */
-
-  if(relative<-3)
-    bearishPoints+=2;
-
-  else if(relative<-1)
-    bearishPoints+=1;
-
-  if(relative>2)
-    bullishPoints+=2;
-
-  else if(relative>0)
-    bullishPoints+=1;
-
-
-  /* RSI */
-
-  if(rsi!==null){
-
-    if(rsi<35)
-      bearishPoints+=1;
-
-    if(rsi>=40 && rsi<=68)
-      bullishPoints+=1;
-
-    if(rsi>75)
-      bearishPoints+=1;
-
-  }
-
-
-  /* Volume */
-
-  if(volume!==null){
-
-    if(
-      volume>1.4 &&
-      trend==="BEARISH"
-    ){
-
-      bearishPoints+=1;
-
-    }
-
-    if(
-      volume>1.3 &&
-      trend==="BULLISH"
-    ){
-
-      bullishPoints+=1;
-
-    }
-
-  }
-
-
-  /* STRONG SELL */
-
-  if(
-    bearishPoints>=5 &&
-    score<35 &&
-    trend==="BEARISH"
-  ){
-
-    return {
-      label:"🔴 STRONG SELL",
-      cls:"badge-red"
-    };
-
-  }
-
-
-  /* SELL */
-
-  if(
-    bearishPoints>=4 &&
-    score<45
-  ){
-
-    return {
-      label:"🔴 SELL",
-      cls:"badge-red"
-    };
-
-  }
-
-
-  /*
-     HOLD / WATCH
-     Weakness exists but not enough
-     for a real SELL.
-  */
-
-  if(
-    bearishPoints>=2 &&
-    (
-      score<60 ||
-      relative<0 ||
-      trend==="BEARISH"
-    )
-  ){
-
-    return {
-      label:"🟡 HOLD / WATCH",
-      cls:"badge-yellow"
-    };
-
-  }
-
-
-  /* HOLD */
-
-  return {
-    label:"🟢 HOLD",
-    cls:"badge-green"
-  };
-
-}
-
-
-/* =========================================================
-   WATCHLIST SIGNAL
-========================================================= */
-
-function getWatchSignal(row){
-
-  if(!row || row.error){
-
-    return {
-      label:"N/A",
-      cls:"badge-blue"
-    };
-
-  }
-
-  if(row.score>=75){
-
-    return {
-      label:"🟢 BUY",
-      cls:"badge-green"
-    };
-
-  }
-
-  if(row.score>=40){
-
-    return {
-      label:"🟡 WAIT",
-      cls:"badge-yellow"
-    };
-
-  }
-
-  return {
-    label:"🔴 AVOID",
-    cls:"badge-red"
-  };
-
-}
-
-
-/* =========================================================
-   TABLE ROW
-========================================================= */
-
-function createRow(
-  row,
-  holding=false
+for(
+let i=0;
+i<allCoins.length;
+i+=6
 ){
 
-  if(row.error){
-
-    return `
-      <tr>
-        <td class="coin-name">${row.coin}</td>
-        <td colspan="10" class="error">
-          Market data unavailable
-        </td>
-      </tr>
-    `;
-
-  }
+const batch=
+allCoins.slice(
+i,
+i+6
+);
 
 
-  const signal=
-    holding?
-    getHoldingSignal(row):
-    getWatchSignal(row);
+const batchResults=
+await Promise.all(
+batch.map(
+coin=>
+analyzeCoin(
+coin,
+btcChange
+)
+.catch(
+e=>({
+coin,
+error:true
+})
+)
+)
+);
 
 
-  const trendColor=
-    trendClass(row.trend);
+results.push(
+...batchResults
+);
 
-  const changeClass=
-    colorClass(row.change);
-
-  const relativeClass=
-    colorClass(row.relative);
+}
 
 
-  const emaText=
-    row.ema20!==null &&
-    row.ema55!==null
-    ?
-    fmtPrice(row.ema20)+
-    " / "+
-    fmtPrice(row.ema55)
-    :
-    "N/A";
+const marketCaps=
+await loadMarketCaps();
 
 
-  const volumeText=
-    row.volumeRatio!==null
-    ?
-    row.volumeRatio.toFixed(2)+"x"
-    :
-    "N/A";
+results.forEach(row=>{
+
+if(row.error){
+return;
+}
+
+const m=
+marketCaps[row.coin];
+
+row.marketCap=
+m?
+m.marketCap:
+0;
+
+row.rank=
+m?
+m.rank:
+999999;
+
+});
 
 
-  return `
-    <tr>
+DATA.holdings=
+results.filter(
+x=>HOLDINGS.includes(x.coin)
+);
 
-      <td class="coin-name">
-        ${row.coin}
-      </td>
+DATA.watch=
+results.filter(
+x=>WATCHLIST.includes(x.coin)
+);
 
-      <td>
-        ${fmtCompact(row.marketCap)}
-      </td>
 
-      <td>
-        ${fmtPrice(row.price)}
-      </td>
+renderTable(
+DATA.holdings,
+"holdingsBody"
+);
 
-      <td class="${changeClass}">
-        ${fmtPct(row.change)}
-      </td>
-
-      <td>
-        ${row.rsi!==null?
-          row.rsi.toFixed(1):
-          "N/A"}
-      </td>
-
-      <td>
-        ${emaText}
-      </td>
-
-      <td class="${trendColor}">
-        ${row.trend}
-      </td>
-
-      <td>
-        ${volumeText}
-      </td>
-
-      <td class="${relativeClass}">
-        ${fmtPct(row.relative)}
-      </td>
-
-      <td>
-        <strong>
-          ${row.score}/100
-        </strong>
-      </td>
-
-      <td>
-        <span class="badge ${signal.cls}">
-          ${signal.label}
-        </span>
-      </td>
-
-    </tr>
-  `;
+renderTable(
+DATA.watch,
+"watchlistBody"
+);
 
 }
 
 
 /* =========================================================
-   RENDER TABLES
+RENDER TABLE
 ========================================================= */
 
-function renderTables(){
+function renderTable(
+rows,
+elementId
+){
 
-  const sorted=
-    [...DATA.coins].sort(
-      (a,b)=>{
-        const am=
-          a.marketCap||
-          -1;
+const body=$(elementId);
 
-        const bm=
-          b.marketCap||
-          -1;
-
-        return bm-am;
-      }
-    );
+body.innerHTML="";
 
 
-  const holdingSet=
-    new Set(HOLDINGS);
+rows
+.sort(
+(a,b)=>
+(b.marketCap||0)-
+(a.marketCap||0)
+)
+.forEach(
+(row,index)=>{
+
+const tr=
+document.createElement("tr");
 
 
-  const holdingRows=
-    sorted.filter(
-      x=>holdingSet.has(x.coin)
-    );
+if(row.error){
+
+tr.innerHTML=`
+
+<td class="rank">--</td>
+
+<td class="coin">
+${row.coin}
+</td>
+
+<td colspan="11"
+class="neutral-text">
+Data unavailable
+</td>
+
+`;
+
+body.appendChild(tr);
+
+return;
+
+}
 
 
-  const watchRows=
-    sorted.filter(
-      x=>!holdingSet.has(x.coin)
-    );
+const signalClass=
+row.signal==="BUY"
+?"buy"
+:
+row.signal==="AVOID"
+?"avoid"
+:"wait";
 
 
-  document.getElementById(
-    "holdingsBody"
-  ).innerHTML=
-    holdingRows.length
-    ?
-    holdingRows.map(
-      x=>createRow(x,true)
-    ).join("")
-    :
-    `<tr>
-      <td colspan="11" class="loading">
-        No holdings data
-      </td>
-    </tr>`;
+const emaClass=
+row.trend==="BULLISH"
+?"green-text"
+:
+row.trend==="BEARISH"
+?"red-text"
+:"yellow-text";
 
 
-  document.getElementById(
-    "watchlistBody"
-  ).innerHTML=
-    watchRows.length
-    ?
-    watchRows.map(
-      x=>createRow(x,false)
-    ).join("")
-    :
-    `<tr>
-      <td colspan="11" class="loading">
-        No watchlist data
-      </td>
-    </tr>`;
+tr.innerHTML=`
+
+<td class="rank">
+${row.rank&&row.rank<999999
+? "#"+row.rank
+: "--"}
+</td>
+
+<td class="coin">
+${row.coin}
+</td>
+
+<td>
+${fmtCompact(row.marketCap)}
+</td>
+
+<td>
+${fmtPrice(row.price)}
+</td>
+
+<td class="${cls(row.change)}">
+${fmtPct(row.change)}
+</td>
+
+<td>
+${row.rsi?
+row.rsi.toFixed(1):
+"--"}
+</td>
+
+<td>
+${fmtPrice(row.ema20)}
+</td>
+
+<td>
+${fmtPrice(row.ema55)}
+</td>
+
+<td class="${emaClass}">
+${row.trend}
+</td>
+
+<td>
+${row.volumeRatio?
+row.volumeRatio.toFixed(2)+"x":
+"--"}
+</td>
+
+<td class="${cls(row.relative)}">
+${fmtPct(row.relative)}
+</td>
+
+<td>
+<span class="score">
+${row.score}
+</span>
+</td>
+
+<td class="signal ${signalClass}">
+${row.signal}
+</td>
+
+`;
+
+body.appendChild(tr);
+
+}
+);
 
 }
 
 
 /* =========================================================
-   BTC LEVELS
+MARKET MODEL
 ========================================================= */
 
-async function loadBTCLevels(){
+function buildMarketModel(){
 
-  try{
-
-    const k=
-      await getKlines(
-        "BTCUSDT",
-        "4h",
-        60
-      );
-
-    if(!k || k.length<10)
-      return;
+if(!DATA.btc){
+return;
+}
 
 
-    const completed=
-      k.slice(
-        0,
-        -1
-      );
+const t15=
+DATA.btc.t15;
+
+const t1h=
+DATA.btc.t1h;
+
+const t4h=
+DATA.btc.t4h;
 
 
-    const highs=
-      completed.map(
-        x=>Number(x[2])
-      );
+/* =====================================================
+REGIME SCORE
+===================================================== */
 
-    const lows=
-      completed.map(
-        x=>Number(x[3])
-      );
+let score=50;
 
 
-    const high=
-      Math.max(...highs);
+if(t15.trend==="BULLISH"){
+score+=8;
+}
 
-    const low=
-      Math.min(...lows);
-
-    const range=
-      high-low;
-
-    const support1=
-      low+
-      range*0.25;
-
-    const support2=
-      low;
+else if(t15.trend==="BEARISH"){
+score-=8;
+}
 
 
-    const current=
-      DATA.btc.price;
+if(t1h.trend==="BULLISH"){
+score+=12;
+}
+
+else if(t1h.trend==="BEARISH"){
+score-=12;
+}
 
 
-    let position="MID RANGE";
+if(t4h.trend==="BULLISH"){
+score+=15;
+}
+
+else if(t4h.trend==="BEARISH"){
+score-=20;
+}
 
 
-    const resistanceDistance=
-      (
-        high-current
-      )/current*100;
+/* ETH/BTC */
+
+if(DATA.ethbtc){
+
+if(DATA.ethbtc.change>2){
+score+=8;
+}
+
+else if(DATA.ethbtc.change>0){
+score+=4;
+}
+
+else if(DATA.ethbtc.change<-2){
+score-=8;
+}
+
+else if(DATA.ethbtc.change<0){
+score-=4;
+}
+
+}
 
 
-    const supportDistance=
-      (
-        current-low
-      )/current*100;
+/* FUNDING */
+
+if(DATA.funding!==null){
+
+if(
+Math.abs(DATA.funding)<.03
+){
+score+=5;
+}
+
+if(
+DATA.funding>.06
+){
+score-=10;
+}
+
+if(
+DATA.funding<-.06
+){
+score-=5;
+}
+
+}
 
 
-    if(
-      resistanceDistance<2
-    ){
+/* F&G */
 
-      position=
-        "NEAR RESISTANCE";
+if(DATA.fearGreed!==null){
 
-    }else if(
-      supportDistance<2
-    ){
+if(
+DATA.fearGreed>=45 &&
+DATA.fearGreed<=70
+){
+score+=5;
+}
 
-      position=
-        "NEAR SUPPORT";
+if(
+DATA.fearGreed>85
+){
+score-=8;
+}
 
-    }
+}
 
 
-    document.getElementById(
-      "btcLevelCurrent"
-    ).textContent=
-      fmtPrice(current);
+score=
+Math.max(
+0,
+Math.min(
+100,
+Math.round(score)
+)
+);
 
-    document.getElementById(
-      "btcResistance"
-    ).textContent=
-      fmtPrice(high);
 
-    document.getElementById(
-      "btcSupport1"
-    ).textContent=
-      fmtPrice(support1);
+let regime;
 
-    document.getElementById(
-      "btcSupport2"
-    ).textContent=
-      fmtPrice(support2);
+if(score>=68){
+regime="GREEN";
+}
 
-    document.getElementById(
-      "btcPosition"
-    ).textContent=
-      position;
+else if(score>=45){
+regime="YELLOW";
+}
 
-  }catch(e){
+else{
+regime="RED";
+}
 
-    console.log(
-      "BTC levels error",
-      e
-    );
 
-  }
+const box=
+$("regimeBox");
+
+box.className=
+"regime "+
+regime.toLowerCase();
+
+
+if(regime==="GREEN"){
+
+$("regimeMain").textContent=
+"🟢 GREEN — RISK-ON";
+
+$("regimeDesc").textContent=
+"BTC multi-timeframe structure is constructive. Strong spot setups can receive higher priority, while overheated leverage should still be avoided.";
+
+}
+
+else if(regime==="YELLOW"){
+
+$("regimeMain").textContent=
+"🟡 YELLOW — SELECTIVE";
+
+$("regimeDesc").textContent=
+"Market structure is mixed. Focus on coins showing BTC-relative strength, healthy RSI and volume confirmation.";
+
+}
+
+else{
+
+$("regimeMain").textContent=
+"🔴 RED — RISK-OFF";
+
+$("regimeDesc").textContent=
+"BTC structure or leverage conditions are weak. New altcoin entries require stronger confirmation.";
+
+}
+
+
+/* BTC MOMENTUM */
+
+$("btcMomentum").textContent=
+score+"/100";
+
+$("btcMomentum").className=
+"big "+
+(
+score>=68
+?"green-text"
+:
+score>=45
+?"yellow-text"
+:"red-text"
+);
+
+
+/* =====================================================
+ROTATION
+===================================================== */
+
+let rotation=50;
+
+
+if(DATA.ethbtc){
+
+if(DATA.ethbtc.change>2){
+rotation+=20;
+}
+
+else if(DATA.ethbtc.change>0){
+rotation+=10;
+}
+
+else if(DATA.ethbtc.change<-2){
+rotation-=20;
+}
+
+else if(DATA.ethbtc.change<0){
+rotation-=10;
+}
+
+}
+
+
+if(DATA.btcDom!==null){
+
+if(DATA.btcDom<55){
+rotation+=15;
+}
+
+else if(DATA.btcDom>60){
+rotation-=10;
+}
+
+}
+
+
+const altRows=
+[
+...DATA.holdings,
+...DATA.watch
+]
+.filter(x=>!x.error);
+
+
+if(altRows.length){
+
+const avgRelative=
+altRows.reduce(
+(sum,x)=>sum+x.relative,
+0
+)/altRows.length;
+
+
+if(avgRelative>3){
+rotation+=10;
+}
+
+else if(avgRelative>1){
+rotation+=5;
+}
+
+else if(avgRelative<-3){
+rotation-=10;
+}
+
+}
+
+
+rotation=
+Math.max(
+0,
+Math.min(
+100,
+Math.round(rotation)
+)
+);
+
+
+$("rotationScore").textContent=
+rotation+"/100";
+
+$("rotationBar").style.width=
+rotation+"%";
+
+
+if(rotation>=70){
+
+$("altDirection").textContent=
+"ROTATION ↑";
+
+$("altDirection").className=
+"green-text";
+
+$("altEnvironment").textContent=
+"🟢 FAVORABLE";
+
+$("altEnvironmentDesc").textContent=
+"ETH/BTC and alt relative strength are supportive.";
+
+}
+
+else if(rotation>=45){
+
+$("altDirection").textContent=
+"MIXED";
+
+$("altDirection").className=
+"yellow-text";
+
+$("altEnvironment").textContent=
+"🟡 SELECTIVE";
+
+$("altEnvironmentDesc").textContent=
+"Wait for stronger ETH/BTC and broader alt confirmation.";
+
+}
+
+else{
+
+$("altDirection").textContent=
+"ALT WEAK";
+
+$("altDirection").className=
+"red-text";
+
+$("altEnvironment").textContent=
+"🔴 UNFAVORABLE";
+
+$("altEnvironmentDesc").textContent=
+"BTC dominance or alt relative weakness is limiting rotation.";
+
+}
+
+
+/* =====================================================
+LIQUIDITY
+===================================================== */
+
+let liq=50;
+
+
+if(DATA.stablecoins){
+liq+=15;
+}
+
+
+if(
+DATA.fearGreed!==null &&
+DATA.fearGreed>40
+){
+liq+=10;
+}
+
+
+if(
+DATA.funding!==null &&
+Math.abs(DATA.funding)<.03
+){
+liq+=10;
+}
+
+
+if(
+DATA.oiChange!==null &&
+DATA.oiChange<10
+){
+liq+=5;
+}
+
+
+liq=
+Math.max(
+0,
+Math.min(
+100,
+liq
+)
+);
+
+
+$("liquidityScore").textContent=
+liq+"/100";
+
+$("liquidityBar").style.width=
+liq+"%";
+
+
+/* =====================================================
+PULLBACK RISK
+===================================================== */
+
+let pullback=30;
+
+
+if(
+DATA.fearGreed!==null &&
+DATA.fearGreed>80
+){
+pullback+=20;
+}
+
+
+if(
+DATA.funding!==null &&
+DATA.funding>.04
+){
+pullback+=20;
+}
+
+
+if(
+DATA.oiChange!==null &&
+DATA.oiChange>10
+){
+pullback+=15;
+}
+
+
+if(
+t1h.rsi &&
+t1h.rsi>72
+){
+pullback+=15;
+}
+
+
+if(
+t4h.rsi &&
+t4h.rsi>72
+){
+pullback+=15;
+}
+
+
+pullback=
+Math.min(
+100,
+pullback
+);
+
+
+$("pullbackRisk").textContent=
+pullback+"/100";
+
+
+if(pullback>=70){
+
+$("pullbackRisk").className=
+"big red-text";
+
+$("pullbackDesc").textContent=
+"High correction risk: momentum and/or leverage are becoming stretched.";
+
+}
+
+else if(pullback>=45){
+
+$("pullbackRisk").className=
+"big yellow-text";
+
+$("pullbackDesc").textContent=
+"Moderate correction risk.";
+
+}
+
+else{
+
+$("pullbackRisk").className=
+"big green-text";
+
+$("pullbackDesc").textContent=
+"Pullback risk currently controlled.";
+
+}
+
+
+/* =====================================================
+LEVERAGE RISK
+===================================================== */
+
+let levScore=0;
+
+
+if(
+DATA.funding!==null
+){
+
+if(
+Math.abs(DATA.funding)>=.06
+){
+levScore+=50;
+}
+
+else if(
+Math.abs(DATA.funding)>=.03
+){
+levScore+=25;
+}
+
+}
+
+
+if(
+DATA.oiChange!==null
+){
+
+if(DATA.oiChange>15){
+levScore+=50;
+}
+
+else if(DATA.oiChange>5){
+levScore+=25;
+}
+
+}
+
+
+let lev="CONTROLLED";
+
+if(levScore>=75){
+lev="EXTREME";
+}
+
+else if(levScore>=50){
+lev="HIGH";
+}
+
+else if(levScore>=25){
+lev="ELEVATED";
+}
+
+
+$("leverageRisk").textContent=
+lev;
+
+
+if(lev==="CONTROLLED"){
+
+$("leverageRisk").className=
+"big green-text";
+
+$("leverageDesc").textContent=
+"Funding and OI are not showing major leverage stress.";
+
+}
+
+else if(lev==="ELEVATED"){
+
+$("leverageRisk").className=
+"big yellow-text";
+
+$("leverageDesc").textContent=
+"Positioning is becoming crowded. Watch for sudden squeezes.";
+
+}
+
+else{
+
+$("leverageRisk").className=
+"big red-text";
+
+$("leverageDesc").textContent=
+"Funding/OI combination indicates elevated liquidation or squeeze risk.";
+
+}
+
+
+/* =====================================================
+Q4 MARKET ALERT
+===================================================== */
+
+if(pullback>=70){
+
+$("marketAlert").innerHTML=
+"🚨 <b>Pullback Warning:</b> "+
+"BTC momentum or leverage is becoming stretched. Avoid chasing extended candles and wait for confirmation/retest.";
+
+}
+
+else if(lev==="EXTREME"){
+
+$("marketAlert").innerHTML=
+"⚠️ <b>Leverage Alert:</b> "+
+"Funding and/or Open Interest are at an elevated level. A squeeze can happen in either direction.";
+
+}
+
+else if(regime==="RED"){
+
+$("marketAlert").innerHTML=
+"🔴 <b>Risk-Off:</b> "+
+"BTC structure is weak. Altcoin signals should be filtered aggressively.";
+
+}
+
+else if(
+regime==="GREEN" &&
+rotation>=70
+){
+
+$("marketAlert").innerHTML=
+"🟢 <b>Alt Rotation:</b> "+
+"BTC/ETH structure and alt relative strength are supportive. Strong spot setups can receive higher priority.";
+
+}
+
+else{
+
+$("marketAlert").innerHTML=
+"🟡 <b>Selective Mode:</b> "+
+"Market is not fully confirmed. Prioritize coins outperforming BTC with healthy volume and controlled leverage.";
+
+}
 
 }
 
 
 /* =========================================================
-   BTC MOMENTUM
+REFRESH
 ========================================================= */
 
-function calculateBTCMomentum(){
+async function refreshAll(){
 
-  let score=50;
-
-  if(
-    DATA.btc15 &&
-    DATA.btc15.trend==="BULLISH"
-  )
-    score+=10;
-
-  if(
-    DATA.btc15 &&
-    DATA.btc15.trend==="BEARISH"
-  )
-    score-=10;
+$("lastUpdate").textContent=
+"Updating...";
 
 
-  if(
-    DATA.btc1h &&
-    DATA.btc1h.trend==="BULLISH"
-  )
-    score+=15;
+try{
 
-  if(
-    DATA.btc1h &&
-    DATA.btc1h.trend==="BEARISH"
-  )
-    score-=15;
+await Promise.allSettled([
 
+loadBTCTechnical(),
+loadETH(),
+loadETHBTC(),
+loadGlobal(),
+loadFearGreed(),
+loadFunding(),
+loadOI(),
+loadStablecoins()
 
-  if(
-    DATA.btc4h &&
-    DATA.btc4h.trend==="BULLISH"
-  )
-    score+=20;
-
-  if(
-    DATA.btc4h &&
-    DATA.btc4h.trend==="BEARISH"
-  )
-    score-=20;
+]);
 
 
-  if(
-    DATA.btc1h &&
-    DATA.btc1h.rsi!==null
-  ){
-
-    const rsi=
-      DATA.btc1h.rsi;
-
-    if(
-      rsi>=45 &&
-      rsi<=68
-    )
-      score+=8;
-
-    if(rsi>75)
-      score-=8;
-
-    if(rsi<35)
-      score-=5;
-
-  }
+buildMarketModel();
 
 
-  return clamp(
-    Math.round(score),
-    0,
-    100
-  );
+await loadCoins();
+
+
+buildMarketModel();
+
+
+$("lastUpdate").textContent=
+new Date().toLocaleString();
+
+}catch(e){
+
+console.error(e);
+
+$("lastUpdate").textContent=
+"Partial data";
+
+}
 
 }
 
 
 /* =========================================================
-   ALT ROTATION
+START
 ========================================================= */
 
-function calculateRotation(){
+refreshAll();
 
-  let score=50;
 
-
-  if(DATA.ethbtc){
-
-    const c=
-      DATA.ethbtc.change;
-
-    if(c>2)
-      score+=20;
-    else if(c>0)
-      score+=10;
-    else if(c<-2)
-      score-=20;
-    else
-      score-=10;
-
-  }
-
-
-  if(DATA.btcDom!==null){
-
-    if(DATA.btcDom<50)
-      score+=15;
-
-    else if(DATA.btcDom<55)
-      score+=8;
-
-    else if(DATA.btcDom>60)
-      score-=10;
-
-  }
-
-
-  const relativeValues=
-    DATA.coins
-    .filter(x=>!x.error)
-    .map(x=>x.relative)
-    .filter(x=>isFinite(x));
-
-
-  if(relativeValues.length){
-
-    const r=
-      avg(relativeValues);
-
-    if(r>2)
-      score+=15;
-
-    else if(r>0)
-      score+=8;
-
-    else if(r<-2)
-      score-=12;
-
-  }
-
-
-  return clamp(
-    Math.round(score),
-    0,
-    100
-  );
-
-}
-
-
-/* =========================================================
-   LIQUIDITY SCORE
-========================================================= */
-
-function calculateLiquidity(){
-
-  let score=50;
-
-
-  try{
-
-    const old=
-      localStorage.getItem(
-        "q4_stablecoin_previous"
-      );
-
-    if(
-      old &&
-      DATA.stablecoins
-    ){
-
-      const previous=
-        Number(old);
-
-      const change=
-        (
-          DATA.stablecoins-
-          previous
-        )/previous*100;
-
-
-      if(change>0.05)
-        score+=15;
-
-      else if(change<-0.05)
-        score-=10;
-
-    }
-
-    if(DATA.stablecoins){
-
-      localStorage.setItem(
-        "q4_stablecoin_previous",
-        DATA.stablecoins
-      );
-
-    }
-
-  }catch(e){}
-
-
-  if(
-    DATA.fundingInfo
-  ){
-
-    if(
-      DATA.fundingInfo.level===
-      "CONTROLLED"
-    )
-      score+=10;
-
-    if(
-      DATA.fundingInfo.level===
-      "HIGH"
-    )
-      score-=10;
-
-  }
-
-
-  if(DATA.oiInfo){
-
-    if(
-      DATA.oiInfo.level===
-      "CONTROLLED" ||
-      DATA.oiInfo.level===
-      "COOLING"
-    )
-      score+=10;
-
-    if(
-      DATA.oiInfo.level===
-      "HIGH"
-    )
-      score-=10;
-
-  }
-
-
-  if(DATA.fearGreed){
-
-    const fg=
-      DATA.fearGreed.value;
-
-    if(
-      fg>=40 &&
-      fg<=70
-    )
-      score+=5;
-
-    if(fg<20)
-      score-=5;
-
-  }
-
-
-  return clamp(
-    Math.round(score),
-    0,
-    100
-  );
-
-}
-
-
-/* =========================================================
-   LEVERAGE RISK
-========================================================= */
-
-function calculateLeverage(){
-
-  const f=
-    DATA.fundingInfo?
-    DATA.fundingInfo.level:
-    null;
-
-  const o=
-    DATA.oiInfo?
-    DATA.oiInfo.level:
-    null;
-
-
-  if(
-    (
-      f==="SHORT_CROWDED" ||
-      f==="ELEVATED_SHORT"
-    ) &&
-    o==="HIGH"
-  ){
-
-    return {
-      label:"🔴 SHORT SQUEEZE RISK",
-      desc:"Short crowding + high OI",
-      cls:"down"
-    };
-
-  }
-
-
-  if(
-    f==="HIGH" ||
-    o==="HIGH"
-  ){
-
-    return {
-      label:"🔴 HIGH",
-      desc:"Leverage conditions are stretched",
-      cls:"down"
-    };
-
-  }
-
-
-  if(
-    f==="ELEVATED" ||
-    f==="ELEVATED_SHORT" ||
-    o==="ELEVATED"
-  ){
-
-    return {
-      label:"🟡 ELEVATED",
-      desc:"Leverage needs caution",
-      cls:"neutral"
-    };
-
-  }
-
-
-  if(
-    f==="CONTROLLED" &&
-    (
-      o==="CONTROLLED" ||
-      o==="COOLING"
-    )
-  ){
-
-    return {
-      label:"🟢 CONTROLLED",
-      desc:"Funding + OI are not crowded",
-      cls:"up"
-    };
-
-  }
-
-
-  return {
-    label:"🟡 MIXED",
-    desc:"Derivatives signals are mixed",
-    cls:"neutral"
-  };
-
-}
-
-
-/* =========================================================
-   PULLBACK RISK
-========================================================= */
-
-function calculatePullback(){
-
-  let risk=0;
-
-  if(
-    DATA.btc1h &&
-    DATA.btc1h.rsi>72
-  )
-    risk+=2;
-
-  if(
-    DATA.btc4h &&
-    DATA.btc4h.rsi>72
-  )
-    risk+=2;
-
-  if(
-    DATA.fundingInfo &&
-    DATA.fundingInfo.level==="HIGH"
-  )
-    risk+=2;
-
-  if(
-    DATA.oiInfo &&
-    DATA.oiInfo.level==="HIGH"
-  )
-    risk+=2;
-
-
-  if(risk>=5){
-
-    return {
-      label:"🔴 HIGH",
-      desc:"Momentum + leverage stretched"
-    };
-
-  }
-
-  if(risk>=3){
-
-    return {
-      label:"🟡 ELEVATED",
-      desc:"Some pullback pressure exists"
-    };
-
-  }
-
-  return {
-    label:"🟢 LOW",
-    desc:"No major pullback warning"
-  };
-
-}
-
-
-/* =========================================================
-   RENDER DASHBOARD
-========================================================= */
-
-function renderDashboard(){
-
-  /* BTC */
-
-  if(DATA.btc){
-
-    document.getElementById(
-      "btcPrice"
-    ).textContent=
-      fmtPrice(DATA.btc.price);
-
-    const btcChange=
-      document.getElementById(
-        "btcChange"
-      );
-
-    btcChange.textContent=
-      fmtPct(DATA.btc.change);
-
-    btcChange.className=
-      "card-small "+
-      colorClass(DATA.btc.change);
-
-  }
-
-
-  /* ETH */
-
-  if(DATA.eth){
-
-    document.getElementById(
-      "ethPrice"
-    ).textContent=
-      fmtPrice(DATA.eth.price);
-
-    const ethChange=
-      document.getElementById(
-        "ethChange"
-      );
-
-    ethChange.textContent=
-      fmtPct(DATA.eth.change);
-
-    ethChange.className=
-      "card-small "+
-      colorClass(DATA.eth.change);
-
-  }
-
-
-  /* Dominance */
-
-  document.getElementById(
-    "btcDom"
-  ).textContent=
-    DATA.btcDom!==null
-    ?
-    DATA.btcDom.toFixed(2)+"%"
-    :
-    "N/A";
-
-
-  /* Fear Greed */
-
-  if(DATA.fearGreed){
-
-    document.getElementById(
-      "fearGreed"
-    ).textContent=
-      DATA.fearGreed.value;
-
-    document.getElementById(
-      "fearText"
-    ).textContent=
-      DATA.fearGreed.text;
-
-  }
-
-
-  /* BTC Technical */
-
-  if(DATA.btc15){
-
-    const el=
-      document.getElementById(
-        "btc15m"
-      );
-
-    el.textContent=
-      DATA.btc15.trend;
-
-    el.className=
-      trendClass(
-        DATA.btc15.trend
-      );
-
-  }
-
-
-  if(DATA.btc1h){
-
-    const el=
-      document.getElementById(
-        "btc1h"
-      );
-
-    el.textContent=
-      DATA.btc1h.trend;
-
-    el.className=
-      trendClass(
-        DATA.btc1h.trend
-      );
-
-
-    document.getElementById(
-      "btcRsi"
-    ).textContent=
-      DATA.btc1h.rsi!==null
-      ?
-      DATA.btc1h.rsi.toFixed(1)
-      :
-      "N/A";
-
-
-    document.getElementById(
-      "btcEma"
-    ).textContent=
-      DATA.btc1h.ema20!==null
-      ?
-      fmtPrice(DATA.btc1h.ema20)+
-      " / "+
-      fmtPrice(DATA.btc1h.ema55)
-      :
-      "N/A";
-
-  }
-
-
-  if(DATA.btc4h){
-
-    const el=
-      document.getElementById(
-        "btc4h"
-      );
-
-    el.textContent=
-      DATA.btc4h.trend;
-
-    el.className=
-      trendClass(
-        DATA.btc4h.trend
-      );
-
-  }
-
-
-  /* ETH BTC */
-
-  if(DATA.ethbtc){
-
-    document.getElementById(
-      "ethbtc"
-    ).textContent=
-      DATA.ethbtc.price.toFixed(6);
-
-    document.getElementById(
-      "ethbtcChange"
-    ).textContent=
-      fmtPct(
-        DATA.ethbtc.change
-      );
-
-  }
-
-
-  /* Funding */
-
-  if(DATA.funding!==null){
-
-    document.getElementById(
-      "funding"
-    ).textContent=
-      (
-        DATA.funding*100
-      ).toFixed(4)+"%";
-
-    if(DATA.fundingInfo){
-
-      document.getElementById(
-        "fundingStatus"
-      ).textContent=
-        DATA.fundingInfo.label+
-        " • "+
-        DATA.fundingInfo.desc;
-
-    }
-
-  }else{
-
-    document.getElementById(
-      "funding"
-    ).textContent=
-      "N/A";
-
-    document.getElementById(
-      "fundingStatus"
-    ).textContent=
-      "Funding unavailable";
-
-  }
-
-
-  /* OI */
-
-  if(DATA.oi!==null){
-
-    document.getElementById(
-      "openInterest"
-    ).textContent=
-      fmtNumber(DATA.oi)+
-      " BTC";
-
-    if(DATA.oiInfo){
-
-      let status=
-        DATA.oiInfo.label+
-        " • "+
-        DATA.oiInfo.desc;
-
-      if(DATA.oiInfo.ratio){
-
-        status+=
-          " • "+
-          DATA.oiInfo.ratio.toFixed(2)+
-          "× avg";
-
-      }
-
-      document.getElementById(
-        "oiStatus"
-      ).textContent=
-        status;
-
-    }
-
-  }else{
-
-    document.getElementById(
-      "openInterest"
-    ).textContent=
-      "N/A";
-
-    document.getElementById(
-      "oiStatus"
-    ).textContent=
-      "OI unavailable";
-
-  }
-
-
-  /* Leverage */
-
-  const lev=
-    calculateLeverage();
-
-  document.getElementById(
-    "leverageRisk"
-  ).textContent=
-    lev.label;
-
-  document.getElementById(
-    "leverageDesc"
-  ).textContent=
-    lev.desc;
-
-
-  /* Pullback */
-
-  const pull=
-    calculatePullback();
-
-  document.getElementById(
-    "pullbackRisk"
-  ).textContent=
-    pull.label;
-
-  document.getElementById(
-    "pullbackDesc"
-  ).textContent=
-    pull.desc;
-
-
-  /* Liquidity */
-
-  document.getElementById(
-    "stableLiquidity"
-  ).textContent=
-    DATA.stablecoins!==null
-    ?
-    fmtCompact(
-      DATA.stablecoins
-    )
-    :
-    "N/A";
-
-
-  if(DATA.stablecoins){
-
-    document.getElementById(
-      "stableStatus"
-    ).textContent=
-      "Global stablecoin liquidity";
-
-  }
-
-
-  document.getElementById(
-    "btcMarketCap"
-  ).textContent=
-    fmtCompact(
-      DATA.btcMarketCap
-    );
-
-
-  document.getElementById(
-    "altMarketCap"
-  ).textContent=
-    fmtCompact(
-      DATA.altMarketCap
-    );
-
-
-  document.getElementById(
-    "totalMarketCap"
-  ).textContent=
-    fmtCompact(
-      DATA.totalMarketCap
-    );
-
-
-  /* Scores */
-
-  DATA.btcMomentum=
-    calculateBTCMomentum();
-
-  DATA.rotationScore=
-    calculateRotation();
-
-  DATA.liquidityScore=
-    calculateLiquidity();
-
-
-  document.getElementById(
-    "btcMomentum"
-  ).textContent=
-    DATA.btcMomentum+
-    "/100";
-
-  document.getElementById(
-    "btcMomentumBar"
-  ).style.width=
-    DATA.btcMomentum+"%";
-
-
-  document.getElementById(
-    "rotationScore"
-  ).textContent=
-    DATA.rotationScore+
-    "/100";
-
-  document.getElementById(
-    "rotationBar"
-  ).style.width=
-    DATA.rotationScore+"%";
-
-
-  document.getElementById(
-    "liquidityScore"
-  ).textContent=
-    DATA.liquidityScore+
-    "/100";
-
-  document.getElementById(
-    "liquidityBar"
-  ).style.width=
-    DATA.liquidityScore+"%";
-
-
-  /* Alt Environment */
-
-  let altEnvironment=
-    "MIXED";
-
-  if(DATA.rotationScore>=70)
-    altEnvironment=
-      "🟢 CONSTRUCTIVE";
-
-  else if(DATA.rotationScore<40)
-    altEnvironment=
-      "🔴 WEAK";
-
-  else
-    altEnvironment=
-      "🟡 MIXED";
-
-
-  document.getElementById(
-    "altEnvironment"
-  ).textContent=
-    altEnvironment;
-
-
-  document.getElementById(
-    "altEnvironmentDesc"
-  ).textContent=
-    "Based on ETH/BTC, BTC dominance and relative strength";
-
-
-  /* Alt Direction */
-
-  let direction=
-    "MIXED";
-
-  if(DATA.rotationScore>=70)
-    direction="ROTATION ↑";
-
-  else if(DATA.rotationScore<40)
-    direction="ALT WEAK";
-
-  document.getElementById(
-    "altDirection"
-  ).textContent=
-    direction;
-
-
-  /* Regime */
-
-  let regime=
-    "🟡 MIXED / CHOPPY";
-
-  let regimeDesc=
-    "";
-
-
-  const btcBull=
-    DATA.btc4h &&
-    DATA.btc4h.trend==="BULLISH";
-
-  const btcBear=
-    DATA.btc4h &&
-    DATA.btc4h.trend==="BEARISH";
-
-
-  if(
-    btcBull &&
-    DATA.liquidityScore>=60 &&
-    DATA.rotationScore>=55 &&
-    lev.label.includes("CONTROLLED")
-  ){
-
-    regime=
-      "🟢 CONSTRUCTIVE";
-
-    regimeDesc=
-      "BTC structure is constructive with supportive liquidity and controlled leverage.";
-
-  }else if(
-    btcBear &&
-    (
-      DATA.liquidityScore<45 ||
-      lev.label.includes("HIGH")
-    )
-  ){
-
-    regime=
-      "🔴 RISK-OFF";
-
-    regimeDesc=
-      "BTC structure is weak and liquidity/leverage conditions require caution.";
-
-  }else{
-
-    regime=
-      "🟡 MIXED / CHOPPY";
-
-    regimeDesc=
-      "Signals are mixed. BTC structure, liquidity and alt rotation are not fully aligned.";
-
-  }
-
-
-  document.getElementById(
-    "regimeMain"
-  ).textContent=
-    regime;
-
-
-  document.getElementById(
-    "regimeDesc"
-  ).innerHTML=
-    regimeDesc+
-    "<br><br>"+
-    "<strong>BTC Momentum:</strong> "+
-    DATA.btcMomentum+
-    "/100"+
-    " &nbsp;•&nbsp; "+
-    "<strong>Liquidity:</strong> "+
-    DATA.liquidityScore+
-    "/100"+
-    " &nbsp;•&nbsp; "+
-    "<strong>Alt Rotation:</strong> "+
-    DATA.rotationScore+
-    "/100"+
-    " &nbsp;•&nbsp; "+
-    "<strong>Leverage:</strong> "+
-    lev.label;
-
-
-  /* Market Alert */
-
-  let alertTitle=
-    "Market conditions are being monitored";
-
-  let alertText=
-    "No single indicator should be used alone. ";
-
-
-  if(
-    DATA.fundingInfo
-  ){
-
-    alertText+=
-      "BTC funding is "+
-      DATA.fundingInfo.label+
-      ". ";
-
-  }
-
-
-  if(DATA.oiInfo){
-
-    alertText+=
-      "Open interest is "+
-      DATA.oiInfo.label+
-      ". ";
-
-  }
-
-
-  if(
-    DATA.btc1h &&
-    DATA.btc1h.rsi>70
-  ){
-
-    alertText+=
-      "BTC 1H RSI is elevated, so short-term pullback risk is higher. ";
-
-  }
-
-
-  if(
-    DATA.rotationScore>=70
-  ){
-
-    alertText+=
-      "Altcoin rotation conditions are relatively constructive. ";
-
-  }else if(
-    DATA.rotationScore<40
-  ){
-
-    alertText+=
-      "Altcoin relative strength remains weak. ";
-
-  }
-
-
-  alertText+=
-    "Holdings use a separate HOLD/SELL model, while the watchlist keeps BUY/WAIT/AVOID classification.";
-
-
-  document.getElementById(
-    "alertTitle"
-  ).textContent=
-    alertTitle;
-
-  document.getElementById(
-    "alertText"
-  ).textContent=
-    alertText;
-
-
-  /* Time */
-
-  document.getElementById(
-    "lastUpdate"
-  ).textContent=
-    new Date().toLocaleString();
-
-}
-
-
-/* =========================================================
-   MAIN REFRESH
-========================================================= */
-
-async function refreshMarket(){
-
-  document.getElementById(
-    "lastUpdate"
-  ).textContent=
-    "Refreshing...";
-
-
-  try{
-
-    const [
-      tickerMap,
-      marketCaps
-    ]=await Promise.all([
-
-      fetchAllTickers(),
-
-      loadMarketCaps()
-
-    ]);
-
-
-    await Promise.all([
-
-      loadBTC(),
-
-      loadETH(),
-
-      loadETHBTC(),
-
-      loadGlobal(),
-
-      loadFearGreed(),
-
-      loadFunding(),
-
-      loadOI(),
-
-      loadStablecoins()
-
-    ]);
-
-
-    const coinResults=[];
-
-
-    /*
-       Limit concurrency to avoid
-       excessive Binance requests.
-    */
-
-    const batchSize=5;
-
-
-    for(
-      let i=0;
-      i<COINS.length;
-      i+=batchSize
-    ){
-
-      const batch=
-        COINS.slice(
-          i,
-          i+batchSize
-        );
-
-
-      const results=
-        await Promise.all(
-          batch.map(
-            coin=>
-              analyzeCoin(
-                coin,
-                tickerMap,
-                marketCaps,
-                DATA.btc?
-                  DATA.btc.change:
-                  0
-              )
-          )
-        );
-
-
-      coinResults.push(
-        ...results
-      );
-
-    }
-
-
-    DATA.coins=
-      coinResults;
-
-
-    await loadBTCLevels();
-
-
-    renderTables();
-
-    renderDashboard();
-
-
-  }catch(error){
-
-    console.error(
-      "Dashboard error:",
-      error
-    );
-
-
-    document.getElementById(
-      "lastUpdate"
-    ).textContent=
-      "Some data failed — retrying";
-
-  }
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-refreshMarket();
-
-
-/* =========================================================
-   AUTO REFRESH
-========================================================= */
+/* AUTO REFRESH */
 
 setInterval(
-  refreshMarket,
-  60000
+refreshAll,
+60000
 );
 
 </script>
