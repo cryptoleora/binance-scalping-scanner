@@ -1,4505 +1,4311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1.0"
->
-
-<title>Binance Spot Swing Scanner V8.3</title>
+<title>Binance Spot Swing Scanner V8.4</title>
 
 <style>
-
 *{
-box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#070b10;
+  color:#eef3f8;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-margin:0;
-background:#080c12;
-color:#edf2f7;
-font-family:Arial,sans-serif;
+  min-height:100vh;
 }
 
 .container{
-max-width:1500px;
-margin:auto;
-padding:15px;
+  width:min(1200px,94%);
+  margin:0 auto;
+  padding:28px 0 60px;
 }
 
-h1{
-margin:0;
-font-size:24px;
-}
-
-.sub{
-color:#8491a1;
-font-size:12px;
-margin-top:6px;
-}
-
-.topbar{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin:17px 0;
-}
-
-input,
-button{
-background:#111923;
-color:#fff;
-border:1px solid #283444;
-border-radius:8px;
-padding:10px 12px;
-}
-
-button{
-cursor:pointer;
-}
-
-button:hover{
-background:#192535;
-}
-
-.primary{
-background:#146c43;
-border-color:#228b58;
-}
-
-.search{
-flex:1;
-min-width:190px;
-}
-
-.status{
-background:#101721;
-border:1px solid #202b39;
-border-radius:9px;
-padding:11px;
-margin-bottom:13px;
-color:#aab5c2;
-font-size:12px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:9px;
-margin-bottom:15px;
-}
-
-.card{
-background:#0f151e;
-border:1px solid #202b39;
-border-radius:11px;
-padding:13px;
-}
-
-.label{
-font-size:11px;
-color:#7e8b9a;
-}
-
-.value{
-font-size:18px;
-font-weight:bold;
-margin-top:7px;
-}
-
-.green{
-color:#3bdd82;
-}
-
-.red{
-color:#ff687b;
-}
-
-.yellow{
-color:#f3ce63;
-}
-
-.blue{
-color:#64a8ff;
-}
-
-.section{
-margin-top:16px;
+.header{
+  margin-bottom:24px;
 }
 
 .title{
-font-size:16px;
-font-weight:bold;
-margin-bottom:9px;
+  font-size:34px;
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:10px;
+}
+
+.green-dot{
+  color:#22e58a;
+}
+
+.subtitle{
+  color:#8d9aaa;
+  font-size:16px;
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.search-row{
+  display:flex;
+  gap:10px;
+}
+
+input{
+  width:100%;
+  background:#101821;
+  color:#fff;
+  border:1px solid #263445;
+  border-radius:14px;
+  padding:16px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#3b82f6;
+}
+
+button{
+  background:#111b25;
+  color:#eef3f8;
+  border:1px solid #29384a;
+  border-radius:14px;
+  padding:14px 18px;
+  font-size:16px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+button:hover{
+  border-color:#3ce69a;
+}
+
+.scan-btn{
+  border-color:#22b875;
+  background:#12241f;
+}
+
+.monitor-btn{
+  margin-bottom:20px;
+}
+
+.status{
+  background:#101821;
+  border:1px solid #263445;
+  border-radius:15px;
+  padding:17px;
+  color:#aeb9c7;
+  margin-bottom:24px;
+  line-height:1.5;
+}
+
+.status.ok{
+  border-color:#1c7d58;
+}
+
+.status.error{
+  border-color:#8c3030;
+  color:#ff9d9d;
+}
+
+.status.loading{
+  border-color:#4b6d91;
+}
+
+.diagnostics{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-bottom:24px;
+}
+
+.diag{
+  background:#0e151e;
+  border:1px solid #202d3c;
+  border-radius:12px;
+  padding:13px;
+}
+
+.diag-label{
+  font-size:12px;
+  color:#7f8c9d;
+  margin-bottom:5px;
+}
+
+.diag-value{
+  font-size:20px;
+  font-weight:700;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-bottom:32px;
+}
+
+.card{
+  background:#0f151e;
+  border:1px solid #202d3c;
+  border-radius:18px;
+  padding:22px;
+  min-height:115px;
+}
+
+.card-label{
+  color:#8794a5;
+  font-size:15px;
+  margin-bottom:18px;
+}
+
+.card-value{
+  font-size:24px;
+  font-weight:800;
+}
+
+.green{
+  color:#39e68b;
+}
+
+.yellow{
+  color:#f5c451;
+}
+
+.red{
+  color:#ff6868;
+}
+
+.blue{
+  color:#62a9ff;
+}
+
+.section-title{
+  font-size:27px;
+  font-weight:800;
+  margin:30px 0 14px;
 }
 
 .table-wrap{
-overflow:auto;
-border:1px solid #202b39;
-border-radius:11px;
+  width:100%;
+  overflow-x:auto;
+  background:#0b1118;
+  border:1px solid #233142;
+  border-radius:18px;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
-min-width:1650px;
+  width:100%;
+  border-collapse:collapse;
+  min-width:1100px;
 }
 
 th{
-background:#111923;
-color:#8996a6;
-padding:10px 7px;
-font-size:10px;
-text-align:left;
-white-space:nowrap;
+  text-align:left;
+  padding:16px;
+  background:#101923;
+  color:#8492a4;
+  font-size:14px;
+  white-space:nowrap;
 }
 
 td{
-border-top:1px solid #1b2530;
-padding:9px 7px;
-font-size:11px;
-white-space:nowrap;
-}
-
-tr:hover{
-background:#101923;
+  padding:16px;
+  border-top:1px solid #1a2634;
+  vertical-align:top;
+  font-size:14px;
 }
 
 .coin{
-font-weight:bold;
+  font-weight:800;
+  font-size:16px;
+}
+
+.score{
+  font-weight:800;
 }
 
 .badge{
-display:inline-block;
-border-radius:6px;
-padding:4px 7px;
-font-size:9px;
-font-weight:bold;
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:800;
 }
 
-.buy{
-background:#103b29;
-color:#55e392;
+.badge-buy{
+  background:#123d2c;
+  color:#49ef9b;
 }
 
-.strong{
-background:#075f3a;
-color:#6ff0a5;
+.badge-strong{
+  background:#155d3e;
+  color:#7dffbb;
 }
 
-.watch{
-background:#493a0b;
-color:#f5d46c;
+.badge-watch{
+  background:#403815;
+  color:#f3cf5d;
 }
 
-.no{
-background:#351923;
-color:#ff7889;
+.badge-no{
+  background:#2b1a1a;
+  color:#ff8787;
 }
 
-.neutral{
-background:#202a35;
-color:#aeb8c4;
-}
-
-.monitor{
-background:#173658;
-border-color:#2b6096;
-padding:6px 8px;
-font-size:10px;
+.setup{
+  line-height:1.55;
 }
 
 .small{
-font-size:10px;
-color:#7f8c9b;
-white-space:normal;
+  color:#7e8c9d;
+  font-size:12px;
 }
 
-.reason{
-max-width:330px;
-white-space:normal;
-line-height:1.4;
-}
-
-.detail{
-display:none;
-margin-top:15px;
-background:#0e151e;
-border:1px solid #273343;
-border-radius:13px;
-padding:15px;
-}
-
-.detail-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px;
-}
-
-.metric{
-background:#111923;
-border-radius:8px;
-padding:10px;
-}
-
-.metric span{
-display:block;
-color:#7d8a99;
-font-size:10px;
-margin-bottom:5px;
-}
-
-.metric strong{
-font-size:13px;
-}
-
-.close{
-float:right;
-background:#321923;
-}
-
-.monitor-card{
-display:flex;
-justify-content:space-between;
-gap:10px;
-align-items:center;
-background:#111923;
-border:1px solid #202b39;
-padding:10px;
-border-radius:8px;
-margin-bottom:7px;
+.price{
+  font-weight:700;
 }
 
 .progress{
-height:6px;
-background:#202a35;
-border-radius:8px;
-margin-top:7px;
-overflow:hidden;
+  height:6px;
+  width:100%;
+  background:#18222d;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:8px;
 }
 
 .progress-bar{
-height:100%;
-background:#36d17f;
+  height:100%;
+  width:0%;
+  background:#36df8b;
+  transition:width .2s ease;
 }
 
-.reason-box{
-margin-top:8px;
-padding:9px;
-background:#111923;
-border-radius:7px;
-color:#9da9b7;
-white-space:normal;
-line-height:1.5;
+.empty{
+  padding:35px;
+  text-align:center;
+  color:#758294;
 }
 
 .footer{
-margin-top:20px;
-color:#667484;
-font-size:10px;
-line-height:1.6;
+  margin-top:28px;
+  color:#667487;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  z-index:999;
+  padding:20px;
+  overflow:auto;
+}
+
+.modal-box{
+  width:min(760px,100%);
+  margin:30px auto;
+  background:#0d141d;
+  border:1px solid #263546;
+  border-radius:20px;
+  padding:22px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.modal-title{
+  font-size:25px;
+  font-weight:800;
+}
+
+.close{
+  font-size:25px;
+  cursor:pointer;
+  color:#9ba7b6;
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.detail{
+  background:#101923;
+  border:1px solid #202e3d;
+  border-radius:12px;
+  padding:14px;
+}
+
+.detail-label{
+  color:#7d8a9a;
+  font-size:12px;
+  margin-bottom:7px;
+}
+
+.detail-value{
+  font-weight:700;
+}
+
+.reason-box{
+  margin-top:16px;
+  background:#101923;
+  border:1px solid #263445;
+  border-radius:13px;
+  padding:15px;
+  line-height:1.7;
+}
+
+.reason-box ul{
+  margin:8px 0 0;
+  padding-left:20px;
+}
+
+.monitor-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.monitor-item{
+  background:#101923;
+  border:1px solid #223142;
+  border-radius:13px;
+  padding:15px;
+}
+
+.monitor-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+
+.monitor-name{
+  font-weight:800;
+}
+
+.monitor-state{
+  font-size:12px;
+  font-weight:800;
 }
 
 @media(max-width:900px){
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
 
-.grid{
-grid-template-columns:repeat(2,1fr);
+  .diagnostics{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .controls{
+    grid-template-columns:1fr;
+  }
+
+  .search-row{
+    width:100%;
+  }
 }
 
-.detail-grid{
-grid-template-columns:repeat(2,1fr);
+@media(max-width:600px){
+  .container{
+    width:94%;
+    padding-top:22px;
+  }
+
+  .title{
+    font-size:28px;
+  }
+
+  .subtitle{
+    font-size:14px;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .card{
+    padding:17px;
+    min-height:105px;
+  }
+
+  .card-value{
+    font-size:20px;
+  }
+
+  .diagnostics{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  button{
+    width:100%;
+  }
 }
-
-}
-
-@media(max-width:550px){
-
-.grid{
-grid-template-columns:1fr 1fr;
-}
-
-.detail-grid{
-grid-template-columns:1fr 1fr;
-}
-
-}
-
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>
-🟢 Binance Spot Swing Scanner V8.3
-</h1>
+  <div class="header">
+    <div class="title">
+      <span class="green-dot">🟢</span>
+      Binance Spot Swing Scanner V8.4
+    </div>
+
+    <div class="subtitle">
+      BUY-only • 1D + 4H + 1H • 2–7 Day Spot Swing
+    </div>
+  </div>
+
+  <div class="controls">
 
-<div class="sub">
-BUY-only • 1D + 4H + 1H • 2–7 Day Spot Swing
-</div>
+    <div class="search-row">
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Search NEAR, SEI, CORE..."
+      >
 
+      <button onclick="searchCoin()">Search</button>
+    </div>
+
+    <button class="scan-btn" onclick="scanMarket()">
+      🔄 Scan Market
+    </button>
+
+  </div>
+
+  <button class="monitor-btn" onclick="openMonitor()">
+    📌 My Monitor
+  </button>
+
+  <div id="status" class="status">
+    Ready. Press "Scan Market".
+  </div>
+
+  <div class="diagnostics">
+
+    <div class="diag">
+      <div class="diag-label">USDT Pairs</div>
+      <div id="diagPairs" class="diag-value">0</div>
+    </div>
+
+    <div class="diag">
+      <div class="diag-label">Ticker Loaded</div>
+      <div id="diagTicker" class="diag-value">0</div>
+    </div>
 
-<div class="topbar">
+    <div class="diag">
+      <div class="diag-label">Candidates</div>
+      <div id="diagCandidates" class="diag-value">0</div>
+    </div>
 
-<input
-id="search"
-class="search"
-placeholder="Search NEAR, SEI, CORE..."
->
+    <div class="diag">
+      <div class="diag-label">Analyzed</div>
+      <div id="diagAnalyzed" class="diag-value">0</div>
+    </div>
 
-<button onclick="searchCoin()">
-Search
-</button>
+    <div class="diag">
+      <div class="diag-label">Failed</div>
+      <div id="diagFailed" class="diag-value">0</div>
+    </div>
 
-<button
-class="primary"
-onclick="scanMarket()"
->
-🔄 Scan Market
-</button>
+  </div>
 
-<button onclick="showMonitor()">
-📌 My Monitor
-</button>
+  <div id="progressBox" style="display:none;margin-bottom:25px;">
 
-</div>
+    <div style="display:flex;justify-content:space-between;color:#8290a1;font-size:13px;">
+      <span id="progressText">Preparing...</span>
+      <span id="progressPercent">0%</span>
+    </div>
 
+    <div class="progress">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
 
-<div
-id="status"
-class="status"
->
-Press Scan Market.
-</div>
+  </div>
 
+  <div class="cards">
 
-<div class="grid">
+    <div class="card">
+      <div class="card-label">BTC 1D</div>
+      <div id="btc1d" class="card-value">—</div>
+    </div>
 
+    <div class="card">
+      <div class="card-label">BTC 4H</div>
+      <div id="btc4h" class="card-value">—</div>
+    </div>
 
-<div class="card">
+    <div class="card">
+      <div class="card-label">Market Regime</div>
+      <div id="marketRegime" class="card-value">—</div>
+    </div>
 
-<div class="label">
-BTC 1D
-</div>
+    <div class="card">
+      <div class="card-label">BUY Candidates</div>
+      <div id="buyCount" class="card-value">0</div>
+    </div>
 
-<div
-id="btc1d"
-class="value"
->
---
-</div>
+    <div class="card">
+      <div class="card-label">WATCH Candidates</div>
+      <div id="watchCount" class="card-value">0</div>
+    </div>
 
-</div>
+  </div>
 
+  <div class="section-title">
+    🔥 Spot Swing Opportunities
+  </div>
 
-<div class="card">
+  <div class="table-wrap">
 
-<div class="label">
-BTC 4H
-</div>
+    <table>
 
-<div
-id="btc4h"
-class="value"
->
---
-</div>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Coin</th>
+          <th>Score</th>
+          <th>Status</th>
+          <th>Price</th>
+          <th>Buy Zone</th>
+          <th>TP1</th>
+          <th>TP2</th>
+          <th>Invalidation</th>
+          <th>RR</th>
+          <th>Setup</th>
+        </tr>
+      </thead>
 
-</div>
+      <tbody id="resultsBody">
 
+        <tr>
+          <td colspan="11" class="empty">
+            No scan yet.
+          </td>
+        </tr>
 
-<div class="card">
+      </tbody>
 
-<div class="label">
-Market Regime
-</div>
+    </table>
 
-<div
-id="regime"
-class="value"
->
---
-</div>
+  </div>
 
-</div>
+  <div class="footer">
 
+    Technical research scanner only. BUY signals do not guarantee profit.
+    Spot BUY setups only. No leverage. No short signals.
 
-<div class="card">
-
-<div class="label">
-BUY Candidates
-</div>
-
-<div
-id="buyCount"
-class="value"
->
---
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">
-WATCH Candidates
-</div>
-
-<div
-id="watchCount"
-class="value"
->
---
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="section">
-
-<div class="title">
-🔥 Spot Swing Opportunities
-</div>
-
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>#</th>
-
-<th>Coin</th>
-
-<th>Score</th>
-
-<th>Status</th>
-
-<th>Setup</th>
-
-<th>1D</th>
-
-<th>4H</th>
-
-<th>1H</th>
-
-<th>RSI</th>
-
-<th>Buy Zone</th>
-
-<th>TP1</th>
-
-<th>TP2</th>
-
-<th>Invalidation</th>
-
-<th>R:R</th>
-
-<th>Hold</th>
-
-<th>Why</th>
-
-<th>Monitor</th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="results">
-
-<tr>
-
-<td
-colspan="17"
-style="text-align:center;padding:30px"
->
-
-No scan yet
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+  </div>
 
 </div>
 
 
-<div
-id="monitorSection"
-class="section"
-style="display:none"
->
+<!-- DETAIL MODAL -->
 
-<div class="title">
-📌 My Monitored Setups
-</div>
+<div id="detailModal" class="modal">
 
-<div id="monitorList"></div>
+  <div class="modal-box">
 
-</div>
+    <div class="modal-head">
 
+      <div id="modalTitle" class="modal-title">
+        Coin
+      </div>
 
-<div
-id="detail"
-class="detail"
->
-</div>
+      <div class="close" onclick="closeModal()">
+        ×
+      </div>
 
+    </div>
 
-<div class="footer">
+    <div id="modalContent"></div>
 
-Technical research scanner only.
-BUY signals do not guarantee profit.
-Spot BUY setups only.
-No leverage. No short signals.
+  </div>
 
 </div>
 
+
+<!-- MONITOR MODAL -->
+
+<div id="monitorModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div class="modal-title">
+        📌 My Monitor
+      </div>
+
+      <div class="close" onclick="closeMonitor()">
+        ×
+      </div>
+
+    </div>
+
+    <div id="monitorContent"></div>
+
+  </div>
 
 </div>
 
 
 <script>
 
+/* =========================================================
+   V8.4 CONFIG
+========================================================= */
 
-/* =====================================================
-   CONFIG
-===================================================== */
+const API_BASES = [
 
-const API =
-"https://api.binance.com";
+  "https://api.binance.com",
 
+  "https://api-gcp.binance.com",
 
-const EXCLUDED =
-new Set([
+  "https://api1.binance.com",
 
-"USDT",
-"USDC",
-"FDUSD",
-"USDE",
-"TUSD",
-"DAI",
-"GUSD",
-"EURS",
-"LUSD",
-"EUR",
-"WBTC",
-"WETH"
+  "https://api2.binance.com",
+
+  "https://api3.binance.com"
+
+];
+
+const EXCLUDED_ASSETS = new Set([
+
+  "USDT",
+  "USDC",
+  "FDUSD",
+  "USDE",
+  "TUSD",
+  "DAI",
+  "GUSD",
+  "EURS",
+  "LUSD",
+  "EUR",
+  "WBTC",
+  "WETH"
 
 ]);
 
+const MAX_MARKET_CANDIDATES = 60;
 
-const MONITOR_KEY =
-"SPOT_SWING_V83";
+const WORKERS = 2;
+
+const KLINE_LIMIT = 130;
+
+const MONITOR_KEY = "SPOT_SWING_V84";
+
+let activeResults = [];
+
+let currentMarket = null;
+
+let currentApiIndex = 0;
+
+let scanning = false;
 
 
-let allSymbols=[];
-
-let tickerMap={};
-
-let currentResults=[];
-
-let btcData=null;
-
-let btcTickerPercent=0;
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function setStatus(text){
-
-document.getElementById(
-"status"
-).textContent=text;
-
-}
-
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
 
 function sleep(ms){
 
-return new Promise(
-resolve=>setTimeout(resolve,ms)
-);
+  return new Promise(resolve => setTimeout(resolve,ms));
 
 }
 
 
-function getMonitor(){
+function setStatus(text,type=""){
 
-try{
+  const el = document.getElementById("status");
 
-return JSON.parse(
-localStorage.getItem(
-MONITOR_KEY
-)||"[]"
-);
+  el.textContent = text;
 
-}catch(e){
+  el.className = "status " + type;
 
-return [];
-
-}
-
-}
-
-
-function saveMonitor(data){
-
-localStorage.setItem(
-MONITOR_KEY,
-JSON.stringify(data)
-);
-
-}
-
-
-/* =====================================================
-   API
-===================================================== */
-
-async function api(path){
-
-const urls=[
-
-API+path,
-
-"https://api-gcp.binance.com"+path,
-
-"https://api1.binance.com"+path
-
-];
-
-
-let lastError;
-
-
-for(const url of urls){
-
-try{
-
-const controller=
-new AbortController();
-
-
-const timer=
-setTimeout(
-()=>controller.abort(),
-15000
-);
-
-
-const response=
-await fetch(
-url,
-{
-signal:
-controller.signal
-}
-);
-
-
-clearTimeout(timer);
-
-
-if(!response.ok){
-
-throw new Error(
-"HTTP "+
-response.status
-);
-
-}
-
-
-const data=
-await response.json();
-
-
-return data;
-
-
-}catch(error){
-
-lastError=error;
-
-}
-
-}
-
-
-throw lastError||
-new Error(
-"Binance API unavailable"
-);
-
-}
-
-
-/* =====================================================
-   INDICATORS
-===================================================== */
-
-function average(values){
-
-if(!values.length)
-return 0;
-
-return values.reduce(
-(a,b)=>a+b,
-0
-)/values.length;
-
-}
-
-
-function ema(values,period){
-
-if(values.length<period)
-return null;
-
-
-let e=
-average(
-values.slice(
-0,
-period
-)
-);
-
-
-const k=
-2/(period+1);
-
-
-for(
-let i=period;
-i<values.length;
-i++
-){
-
-e=
-values[i]*k+
-e*(1-k);
-
-}
-
-
-return e;
-
-}
-
-
-function rsi(values,period=14){
-
-if(values.length<=period)
-return 50;
-
-
-let gains=0;
-let losses=0;
-
-
-for(
-let i=1;
-i<=period;
-i++
-){
-
-const diff=
-values[i]-
-values[i-1];
-
-
-if(diff>0)
-gains+=diff;
-else
-losses-=diff;
-
-}
-
-
-let avgGain=
-gains/period;
-
-
-let avgLoss=
-losses/period;
-
-
-for(
-let i=period+1;
-i<values.length;
-i++
-){
-
-const diff=
-values[i]-
-values[i-1];
-
-
-const gain=
-Math.max(diff,0);
-
-
-const loss=
-Math.max(-diff,0);
-
-
-avgGain=
-(
-avgGain*(period-1)+
-gain
-)/period;
-
-
-avgLoss=
-(
-avgLoss*(period-1)+
-loss
-)/period;
-
-}
-
-
-if(avgLoss===0)
-return 100;
-
-
-const rs=
-avgGain/avgLoss;
-
-
-return 100-
-100/(1+rs);
-
-}
-
-
-function atr(candles,period=14){
-
-if(candles.length<period+1)
-return 0;
-
-
-const ranges=[];
-
-
-for(
-let i=1;
-i<candles.length;
-i++
-){
-
-const current=
-candles[i];
-
-const previous=
-candles[i-1];
-
-
-ranges.push(
-
-Math.max(
-
-current.h-current.l,
-
-Math.abs(
-current.h-
-previous.c
-),
-
-Math.abs(
-current.l-
-previous.c
-)
-
-)
-
-);
-
-}
-
-
-return average(
-ranges.slice(-period)
-);
-
-}
-
-
-function volumeRatio(candles){
-
-if(candles.length<25)
-return 1;
-
-
-const latest=
-candles.at(-1).v;
-
-
-const previous=
-candles
-.slice(-21,-1)
-.map(x=>x.v);
-
-
-const avg=
-average(previous);
-
-
-if(!avg)
-return 1;
-
-
-return latest/avg;
-
-}
-
-
-function momentum(
-candles,
-bars=5
-){
-
-if(candles.length<=bars)
-return 0;
-
-
-const latest=
-candles.at(-1).c;
-
-
-const old=
-candles.at(-1-bars).c;
-
-
-return(
-(latest-old)/old
-)*100;
-
-}
-
-
-function highest(
-candles,
-count
-){
-
-if(!candles.length)
-return 0;
-
-
-return Math.max(
-...candles
-.slice(-count)
-.map(x=>x.h)
-);
-
-}
-
-
-function lowest(
-candles,
-count
-){
-
-if(!candles.length)
-return 0;
-
-
-return Math.min(
-...candles
-.slice(-count)
-.map(x=>x.l)
-);
-
-}
-
-
-function parseKlines(raw){
-
-return raw.map(
-x=>({
-
-t:x[0],
-
-o:+x[1],
-
-h:+x[2],
-
-l:+x[3],
-
-c:+x[4],
-
-v:+x[5]
-
-})
-);
-
-}
-
-
-/* =====================================================
-   IMPORTANT:
-   RESISTANCE FROM PREVIOUS CANDLES ONLY
-===================================================== */
-
-function nearestResistance(
-candles,
-price,
-lookback=40
-){
-
-/*
- Do NOT include the current candle.
- We look for previous swing highs
- that are actually above current price.
-*/
-
-const previous=
-candles.slice(
-Math.max(
-0,
-candles.length-
-lookback-
-1
-),
-candles.length-1
-);
-
-
-const highs=
-previous
-.map(x=>x.h)
-.filter(
-h=>
-h>price*1.015
-);
-
-
-if(!highs.length){
-
-return price*1.15;
-
-}
-
-
-/*
- Nearest meaningful resistance
- above current price.
-*/
-
-return Math.min(
-...highs
-);
-
-}
-
-
-/* =====================================================
-   TIMEFRAME ANALYSIS
-===================================================== */
-
-function analyze(candles){
-
-const closes=
-candles.map(x=>x.c);
-
-
-const price=
-closes.at(-1);
-
-
-const ema20=
-ema(
-closes,
-20
-);
-
-
-const ema55=
-ema(
-closes,
-55
-);
-
-
-const ema100=
-ema(
-closes,
-100
-);
-
-
-const previousEma20=
-ema(
-closes.slice(0,-3),
-20
-);
-
-
-const slope=
-previousEma20
-?
-(
-(ema20-previousEma20)/
-previousEma20
-)*100
-:
-0;
-
-
-const R=
-rsi(
-closes,
-14
-);
-
-
-const A=
-atr(
-candles,
-14
-);
-
-
-const V=
-volumeRatio(
-candles
-);
-
-
-const M=
-momentum(
-candles,
-5
-);
-
-
-let trend=
-"NEUTRAL";
-
-
-if(
-price>ema20 &&
-ema20>ema55 &&
-ema55>ema100
-){
-
-trend=
-"BULLISH";
-
-}
-else if(
-price>=ema20 &&
-ema20>=ema55
-){
-
-trend=
-"RECOVERY";
-
-}
-else if(
-price<ema20 &&
-ema20<ema55
-){
-
-trend=
-"BEARISH";
-
-}
-
-
-return{
-
-price,
-
-ema20,
-
-ema55,
-
-ema100,
-
-rsi:R,
-
-atr:A,
-
-volumeRatio:V,
-
-momentum:M,
-
-slope,
-
-trend,
-
-resistance:
-nearestResistance(
-candles,
-price,
-40
-),
-
-support10:
-lowest(
-candles,
-10
-),
-
-support20:
-lowest(
-candles,
-20
-)
-
-};
-
-}
-
-
-/* =====================================================
-   BTC
-===================================================== */
-
-async function getBTC(){
-
-const daily=
-await api(
-"/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=150"
-);
-
-
-const fourHour=
-await api(
-"/api/v3/klines?symbol=BTCUSDT&interval=4h&limit=150"
-);
-
-
-return{
-
-d:
-analyze(
-parseKlines(daily)
-),
-
-h4:
-analyze(
-parseKlines(fourHour)
-)
-
-};
-
-}
-
-
-/* =====================================================
-   SYMBOLS
-===================================================== */
-
-async function loadSymbols(){
-
-const data=
-await api(
-"/api/v3/exchangeInfo"
-);
-
-
-allSymbols=
-data.symbols
-
-.filter(
-symbol=>
-
-symbol.status==="TRADING" &&
-
-symbol.quoteAsset==="USDT" &&
-
-symbol.isSpotTradingAllowed!==false &&
-
-!EXCLUDED.has(
-symbol.baseAsset
-)
-
-)
-
-.map(
-symbol=>
-symbol.symbol
-);
-
-}
-
-
-/* =====================================================
-   24H TICKERS
-===================================================== */
-
-async function loadTickers(){
-
-const data=
-await api(
-"/api/v3/ticker/24hr"
-);
-
-
-tickerMap={};
-
-
-data.forEach(
-ticker=>{
-
-tickerMap[
-ticker.symbol
-]=ticker;
-
-});
-
-
-const btc=
-tickerMap[
-"BTCUSDT"
-];
-
-
-btcTickerPercent=
-btc
-?
-+btc.priceChangePercent
-:
-0;
-
-}
-
-
-/* =====================================================
-   MARKET CANDIDATES
-===================================================== */
-
-function getCandidates(){
-
-const rows=[];
-
-
-for(
-const symbol of allSymbols
-){
-
-const ticker=
-tickerMap[symbol];
-
-
-if(!ticker)
-continue;
-
-
-const volume=
-+ticker.quoteVolume||0;
-
-
-const change=
-+ticker.priceChangePercent||0;
-
-
-if(volume<=0)
-continue;
-
-
-const liquidity=
-Math.min(
-40,
-Math.log10(
-volume+1
-)*4
-);
-
-
-const momentum=
-Math.max(
-0,
-Math.min(
-25,
-change+10
-)
-);
-
-
-const relative=
-change-
-btcTickerPercent;
-
-
-const relativeScore=
-Math.max(
-0,
-Math.min(
-35,
-relative+12
-)
-);
-
-
-rows.push({
-
-symbol,
-
-marketScore:
-liquidity+
-momentum+
-relativeScore,
-
-volume,
-
-change
-
-});
-
-}
-
-
-rows.sort(
-(a,b)=>
-b.marketScore-
-a.marketScore
-);
-
-
-return rows.slice(
-0,
-100
-);
-
-}
-
-
-/* =====================================================
-   BUILD SETUP
-===================================================== */
-
-function buildSetup(
-symbol,
-ticker,
-d,
-h4,
-h1
-){
-
-const price=
-+ticker.lastPrice;
-
-
-let score=0;
-
-const reasons=[];
-
-
-/* -----------------------------------------------------
-   DAILY
------------------------------------------------------ */
-
-if(
-d.trend==="BULLISH"
-){
-
-score+=22;
-
-reasons.push(
-"Daily bullish"
-);
-
-}
-else if(
-d.trend==="RECOVERY"
-){
-
-score+=18;
-
-reasons.push(
-"Daily recovery"
-);
-
-}
-else if(
-d.price>d.ema20
-){
-
-score+=10;
-
-reasons.push(
-"Daily above EMA20"
-);
-
-}
-else{
-
-score+=2;
-
-reasons.push(
-"Daily weak"
-);
-
-}
-
-
-if(d.slope>0){
-
-score+=3;
-
-}
-
-
-/* -----------------------------------------------------
-   4H
------------------------------------------------------ */
-
-if(
-h4.trend==="BULLISH"
-){
-
-score+=20;
-
-reasons.push(
-"4H bullish"
-);
-
-}
-else if(
-h4.trend==="RECOVERY"
-){
-
-score+=16;
-
-reasons.push(
-"4H recovery"
-);
-
-}
-else if(
-h4.price>h4.ema20
-){
-
-score+=8;
-
-reasons.push(
-"4H above EMA20"
-);
-
-}
-else{
-
-score+=1;
-
-reasons.push(
-"4H weak"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   1H
------------------------------------------------------ */
-
-if(
-h1.trend==="BULLISH"
-){
-
-score+=12;
-
-reasons.push(
-"1H bullish"
-);
-
-}
-else if(
-h1.trend==="RECOVERY"
-){
-
-score+=10;
-
-reasons.push(
-"1H recovery"
-);
-
-}
-else if(
-h1.price>h1.ema20
-){
-
-score+=6;
-
-}
-else{
-
-score+=1;
-
-}
-
-
-/* -----------------------------------------------------
-   RSI
------------------------------------------------------ */
-
-if(
-d.rsi>=40 &&
-d.rsi<=70
-){
-
-score+=5;
-
-}
-else{
-
-reasons.push(
-"Daily RSI not ideal"
-);
-
-}
-
-
-if(
-h4.rsi>=40 &&
-h4.rsi<=72
-){
-
-score+=5;
-
-}
-else{
-
-reasons.push(
-"4H RSI not ideal"
-);
-
-}
-
-
-if(
-h1.rsi>=38 &&
-h1.rsi<=70
-){
-
-score+=3;
-
-}
-
-
-/* -----------------------------------------------------
-   MOMENTUM
------------------------------------------------------ */
-
-if(
-h4.momentum>1
-){
-
-score+=5;
-
-}
-else if(
-h4.momentum>-1
-){
-
-score+=3;
-
-}
-else{
-
-reasons.push(
-"4H momentum weak"
-);
-
-}
-
-
-if(
-h1.momentum>0
-){
-
-score+=3;
-
-}
-
-
-/* -----------------------------------------------------
-   VOLUME
------------------------------------------------------ */
-
-if(
-h4.volumeRatio>=1.25
-){
-
-score+=7;
-
-reasons.push(
-"Volume expansion"
-);
-
-}
-else if(
-h4.volumeRatio>=0.95
-){
-
-score+=5;
-
-}
-else if(
-h4.volumeRatio>=0.75
-){
-
-score+=3;
-
-}
-else{
-
-reasons.push(
-"Low volume"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   BTC
------------------------------------------------------ */
-
-if(
-btcData.d.trend==="BULLISH" &&
-btcData.h4.trend!=="BEARISH"
-){
-
-score+=5;
-
-reasons.push(
-"BTC supportive"
-);
-
-}
-else if(
-btcData.d.trend!=="BEARISH"
-){
-
-score+=3;
-
-}
-else{
-
-reasons.push(
-"BTC weak"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   RELATIVE STRENGTH
------------------------------------------------------ */
-
-const relative=
-(+ticker.priceChangePercent)-
-btcTickerPercent;
-
-
-if(relative>=3){
-
-score+=5;
-
-reasons.push(
-"Strong vs BTC"
-);
-
-}
-else if(relative>=1){
-
-score+=4;
-
-}
-else if(relative>=-1){
-
-score+=2;
-
-}
-else{
-
-reasons.push(
-"Weak vs BTC"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   RESISTANCE
------------------------------------------------------ */
-
-const resistanceCandidates=[
-
-d.resistance,
-
-h4.resistance
-
-]
-.filter(
-x=>
-x>price*1.015
-);
-
-
-const resistance=
-resistanceCandidates.length
-?
-Math.min(
-...resistanceCandidates
-)
-:
-price*1.15;
-
-
-const room=
-(
-(resistance-price)/
-price
-)*100;
-
-
-if(room>=12){
-
-score+=8;
-
-}
-else if(room>=8){
-
-score+=6;
-
-}
-else if(room>=5){
-
-score+=4;
-
-}
-else if(room>=3){
-
-score+=2;
-
-}
-else{
-
-reasons.push(
-"Resistance close"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   EXTENSION
------------------------------------------------------ */
-
-const extension=
-(
-(price-h4.ema20)/
-h4.ema20
-)*100;
-
-
-if(extension<=4){
-
-score+=4;
-
-}
-else if(extension<=7){
-
-score+=3;
-
-}
-else if(extension<=10){
-
-score+=1;
-
-}
-else{
-
-reasons.push(
-"Price extended"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   SETUP TYPE
------------------------------------------------------ */
-
-let setupType=
-"Pullback Buy";
-
-
-const nearResistance=
-price>=
-resistance*0.985;
-
-
-if(
-nearResistance &&
-h4.volumeRatio>=1.25 &&
-h1.momentum>0
-){
-
-setupType=
-"Breakout / Reclaim";
-
-score+=5;
-
-reasons.push(
-"Breakout confirmation"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   SUPPORT / BUY ZONE
------------------------------------------------------ */
-
-const supports=[
-
-h1.ema20,
-
-h4.ema20,
-
-h1.support10,
-
-h4.support20
-
-]
-.filter(
-x=>
-x>0 &&
-x<price
-);
-
-
-let support=
-supports.length
-?
-Math.max(
-...supports
-)
-:
-price*0.97;
-
-
-/*
- Do not put buy zone
- unrealistically far away.
-*/
-
-support=
-Math.max(
-support,
-price*0.94
-);
-
-
-const buyLow=
-Math.max(
-support,
-price*0.965
-);
-
-
-const buyHigh=
-price*1.008;
-
-
-/* -----------------------------------------------------
-   INVALIDATION
------------------------------------------------------ */
-
-const structureLow=
-Math.min(
-h1.support10,
-h4.support20
-);
-
-
-const atrRisk=
-Math.max(
-h4.atr*1.10,
-price*0.025
-);
-
-
-let invalidation=
-Math.min(
-structureLow*0.995,
-price-atrRisk
-);
-
-
-if(
-!isFinite(invalidation) ||
-invalidation<=0 ||
-invalidation>=price
-){
-
-invalidation=
-price*0.94;
-
-}
-
-
-const risk=
-price-
-invalidation;
-
-
-const riskPct=
-(
-risk/price
-)*100;
-
-
-/* -----------------------------------------------------
-   TARGETS
------------------------------------------------------ */
-
-let tp1=
-price+
-Math.max(
-risk*1.60,
-price*0.035
-);
-
-
-let tp2=
-price+
-Math.max(
-risk*2.40,
-price*0.065
-);
-
-
-/*
- If resistance is before TP1,
- book TP1 slightly before resistance.
-*/
-
-if(
-resistance>price &&
-resistance<tp1
-){
-
-tp1=
-resistance*0.985;
-
-}
-
-
-if(
-tp1<=price
-){
-
-tp1=
-price*1.035;
-
-}
-
-
-if(
-tp2<=tp1
-){
-
-tp2=
-tp1*1.04;
-
-}
-
-
-const rr=
-(tp1-price)/
-risk;
-
-
-/* -----------------------------------------------------
-   HARD FAIL
------------------------------------------------------ */
-
-const hardFail=[];
-
-
-/*
- Daily bearish = no swing buy.
-*/
-
-if(
-d.trend==="BEARISH"
-){
-
-hardFail.push(
-"Daily trend bearish"
-);
-
-}
-
-
-/*
- 4H bearish only fails if
- daily is not strongly bullish.
-
-This allows some deep pullbacks
-inside a strong daily trend.
-*/
-
-if(
-h4.trend==="BEARISH" &&
-d.trend!=="BULLISH"
-){
-
-hardFail.push(
-"4H trend bearish"
-);
-
-}
-
-
-if(
-d.rsi>75
-){
-
-hardFail.push(
-"Daily RSI overheated"
-);
-
-}
-
-
-if(
-h4.rsi>76
-){
-
-hardFail.push(
-"4H RSI overheated"
-);
-
-}
-
-
-if(
-room<2.5
-){
-
-hardFail.push(
-"Resistance too close"
-);
-
-}
-
-
-if(
-extension>14
-){
-
-hardFail.push(
-"Price too extended"
-);
-
-}
-
-
-if(
-riskPct>10
-){
-
-hardFail.push(
-"Risk too high"
-);
-
-}
-
-
-/* -----------------------------------------------------
-   FINAL STATUS
------------------------------------------------------ */
-
-const strongBuy=
-hardFail.length===0 &&
-score>=78 &&
-rr>=1.75 &&
-(
-d.trend==="BULLISH" ||
-d.trend==="RECOVERY"
-) &&
-(
-h4.trend==="BULLISH" ||
-h4.trend==="RECOVERY"
-);
-
-
-const buy=
-hardFail.length===0 &&
-score>=65 &&
-rr>=1.50 &&
-(
-d.trend==="BULLISH" ||
-d.trend==="RECOVERY"
-);
-
-
-let status=
-"NO SETUP";
-
-
-if(strongBuy){
-
-status=
-"STRONG BUY";
-
-}
-else if(buy){
-
-status=
-"BUY";
-
-}
-else if(
-score>=52
-){
-
-status=
-"WATCH";
-
-}
-
-
-/* -----------------------------------------------------
-   WHY
------------------------------------------------------ */
-
-let why="";
-
-
-if(hardFail.length){
-
-why=
-hardFail[0];
-
-}
-else if(
-status==="STRONG BUY"
-){
-
-why=
-"Strong multi-timeframe setup";
-
-}
-else if(
-status==="BUY"
-){
-
-why=
-"Valid swing BUY conditions";
-
-}
-else if(
-status==="WATCH"
-){
-
-why=
-reasons[
-0
-]||
-"Needs confirmation";
-
-}
-else{
-
-why=
-reasons[
-0
-]||
-"Conditions not ready";
-
-}
-
-
-/* -----------------------------------------------------
-   HOLD
------------------------------------------------------ */
-
-let hold=
-"3–7 days";
-
-
-if(
-setupType==="Breakout / Reclaim"
-){
-
-hold=
-"2–5 days";
-
-}
-
-
-if(
-h4.momentum>3 &&
-h4.volumeRatio>1.3
-){
-
-hold=
-"2–4 days";
-
-}
-
-
-/* -----------------------------------------------------
-   RETURN
------------------------------------------------------ */
-
-return{
-
-symbol,
-
-price,
-
-score:
-Math.round(
-Math.min(
-100,
-score
-)
-),
-
-status,
-
-setupType,
-
-why,
-
-d,
-
-h4,
-
-h1,
-
-buyLow,
-
-buyHigh,
-
-tp1,
-
-tp2,
-
-invalidation,
-
-riskPct,
-
-rr,
-
-hold,
-
-room,
-
-relative,
-
-resistance,
-
-extension,
-
-reasons,
-
-hardFail
-
-};
-
-}
-
-
-/* =====================================================
-   ANALYZE SYMBOL
-===================================================== */
-
-async function analyzeSymbol(
-symbol
-){
-
-try{
-
-const ticker=
-tickerMap[symbol];
-
-
-if(!ticker)
-return null;
-
-
-const daily=
-await api(
-`/api/v3/klines?symbol=${symbol}&interval=1d&limit=150`
-);
-
-
-const fourHour=
-await api(
-`/api/v3/klines?symbol=${symbol}&interval=4h&limit=150`
-);
-
-
-const oneHour=
-await api(
-`/api/v3/klines?symbol=${symbol}&interval=1h&limit=180`
-);
-
-
-return buildSetup(
-
-symbol,
-
-ticker,
-
-analyze(
-parseKlines(daily)
-),
-
-analyze(
-parseKlines(fourHour)
-),
-
-analyze(
-parseKlines(oneHour)
-)
-
-);
-
-
-}catch(error){
-
-console.log(
-"Failed:",
-symbol,
-error
-);
-
-return null;
-
-}
-
-}
-
-
-/* =====================================================
-   CONCURRENT WORKERS
-===================================================== */
-
-async function mapLimit(
-items,
-limit,
-callback
-){
-
-const results=
-new Array(
-items.length
-);
-
-
-let index=0;
-
-
-async function worker(){
-
-while(true){
-
-const current=
-index++;
-
-
-if(
-current>=items.length
-)
-break;
-
-
-results[current]=
-await callback(
-items[current]
-);
-
-
-await sleep(60);
-
-}
-
-}
-
-
-const workers=[];
-
-
-for(
-let i=0;
-i<
-Math.min(
-limit,
-items.length
-);
-i++
-){
-
-workers.push(
-worker()
-);
-
-}
-
-
-await Promise.all(
-workers
-);
-
-
-return results;
-
 }
-
-
-/* =====================================================
-   MAIN SCAN
-===================================================== */
-
-async function scanMarket(){
-
-try{
-
-document.getElementById(
-"results"
-).innerHTML=
-
-`
-<tr>
-
-<td
-colspan="17"
-style="text-align:center;padding:30px"
->
-
-Loading...
 
-</td>
 
-</tr>
-`;
+function setDiag(id,value){
 
+  const el = document.getElementById(id);
 
-setStatus(
-"Loading Binance Spot symbols..."
-);
+  if(el) el.textContent = value;
 
-
-await loadSymbols();
-
-
-setStatus(
-`Found ${allSymbols.length} active USDT Spot pairs. Loading 24H market data...`
-);
-
-
-await loadTickers();
-
-
-setStatus(
-"Checking BTC trend..."
-);
-
-
-btcData=
-await getBTC();
-
-
-updateBTC();
-
-
-const candidates=
-getCandidates();
-
-
-setStatus(
-`100 candidates selected. Running 1D + 4H + 1H swing analysis...`
-);
-
-
-const results=
-await mapLimit(
-candidates,
-6,
-analyzeSymbol
-);
-
-
-currentResults=
-results
-.filter(Boolean)
-.sort(
-(a,b)=>{
-
-const order={
-
-"STRONG BUY":4,
-
-"BUY":3,
-
-"WATCH":2,
-
-"NO SETUP":1
-
-};
-
-
-if(
-order[b.status] !==
-order[a.status]
-){
-
-return
-order[b.status]-
-order[a.status];
-
-}
-
-
-return
-b.score-
-a.score;
-
 }
-);
-
-
-renderResults();
-
-updateMonitors();
 
 
-const buys=
-currentResults.filter(
-x=>
-x.status==="BUY" ||
-x.status==="STRONG BUY"
-).length;
+function setProgress(done,total,text){
 
+  const box = document.getElementById("progressBox");
 
-const watch=
-currentResults.filter(
-x=>
-x.status==="WATCH"
-).length;
+  const bar = document.getElementById("progressBar");
 
+  const pct = document.getElementById("progressPercent");
 
-setStatus(
-`Done • ${buys} BUY • ${watch} WATCH • ${currentResults.length} analyzed`
-);
+  const label = document.getElementById("progressText");
 
+  box.style.display = "block";
 
-}
-catch(error){
-
-console.error(error);
+  const percent = total > 0
+    ? Math.min(100,Math.round((done/total)*100))
+    : 0;
 
+  bar.style.width = percent + "%";
 
-setStatus(
-"Scan failed: "+
-(
-error.message||
-error
-)
-);
+  pct.textContent = percent + "%";
 
-}
+  label.textContent = text;
 
 }
-
-
-/* =====================================================
-   BTC UI
-===================================================== */
-
-function updateBTC(){
-
-const d=
-btcData.d;
-
-const h4=
-btcData.h4;
-
-
-const dEl=
-document.getElementById(
-"btc1d"
-);
-
-
-const h4El=
-document.getElementById(
-"btc4h"
-);
 
 
-dEl.textContent=
-d.trend;
+function hideProgress(){
 
+  document.getElementById("progressBox").style.display = "none";
 
-h4El.textContent=
-h4.trend;
-
-
-dEl.className=
-"value "+
-(
-d.trend==="BULLISH"
-?
-"green"
-:
-d.trend==="BEARISH"
-?
-"red"
-:
-"yellow"
-);
-
-
-h4El.className=
-"value "+
-(
-h4.trend==="BULLISH"
-?
-"green"
-:
-h4.trend==="BEARISH"
-?
-"red"
-:
-"yellow"
-);
-
-
-let regime=
-"MIXED";
-
-
-if(
-d.trend==="BULLISH" &&
-h4.trend==="BULLISH"
-){
-
-regime=
-"RISK ON";
-
-}
-else if(
-d.trend==="BEARISH" &&
-h4.trend==="BEARISH"
-){
-
-regime=
-"RISK OFF";
-
 }
-
 
-const r=
-document.getElementById(
-"regime"
-);
 
+function escapeHTML(value){
 
-r.textContent=
-regime;
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
-
-r.className=
-"value "+
-(
-regime==="RISK ON"
-?
-"green"
-:
-regime==="RISK OFF"
-?
-"red"
-:
-"yellow"
-);
-
 }
-
 
-/* =====================================================
-   FORMAT
-===================================================== */
 
 function formatPrice(value){
 
-if(
-value===undefined ||
-value===null ||
-!isFinite(value)
-){
+  if(!Number.isFinite(value)) return "—";
 
-return "--";
+  if(value >= 1000){
 
-}
+    return value.toLocaleString(undefined,{
+      maximumFractionDigits:2
+    });
 
+  }
 
-if(value>=1000){
+  if(value >= 1){
 
-return value.toLocaleString(
-undefined,
-{
-maximumFractionDigits:2
-}
-);
+    return value.toLocaleString(undefined,{
+      maximumFractionDigits:4
+    });
 
-}
+  }
 
+  if(value >= 0.01){
 
-if(value>=1){
+    return value.toLocaleString(undefined,{
+      maximumFractionDigits:6
+    });
 
-return value.toFixed(4);
+  }
 
-}
-
-
-if(value>=0.01){
-
-return value.toFixed(5);
-
-}
-
-
-if(value>=0.0001){
-
-return value.toFixed(7);
-
-}
-
-
-return value.toFixed(10);
+  return value.toLocaleString(undefined,{
+    maximumSignificantDigits:6
+  });
 
 }
 
 
 function formatPercent(value){
 
-if(
-value===undefined ||
-value===null ||
-!isFinite(value)
+  if(!Number.isFinite(value)) return "—";
+
+  return (value >= 0 ? "+" : "") +
+    value.toFixed(2) + "%";
+
+}
+
+
+function formatVolume(value){
+
+  if(!Number.isFinite(value)) return "—";
+
+  if(value >= 1e12){
+
+    return "$" + (value/1e12).toFixed(2) + "T";
+
+  }
+
+  if(value >= 1e9){
+
+    return "$" + (value/1e9).toFixed(2) + "B";
+
+  }
+
+  if(value >= 1e6){
+
+    return "$" + (value/1e6).toFixed(2) + "M";
+
+  }
+
+  if(value >= 1e3){
+
+    return "$" + (value/1e3).toFixed(2) + "K";
+
+  }
+
+  return "$" + value.toFixed(0);
+
+}
+
+
+/* =========================================================
+   ROBUST API ENGINE
+========================================================= */
+
+async function fetchWithTimeout(url,timeout=12000){
+
+  const controller = new AbortController();
+
+  const timer = setTimeout(
+    () => controller.abort(),
+    timeout
+  );
+
+  try{
+
+    const response = await fetch(
+      url,
+      {
+        method:"GET",
+        cache:"no-store",
+        signal:controller.signal
+      }
+    );
+
+    clearTimeout(timer);
+
+    const text = await response.text();
+
+    let data = null;
+
+    try{
+
+      data = JSON.parse(text);
+
+    }catch(e){
+
+      data = null;
+
+    }
+
+    if(!response.ok){
+
+      const error = new Error(
+        "HTTP " + response.status
+      );
+
+      error.status = response.status;
+
+      error.raw = text.slice(0,300);
+
+      throw error;
+
+    }
+
+    if(data === null){
+
+      throw new Error("Invalid JSON response");
+
+    }
+
+    return data;
+
+  }catch(error){
+
+    clearTimeout(timer);
+
+    throw error;
+
+  }
+
+}
+
+
+async function requestJSON(path,params={}){
+
+  let lastError = null;
+
+  const startIndex = currentApiIndex;
+
+  for(let attempt=0;attempt<API_BASES.length;attempt++){
+
+    const index = (startIndex + attempt) % API_BASES.length;
+
+    const base = API_BASES[index];
+
+    const query = new URLSearchParams();
+
+    for(const [key,value] of Object.entries(params)){
+
+      query.set(key,String(value));
+
+    }
+
+    const url =
+      base +
+      path +
+      (query.toString() ? "?" + query.toString() : "");
+
+    for(let retry=0;retry<2;retry++){
+
+      try{
+
+        const data = await fetchWithTimeout(url,15000);
+
+        currentApiIndex = index;
+
+        return data;
+
+      }catch(error){
+
+        lastError = error;
+
+        const status = error.status;
+
+        if(status === 429){
+
+          await sleep(1800 + retry*1500);
+
+        }else if(status === 418){
+
+          await sleep(3000 + retry*2000);
+
+        }else if(status === 403){
+
+          await sleep(1000);
+
+          break;
+
+        }else{
+
+          await sleep(350 + retry*500);
+
+        }
+
+      }
+
+    }
+
+  }
+
+  throw lastError || new Error("API request failed");
+
+}
+
+
+/* =========================================================
+   KLINE FETCH
+========================================================= */
+
+async function fetchKlines(symbol,interval){
+
+  let lastError = null;
+
+  const endpoints = [
+
+    "/api/v3/klines",
+
+    "/api/v3/uiKlines"
+
+  ];
+
+  for(const endpoint of endpoints){
+
+    try{
+
+      const data = await requestJSON(
+        endpoint,
+        {
+          symbol:symbol,
+          interval:interval,
+          limit:KLINE_LIMIT
+        }
+      );
+
+      if(!Array.isArray(data) || data.length < 80){
+
+        throw new Error(
+          "Insufficient " +
+          interval +
+          " candles"
+        );
+
+      }
+
+      return data;
+
+    }catch(error){
+
+      lastError = error;
+
+    }
+
+  }
+
+  throw lastError || new Error(
+    "Kline request failed"
+  );
+
+}
+
+
+/* =========================================================
+   CANDLE CONVERSION
+========================================================= */
+
+function normalizeCandles(raw){
+
+  return raw.map(x => ({
+
+    time:Number(x[0]),
+
+    open:Number(x[1]),
+
+    high:Number(x[2]),
+
+    low:Number(x[3]),
+
+    close:Number(x[4]),
+
+    volume:Number(x[5]),
+
+    quoteVolume:Number(x[7])
+
+  })).filter(x =>
+
+    Number.isFinite(x.close) &&
+    Number.isFinite(x.high) &&
+    Number.isFinite(x.low) &&
+    Number.isFinite(x.volume)
+
+  );
+
+}
+
+
+/* =========================================================
+   INDICATORS
+========================================================= */
+
+function ema(values,period){
+
+  if(values.length < period){
+
+    return NaN;
+
+  }
+
+  const multiplier = 2/(period+1);
+
+  let value = 0;
+
+  for(let i=0;i<period;i++){
+
+    value += values[i];
+
+  }
+
+  value /= period;
+
+  for(let i=period;i<values.length;i++){
+
+    value =
+      (values[i]-value)*multiplier +
+      value;
+
+  }
+
+  return value;
+
+}
+
+
+function emaSeries(values,period){
+
+  if(values.length < period){
+
+    return [];
+
+  }
+
+  const multiplier = 2/(period+1);
+
+  const result = [];
+
+  let value = 0;
+
+  for(let i=0;i<period;i++){
+
+    value += values[i];
+
+  }
+
+  value /= period;
+
+  result.push(value);
+
+  for(let i=period;i<values.length;i++){
+
+    value =
+      (values[i]-value)*multiplier +
+      value;
+
+    result.push(value);
+
+  }
+
+  return result;
+
+}
+
+
+function rsi(values,period=14){
+
+  if(values.length <= period){
+
+    return NaN;
+
+  }
+
+  let gains = 0;
+
+  let losses = 0;
+
+  for(let i=1;i<=period;i++){
+
+    const diff =
+      values[i]-values[i-1];
+
+    if(diff >= 0){
+
+      gains += diff;
+
+    }else{
+
+      losses -= diff;
+
+    }
+
+  }
+
+  let avgGain = gains/period;
+
+  let avgLoss = losses/period;
+
+  for(let i=period+1;i<values.length;i++){
+
+    const diff =
+      values[i]-values[i-1];
+
+    const gain =
+      Math.max(diff,0);
+
+    const loss =
+      Math.max(-diff,0);
+
+    avgGain =
+      ((avgGain*(period-1))+gain)/period;
+
+    avgLoss =
+      ((avgLoss*(period-1))+loss)/period;
+
+  }
+
+  if(avgLoss === 0){
+
+    return 100;
+
+  }
+
+  const rs =
+    avgGain/avgLoss;
+
+  return 100-(100/(1+rs));
+
+}
+
+
+function atr(candles,period=14){
+
+  if(candles.length < period+1){
+
+    return NaN;
+
+  }
+
+  const trs = [];
+
+  for(let i=1;i<candles.length;i++){
+
+    const current = candles[i];
+
+    const previous = candles[i-1];
+
+    const tr = Math.max(
+
+      current.high-current.low,
+
+      Math.abs(
+        current.high-previous.close
+      ),
+
+      Math.abs(
+        current.low-previous.close
+      )
+
+    );
+
+    trs.push(tr);
+
+  }
+
+  let value = 0;
+
+  for(let i=0;i<period;i++){
+
+    value += trs[i];
+
+  }
+
+  value /= period;
+
+  for(let i=period;i<trs.length;i++){
+
+    value =
+      ((value*(period-1))+trs[i])/period;
+
+  }
+
+  return value;
+
+}
+
+
+function average(values){
+
+  if(!values.length){
+
+    return NaN;
+
+  }
+
+  return values.reduce(
+    (a,b)=>a+b,
+    0
+  )/values.length;
+
+}
+
+
+function volumeRatio(candles,period=20){
+
+  if(candles.length < period+2){
+
+    return NaN;
+
+  }
+
+  const current =
+    candles[candles.length-1].volume;
+
+  const previous =
+    candles
+      .slice(
+        Math.max(0,candles.length-1-period),
+        candles.length-1
+      )
+      .map(x=>x.volume);
+
+  const avg =
+    average(previous);
+
+  if(!avg){
+
+    return NaN;
+
+  }
+
+  return current/avg;
+
+}
+
+
+function momentumPercent(candles,bars=5){
+
+  if(candles.length <= bars){
+
+    return 0;
+
+  }
+
+  const current =
+    candles[candles.length-1].close;
+
+  const previous =
+    candles[candles.length-1-bars].close;
+
+  return (
+    (current/previous)-1
+  )*100;
+
+}
+
+
+function supportLevel(candles,lookback=20){
+
+  if(!candles.length){
+
+    return NaN;
+
+  }
+
+  const start =
+    Math.max(
+      0,
+      candles.length-1-lookback
+    );
+
+  const slice =
+    candles.slice(start,candles.length-1);
+
+  if(!slice.length){
+
+    return candles[candles.length-1].low;
+
+  }
+
+  return Math.min(
+    ...slice.map(x=>x.low)
+  );
+
+}
+
+
+function nearestResistance(
+  candles,
+ price,
+ lookback=40
 ){
 
-return "--";
+  if(!candles.length || !price){
+
+    return price*1.15;
+
+  }
+
+  /*
+    IMPORTANT:
+    Current candle is excluded.
+    This prevents resistance from becoming
+    artificially close to current price.
+  */
+
+  const end =
+    candles.length-1;
+
+  const start =
+    Math.max(
+      0,
+      end-lookback
+    );
+
+  const previous =
+    candles.slice(start,end);
+
+  const levels =
+    previous
+      .map(x=>x.high)
+      .filter(high =>
+        Number.isFinite(high) &&
+        high > price*1.015
+      )
+      .sort((a,b)=>a-b);
+
+  if(levels.length){
+
+    return levels[0];
+
+  }
+
+  return price*1.15;
 
 }
 
 
-return value.toFixed(1)+"%";
+/* =========================================================
+   TIMEFRAME ANALYSIS
+========================================================= */
+
+function analyzeTimeframe(candles){
+
+  const closes =
+    candles.map(x=>x.close);
+
+  const price =
+    closes[closes.length-1];
+
+  const ema20 =
+    ema(closes,20);
+
+  const ema55 =
+    ema(closes,55);
+
+  const ema100 =
+    ema(closes,100);
+
+  const rsi14 =
+    rsi(closes,14);
+
+  const atr14 =
+    atr(candles,14);
+
+  const volRatio =
+    volumeRatio(candles,20);
+
+  const momentum =
+    momentumPercent(candles,5);
+
+  const series20 =
+    emaSeries(closes,20);
+
+  let slope = 0;
+
+  if(series20.length >= 6){
+
+    const current =
+      series20[series20.length-1];
+
+    const old =
+      series20[series20.length-6];
+
+    slope =
+      old !== 0
+        ? ((current/old)-1)*100
+        : 0;
+
+  }
+
+  let trend = "WEAK";
+
+  if(
+    price > ema20 &&
+    ema20 > ema55 &&
+    ema55 > ema100
+  ){
+
+    trend = "BULLISH";
+
+  }else if(
+    price >= ema20 &&
+    ema20 >= ema55
+  ){
+
+    trend = "RECOVERY";
+
+  }else if(
+    price < ema20 &&
+    ema20 < ema55
+  ){
+
+    trend = "BEARISH";
+
+  }
+
+  return {
+
+    price,
+    ema20,
+    ema55,
+    ema100,
+    rsi:rsi14,
+    atr:atr14,
+    volumeRatio:volRatio,
+    momentum,
+    slope,
+    trend,
+    support:supportLevel(candles),
+    resistance:nearestResistance(
+      candles,
+      price,
+      40
+    )
+
+  };
 
 }
 
 
-/* =====================================================
-   BADGES
-===================================================== */
+/* =========================================================
+   BTC ANALYSIS
+========================================================= */
 
-function badge(status){
+async function getBTCMarket(){
 
-if(
-status==="STRONG BUY"
+  try{
+
+    const dailyRaw =
+      await fetchKlines(
+        "BTCUSDT",
+        "1d"
+      );
+
+    await sleep(80);
+
+    const fourRaw =
+      await fetchKlines(
+        "BTCUSDT",
+        "4h"
+      );
+
+    const daily =
+      analyzeTimeframe(
+        normalizeCandles(dailyRaw)
+      );
+
+    const four =
+      analyzeTimeframe(
+        normalizeCandles(fourRaw)
+      );
+
+    let regime = "NEUTRAL";
+
+    if(
+      daily.trend === "BULLISH" &&
+      four.trend === "BULLISH"
+    ){
+
+      regime = "RISK ON";
+
+    }else if(
+      daily.trend === "BEARISH" &&
+      four.trend === "BEARISH"
+    ){
+
+      regime = "RISK OFF";
+
+    }else{
+
+      regime = "MIXED";
+
+    }
+
+    document.getElementById("btc1d").textContent =
+      daily.trend;
+
+    document.getElementById("btc1d").className =
+      "card-value " +
+      (
+        daily.trend === "BULLISH"
+          ? "green"
+          : daily.trend === "BEARISH"
+            ? "red"
+            : "yellow"
+      );
+
+    document.getElementById("btc4h").textContent =
+      four.trend;
+
+    document.getElementById("btc4h").className =
+      "card-value " +
+      (
+        four.trend === "BULLISH"
+          ? "green"
+          : four.trend === "BEARISH"
+            ? "red"
+            : "yellow"
+      );
+
+    document.getElementById("marketRegime").textContent =
+      regime;
+
+    document.getElementById("marketRegime").className =
+      "card-value " +
+      (
+        regime === "RISK ON"
+          ? "green"
+          : regime === "RISK OFF"
+            ? "red"
+            : "yellow"
+      );
+
+    return {
+
+      daily,
+      four,
+      regime
+
+    };
+
+  }catch(error){
+
+    console.error(
+      "BTC analysis failed",
+      error
+    );
+
+    return {
+
+      daily:null,
+      four:null,
+      regime:"UNKNOWN"
+
+    };
+
+  }
+
+}
+
+
+/* =========================================================
+   EXCHANGE INFO
+========================================================= */
+
+async function getSpotSymbols(){
+
+  const info =
+    await requestJSON(
+      "/api/v3/exchangeInfo"
+    );
+
+  if(
+    !info ||
+    !Array.isArray(info.symbols)
+  ){
+
+    throw new Error(
+      "Binance exchangeInfo returned no symbols"
+    );
+
+  }
+
+  const symbols =
+    info.symbols
+      .filter(s =>
+        s.status === "TRADING" &&
+        s.quoteAsset === "USDT" &&
+        s.isSpotTradingAllowed !== false &&
+        !EXCLUDED_ASSETS.has(s.baseAsset)
+      )
+      .map(s=>s.symbol);
+
+  if(!symbols.length){
+
+    throw new Error(
+      "0 active USDT spot pairs returned"
+    );
+
+  }
+
+  return symbols;
+
+}
+
+
+/* =========================================================
+   24H TICKERS
+========================================================= */
+
+async function getTickers(){
+
+  const data =
+    await requestJSON(
+      "/api/v3/ticker/24hr"
+    );
+
+  if(!Array.isArray(data)){
+
+    throw new Error(
+      "Ticker response invalid"
+    );
+
+  }
+
+  const map = new Map();
+
+  for(const item of data){
+
+    if(!item.symbol){
+
+      continue;
+
+    }
+
+    const quoteVolume =
+      Number(item.quoteVolume);
+
+    const priceChangePercent =
+      Number(item.priceChangePercent);
+
+    const lastPrice =
+      Number(item.lastPrice);
+
+    if(
+      !Number.isFinite(quoteVolume) ||
+      !Number.isFinite(lastPrice)
+    ){
+
+      continue;
+
+    }
+
+    map.set(
+      item.symbol,
+      {
+        symbol:item.symbol,
+        quoteVolume,
+        priceChangePercent,
+        lastPrice
+      }
+    );
+
+  }
+
+  return map;
+
+}
+
+
+/* =========================================================
+   BTC RELATIVE STRENGTH
+========================================================= */
+
+function calculateMarketRank(
+  ticker,
+  btcTicker
 ){
 
-return `
-<span class="badge strong">
-STRONG BUY
-</span>
-`;
+  const volumeScore =
+    Math.min(
+      40,
+      Math.log10(
+        Math.max(
+          1,
+          ticker.quoteVolume
+        )
+      ) * 4
+    );
+
+  const momentum =
+    ticker.priceChangePercent;
+
+  const momentumScore =
+    Math.max(
+      0,
+      Math.min(
+        25,
+        12.5 + momentum*1.7
+      )
+    );
+
+  let relative = 0;
+
+  if(btcTicker){
+
+    relative =
+      ticker.priceChangePercent -
+      btcTicker.priceChangePercent;
+
+  }
+
+  const relativeScore =
+    Math.max(
+      0,
+      Math.min(
+        35,
+        17.5 + relative*2.2
+      )
+    );
+
+  return {
+
+    volumeScore,
+    momentumScore,
+    relativeScore,
+
+    total:
+      volumeScore+
+      momentumScore+
+      relativeScore
+
+  };
 
 }
 
 
-if(
-status==="BUY"
+/* =========================================================
+   SETUP BUILDER
+========================================================= */
+
+function buildSetup(
+  symbol,
+  ticker,
+  daily,
+  four,
+  one,
+  btc,
+  btcTicker
 ){
 
-return `
-<span class="badge buy">
-BUY
-</span>
-`;
+  const price =
+    one.price;
+
+  let score = 0;
+
+  const reasons = [];
+
+  const hardFails = [];
+
+
+  /* DAILY */
+
+  if(daily.trend === "BULLISH"){
+
+    score += 22;
+
+    reasons.push(
+      "1D trend bullish"
+    );
+
+  }else if(daily.trend === "RECOVERY"){
+
+    score += 18;
+
+    reasons.push(
+      "1D trend recovering"
+    );
+
+  }else if(
+    daily.price >= daily.ema20
+  ){
+
+    score += 10;
+
+    reasons.push(
+      "1D above EMA20"
+    );
+
+  }else{
+
+    score += 2;
+
+  }
+
+
+  if(daily.slope > 0){
+
+    score += 3;
+
+    reasons.push(
+      "1D EMA20 slope positive"
+    );
+
+  }
+
+
+  /* 4H */
+
+  if(four.trend === "BULLISH"){
+
+    score += 20;
+
+    reasons.push(
+      "4H bullish"
+    );
+
+  }else if(four.trend === "RECOVERY"){
+
+    score += 16;
+
+    reasons.push(
+      "4H recovering"
+    );
+
+  }else if(
+    four.price >= four.ema20
+  ){
+
+    score += 8;
+
+    reasons.push(
+      "4H above EMA20"
+    );
+
+  }else{
+
+    score += 1;
+
+  }
+
+
+  /* 1H */
+
+  if(one.trend === "BULLISH"){
+
+    score += 12;
+
+    reasons.push(
+      "1H bullish"
+    );
+
+  }else if(one.trend === "RECOVERY"){
+
+    score += 10;
+
+    reasons.push(
+      "1H recovering"
+    );
+
+  }else if(
+    one.price >= one.ema20
+  ){
+
+    score += 6;
+
+  }else{
+
+    score += 1;
+
+  }
+
+
+  /* RSI */
+
+  if(
+    daily.rsi >= 40 &&
+    daily.rsi <= 70
+  ){
+
+    score += 5;
+
+    reasons.push(
+      "1D RSI healthy"
+    );
+
+  }
+
+  if(
+    four.rsi >= 40 &&
+    four.rsi <= 72
+  ){
+
+    score += 5;
+
+    reasons.push(
+      "4H RSI healthy"
+    );
+
+  }
+
+  if(
+    one.rsi >= 38 &&
+    one.rsi <= 70
+  ){
+
+    score += 3;
+
+  }
+
+
+  /* MOMENTUM */
+
+  if(four.momentum > 1){
+
+    score += 5;
+
+    reasons.push(
+      "4H momentum positive"
+    );
+
+  }else if(four.momentum > -1){
+
+    score += 3;
+
+  }
+
+
+  if(one.momentum > 0){
+
+    score += 3;
+
+    reasons.push(
+      "1H momentum positive"
+    );
+
+  }
+
+
+  /* VOLUME */
+
+  if(four.volumeRatio >= 1.25){
+
+    score += 7;
+
+    reasons.push(
+      "4H volume expansion"
+    );
+
+  }else if(four.volumeRatio >= 0.95){
+
+    score += 5;
+
+  }else if(four.volumeRatio >= 0.75){
+
+    score += 3;
+
+  }
+
+
+  /* BTC */
+
+  if(btc){
+
+    if(
+      btc.daily &&
+      btc.four &&
+      btc.daily.trend === "BULLISH" &&
+      btc.four.trend === "BULLISH"
+    ){
+
+      score += 5;
+
+      reasons.push(
+        "BTC market supportive"
+      );
+
+    }else if(
+      btc.regime !== "RISK OFF"
+    ){
+
+      score += 3;
+
+    }
+
+  }
+
+
+  /* RELATIVE STRENGTH */
+
+  let relativeStrength = 0;
+
+  if(btcTicker){
+
+    relativeStrength =
+      ticker.priceChangePercent -
+      btcTicker.priceChangePercent;
+
+  }
+
+  if(relativeStrength >= 3){
+
+    score += 5;
+
+    reasons.push(
+      "Strong relative strength vs BTC"
+    );
+
+  }else if(relativeStrength >= 1){
+
+    score += 4;
+
+  }else if(relativeStrength >= -1){
+
+    score += 2;
+
+  }
+
+
+  /* RESISTANCE */
+
+  const resistance =
+    Math.max(
+      price*1.015,
+      one.resistance || price*1.15
+    );
+
+  const resistanceRoom =
+    ((resistance-price)/price)*100;
+
+
+  if(resistanceRoom >= 12){
+
+    score += 8;
+
+  }else if(resistanceRoom >= 8){
+
+    score += 6;
+
+  }else if(resistanceRoom >= 5){
+
+    score += 4;
+
+  }else if(resistanceRoom >= 3){
+
+    score += 2;
+
+  }
+
+
+  /* EXTENSION */
+
+  const extension =
+    daily.ema20 > 0
+      ? ((price/daily.ema20)-1)*100
+      : 0;
+
+  if(extension <= 4){
+
+    score += 4;
+
+  }else if(extension <= 7){
+
+    score += 3;
+
+  }else if(extension <= 10){
+
+    score += 1;
+
+  }
+
+
+  /* BREAKOUT / RECLAIM */
+
+  if(
+    resistanceRoom <= 10 &&
+    four.volumeRatio >= 1.25 &&
+    one.momentum > 0
+  ){
+
+    score += 5;
+
+    reasons.push(
+      "Breakout/reclaim confirmation"
+    );
+
+  }
+
+
+  /* HARD FAILS */
+
+  if(
+    daily.trend === "BEARISH"
+  ){
+
+    hardFails.push(
+      "1D trend bearish"
+    );
+
+  }
+
+
+  if(
+    four.trend === "BEARISH" &&
+    daily.trend !== "BULLISH"
+  ){
+
+    hardFails.push(
+      "1D/4H structure weak"
+    );
+
+  }
+
+
+  if(daily.rsi > 75){
+
+    hardFails.push(
+      "1D RSI overheated"
+    );
+
+  }
+
+
+  if(four.rsi > 76){
+
+    hardFails.push(
+      "4H RSI overheated"
+    );
+
+  }
+
+
+  if(resistanceRoom < 2.5){
+
+    hardFails.push(
+      "Resistance too close"
+    );
+
+  }
+
+
+  if(extension > 14){
+
+    hardFails.push(
+      "Price too extended"
+    );
+
+  }
+
+
+  /* BUY ZONE */
+
+  const structureSupport =
+    Math.min(
+      one.support || price*0.94,
+      four.support || price*0.94
+    );
+
+  const emaSupport =
+    Math.max(
+      one.ema20 || 0,
+      four.ema20 || 0
+    );
+
+  let support =
+    Math.max(
+      structureSupport,
+      emaSupport
+    );
+
+  support =
+    Math.max(
+      support,
+      price*0.94
+    );
+
+  const buyLow =
+    Math.max(
+      support,
+      price*0.965
+    );
+
+  const buyHigh =
+    price*1.008;
+
+
+  /* INVALIDATION */
+
+  const atrRisk =
+    Math.max(
+      (four.atr || price*0.025)*1.10,
+      price*0.025
+    );
+
+  const structureLow =
+    Math.min(
+      one.support || price*0.94,
+      four.support || price*0.94
+    );
+
+  let invalidation =
+    Math.min(
+      structureLow*0.995,
+      price-atrRisk
+    );
+
+  if(
+    !Number.isFinite(invalidation) ||
+    invalidation <= 0
+  ){
+
+    invalidation =
+      price*0.94;
+
+  }
+
+  const risk =
+    price-invalidation;
+
+  const riskPercent =
+    (risk/price)*100;
+
+
+  if(riskPercent > 10){
+
+    hardFails.push(
+      "Risk too large"
+    );
+
+  }
+
+
+  /* TARGETS */
+
+  let tp1 =
+    price +
+    Math.max(
+      risk*1.6,
+      price*0.035
+    );
+
+  let tp2 =
+    price +
+    Math.max(
+      risk*2.4,
+      price*0.065
+    );
+
+
+  if(
+    resistance > price &&
+    resistance < tp1
+  ){
+
+    tp1 =
+      resistance*0.985;
+
+  }
+
+
+  if(tp2 <= tp1*1.04){
+
+    tp2 =
+      tp1*1.04;
+
+  }
+
+
+  const rr =
+    risk > 0
+      ? (tp1-price)/risk
+      : 0;
+
+
+  /* STATUS */
+
+  let status = "NO SETUP";
+
+  if(
+    hardFails.length === 0 &&
+    score >= 78 &&
+    rr >= 1.75 &&
+    (
+      daily.trend === "BULLISH" ||
+      daily.trend === "RECOVERY"
+    ) &&
+    (
+      four.trend === "BULLISH" ||
+      four.trend === "RECOVERY"
+    )
+  ){
+
+    status = "STRONG BUY";
+
+  }else if(
+    hardFails.length === 0 &&
+    score >= 65 &&
+    rr >= 1.50 &&
+    (
+      daily.trend === "BULLISH" ||
+      daily.trend === "RECOVERY"
+    )
+  ){
+
+    status = "BUY";
+
+  }else if(
+    score >= 52
+  ){
+
+    status = "WATCH";
+
+  }
+
+
+  if(!reasons.length){
+
+    reasons.push(
+      "No strong confirmation"
+    );
+
+  }
+
+
+  return {
+
+    symbol,
+
+    status,
+
+    score:Math.round(score),
+
+    price,
+
+    buyLow,
+
+    buyHigh,
+
+    tp1,
+
+    tp2,
+
+    invalidation,
+
+    rr,
+
+    riskPercent,
+
+    resistance,
+
+    resistanceRoom,
+
+    extension,
+
+    relativeStrength,
+
+    daily,
+
+    four,
+
+    one,
+
+    reasons,
+
+    hardFails,
+
+    ticker,
+
+    strategy:
+      "Spot swing: enter near buy zone, target TP1/TP2, reassess within 2–7 days."
+
+  };
 
 }
 
 
-if(
-status==="WATCH"
+/* =========================================================
+   ANALYZE ONE SYMBOL
+========================================================= */
+
+async function analyzeSymbol(
+  symbol,
+  btc,
+  btcTicker
 ){
 
-return `
-<span class="badge watch">
-WATCH
-</span>
-`;
+  try{
+
+    const dailyRaw =
+      await fetchKlines(
+        symbol,
+        "1d"
+      );
+
+    await sleep(120);
+
+    const fourRaw =
+      await fetchKlines(
+        symbol,
+        "4h"
+      );
+
+    await sleep(120);
+
+    const oneRaw =
+      await fetchKlines(
+        symbol,
+        "1h"
+      );
+
+    const daily =
+      analyzeTimeframe(
+        normalizeCandles(dailyRaw)
+      );
+
+    const four =
+      analyzeTimeframe(
+        normalizeCandles(fourRaw)
+      );
+
+    const one =
+      analyzeTimeframe(
+        normalizeCandles(oneRaw)
+      );
+
+    return buildSetup(
+      symbol,
+      btcTicker,
+      daily,
+      four,
+      one,
+      btc,
+      btcTicker
+    );
+
+  }catch(error){
+
+    console.warn(
+      "Failed:",
+      symbol,
+      error
+    );
+
+    return {
+
+      failed:true,
+
+      symbol,
+
+      error:
+        error?.message ||
+        "Unknown API error"
+
+    };
+
+  }
 
 }
 
 
-return `
-<span class="badge no">
-NO SETUP
-</span>
-`;
+/* =========================================================
+   WORKER QUEUE
+========================================================= */
 
-}
-
-
-function trendBadge(value){
-
-if(
-value==="BULLISH"
+async function runWorkers(
+  symbols,
+  btc,
+  btcTicker
 ){
 
-return `
-<span class="green">
-Bullish
-</span>
-`;
+  const results = [];
+
+  let nextIndex = 0;
+
+  let completed = 0;
+
+  const total =
+    symbols.length;
+
+  async function worker(){
+
+    while(true){
+
+      const index =
+        nextIndex++;
+
+      if(index >= total){
+
+        break;
+
+      }
+
+      const symbol =
+        symbols[index];
+
+      const result =
+        await analyzeSymbol(
+          symbol,
+          btc,
+          btcTicker
+        );
+
+      results[index] =
+        result;
+
+      completed++;
+
+      const failed =
+        results.filter(
+          x => x && x.failed
+        ).length;
+
+      const analyzed =
+        results.filter(
+          x => x && !x.failed
+        ).length;
+
+      setDiag(
+        "diagAnalyzed",
+        analyzed
+      );
+
+      setDiag(
+        "diagFailed",
+        failed
+      );
+
+      setProgress(
+        completed,
+        total,
+        "Analyzing " +
+        symbol +
+        " • " +
+        completed +
+        "/" +
+        total
+      );
+
+      await sleep(100);
+
+    }
+
+  }
+
+  const workers = [];
+
+  for(
+    let i=0;
+    i<Math.min(WORKERS,total);
+    i++
+  ){
+
+    workers.push(
+      worker()
+    );
+
+  }
+
+  await Promise.all(
+    workers
+  );
+
+  return results;
 
 }
 
 
-if(
-value==="RECOVERY"
-){
+/* =========================================================
+   RENDER RESULTS
+========================================================= */
 
-return `
-<span class="blue">
-Recovery
-</span>
-`;
+function statusBadge(status){
 
-}
+  if(status === "STRONG BUY"){
 
+    return '<span class="badge badge-strong">STRONG BUY</span>';
 
-if(
-value==="BEARISH"
-){
+  }
 
-return `
-<span class="red">
-Bearish
-</span>
-`;
+  if(status === "BUY"){
 
-}
+    return '<span class="badge badge-buy">BUY</span>';
 
+  }
 
-return `
-<span class="yellow">
-Neutral
-</span>
-`;
+  if(status === "WATCH"){
+
+    return '<span class="badge badge-watch">WATCH</span>';
+
+  }
+
+  return '<span class="badge badge-no">NO SETUP</span>';
 
 }
 
 
-/* =====================================================
-   RENDER
-===================================================== */
+function renderResults(results){
 
-function renderResults(){
+  const body =
+    document.getElementById(
+      "resultsBody"
+    );
 
-const tbody=
-document.getElementById(
-"results"
-);
+  if(!results.length){
 
+    body.innerHTML = `
+      <tr>
+        <td colspan="11" class="empty">
+          No usable technical results.
+        </td>
+      </tr>
+    `;
 
-/*
- Show BUY/WATCH first.
- If none exist, show the top
- NO SETUP candidates so we
- can see why they failed.
-*/
+    return;
 
-let visible=
-currentResults
-.filter(
-x=>
-x.status!=="NO SETUP"
-)
-.slice(
-0,
-25
-);
+  }
 
 
-if(!visible.length){
+  body.innerHTML =
+    results
+      .map((r,index)=>{
 
-visible=
-currentResults
-.slice(
-0,
-20
-);
+        const reasons =
+          r.reasons
+            .slice(0,3)
+            .map(x=>escapeHTML(x))
+            .join(" • ");
+
+        const hard =
+          r.hardFails.length
+            ? " • " +
+              r.hardFails
+                .map(x=>escapeHTML(x))
+                .join(" • ")
+            : "";
+
+        return `
+
+        <tr>
+
+          <td>${index+1}</td>
+
+          <td>
+
+            <div class="coin">
+              ${escapeHTML(
+                r.symbol.replace("USDT","")
+              )}
+            </div>
+
+            <div class="small">
+              ${escapeHTML(r.symbol)}
+            </div>
+
+          </td>
+
+          <td>
+
+            <div class="score">
+              ${r.score}
+            </div>
+
+            <div class="progress">
+
+              <div
+                class="progress-bar"
+                style="width:${Math.min(100,r.score)}%"
+              ></div>
+
+            </div>
+
+          </td>
+
+          <td>
+            ${statusBadge(r.status)}
+          </td>
+
+          <td class="price">
+            ${formatPrice(r.price)}
+          </td>
+
+          <td>
+
+            <div>
+              ${formatPrice(r.buyLow)}
+              –
+              ${formatPrice(r.buyHigh)}
+            </div>
+
+            <div class="small">
+              ${formatPercent(
+                ((r.buyLow-r.price)/r.price)*100
+              )}
+              to
+              ${formatPercent(
+                ((r.buyHigh-r.price)/r.price)*100
+              )}
+            </div>
+
+          </td>
+
+          <td class="price">
+            ${formatPrice(r.tp1)}
+          </td>
+
+          <td class="price">
+            ${formatPrice(r.tp2)}
+          </td>
+
+          <td class="price">
+            ${formatPrice(r.invalidation)}
+          </td>
+
+          <td>
+            ${r.rr.toFixed(2)}R
+          </td>
+
+          <td>
+
+            <div class="setup">
+              ${reasons}
+              ${hard}
+
+              <br>
+
+              <button
+                onclick="showDetails('${escapeHTML(r.symbol)}')"
+                style="
+                  margin-top:8px;
+                  padding:7px 10px;
+                  font-size:12px;
+                "
+              >
+                Details
+              </button>
+
+              ${
+                (
+                  r.status === "BUY" ||
+                  r.status === "STRONG BUY"
+                )
+                ?
+                `
+                <button
+                  onclick="addToMonitor('${escapeHTML(r.symbol)}')"
+                  style="
+                    margin-top:8px;
+                    padding:7px 10px;
+                    font-size:12px;
+                  "
+                >
+                  📌 Monitor
+                </button>
+                `
+                :
+                ""
+              }
+
+            </div>
+
+          </td>
+
+        </tr>
+
+        `;
+
+      })
+      .join("");
 
 }
 
 
-const buyCount=
-currentResults.filter(
-x=>
-x.status==="BUY" ||
-x.status==="STRONG BUY"
-).length;
+/* =========================================================
+   MAIN MARKET SCAN
+========================================================= */
+
+async function scanMarket(){
+
+  if(scanning){
+
+    return;
+
+  }
+
+  scanning = true;
+
+  activeResults = [];
+
+  setStatus(
+    "Starting Binance Spot market scan...",
+    "loading"
+  );
+
+  setDiag("diagPairs",0);
+
+  setDiag("diagTicker",0);
+
+  setDiag("diagCandidates",0);
+
+  setDiag("diagAnalyzed",0);
+
+  setDiag("diagFailed",0);
+
+  document.getElementById(
+    "buyCount"
+  ).textContent = "0";
+
+  document.getElementById(
+    "watchCount"
+  ).textContent = "0";
+
+  document.getElementById(
+    "resultsBody"
+  ).innerHTML = `
+    <tr>
+      <td colspan="11" class="empty">
+        Loading market data...
+      </td>
+    </tr>
+  `;
+
+  try{
+
+    /* ---------------------------------------
+       1. ACTIVE SYMBOLS
+    --------------------------------------- */
+
+    setStatus(
+      "Loading active USDT spot pairs...",
+      "loading"
+    );
+
+    const allSymbols =
+      await getSpotSymbols();
+
+    setDiag(
+      "diagPairs",
+      allSymbols.length
+    );
 
 
-const watchCount=
-currentResults.filter(
-x=>
-x.status==="WATCH"
-).length;
+    /* ---------------------------------------
+       2. 24H TICKERS
+    --------------------------------------- */
+
+    setStatus(
+      "Loading 24H market data...",
+      "loading"
+    );
+
+    const tickerMap =
+      await getTickers();
+
+    setDiag(
+      "diagTicker",
+      tickerMap.size
+    );
 
 
-document.getElementById(
-"buyCount"
-).textContent=
-buyCount;
+    /* ---------------------------------------
+       3. BTC MARKET
+    --------------------------------------- */
+
+    setStatus(
+      "Reading BTC market regime...",
+      "loading"
+    );
+
+    currentMarket =
+      await getBTCMarket();
 
 
-document.getElementById(
-"watchCount"
-).textContent=
-watchCount;
+    const btcTicker =
+      tickerMap.get(
+        "BTCUSDT"
+      );
 
 
-if(!visible.length){
+    /* ---------------------------------------
+       4. MARKET PRE-SCORE
+    --------------------------------------- */
 
-tbody.innerHTML=
-`
-<tr>
+    const candidates =
+      allSymbols
+        .filter(symbol =>
+          tickerMap.has(symbol)
+        )
+        .map(symbol => {
 
-<td
-colspan="17"
-style="text-align:center;padding:30px"
->
+          const ticker =
+            tickerMap.get(symbol);
 
-No technical data available.
+          const rank =
+            calculateMarketRank(
+              ticker,
+              btcTicker
+            );
 
-</td>
+          return {
 
-</tr>
-`;
+            symbol,
+            ticker,
+            rank
 
-return;
+          };
+
+        })
+        .sort(
+          (a,b) =>
+            b.rank.total -
+            a.rank.total
+        )
+        .slice(
+          0,
+          MAX_MARKET_CANDIDATES
+        );
+
+
+    setDiag(
+      "diagCandidates",
+      candidates.length
+    );
+
+
+    if(!candidates.length){
+
+      throw new Error(
+        "No candidate symbols survived ticker filtering."
+      );
+
+    }
+
+
+    /* ---------------------------------------
+       5. TECHNICAL ANALYSIS
+    --------------------------------------- */
+
+    setStatus(
+      "Analyzing " +
+      candidates.length +
+      " coins with 1D + 4H + 1H...",
+      "loading"
+    );
+
+    setProgress(
+      0,
+      candidates.length,
+      "Preparing technical scan..."
+    );
+
+
+    const technicalResults =
+      await runWorkers(
+        candidates.map(
+          x=>x.symbol
+        ),
+        currentMarket,
+        btcTicker
+      );
+
+
+    /* ---------------------------------------
+       6. REMOVE FAILED
+    --------------------------------------- */
+
+    const successful =
+      technicalResults
+        .filter(
+          x =>
+            x &&
+            !x.failed
+        );
+
+
+    const failed =
+      technicalResults
+        .filter(
+          x =>
+            x &&
+            x.failed
+        );
+
+
+    setDiag(
+      "diagAnalyzed",
+      successful.length
+    );
+
+    setDiag(
+      "diagFailed",
+      failed.length
+    );
+
+
+    /* ---------------------------------------
+       7. SORT
+    --------------------------------------- */
+
+    successful.sort(
+      (a,b)=>{
+
+        const statusRank = {
+
+          "STRONG BUY":4,
+          "BUY":3,
+          "WATCH":2,
+          "NO SETUP":1
+
+        };
+
+        const sr =
+          statusRank[b.status] -
+          statusRank[a.status];
+
+        if(sr !== 0){
+
+          return sr;
+
+        }
+
+        return b.score-a.score;
+
+      }
+    );
+
+
+    activeResults =
+      successful;
+
+
+    /* ---------------------------------------
+       8. COUNTS
+    --------------------------------------- */
+
+    const buyResults =
+      successful.filter(
+        x =>
+          x.status === "BUY" ||
+          x.status === "STRONG BUY"
+      );
+
+    const watchResults =
+      successful.filter(
+        x =>
+          x.status === "WATCH"
+      );
+
+
+    document.getElementById(
+      "buyCount"
+    ).textContent =
+      buyResults.length;
+
+    document.getElementById(
+      "watchCount"
+    ).textContent =
+      watchResults.length;
+
+
+    /* ---------------------------------------
+       9. DISPLAY
+    --------------------------------------- */
+
+    let displayResults;
+
+    if(
+      buyResults.length ||
+      watchResults.length
+    ){
+
+      displayResults =
+        successful.filter(
+          x =>
+            x.status === "BUY" ||
+            x.status === "STRONG BUY" ||
+            x.status === "WATCH"
+        );
+
+    }else{
+
+      /*
+        IMPORTANT:
+        If there are no BUY/WATCH candidates,
+        show the best NO SETUP candidates
+        so the user can see why they failed.
+      */
+
+      displayResults =
+        successful.slice(
+          0,
+          20
+        );
+
+    }
+
+
+    renderResults(
+      displayResults
+    );
+
+
+    /* ---------------------------------------
+       10. FINAL STATUS
+    --------------------------------------- */
+
+    if(successful.length === 0){
+
+      setStatus(
+        "Scan finished but 0 coins were successfully analyzed. Check Failed count and API status.",
+        "error"
+      );
+
+    }else{
+
+      setStatus(
+        "Done • " +
+        buyResults.length +
+        " BUY • " +
+        watchResults.length +
+        " WATCH • " +
+        successful.length +
+        " analyzed • " +
+        failed.length +
+        " failed",
+        "ok"
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "SCAN ERROR:",
+      error
+    );
+
+    setStatus(
+      "Scan failed: " +
+      (
+        error?.message ||
+        "Unknown error"
+      ),
+      "error"
+    );
+
+  }finally{
+
+    scanning = false;
+
+    setTimeout(
+      hideProgress,
+      1200
+    );
+
+  }
 
 }
 
 
-tbody.innerHTML=
-visible
-.map(
-(x,index)=>{
-
-
-const monitored=
-getMonitor()
-.some(
-m=>
-m.symbol===
-x.symbol
-);
-
-
-return `
-
-<tr
-onclick="openDetail('${x.symbol}')"
->
-
-<td>
-${index+1}
-</td>
-
-
-<td class="coin">
-
-${x.symbol.replace(
-"USDT",
-""
-)}
-
-</td>
-
-
-<td>
-
-<strong>
-${x.score}
-</strong>
-
-/100
-
-</td>
-
-
-<td>
-
-${badge(
-x.status
-)}
-
-</td>
-
-
-<td>
-${x.setupType}
-</td>
-
-
-<td>
-${trendBadge(
-x.d.trend
-)}
-</td>
-
-
-<td>
-${trendBadge(
-x.h4.trend
-)}
-</td>
-
-
-<td>
-${trendBadge(
-x.h1.trend
-)}
-</td>
-
-
-<td>
-${x.h4.rsi.toFixed(1)}
-</td>
-
-
-<td>
-
-${formatPrice(
-x.buyLow
-)}
-
--
-
-${formatPrice(
-x.buyHigh
-)}
-
-</td>
-
-
-<td class="green">
-
-${formatPrice(
-x.tp1
-)}
-
-</td>
-
-
-<td class="green">
-
-${formatPrice(
-x.tp2
-)}
-
-</td>
-
-
-<td class="red">
-
-${formatPrice(
-x.invalidation
-)}
-
-</td>
-
-
-<td>
-
-${x.rr.toFixed(1)}R
-
-</td>
-
-
-<td>
-
-${x.hold}
-
-</td>
-
-
-<td class="reason">
-
-<b>
-${x.why}
-</b>
-
-<br>
-
-<span class="small">
-
-Room:
-${formatPercent(
-x.room
-)}
-
-•
-
-Relative:
-${formatPercent(
-x.relative
-)}
-
-</span>
-
-</td>
-
-
-<td>
-
-<button
-class="monitor"
-onclick="
-event.stopPropagation();
-toggleMonitor('${x.symbol}')
-"
->
-
-${
-monitored
-?
-"✓ Monitoring"
-:
-"＋ Monitor"
-}
-
-</button>
-
-</td>
-
-
-</tr>
-
-`;
-
-}
-)
-.join("");
-
-}
-
-
-/* =====================================================
-   DETAIL
-===================================================== */
-
-async function openDetail(
-symbol
-){
-
-let setup=
-currentResults.find(
-x=>
-x.symbol===
-symbol
-);
-
-
-if(!setup){
-
-try{
-
-setStatus(
-"Analyzing "+
-symbol+
-"..."
-);
-
-
-const ticker=
-tickerMap[symbol] ||
-await api(
-`/api/v3/ticker/24hr?symbol=${symbol}`
-);
-
-
-const daily=
-await api(
-`/api/v3/klines?symbol=${symbol}&interval=1d&limit=150`
-);
-
-
-const fourHour=
-await api(
-`/api/v3/klines?symbol=${symbol}&interval=4h&limit=150`
-);
-
-
-const oneHour=
-await api(
-`/api/v3/klines?symbol=${symbol}&interval=1h&limit=180`
-);
-
-
-setup=
-buildSetup(
-
-symbol,
-
-ticker,
-
-analyze(
-parseKlines(daily)
-),
-
-analyze(
-parseKlines(fourHour)
-),
-
-analyze(
-parseKlines(oneHour)
-)
-
-);
-
-
-}
-catch(error){
-
-setStatus(
-"Could not analyze "+
-symbol+
-": "+
-error.message
-);
-
-return;
-
-}
-
-}
-
-
-const detail=
-document.getElementById(
-"detail"
-);
-
-
-const monitored=
-getMonitor()
-.some(
-m=>
-m.symbol===
-symbol
-);
-
-
-detail.style.display=
-"block";
-
-
-detail.innerHTML=
-
-`
-
-<button
-class="close"
-onclick="closeDetail()"
->
-✕
-</button>
-
-
-<h2>
-${symbol}
-</h2>
-
-
-<div class="small">
-
-${setup.why}
-
-</div>
-
-
-<br>
-
-
-<div class="detail-grid">
-
-
-<div class="metric">
-
-<span>
-Status
-</span>
-
-<strong>
-${badge(
-setup.status
-)}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Score
-</span>
-
-<strong>
-${setup.score}/100
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Current Price
-</span>
-
-<strong>
-${formatPrice(
-setup.price
-)}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Setup
-</span>
-
-<strong>
-${setup.setupType}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-1D Trend
-</span>
-
-<strong>
-${setup.d.trend}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-1D RSI
-</span>
-
-<strong>
-${setup.d.rsi.toFixed(1)}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-4H Trend
-</span>
-
-<strong>
-${setup.h4.trend}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-4H RSI
-</span>
-
-<strong>
-${setup.h4.rsi.toFixed(1)}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-4H Volume
-</span>
-
-<strong>
-${setup.h4.volumeRatio.toFixed(2)}x
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-4H Momentum
-</span>
-
-<strong>
-${formatPercent(
-setup.h4.momentum
-)}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-1H Trend
-</span>
-
-<strong>
-${setup.h1.trend}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-1H RSI
-</span>
-
-<strong>
-${setup.h1.rsi.toFixed(1)}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Buy Zone
-</span>
-
-<strong>
-${formatPrice(
-setup.buyLow
-)}
--
-${formatPrice(
-setup.buyHigh
-)}
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-TP1
-</span>
-
-<strong class="green">
-
-${formatPrice(
-setup.tp1
-)}
-
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-TP2
-</span>
-
-<strong class="green">
-
-${formatPrice(
-setup.tp2
-)}
-
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Invalidation
-</span>
-
-<strong class="red">
-
-${formatPrice(
-setup.invalidation
-)}
-
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Risk
-</span>
-
-<strong>
-
-${formatPercent(
-setup.riskPct
-)}
-
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-R:R
-</span>
-
-<strong>
-
-${setup.rr.toFixed(1)}R
-
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Resistance
-</span>
-
-<strong>
-
-${formatPrice(
-setup.resistance
-)}
-
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Room
-</span>
-
-<strong>
-
-${formatPercent(
-setup.room
-)}
-
-</strong>
-
-</div>
-
-
-<div class="metric">
-
-<span>
-Expected Hold
-</span>
-
-<strong>
-
-${setup.hold}
-
-</strong>
-
-</div>
-
-
-</div>
-
-
-<br>
-
-
-<div class="reason-box">
-
-<b>
-Analysis:
-</b>
-
-<br>
-
-${setup.reasons.join(
-" • "
-)}
-
-</div>
-
-
-${
-setup.hardFail.length
-?
-`
-
-<div class="reason-box">
-
-<b>
-Blocking conditions:
-</b>
-
-<br>
-
-${setup.hardFail.join(
-" • "
-)}
-
-</div>
-
-`
-:
-""
-}
-
-
-<div class="reason-box">
-
-<b>
-Strategy:
-</b>
-
-<br>
-
-Buy only inside the displayed
-Buy Zone.
-TP1 is the first profit area.
-TP2 is the extended target.
-Invalidation means the setup is no longer valid.
-
-</div>
-
-
-<br>
-
-
-<button
-class="primary"
-onclick="
-toggleMonitor('${symbol}')
-"
->
-
-${
-monitored
-?
-"✓ Remove From Monitor"
-:
-"📌 Add To Monitor"
-}
-
-</button>
-
-`;
-
-
-detail.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-}
-
-
-function closeDetail(){
-
-document.getElementById(
-"detail"
-).style.display=
-"none";
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
+/* =========================================================
+   SEARCH SPECIFIC COIN
+========================================================= */
 
 async function searchCoin(){
 
-let query=
-document.getElementById(
-"search"
-)
-.value
-.trim()
-.toUpperCase();
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+  const raw =
+    input.value
+      .trim()
+      .toUpperCase();
+
+  if(!raw){
+
+    alert(
+      "Enter a coin name, e.g. NEAR, SEI or CORE."
+    );
+
+    return;
+
+  }
+
+  let symbol =
+    raw.endsWith("USDT")
+      ? raw
+      : raw+"USDT";
 
 
-if(!query)
-return;
+  try{
+
+    setStatus(
+      "Searching " +
+      symbol +
+      "...",
+      "loading"
+    );
+
+    const tickerMap =
+      await getTickers();
+
+    const ticker =
+      tickerMap.get(symbol);
+
+    if(!ticker){
+
+      setStatus(
+        symbol +
+        " was not found as an active Binance USDT pair.",
+        "error"
+      );
+
+      return;
+
+    }
 
 
-query=
-query
-.replace("/","")
-.replace("-","");
+    const btcTicker =
+      tickerMap.get(
+        "BTCUSDT"
+      );
+
+    const btc =
+      await getBTCMarket();
 
 
-if(
-!query.endsWith("USDT")
-){
+    setProgress(
+      0,
+      3,
+      "Loading 1D..."
+    );
 
-query+=
-"USDT";
+    const dailyRaw =
+      await fetchKlines(
+        symbol,
+        "1d"
+      );
+
+
+    setProgress(
+      1,
+      3,
+      "Loading 4H..."
+    );
+
+    const fourRaw =
+      await fetchKlines(
+        symbol,
+        "4h"
+      );
+
+
+    setProgress(
+      2,
+      3,
+      "Loading 1H..."
+    );
+
+    const oneRaw =
+      await fetchKlines(
+        symbol,
+        "1h"
+      );
+
+
+    const result =
+      buildSetup(
+        symbol,
+        ticker,
+        analyzeTimeframe(
+          normalizeCandles(
+            dailyRaw
+          )
+        ),
+        analyzeTimeframe(
+          normalizeCandles(
+            fourRaw
+          )
+        ),
+        analyzeTimeframe(
+          normalizeCandles(
+            oneRaw
+          )
+        ),
+        btc,
+        btcTicker
+      );
+
+
+    activeResults =
+      [result];
+
+
+    renderResults(
+      [result]
+    );
+
+
+    document.getElementById(
+      "buyCount"
+    ).textContent =
+      (
+        result.status === "BUY" ||
+        result.status === "STRONG BUY"
+      )
+      ? "1"
+      : "0";
+
+
+    document.getElementById(
+      "watchCount"
+    ).textContent =
+      result.status === "WATCH"
+        ? "1"
+        : "0";
+
+
+    setDiag(
+      "diagAnalyzed",
+      1
+    );
+
+    setDiag(
+      "diagFailed",
+      0
+    );
+
+
+    setStatus(
+      symbol +
+      " analysis complete • " +
+      result.status +
+      " • Score " +
+      result.score,
+      "ok"
+    );
+
+
+    showDetails(
+      symbol
+    );
+
+  }catch(error){
+
+    console.error(
+      "SEARCH ERROR",
+      error
+    );
+
+    setStatus(
+      "Could not analyze " +
+      symbol +
+      ": " +
+      (
+        error?.message ||
+        "API error"
+      ),
+      "error"
+    );
+
+  }finally{
+
+    setTimeout(
+      hideProgress,
+      800
+    );
+
+  }
 
 }
 
 
-try{
+/* =========================================================
+   DETAIL MODAL
+========================================================= */
 
-setStatus(
-"Checking "+
-query+
-"..."
-);
+function showDetails(symbol){
+
+  const result =
+    activeResults.find(
+      x =>
+        x.symbol === symbol
+    );
+
+  if(!result){
+
+    return;
+
+  }
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    result.symbol +
+    " • " +
+    result.status;
 
 
-const info=
-await api(
-`/api/v3/exchangeInfo?symbol=${query}`
-);
+  const hardFails =
+    result.hardFails.length
+      ? `
+        <div class="reason-box">
+          <strong style="color:#ff8585;">
+            ⚠ Rejection / Risk
+          </strong>
+
+          <ul>
+            ${
+              result.hardFails
+                .map(
+                  x =>
+                    `<li>${escapeHTML(x)}</li>`
+                )
+                .join("")
+            }
+          </ul>
+
+        </div>
+      `
+      : "";
 
 
-if(
-!info ||
-!info.symbols ||
-!info.symbols.length ||
-info.symbols[0].status!=="TRADING"
-){
+  document.getElementById(
+    "modalContent"
+  ).innerHTML = `
 
-setStatus(
-query+
-" is not an active Binance Spot pair."
-);
+    <div class="detail-grid">
 
-return;
+      <div class="detail">
+        <div class="detail-label">
+          Score
+        </div>
+        <div class="detail-value">
+          ${result.score}/100
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          Current Price
+        </div>
+        <div class="detail-value">
+          ${formatPrice(result.price)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          Buy Zone
+        </div>
+        <div class="detail-value">
+          ${formatPrice(result.buyLow)}
+          –
+          ${formatPrice(result.buyHigh)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          TP1
+        </div>
+        <div class="detail-value">
+          ${formatPrice(result.tp1)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          TP2
+        </div>
+        <div class="detail-value">
+          ${formatPrice(result.tp2)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          Invalidation
+        </div>
+        <div class="detail-value">
+          ${formatPrice(result.invalidation)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          Risk
+        </div>
+        <div class="detail-value">
+          ${result.riskPercent.toFixed(2)}%
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          Risk / Reward
+        </div>
+        <div class="detail-value">
+          ${result.rr.toFixed(2)}R
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          Resistance
+        </div>
+        <div class="detail-value">
+          ${formatPrice(result.resistance)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          Resistance Room
+        </div>
+        <div class="detail-value">
+          ${result.resistanceRoom.toFixed(2)}%
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          1D Trend
+        </div>
+        <div class="detail-value">
+          ${result.daily.trend}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          4H Trend
+        </div>
+        <div class="detail-value">
+          ${result.four.trend}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          1H Trend
+        </div>
+        <div class="detail-value">
+          ${result.one.trend}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          1D RSI
+        </div>
+        <div class="detail-value">
+          ${result.daily.rsi.toFixed(1)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          4H RSI
+        </div>
+        <div class="detail-value">
+          ${result.four.rsi.toFixed(1)}
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="detail-label">
+          4H Volume
+        </div>
+        <div class="detail-value">
+          ${result.four.volumeRatio.toFixed(2)}x
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="reason-box">
+
+      <strong>
+        Why this setup?
+      </strong>
+
+      <ul>
+
+        ${
+          result.reasons
+            .map(
+              x =>
+                `<li>${escapeHTML(x)}</li>`
+            )
+            .join("")
+        }
+
+      </ul>
+
+    </div>
+
+
+    ${hardFails}
+
+
+    <div class="reason-box">
+
+      <strong>
+        Strategy
+      </strong>
+
+      <br><br>
+
+      ${escapeHTML(
+        result.strategy
+      )}
+
+    </div>
+
+  `;
+
+
+  document.getElementById(
+    "detailModal"
+  ).style.display =
+    "block";
 
 }
 
 
-await openDetail(
-query
-);
+function closeModal(){
 
-
-setStatus(
-"Showing "+
-query
-);
-
-
-}
-catch(error){
-
-setStatus(
-"Coin not found: "+
-query
-);
-
-}
+  document.getElementById(
+    "detailModal"
+  ).style.display =
+    "none";
 
 }
 
 
-/* =====================================================
+/* =========================================================
    MONITOR
-===================================================== */
+========================================================= */
 
-function toggleMonitor(
-symbol
-){
+function getMonitor(){
 
-let list=
-getMonitor();
+  try{
 
+    return JSON.parse(
+      localStorage.getItem(
+        MONITOR_KEY
+      ) || "[]"
+    );
 
-const index=
-list.findIndex(
-item=>
-item.symbol===
-symbol
-);
+  }catch(e){
 
+    return [];
 
-if(index>=0){
-
-list.splice(
-index,
-1
-);
-
-saveMonitor(
-list
-);
-
-}
-else{
-
-const setup=
-currentResults.find(
-item=>
-item.symbol===
-symbol
-);
-
-
-if(!setup){
-
-setStatus(
-"Scan the market first."
-);
-
-return;
+  }
 
 }
 
 
-if(
-setup.status!=="BUY" &&
-setup.status!=="STRONG BUY"
-){
+function saveMonitor(items){
 
-setStatus(
-"Only BUY setups can be monitored."
-);
-
-return;
+  localStorage.setItem(
+    MONITOR_KEY,
+    JSON.stringify(items)
+  );
 
 }
 
 
-list.push({
+function addToMonitor(symbol){
 
-symbol,
+  const result =
+    activeResults.find(
+      x =>
+        x.symbol === symbol
+    );
 
-addedAt:
-Date.now(),
+  if(!result){
 
-entry:
-setup.price,
+    return;
 
-buyLow:
-setup.buyLow,
-
-buyHigh:
-setup.buyHigh,
-
-tp1:
-setup.tp1,
-
-tp2:
-setup.tp2,
-
-invalidation:
-setup.invalidation,
-
-score:
-setup.score,
-
-setupType:
-setup.setupType,
-
-state:
-"ACTIVE"
-
-});
+  }
 
 
-saveMonitor(
-list
-);
-
-}
+  const items =
+    getMonitor();
 
 
-updateMonitors();
-
-renderResults();
-
-
-if(
-document.getElementById(
-"detail"
-).style.display!=="none"
-){
-
-openDetail(
-symbol
-);
-
-}
-
-}
+  const exists =
+    items.find(
+      x =>
+        x.symbol === symbol
+    );
 
 
-/* =====================================================
-   MONITOR STATE
-===================================================== */
+  if(exists){
 
-function getMonitorState(
-item
-){
+    alert(
+      symbol +
+      " is already in My Monitor."
+    );
 
-const ticker=
-tickerMap[
-item.symbol
-];
+    return;
+
+  }
 
 
-if(!ticker){
+  items.push({
 
-return{
+    symbol,
 
-state:
-"WAITING",
+    entry:
+      result.price,
 
-price:null
+    buyLow:
+      result.buyLow,
 
-};
+    buyHigh:
+      result.buyHigh,
+
+    tp1:
+      result.tp1,
+
+    tp2:
+      result.tp2,
+
+    invalidation:
+      result.invalidation,
+
+    score:
+      result.score,
+
+    addedAt:
+      Date.now()
+
+  });
+
+
+  saveMonitor(
+    items
+  );
+
+
+  alert(
+    symbol +
+    " added to My Monitor."
+  );
 
 }
 
 
-const current=
-+ticker.lastPrice;
+function monitorState(item,price){
 
+  if(price <= item.invalidation){
 
-let state=
-"ACTIVE";
+    return "INVALIDATED";
 
+  }
 
-if(
-current<=
-item.invalidation
-){
+  if(price >= item.tp2){
 
-state=
-"INVALIDATED";
+    return "TP2 HIT";
 
-}
-else if(
-current>=
-item.tp2
-){
+  }
 
-state=
-"TP2 HIT";
+  if(price >= item.tp1){
 
-}
-else if(
-current>=
-item.tp1
-){
+    return "TP1 HIT";
 
-state=
-"TP1 HIT";
+  }
 
-}
-else if(
-current<
-item.entry*0.985
-){
+  const drop =
+    ((price-item.entry)/item.entry)*100;
 
-state=
-"WEAKENING";
+  if(drop <= -3){
 
-}
-else if(
-current>=
-item.entry*1.015
-){
+    return "WEAKENING";
 
-state=
-"CONFIRMED";
+  }
+
+  if(price >= item.entry*1.01){
+
+    return "CONFIRMED";
+
+  }
+
+  return "ACTIVE";
 
 }
 
 
-return{
+async function refreshMonitor(){
 
-state,
+  const items =
+    getMonitor();
 
-price:
-current
+  if(!items.length){
 
-};
+    renderMonitor(
+      []
+    );
 
-}
+    return;
 
-
-/* =====================================================
-   MONITOR UI
-===================================================== */
-
-function updateMonitors(){
-
-const list=
-getMonitor();
+  }
 
 
-const section=
-document.getElementById(
-"monitorSection"
-);
+  try{
+
+    const tickers =
+      await getTickers();
 
 
-if(!list.length){
+    const updated =
+      items.map(item=>{
 
-section.style.display=
-"none";
+        const ticker =
+          tickers.get(
+            item.symbol
+          );
 
-return;
+        if(!ticker){
 
-}
+          return {
 
+            ...item,
 
-section.style.display=
-"block";
+            current:null,
 
+            state:"NO DATA"
 
-const box=
-document.getElementById(
-"monitorList"
-);
+          };
 
+        }
 
-box.innerHTML=
-list
-.map(
-item=>{
+        const price =
+          ticker.lastPrice;
 
+        return {
 
-const state=
-getMonitorState(
-item
-);
+          ...item,
 
+          current:price,
 
-let progress=0;
+          state:
+            monitorState(
+              item,
+              price
+            ),
 
+          pnl:
+            (
+              (price-item.entry)/
+              item.entry
+            )*100
 
-if(state.price){
+        };
 
-progress=
-(
-(state.price-item.entry)/
-(item.tp2-item.entry)
-)*100;
-
-
-progress=
-Math.max(
-0,
-Math.min(
-100,
-progress
-)
-);
-
-}
+      });
 
 
-let stateClass=
-"neutral";
+    saveMonitor(
+      updated
+    );
 
 
-if(
-state.state==="CONFIRMED" ||
-state.state==="TP1 HIT" ||
-state.state==="TP2 HIT"
-){
+    renderMonitor(
+      updated
+    );
 
-stateClass=
-"buy";
+  }catch(error){
+
+    console.error(
+      "Monitor refresh failed",
+      error
+    );
+
+  }
 
 }
 
 
-if(
-state.state==="WEAKENING" ||
-state.state==="INVALIDATED"
-){
+function renderMonitor(items){
 
-stateClass=
-"no";
+  const container =
+    document.getElementById(
+      "monitorContent"
+    );
+
+
+  if(!items.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+        No coins in My Monitor.
+        <br><br>
+        Add a BUY setup from the scanner.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="monitor-list">
+
+      ${
+        items.map(item=>`
+
+          <div class="monitor-item">
+
+            <div class="monitor-top">
+
+              <div class="monitor-name">
+                ${escapeHTML(item.symbol)}
+              </div>
+
+              <div
+                class="monitor-state"
+                style="
+                  color:
+                  ${
+                    item.state === "INVALIDATED"
+                      ? "#ff6b6b"
+                      :
+                    item.state === "TP2 HIT"
+                      ? "#58f3a2"
+                      :
+                    item.state === "TP1 HIT"
+                      ? "#58f3a2"
+                      :
+                    "#f1c95c"
+                  };
+                "
+              >
+                ${escapeHTML(item.state || "ACTIVE")}
+              </div>
+
+            </div>
+
+
+            <div class="small">
+
+              Entry:
+              ${formatPrice(item.entry)}
+
+              ${
+                item.current
+                ?
+                `
+                • Current:
+                ${formatPrice(item.current)}
+
+                • P/L:
+                ${formatPercent(item.pnl)}
+                `
+                :
+                ""
+              }
+
+            </div>
+
+
+            <div
+              style="
+                margin-top:10px;
+                line-height:1.7;
+                font-size:13px;
+              "
+            >
+
+              Buy:
+              ${formatPrice(item.buyLow)}
+              –
+              ${formatPrice(item.buyHigh)}
+
+              <br>
+
+              TP1:
+              ${formatPrice(item.tp1)}
+
+              •
+
+              TP2:
+              ${formatPrice(item.tp2)}
+
+              <br>
+
+              Invalidation:
+              ${formatPrice(item.invalidation)}
+
+            </div>
+
+
+            <button
+              onclick="removeMonitor('${escapeHTML(item.symbol)}')"
+              style="
+                margin-top:10px;
+                padding:8px 12px;
+                font-size:12px;
+              "
+            >
+              Remove
+            </button>
+
+          </div>
+
+        `).join("")
+      }
+
+    </div>
+
+  `;
 
 }
 
 
-return `
+function removeMonitor(symbol){
 
-<div class="monitor-card">
+  const items =
+    getMonitor()
+      .filter(
+        x =>
+          x.symbol !== symbol
+      );
 
+  saveMonitor(
+    items
+  );
 
-<div>
-
-<strong>
-${item.symbol}
-</strong>
-
-
-<div class="small">
-
-Entry:
-${formatPrice(
-item.entry
-)}
-
-•
-
-Now:
-${
-state.price
-?
-formatPrice(
-state.price
-)
-:
-"--"
-}
-
-</div>
-
-
-<div class="progress">
-
-<div
-class="progress-bar"
-style="width:${progress}%"
->
-</div>
-
-</div>
-
-</div>
-
-
-<div>
-
-<span
-class="badge ${stateClass}"
->
-
-${state.state}
-
-</span>
-
-
-<br>
-
-
-<button
-class="monitor"
-onclick="
-openDetail('${item.symbol}')
-"
->
-Details
-</button>
-
-
-<button
-class="monitor"
-onclick="
-toggleMonitor('${item.symbol}')
-"
->
-Remove
-</button>
-
-
-</div>
-
-
-</div>
-
-`;
-
-}
-)
-.join("");
+  renderMonitor(
+    items
+  );
 
 }
 
 
-/* =====================================================
-   SHOW MONITOR
-===================================================== */
+function openMonitor(){
 
-function showMonitor(){
+  document.getElementById(
+    "monitorModal"
+  ).style.display =
+    "block";
 
-const section=
-document.getElementById(
-"monitorSection"
-);
-
-
-section.style.display=
-section.style.display==="none"
-?
-"block"
-:
-"none";
-
-
-updateMonitors();
+  refreshMonitor();
 
 }
 
 
-/* =====================================================
+function closeMonitor(){
+
+  document.getElementById(
+    "monitorModal"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =========================================================
    AUTO MONITOR REFRESH
-===================================================== */
+========================================================= */
 
 setInterval(
-async()=>{
+  ()=>{
+    if(
+      document.getElementById(
+        "monitorModal"
+      ).style.display === "block"
+    ){
 
-const list=
-getMonitor();
+      refreshMonitor();
 
-
-if(!list.length)
-return;
-
-
-try{
-
-const data=
-await api(
-"/api/v3/ticker/24hr"
+    }
+  },
+  60000
 );
 
 
-tickerMap={};
+/* =========================================================
+   MODAL OUTSIDE CLICK
+========================================================= */
 
+window.addEventListener(
+  "click",
+  event=>{
 
-data.forEach(
-ticker=>{
+    const detail =
+      document.getElementById(
+        "detailModal"
+      );
 
-tickerMap[
-ticker.symbol
-]=ticker;
+    const monitor =
+      document.getElementById(
+        "monitorModal"
+      );
 
-});
+    if(event.target === detail){
 
+      closeModal();
 
-updateMonitors();
+    }
 
-}
-catch(error){
+    if(event.target === monitor){
 
-console.log(
-"Monitor refresh failed"
+      closeMonitor();
+
+    }
+
+  }
 );
 
-}
 
-},
-60000
-);
-
-
-/* =====================================================
-   ENTER SEARCH
-===================================================== */
+/* =========================================================
+   ENTER KEY SEARCH
+========================================================= */
 
 document
-.getElementById(
-"search"
-)
-.addEventListener(
-"keydown",
-event=>{
+  .getElementById("searchInput")
+  .addEventListener(
+    "keydown",
+    event=>{
 
-if(
-event.key==="Enter"
-){
+      if(event.key === "Enter"){
 
-searchCoin();
+        searchCoin();
 
-}
+      }
 
-}
-);
+    }
+  );
 
 
-/* =====================================================
-   INITIAL
-===================================================== */
+/* =========================================================
+   INITIAL UI
+========================================================= */
 
-updateMonitors();
+document.getElementById(
+  "resultsBody"
+).innerHTML = `
 
+  <tr>
+
+    <td
+      colspan="11"
+      class="empty"
+    >
+
+      Press
+      <strong>Scan Market</strong>
+      to find Spot swing setups.
+
+      <br><br>
+
+      Or search a specific coin such as
+      <strong>NEAR</strong>,
+      <strong>SEI</strong> or
+      <strong>CORE</strong>.
+
+    </td>
+
+  </tr>
+
+`;
 
 </script>
 
