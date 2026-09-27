@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080b12">
+<meta name="theme-color" content="#070b12">
 
-<title>Q4 Crypto Market Regime Dashboard</title>
+<title>Q4 Crypto Market Dashboard</title>
 
 <style>
 *{
@@ -14,203 +14,139 @@
 
 body{
   margin:0;
-  background:#080b12;
-  color:#f3f5f7;
+  background:#070b12;
+  color:#f5f7fa;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
 .container{
-  max-width:1400px;
+  max-width:1450px;
   margin:auto;
   padding:16px;
 }
 
 .header{
-  background:linear-gradient(135deg,#111827,#0d1119);
-  border:1px solid #202938;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:14px;
-}
-
-.header h1{
-  margin:0;
-  font-size:25px;
-}
-
-.header p{
-  margin:7px 0 0;
-  color:#8f9aaa;
-  font-size:13px;
-}
-
-.topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:16px;
+  gap:15px;
+  margin-bottom:18px;
 }
 
-button{
-  border:1px solid #293447;
-  background:#151c28;
+.title{
+  font-size:25px;
+  font-weight:800;
+}
+
+.subtitle{
+  color:#8994a5;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.refresh{
+  border:1px solid #263244;
+  background:#101722;
   color:#fff;
-  padding:10px 15px;
+  padding:10px 14px;
   border-radius:10px;
   cursor:pointer;
 }
 
-button:hover{
-  background:#1d2635;
-}
-
-.status{
-  color:#8995a7;
-  font-size:12px;
+.refresh:hover{
+  background:#172131;
 }
 
 .regime{
-  border-radius:20px;
-  padding:22px;
-  margin-bottom:14px;
-  border:1px solid #293447;
-  background:#10151f;
+  padding:20px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#101722,#0b111a);
+  border:1px solid #202b3a;
+  margin-bottom:16px;
 }
 
-.regime.green{
-  border-color:#1d9d63;
-  box-shadow:0 0 30px rgba(22,163,74,.08);
+.regimeTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
 
-.regime.yellow{
-  border-color:#b78b16;
+.regimeName{
+  font-size:27px;
+  font-weight:900;
 }
 
-.regime.red{
-  border-color:#a83c3c;
+.regimeScore{
+  font-size:16px;
+  color:#aab4c3;
 }
 
-.regime-title{
-  font-size:13px;
-  color:#9aa6b8;
-  margin-bottom:7px;
-}
-
-.regime-main{
-  font-size:32px;
-  font-weight:800;
-}
-
-.regime-desc{
-  color:#9ba6b5;
-  margin-top:7px;
-  line-height:1.5;
-}
-
-.grid{
+.cards{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:14px;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin-top:15px;
 }
 
 .card{
-  background:#10151f;
-  border:1px solid #202938;
-  border-radius:16px;
-  padding:16px;
+  background:#0d141e;
+  border:1px solid #202b3a;
+  border-radius:14px;
+  padding:14px;
 }
 
-.card-title{
-  color:#8995a7;
-  font-size:12px;
-  margin-bottom:8px;
+.cardTitle{
+  color:#8793a5;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
 }
 
-.big{
-  font-size:23px;
+.cardValue{
+  margin-top:7px;
+  font-size:20px;
   font-weight:800;
 }
 
-.small{
-  color:#8995a7;
-  font-size:12px;
-  margin-top:5px;
+.cardSub{
+  margin-top:4px;
+  font-size:11px;
+  color:#788598;
 }
 
-.green-text{
-  color:#32d583;
-}
-
-.red-text{
-  color:#ff6464;
-}
-
-.yellow-text{
-  color:#f6c84c;
-}
-
-.neutral-text{
-  color:#9ca7b7;
-}
+.green{color:#36e58c}
+.red{color:#ff5d6c}
+.yellow{color:#f4c95d}
+.blue{color:#55aaff}
 
 .section{
-  margin-top:18px;
-  margin-bottom:10px;
-  font-size:17px;
-  font-weight:750;
+  margin-top:20px;
 }
 
-.market-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.metric{
+.sectionHeader{
   display:flex;
   justify-content:space-between;
-  padding:9px 0;
-  border-bottom:1px solid #1c2430;
+  align-items:center;
+  margin-bottom:10px;
 }
 
-.metric:last-child{
-  border-bottom:0;
+.sectionTitle{
+  font-size:19px;
+  font-weight:850;
 }
 
-.metric span:first-child{
-  color:#8e99aa;
-  font-size:13px;
+.sectionInfo{
+  color:#7e8999;
+  font-size:11px;
 }
 
-.metric span:last-child{
-  font-weight:700;
-}
-
-.bar{
+.tableWrap{
   width:100%;
-  height:8px;
-  background:#1c2430;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:9px;
-}
-
-.bar-fill{
-  height:100%;
-  border-radius:20px;
-  width:0%;
-  background:#32d583;
-  transition:.5s;
-}
-
-.watchlist{
   overflow-x:auto;
-  background:#10151f;
-  border:1px solid #202938;
-  border-radius:16px;
+  border:1px solid #202b3a;
+  border-radius:15px;
+  background:#0b1119;
 }
 
 table{
@@ -219,78 +155,111 @@ table{
   min-width:1050px;
 }
 
+thead{
+  background:#101823;
+}
+
 th{
+  padding:12px 10px;
+  color:#788597;
+  font-size:10px;
+  text-transform:uppercase;
   text-align:left;
-  color:#7f8b9d;
-  font-size:11px;
-  padding:13px;
-  border-bottom:1px solid #252e3c;
   white-space:nowrap;
 }
 
 td{
-  padding:13px;
-  border-bottom:1px solid #1b2330;
-  font-size:13px;
+  padding:13px 10px;
+  border-top:1px solid #182230;
+  font-size:12px;
   white-space:nowrap;
+}
+
+tbody tr:hover{
+  background:#101923;
 }
 
 .coin{
   font-weight:800;
+  font-size:13px;
+}
+
+.rank{
+  color:#657184;
+  width:35px;
+}
+
+.price{
+  font-weight:700;
+}
+
+.mc{
+  font-weight:700;
 }
 
 .signal{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:7px;
   font-weight:800;
+  font-size:10px;
 }
 
 .buy{
-  color:#32d583;
+  background:rgba(54,229,140,.12);
+  color:#36e58c;
+  border:1px solid rgba(54,229,140,.25);
 }
 
 .wait{
-  color:#f6c84c;
+  background:rgba(244,201,93,.12);
+  color:#f4c95d;
+  border:1px solid rgba(244,201,93,.25);
 }
 
 .avoid{
-  color:#ff6464;
+  background:rgba(255,93,108,.12);
+  color:#ff5d6c;
+  border:1px solid rgba(255,93,108,.25);
 }
 
-.score{
-  display:inline-flex;
-  min-width:45px;
-  justify-content:center;
-  padding:5px 8px;
-  border-radius:8px;
-  background:#192130;
+.muted{
+  color:#687588;
 }
 
-.alert{
-  padding:15px;
-  border-radius:13px;
-  background:#121925;
-  border:1px solid #273142;
-  color:#aab4c3;
-  line-height:1.6;
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#7e8999;
 }
 
 .footer{
   text-align:center;
-  color:#687487;
-  font-size:11px;
-  padding:25px 0 10px;
+  margin-top:25px;
+  color:#5f6b7c;
+  font-size:10px;
+  line-height:1.6;
 }
 
-.loading{
-  color:#6f7c8f;
+.status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#7e8999;
+  font-size:11px;
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#36e58c;
+  box-shadow:0 0 8px #36e58c;
 }
 
 @media(max-width:1000px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .market-grid{
-    grid-template-columns:1fr;
+  .cards{
+    grid-template-columns:repeat(3,1fr);
   }
 }
 
@@ -299,25 +268,20 @@ td{
     padding:10px;
   }
 
-  .grid{
-    grid-template-columns:1fr 1fr;
-    gap:8px;
+  .header{
+    align-items:flex-start;
   }
 
-  .card{
-    padding:12px;
+  .title{
+    font-size:21px;
   }
 
-  .big{
-    font-size:18px;
+  .cards{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .header h1{
-    font-size:20px;
-  }
-
-  .regime-main{
-    font-size:26px;
+  .regimeName{
+    font-size:22px;
   }
 }
 </style>
@@ -328,356 +292,163 @@ td{
 <div class="container">
 
   <div class="header">
+    <div>
+      <div class="title">📊 Q4 Crypto Market Dashboard</div>
+      <div class="subtitle">
+        Holdings + Watchlist • Live Market Cap Sorting • Technical + Market Regime
+      </div>
+    </div>
 
-    <h1>🧠 Q4 Crypto Market Regime Dashboard</h1>
-
-    <p>
-      Macro + BTC/ETH Technical + On-chain + Liquidity + Derivatives + Altcoin Rotation
-    </p>
-
-    <div class="topbar">
-
-      <div class="status">
-        Last update:
+    <div>
+      <button class="refresh" onclick="loadDashboard()">↻ Refresh</button>
+      <div class="status" style="margin-top:7px">
+        <span class="dot"></span>
         <span id="lastUpdate">Loading...</span>
       </div>
+    </div>
+  </div>
 
-      <button onclick="refreshAll()">🔄 Refresh Market</button>
+
+  <!-- MARKET REGIME -->
+
+  <div class="regime">
+
+    <div class="regimeTop">
+
+      <div>
+        <div class="cardTitle">Overall Market Regime</div>
+        <div id="regimeName" class="regimeName">Loading...</div>
+      </div>
+
+      <div id="regimeScore" class="regimeScore">
+        Score: --
+      </div>
+
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="cardTitle">BTC</div>
+        <div id="btcPrice" class="cardValue">--</div>
+        <div id="btcChange" class="cardSub">--</div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">BTC 15M</div>
+        <div id="btc15" class="cardValue">--</div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">BTC 1H</div>
+        <div id="btc1h" class="cardValue">--</div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">BTC 4H</div>
+        <div id="btc4h" class="cardValue">--</div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">ETH</div>
+        <div id="ethPrice" class="cardValue">--</div>
+        <div id="ethChange" class="cardSub">--</div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">Fear & Greed</div>
+        <div id="fearGreed" class="cardValue">--</div>
+        <div id="fearText" class="cardSub">--</div>
+      </div>
 
     </div>
 
   </div>
 
 
-  <!-- REGIME -->
+  <!-- MARKET DETAILS -->
 
-  <div id="regimeBox" class="regime yellow">
+  <div class="cards">
 
-    <div class="regime-title">
-      CURRENT MARKET REGIME
+    <div class="card">
+      <div class="cardTitle">BTC Dominance</div>
+      <div id="btcDom" class="cardValue">--</div>
     </div>
 
-    <div id="regimeMain" class="regime-main">
-      🟡 LOADING
+    <div class="card">
+      <div class="cardTitle">ETH / BTC</div>
+      <div id="ethbtc" class="cardValue">--</div>
     </div>
 
-    <div id="regimeDesc" class="regime-desc">
-      Collecting market data...
+    <div class="card">
+      <div class="cardTitle">BTC Funding</div>
+      <div id="funding" class="cardValue">--</div>
+    </div>
+
+    <div class="card">
+      <div class="cardTitle">BTC Open Interest</div>
+      <div id="oi" class="cardValue">--</div>
+    </div>
+
+    <div class="card">
+      <div class="cardTitle">Stablecoin Supply</div>
+      <div id="stable" class="cardValue">--</div>
+    </div>
+
+    <div class="card">
+      <div class="cardTitle">Pullback Risk</div>
+      <div id="pullback" class="cardValue">--</div>
     </div>
 
   </div>
 
 
-  <!-- TOP METRICS -->
-
-  <div class="grid">
-
-    <div class="card">
-      <div class="card-title">BTC PRICE</div>
-      <div id="btcPrice" class="big loading">--</div>
-      <div id="btcChange" class="small">--</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">ETH PRICE</div>
-      <div id="ethPrice" class="big loading">--</div>
-      <div id="ethChange" class="small">--</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">BTC DOMINANCE</div>
-      <div id="btcDom" class="big loading">--</div>
-      <div class="small">BTC share of total crypto market</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">FEAR & GREED</div>
-      <div id="fearGreed" class="big loading">--</div>
-      <div id="fearText" class="small">--</div>
-    </div>
-
-  </div>
-
-
-  <!-- MARKET STRUCTURE -->
+  <!-- HOLDINGS -->
 
   <div class="section">
-    📊 Market Structure
-  </div>
 
-  <div class="market-grid">
+    <div class="sectionHeader">
 
-    <div class="card">
-
-      <div class="card-title">BTC TECHNICAL</div>
-
-      <div class="metric">
-        <span>15M Trend</span>
-        <span id="btc15">--</span>
+      <div>
+        <div class="sectionTitle">💼 MY HOLDINGS</div>
+        <div class="sectionInfo">
+          Sorted by Market Cap — Largest → Smallest
+        </div>
       </div>
 
-      <div class="metric">
-        <span>1H Trend</span>
-        <span id="btc1h">--</span>
-      </div>
-
-      <div class="metric">
-        <span>4H Trend</span>
-        <span id="btc4h">--</span>
-      </div>
-
-      <div class="metric">
-        <span>RSI 1H</span>
-        <span id="btcRsi">--</span>
-      </div>
-
-      <div class="metric">
-        <span>EMA20 / EMA55</span>
-        <span id="btcEma">--</span>
-      </div>
+      <div id="holdingCount" class="sectionInfo">14 coins</div>
 
     </div>
 
-
-    <div class="card">
-
-      <div class="card-title">BTC LEVELS</div>
-
-      <div class="metric">
-        <span>Current</span>
-        <span id="levelCurrent">--</span>
-      </div>
-
-      <div class="metric">
-        <span>Resistance</span>
-        <span id="resistance">--</span>
-      </div>
-
-      <div class="metric">
-        <span>Support 1</span>
-        <span id="support1">--</span>
-      </div>
-
-      <div class="metric">
-        <span>Support 2</span>
-        <span id="support2">--</span>
-      </div>
-
-      <div class="metric">
-        <span>Position</span>
-        <span id="btcPosition">--</span>
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">ALT ROTATION</div>
-
-      <div class="metric">
-        <span>ETH/BTC</span>
-        <span id="ethbtc">--</span>
-      </div>
-
-      <div class="metric">
-        <span>ETH/BTC 24H</span>
-        <span id="ethbtcChange">--</span>
-      </div>
-
-      <div class="metric">
-        <span>Alt Market Direction</span>
-        <span id="altDirection">--</span>
-      </div>
-
-      <div class="metric">
-        <span>Rotation Score</span>
-        <span id="rotationScore">--</span>
-      </div>
-
-      <div class="bar">
-        <div id="rotationBar" class="bar-fill"></div>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- DERIVATIVES -->
-
-  <div class="section">
-    ⚡ Derivatives & Leverage
-  </div>
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="card-title">BTC FUNDING</div>
-
-      <div id="funding" class="big">--</div>
-
-      <div id="fundingStatus" class="small">
-        Loading...
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">BTC OPEN INTEREST</div>
-
-      <div id="oi" class="big">--</div>
-
-      <div class="small">
-        Current BTC futures OI
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">LEVERAGE RISK</div>
-
-      <div id="leverageRisk" class="big">--</div>
-
-      <div id="leverageDesc" class="small">--</div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">PULLBACK RISK</div>
-
-      <div id="pullbackRisk" class="big">--</div>
-
-      <div id="pullbackDesc" class="small">--</div>
-
-    </div>
-
-  </div>
-
-
-  <!-- LIQUIDITY -->
-
-  <div class="section">
-    💧 Liquidity & On-chain
-  </div>
-
-  <div class="market-grid">
-
-    <div class="card">
-
-      <div class="card-title">
-        STABLECOIN LIQUIDITY
-      </div>
-
-      <div id="stablecoinTotal" class="big">
-        --
-      </div>
-
-      <div id="stablecoinStatus" class="small">
-        Loading...
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        BTC MARKET CAP
-      </div>
-
-      <div id="btcMarketCap" class="big">
-        --
-      </div>
-
-      <div class="small">
-        Estimated from price × supply
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        ALT MARKET CAP
-      </div>
-
-      <div id="altMarketCap" class="big">
-        --
-      </div>
-
-      <div class="small">
-        Total market cap minus BTC/ETH
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- Q4 MODEL -->
-
-  <div class="section">
-    🧭 Q4 Market Model
-  </div>
-
-  <div class="market-grid">
-
-    <div class="card">
-
-      <div class="card-title">
-        BTC MOMENTUM
-      </div>
-
-      <div id="btcMomentum" class="big">
-        --
-      </div>
-
-      <div class="small">
-        Technical structure
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        LIQUIDITY SCORE
-      </div>
-
-      <div id="liquidityScore" class="big">
-        --
-      </div>
-
-      <div class="bar">
-        <div id="liquidityBar" class="bar-fill"></div>
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        ALTCOIN ENVIRONMENT
-      </div>
-
-      <div id="altEnvironment" class="big">
-        --
-      </div>
-
-      <div id="altEnvironmentDesc" class="small">
-        --
-      </div>
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Coin</th>
+            <th>Price</th>
+            <th>Market Cap</th>
+            <th>24H</th>
+            <th>RSI 14</th>
+            <th>EMA Trend</th>
+            <th>Volume</th>
+            <th>BTC Strength</th>
+            <th>Score</th>
+            <th>Signal</th>
+          </tr>
+        </thead>
+
+        <tbody id="holdingsBody">
+          <tr>
+            <td colspan="11" class="loading">
+              Loading holdings...
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
 
     </div>
 
@@ -687,57 +458,60 @@ td{
   <!-- WATCHLIST -->
 
   <div class="section">
-    🔎 Q4 Watchlist — Fundamental + Technical
-  </div>
 
-  <div class="watchlist">
+    <div class="sectionHeader">
 
-    <table>
+      <div>
+        <div class="sectionTitle">👀 WATCHLIST</div>
+        <div class="sectionInfo">
+          Sorted by Market Cap — Largest → Smallest
+        </div>
+      </div>
 
-      <thead>
+      <div id="watchCount" class="sectionInfo">8 coins</div>
 
-        <tr>
-          <th>COIN</th>
-          <th>PRICE</th>
-          <th>24H</th>
-          <th>RSI 1H</th>
-          <th>EMA20/55</th>
-          <th>BTC RELATIVE</th>
-          <th>VOLUME</th>
-          <th>SCORE</th>
-          <th>SIGNAL</th>
-        </tr>
+    </div>
 
-      </thead>
+    <div class="tableWrap">
 
-      <tbody id="watchlistBody">
+      <table>
 
-        <tr>
-          <td colspan="9" class="loading">
-            Loading watchlist...
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Coin</th>
+            <th>Price</th>
+            <th>Market Cap</th>
+            <th>24H</th>
+            <th>RSI 14</th>
+            <th>EMA Trend</th>
+            <th>Volume</th>
+            <th>BTC Strength</th>
+            <th>Score</th>
+            <th>Signal</th>
+          </tr>
+        </thead>
 
-      </tbody>
+        <tbody id="watchBody">
+          <tr>
+            <td colspan="11" class="loading">
+              Loading watchlist...
+            </td>
+          </tr>
+        </tbody>
 
-    </table>
+      </table>
 
-  </div>
+    </div>
 
-
-  <!-- ALERT -->
-
-  <div class="section">
-    🚨 Market Alert
-  </div>
-
-  <div id="marketAlert" class="alert">
-    Loading market conditions...
   </div>
 
 
   <div class="footer">
-    Q4 Crypto Market Regime Dashboard • Public market data • No trading guarantee
+    Market-cap ranking uses live CoinGecko market data when available.
+    Technical data uses public Binance market endpoints.
+    <br>
+    This dashboard is for research/monitoring and does not guarantee trading results.
   </div>
 
 </div>
@@ -746,1738 +520,1516 @@ td{
 <script>
 
 /* =========================================================
-   CONFIG
-========================================================= */
+   USER COINS
+   ========================================================= */
 
-const BINANCE_SPOT =
-  "https://data-api.binance.vision";
-
-const BINANCE_FUTURES =
-  "https://fapi.binance.com";
-
-const COINGECKO =
-  "https://api.coingecko.com/api/v3";
-
-const DEFILLAMA =
-  "https://stablecoins.llama.fi";
-
-const FEAR_GREED =
-  "https://api.alternative.me/fng/";
+const HOLDINGS = [
+  "RENDER",
+  "SUI",
+  "XRP",
+  "CORE",
+  "JUP",
+  "AVAX",
+  "LINK",
+  "ASTER",
+  "WLFI",
+  "ROSE",
+  "PYTH",
+  "SEI",
+  "ONDO",
+  "ENA"
+];
 
 const WATCHLIST = [
-  "LINK",
   "AAVE",
   "UNI",
   "ARB",
   "INJ",
-  "NEAR",
-  "LUNC",
-  "CORE",
-  "AVAX",
-  "SUI",
   "LDO",
-  "JUP"
+  "PENDLE",
+  "LTC",
+  "SOL"
 ];
 
 
 /* =========================================================
-   GLOBAL STATE
-========================================================= */
+   COINGECKO ID MAP
+   ========================================================= */
 
-let DATA = {
-  btc: null,
-  eth: null,
-  btcDom: null,
-  fearGreed: null,
-  ethbtc: null,
-  funding: null,
-  oi: null,
-  stablecoins: null,
-  totalMarketCap: null,
-  watch: []
+const CG_IDS = {
+
+  RENDER:"render-token",
+  SUI:"sui",
+  XRP:"ripple",
+  CORE:"coredao",
+  JUP:"jupiter-exchange-solana",
+  AVAX:"avalanche-2",
+  LINK:"chainlink",
+
+  ASTER:"aster-2",
+  WLFI:"world-liberty-financial",
+  ROSE:"oasis-network",
+  PYTH:"pyth-network",
+  SEI:"sei-network",
+  ONDO:"ondo-finance",
+  ENA:"ethena",
+
+  AAVE:"aave",
+  UNI:"uniswap",
+  ARB:"arbitrum",
+  INJ:"injective-protocol",
+  LDO:"lido-dao",
+  PENDLE:"pendle",
+  LTC:"litecoin",
+  SOL:"solana"
+
 };
 
 
 /* =========================================================
+   BINANCE SYMBOL MAP
+   ========================================================= */
+
+const BINANCE = {
+
+  RENDER:"RENDERUSDT",
+  SUI:"SUIUSDT",
+  XRP:"XRPUSDT",
+  CORE:"COREUSDT",
+  JUP:"JUPUSDT",
+  AVAX:"AVAXUSDT",
+  LINK:"LINKUSDT",
+
+  ASTER:"ASTERUSDT",
+  WLFI:"WLFIUSDT",
+  ROSE:"ROSEUSDT",
+  PYTH:"PYTHUSDT",
+  SEI:"SEIUSDT",
+  ONDO:"ONDOUSDT",
+  ENA:"ENAUSDT",
+
+  AAVE:"AAVEUSDT",
+  UNI:"UNIUSDT",
+  ARB:"ARBUSDT",
+  INJ:"INJUSDT",
+  LDO:"LDOUSDT",
+  PENDLE:"PENDLEUSDT",
+  LTC:"LTCUSDT",
+  SOL:"SOLUSDT"
+
+};
+
+
+/* =========================================================
+   API URLS
+   ========================================================= */
+
+const CG_URL =
+  "https://api.coingecko.com/api/v3/coins/markets" +
+  "?vs_currency=usd&order=market_cap_desc" +
+  "&per_page=250&page=1&sparkline=false";
+
+const BINANCE_BASE =
+  "https://data-api.binance.vision";
+
+const FUTURES_BASE =
+  "https://fapi.binance.com";
+
+
+/* =========================================================
    HELPERS
-========================================================= */
+   ========================================================= */
 
-function $(id){
-  return document.getElementById(id);
-}
+function fmtPrice(x){
 
-
-function fmtPrice(v){
-
-  if(v === null || v === undefined || isNaN(v)){
+  if(x === null || x === undefined || isNaN(x))
     return "--";
-  }
 
-  if(v >= 1000){
-    return "$" + Number(v).toLocaleString(
-      undefined,
-      {
-        maximumFractionDigits:0
-      }
-    );
-  }
+  if(x >= 1000)
+    return "$" + x.toLocaleString(undefined,{
+      maximumFractionDigits:0
+    });
 
-  if(v >= 1){
-    return "$" + Number(v).toFixed(2);
-  }
+  if(x >= 1)
+    return "$" + x.toLocaleString(undefined,{
+      maximumFractionDigits:2
+    });
 
-  if(v >= 0.01){
-    return "$" + Number(v).toFixed(4);
-  }
+  if(x >= 0.01)
+    return "$" + x.toLocaleString(undefined,{
+      maximumFractionDigits:4
+    });
 
-  return "$" + Number(v).toFixed(8);
+  return "$" + x.toLocaleString(undefined,{
+    maximumFractionDigits:8
+  });
 }
 
 
-function fmtPct(v){
+function fmtMarketCap(x){
 
-  if(v === null || v === undefined || isNaN(v)){
+  if(!x || isNaN(x))
     return "--";
-  }
 
-  const n = Number(v);
+  if(x >= 1e12)
+    return "$" + (x/1e12).toFixed(2) + "T";
 
-  return (n >= 0 ? "+" : "") +
-         n.toFixed(2) + "%";
+  if(x >= 1e9)
+    return "$" + (x/1e9).toFixed(2) + "B";
+
+  if(x >= 1e6)
+    return "$" + (x/1e6).toFixed(1) + "M";
+
+  if(x >= 1e3)
+    return "$" + (x/1e3).toFixed(1) + "K";
+
+  return "$" + Math.round(x);
 }
 
 
-function fmtCompact(v){
+function fmtVolume(x){
 
-  if(v === null || v === undefined || isNaN(v)){
+  if(!x || isNaN(x))
     return "--";
-  }
 
-  const n = Number(v);
+  if(x >= 1e12)
+    return "$" + (x/1e12).toFixed(2) + "T";
 
-  if(n >= 1e12){
-    return "$" + (n/1e12).toFixed(2) + "T";
-  }
+  if(x >= 1e9)
+    return "$" + (x/1e9).toFixed(2) + "B";
 
-  if(n >= 1e9){
-    return "$" + (n/1e9).toFixed(2) + "B";
-  }
+  if(x >= 1e6)
+    return "$" + (x/1e6).toFixed(1) + "M";
 
-  if(n >= 1e6){
-    return "$" + (n/1e6).toFixed(2) + "M";
-  }
+  if(x >= 1e3)
+    return "$" + (x/1e3).toFixed(1) + "K";
 
-  if(n >= 1e3){
-    return "$" + (n/1e3).toFixed(2) + "K";
-  }
-
-  return "$" + n.toFixed(2);
+  return "$" + Math.round(x);
 }
 
 
-function cls(value){
+function pct(x){
 
-  if(value > 0){
-    return "green-text";
-  }
+  if(x === null || x === undefined || isNaN(x))
+    return "--";
 
-  if(value < 0){
-    return "red-text";
-  }
+  const n = Number(x);
 
-  return "neutral-text";
+  return `
+    <span class="${n >= 0 ? "green":"red"}">
+      ${n >= 0 ? "+" : ""}${n.toFixed(2)}%
+    </span>
+  `;
 }
 
 
-async function getJSON(url){
+function colorClass(x){
 
-  const response = await fetch(url, {
+  if(x === "Bullish")
+    return "green";
+
+  if(x === "Bearish")
+    return "red";
+
+  return "yellow";
+}
+
+
+function sleep(ms){
+  return new Promise(resolve => setTimeout(resolve,ms));
+}
+
+
+/* =========================================================
+   FETCH JSON SAFE
+   ========================================================= */
+
+async function fetchJSON(url){
+
+  const response = await fetch(url,{
     cache:"no-store"
   });
 
-  if(!response.ok){
+  if(!response.ok)
     throw new Error("HTTP " + response.status);
-  }
 
   return await response.json();
 }
 
 
 /* =========================================================
-   BINANCE SPOT
-========================================================= */
+   COINGECKO MARKET DATA
+   ========================================================= */
 
-async function ticker(symbol){
+async function getCoinGeckoData(){
 
-  return await getJSON(
-    BINANCE_SPOT +
-    "/api/v3/ticker/24hr?symbol=" +
-    symbol
-  );
+  try{
 
-}
+    const data = await fetchJSON(CG_URL);
 
+    const map = {};
 
-async function klines(symbol, interval, limit=120){
+    data.forEach(c => {
 
-  return await getJSON(
-    BINANCE_SPOT +
-    "/api/v3/klines?symbol=" +
-    symbol +
-    "&interval=" +
-    interval +
-    "&limit=" +
-    limit
-  );
+      const symbol =
+        String(c.symbol || "").toUpperCase();
+
+      map[symbol] = {
+
+        id:c.id,
+
+        name:c.name,
+
+        marketCap:c.market_cap || 0,
+
+        price:c.current_price || 0,
+
+        change24:c.price_change_percentage_24h || 0,
+
+        volume24:c.total_volume || 0,
+
+        rank:c.market_cap_rank || 999999
+
+      };
+
+    });
+
+    return map;
+
+  }catch(error){
+
+    console.warn("CoinGecko error:",error);
+
+    return {};
+
+  }
 
 }
 
 
 /* =========================================================
-   TECHNICAL INDICATORS
-========================================================= */
+   BINANCE 24H
+   ========================================================= */
 
-function closes(k){
+async function getBinance24(){
 
-  return k.map(x => Number(x[4]));
+  try{
+
+    const data = await fetchJSON(
+      BINANCE_BASE + "/api/v3/ticker/24hr"
+    );
+
+    const map = {};
+
+    data.forEach(x => {
+
+      map[x.symbol] = {
+
+        price:Number(x.lastPrice),
+
+        change:Number(x.priceChangePercent),
+
+        volume:Number(x.quoteVolume)
+
+      };
+
+    });
+
+    return map;
+
+  }catch(error){
+
+    console.warn("Binance 24h error:",error);
+
+    return {};
+
+  }
 
 }
 
 
-function volumes(k){
+/* =========================================================
+   KLINES
+   ========================================================= */
 
-  return k.map(x => Number(x[5]));
+async function getKlines(symbol,interval,limit=100){
+
+  try{
+
+    const url =
+      BINANCE_BASE +
+      "/api/v3/klines?symbol=" +
+      symbol +
+      "&interval=" +
+      interval +
+      "&limit=" +
+      limit;
+
+    return await fetchJSON(url);
+
+  }catch(error){
+
+    console.warn(symbol,interval,error);
+
+    return [];
+
+  }
 
 }
 
 
-function ema(values, period){
+/* =========================================================
+   EMA
+   ========================================================= */
 
-  if(values.length < period){
+function EMA(values,period){
+
+  if(values.length < period)
     return null;
-  }
 
-  const multiplier =
-    2 / (period + 1);
+  const k = 2/(period+1);
 
-  let emaValue = 0;
+  let ema = 0;
 
-  for(let i=0;i<period;i++){
-    emaValue += values[i];
-  }
+  for(let i=0;i<period;i++)
+    ema += values[i];
 
-  emaValue /= period;
+  ema /= period;
 
   for(let i=period;i<values.length;i++){
 
-    emaValue =
-      (values[i] - emaValue) *
-      multiplier +
-      emaValue;
+    ema =
+      values[i] * k +
+      ema * (1-k);
 
   }
 
-  return emaValue;
-
+  return ema;
 }
 
 
-function rsi(values, period=14){
+/* =========================================================
+   RSI
+   ========================================================= */
 
-  if(values.length <= period){
+function RSI(values,period=14){
+
+  if(values.length <= period)
     return null;
-  }
 
-  let gain = 0;
-  let loss = 0;
+  let gains = 0;
+  let losses = 0;
 
   for(let i=1;i<=period;i++){
 
-    const change =
+    const diff =
       values[i] - values[i-1];
 
-    if(change >= 0){
-      gain += change;
-    }else{
-      loss += Math.abs(change);
-    }
+    if(diff >= 0)
+      gains += diff;
+    else
+      losses -= diff;
 
   }
 
-  let avgGain =
-    gain / period;
-
-  let avgLoss =
-    loss / period;
+  let avgGain = gains/period;
+  let avgLoss = losses/period;
 
   for(let i=period+1;i<values.length;i++){
 
-    const change =
+    const diff =
       values[i] - values[i-1];
 
-    const g =
-      change > 0 ? change : 0;
+    const gain =
+      diff > 0 ? diff : 0;
 
-    const l =
-      change < 0 ? Math.abs(change) : 0;
+    const loss =
+      diff < 0 ? -diff : 0;
 
     avgGain =
-      ((avgGain * (period-1)) + g) /
-      period;
+      ((avgGain*(period-1))+gain)/period;
 
     avgLoss =
-      ((avgLoss * (period-1)) + l) /
-      period;
+      ((avgLoss*(period-1))+loss)/period;
 
   }
 
-  if(avgLoss === 0){
+  if(avgLoss === 0)
     return 100;
-  }
 
-  const rs =
-    avgGain / avgLoss;
+  const rs = avgGain/avgLoss;
 
-  return 100 - (100 / (1 + rs));
-
+  return 100 - (100/(1+rs));
 }
 
 
-function technical(k){
+/* =========================================================
+   COIN TECHNICAL DATA
+   ========================================================= */
 
-  const c = closes(k);
-  const v = volumes(k);
+async function getTechnical(symbol){
 
-  const last =
-    c[c.length-1];
+  const klines =
+    await getKlines(symbol,"1h",100);
 
-  const e20 =
-    ema(c,20);
+  if(!klines.length){
 
-  const e55 =
-    ema(c,55);
+    return {
 
-  const r =
-    rsi(c,14);
+      rsi:null,
+      ema20:null,
+      ema55:null,
+      trend:"Unavailable",
+      volume:0
 
-  const avgVol =
-    v.slice(-20)
-     .reduce((a,b)=>a+b,0) /
-    Math.min(20,v.length);
+    };
 
-  const currentVol =
-    v[v.length-1];
+  }
 
-  let trend =
-    "NEUTRAL";
+  const closes =
+    klines.map(k => Number(k[4]));
 
-  if(e20 && e55){
+  const volumes =
+    klines.map(k => Number(k[7]));
 
-    if(last > e20 && e20 > e55){
-      trend = "BULLISH";
-    }
+  const rsi =
+    RSI(closes,14);
 
-    else if(last < e20 && e20 < e55){
-      trend = "BEARISH";
-    }
+  const ema20 =
+    EMA(closes,20);
 
-    else{
-      trend = "MIXED";
-    }
+  const ema55 =
+    EMA(closes,55);
+
+  const latestVolume =
+    volumes[volumes.length-1];
+
+  const avgVolume =
+    volumes
+      .slice(-21,-1)
+      .reduce((a,b)=>a+b,0) /
+      Math.max(1,volumes.slice(-21,-1).length);
+
+  let trend="Neutral";
+
+  if(ema20 && ema55){
+
+    if(ema20 > ema55)
+      trend="Bullish";
+
+    else if(ema20 < ema55)
+      trend="Bearish";
 
   }
 
   return {
-    price:last,
-    ema20:e20,
-    ema55:e55,
-    rsi:r,
-    volume:currentVol,
-    avgVolume:avgVol,
+
+    rsi,
+
+    ema20,
+
+    ema55,
+
+    trend,
+
+    volume:latestVolume,
+
     volumeRatio:
-      avgVol ? currentVol / avgVol : 0,
-    trend
+      avgVolume > 0
+      ? latestVolume/avgVolume
+      : null
+
   };
 
 }
 
 
 /* =========================================================
-   BTC TECHNICAL
-========================================================= */
+   BTC DATA
+   ========================================================= */
 
-async function loadBTCTechnical(){
+async function getBTCData(){
 
-  const [k15,k1h,k4h] =
-    await Promise.all([
-      klines("BTCUSDT","15m",120),
-      klines("BTCUSDT","1h",120),
-      klines("BTCUSDT","4h",120)
-    ]);
+  const symbol="BTCUSDT";
 
-  const t15 =
-    technical(k15);
+  const intervals=[
+    ["15m","btc15"],
+    ["1h","btc1h"],
+    ["4h","btc4h"]
+  ];
 
-  const t1h =
-    technical(k1h);
+  const result={};
 
-  const t4h =
-    technical(k4h);
+  for(const [interval,key] of intervals){
 
-  DATA.btc = {
-    t15,
-    t1h,
-    t4h
-  };
+    const k =
+      await getKlines(symbol,interval,100);
 
+    if(!k.length){
 
-  $("btc15").textContent =
-    t15.trend;
+      result[key]={
+        trend:"Unavailable",
+        rsi:null
+      };
 
-  $("btc15").className =
-    t15.trend === "BULLISH"
-      ? "green-text"
-      : t15.trend === "BEARISH"
-      ? "red-text"
-      : "yellow-text";
+      continue;
 
+    }
 
-  $("btc1h").textContent =
-    t1h.trend;
+    const closes =
+      k.map(x=>Number(x[4]));
 
-  $("btc1h").className =
-    t1h.trend === "BULLISH"
-      ? "green-text"
-      : t1h.trend === "BEARISH"
-      ? "red-text"
-      : "yellow-text";
+    const ema20 =
+      EMA(closes,20);
 
+    const ema55 =
+      EMA(closes,55);
 
-  $("btc4h").textContent =
-    t4h.trend;
+    const rsi =
+      RSI(closes,14);
 
-  $("btc4h").className =
-    t4h.trend === "BULLISH"
-      ? "green-text"
-      : t4h.trend === "BEARISH"
-      ? "red-text"
-      : "yellow-text";
+    let trend="Neutral";
 
+    if(ema20 && ema55){
 
-  $("btcRsi").textContent =
-    t1h.rsi ?
-    t1h.rsi.toFixed(1) :
-    "--";
+      if(ema20 > ema55)
+        trend="Bullish";
 
+      else if(ema20 < ema55)
+        trend="Bearish";
 
-  $("btcEma").textContent =
-    t1h.ema20 && t1h.ema55
-      ? fmtPrice(t1h.ema20) +
-        " / " +
-        fmtPrice(t1h.ema55)
-      : "--";
+    }
 
+    result[key]={
+      trend,
+      rsi
+    };
 
-  const btcTicker =
-    await ticker("BTCUSDT");
-
-  $("btcPrice").textContent =
-    fmtPrice(Number(btcTicker.lastPrice));
-
-  $("btcChange").textContent =
-    fmtPct(Number(btcTicker.priceChangePercent));
-
-  $("btcChange").className =
-    "small " +
-    cls(Number(btcTicker.priceChangePercent));
-
-
-  $("levelCurrent").textContent =
-    fmtPrice(Number(btcTicker.lastPrice));
-
-  calculateLevels(k4h);
-
-}
-
-
-/* =========================================================
-   BTC SUPPORT / RESISTANCE
-========================================================= */
-
-function calculateLevels(k){
-
-  const highs =
-    k.slice(-40)
-     .map(x=>Number(x[2]));
-
-  const lows =
-    k.slice(-40)
-     .map(x=>Number(x[3]));
-
-  const resistance =
-    Math.max(...highs);
-
-  const support1 =
-    Math.min(...lows);
-
-  const current =
-    Number(k[k.length-1][4]);
-
-  const range =
-    resistance - support1;
-
-  const support2 =
-    support1 + range * .25;
-
-
-  $("resistance").textContent =
-    fmtPrice(resistance);
-
-  $("support1").textContent =
-    fmtPrice(support2);
-
-  $("support2").textContent =
-    fmtPrice(support1);
-
-
-  let pos =
-    "MID-RANGE";
-
-  if(current >= resistance * .98){
-    pos = "NEAR RESISTANCE";
   }
 
-  else if(current <= support2 * 1.02){
-    pos = "NEAR SUPPORT";
+  return result;
+
+}
+
+
+/* =========================================================
+   SCORE
+   ========================================================= */
+
+function calculateScore(data){
+
+  let score=50;
+
+  if(data.trend === "Bullish")
+    score += 12;
+
+  if(data.trend === "Bearish")
+    score -= 12;
+
+  if(data.rsi !== null){
+
+    if(data.rsi >= 45 && data.rsi <= 65)
+      score += 8;
+
+    if(data.rsi > 70)
+      score -= 5;
+
+    if(data.rsi < 30)
+      score += 3;
+
   }
 
-  $("btcPosition").textContent =
-    pos;
+  if(data.btcStrength > 0)
+    score += 10;
+
+  if(data.btcStrength < 0)
+    score -= 10;
+
+  if(data.volumeRatio){
+
+    if(data.volumeRatio >= 1.5)
+      score += 7;
+
+    else if(data.volumeRatio >= 1.1)
+      score += 3;
+
+  }
+
+  return Math.max(0,Math.min(100,Math.round(score)));
+
+}
+
+
+function signalFromScore(score){
+
+  if(score >= 75)
+    return "BUY";
+
+  if(score >= 40)
+    return "WAIT";
+
+  return "AVOID";
 
 }
 
 
 /* =========================================================
-   ETH
-========================================================= */
+   BTC RELATIVE STRENGTH
+   ========================================================= */
 
-async function loadETH(){
+async function getBTCChange(){
 
-  const [tickerData,k] =
-    await Promise.all([
-      ticker("ETHUSDT"),
-      klines("ETHUSDT","1h",120)
-    ]);
+  try{
 
-  const t =
-    technical(k);
+    const data =
+      await fetchJSON(
+        BINANCE_BASE +
+        "/api/v3/ticker/24hr?symbol=BTCUSDT"
+      );
 
-  $("ethPrice").textContent =
-    fmtPrice(Number(tickerData.lastPrice));
+    return Number(data.priceChangePercent);
 
-  $("ethChange").textContent =
-    fmtPct(Number(tickerData.priceChangePercent));
+  }catch{
 
-  $("ethChange").className =
-    "small " +
-    cls(Number(tickerData.priceChangePercent));
+    return 0;
 
-
-  DATA.eth = t;
+  }
 
 }
 
 
 /* =========================================================
-   ETH/BTC
-========================================================= */
+   COIN ANALYSIS
+   ========================================================= */
 
-async function loadETHBTC(){
+async function analyzeCoin(symbol,cg,binance,bTCChange){
 
-  const data =
-    await ticker("ETHBTC");
+  const bSymbol =
+    BINANCE[symbol];
+
+  const cgData =
+    cg[symbol] || {};
+
+  const bData =
+    binance[bSymbol] || {};
+
+  const technical =
+    await getTechnical(bSymbol);
 
   const price =
-    Number(data.lastPrice);
+    bData.price ||
+    cgData.price ||
+    0;
 
-  const change =
-    Number(data.priceChangePercent);
+  const change24 =
+    bData.change ??
+    cgData.change24 ??
+    0;
 
-  DATA.ethbtc = {
-    price,
-    change
-  };
+  const volume =
+    bData.volume ||
+    cgData.volume24 ||
+    0;
 
+  const btcStrength =
+    change24 - bTCChange;
 
-  $("ethbtc").textContent =
-    price.toFixed(6);
+  const score =
+    calculateScore({
 
-  $("ethbtcChange").textContent =
-    fmtPct(change);
+      trend:technical.trend,
 
-  $("ethbtcChange").className =
-    change > 0
-      ? "green-text"
-      : change < 0
-      ? "red-text"
-      : "yellow-text";
+      rsi:technical.rsi,
 
-}
+      btcStrength,
 
-
-/* =========================================================
-   COINGECKO GLOBAL
-========================================================= */
-
-async function loadGlobal(){
-
-  try{
-
-    const data =
-      await getJSON(
-        COINGECKO +
-        "/global"
-      );
-
-    const market =
-      data.data.total_market_cap.usd;
-
-    const btcDom =
-      data.data.market_cap_percentage.btc;
-
-    DATA.totalMarketCap =
-      market;
-
-    DATA.btcDom =
-      btcDom;
-
-
-    $("btcDom").textContent =
-      Number(btcDom).toFixed(2) + "%";
-
-
-    $("altMarketCap").textContent =
-      "--";
-
-    if(DATA.btc && DATA.eth){
-
-      const btcPrice =
-        Number(
-          document
-          .getElementById("btcPrice")
-          .textContent
-          .replace(/[$,]/g,"")
-        );
-
-      const ethPrice =
-        Number(
-          document
-          .getElementById("ethPrice")
-          .textContent
-          .replace(/[$,]/g,"")
-        );
-
-      const btcCap =
-        market *
-        (btcDom/100);
-
-      const ethDom =
-        data.data.market_cap_percentage.eth;
-
-      const ethCap =
-        market *
-        (ethDom/100);
-
-      $("btcMarketCap").textContent =
-        fmtCompact(btcCap);
-
-      $("altMarketCap").textContent =
-        fmtCompact(
-          Math.max(
-            0,
-            market -
-            btcCap -
-            ethCap
-          )
-        );
-
-    }
-
-  }catch(e){
-
-    $("btcDom").textContent =
-      "N/A";
-
-  }
-
-}
-
-
-/* =========================================================
-   FEAR & GREED
-========================================================= */
-
-async function loadFearGreed(){
-
-  try{
-
-    const data =
-      await getJSON(
-        FEAR_GREED +
-        "?limit=1"
-      );
-
-    const value =
-      Number(data.data[0].value);
-
-    const classification =
-      data.data[0].value_classification;
-
-    DATA.fearGreed =
-      value;
-
-
-    $("fearGreed").textContent =
-      value;
-
-    $("fearText").textContent =
-      classification;
-
-
-    if(value >= 75){
-
-      $("fearGreed")
-        .className =
-        "big red-text";
-
-    }
-
-    else if(value >= 55){
-
-      $("fearGreed")
-        .className =
-        "big green-text";
-
-    }
-
-    else if(value >= 40){
-
-      $("fearGreed")
-        .className =
-        "big yellow-text";
-
-    }
-
-    else{
-
-      $("fearGreed")
-        .className =
-        "big red-text";
-
-    }
-
-  }catch(e){
-
-    $("fearGreed").textContent =
-      "N/A";
-
-  }
-
-}
-
-
-/* =========================================================
-   FUNDING
-========================================================= */
-
-async function loadFunding(){
-
-  try{
-
-    const data =
-      await getJSON(
-        BINANCE_FUTURES +
-        "/fapi/v1/premiumIndex?symbol=BTCUSDT"
-      );
-
-    const funding =
-      Number(data.lastFundingRate) * 100;
-
-    DATA.funding =
-      funding;
-
-
-    $("funding").textContent =
-      funding.toFixed(4) + "%";
-
-
-    if(funding > .03){
-
-      $("fundingStatus").textContent =
-        "⚠️ Longs crowded";
-
-      $("fundingStatus").className =
-        "small red-text";
-
-    }
-
-    else if(funding < -.03){
-
-      $("fundingStatus").textContent =
-        "🟢 Shorts crowded";
-
-      $("fundingStatus").className =
-        "small green-text";
-
-    }
-
-    else{
-
-      $("fundingStatus").textContent =
-        "🟢 Controlled";
-
-      $("fundingStatus").className =
-        "small green-text";
-
-    }
-
-  }catch(e){
-
-    $("funding").textContent =
-      "N/A";
-
-    DATA.funding =
-      null;
-
-  }
-
-}
-
-
-/* =========================================================
-   OPEN INTEREST
-========================================================= */
-
-async function loadOI(){
-
-  try{
-
-    const data =
-      await getJSON(
-        BINANCE_FUTURES +
-        "/fapi/v1/openInterest?symbol=BTCUSDT"
-      );
-
-    const btc =
-      Number(data.openInterest);
-
-    DATA.oi =
-      btc;
-
-
-    $("oi").textContent =
-      btc.toLocaleString(
-        undefined,
-        {
-          maximumFractionDigits:0
-        }
-      ) + " BTC";
-
-  }catch(e){
-
-    $("oi").textContent =
-      "N/A";
-
-  }
-
-}
-
-
-/* =========================================================
-   STABLECOINS
-========================================================= */
-
-async function loadStablecoins(){
-
-  try{
-
-    const data =
-      await getJSON(
-        DEFILLAMA +
-        "/stablecoins?includePrices=true"
-      );
-
-    let total =
-      0;
-
-    if(data && data.peggedAssets){
-
-      data.peggedAssets.forEach(
-        coin => {
-
-          const supply =
-            Number(
-              coin.circulating?.peggedUSD ||
-              0
-            );
-
-          total += supply;
-
-        }
-      );
-
-    }
-
-    DATA.stablecoins =
-      total;
-
-
-    $("stablecoinTotal").textContent =
-      fmtCompact(total);
-
-    $("stablecoinStatus").textContent =
-      "Current aggregate stablecoin supply";
-
-  }catch(e){
-
-    $("stablecoinTotal").textContent =
-      "N/A";
-
-    $("stablecoinStatus").textContent =
-      "Data unavailable";
-
-  }
-
-}
-
-
-/* =========================================================
-   WATCHLIST
-========================================================= */
-
-async function loadWatchlist(){
-
-  const rows = [];
-
-  for(const coin of WATCHLIST){
-
-    try{
-
-      const symbol =
-        coin + "USDT";
-
-      const [t,k] =
-        await Promise.all([
-          ticker(symbol),
-          klines(symbol,"1h",100)
-        ]);
-
-      const tech =
-        technical(k);
-
-      const btcK =
-        await klines(
-          "BTCUSDT",
-          "1h",
-          30
-        );
-
-      const btcTech =
-        technical(btcK);
-
-      const coinChange =
-        Number(t.priceChangePercent);
-
-      const btcChange =
-        Number(
-          (
-            (
-              btcK[btcK.length-1][4] -
-              btcK[btcK.length-25][4]
-            ) /
-            btcK[btcK.length-25][4]
-          ) * 100
-        );
-
-      const relative =
-        coinChange - btcChange;
-
-
-      let score = 50;
-
-
-      /* Trend */
-
-      if(tech.trend === "BULLISH"){
-        score += 15;
-      }
-
-      else if(tech.trend === "BEARISH"){
-        score -= 15;
-      }
-
-
-      /* RSI */
-
-      if(
-        tech.rsi >= 45 &&
-        tech.rsi <= 68
-      ){
-        score += 10;
-      }
-
-      if(tech.rsi > 75){
-        score -= 10;
-      }
-
-      if(tech.rsi < 30){
-        score += 4;
-      }
-
-
-      /* BTC relative strength */
-
-      if(relative > 2){
-        score += 15;
-      }
-
-      else if(relative > 0){
-        score += 8;
-      }
-
-      else if(relative < -3){
-        score -= 12;
-      }
-
-
-      /* Volume */
-
-      if(tech.volumeRatio > 1.5){
-        score += 8;
-      }
-
-      else if(tech.volumeRatio < .6){
-        score -= 5;
-      }
-
-
-      /* Market regime */
-
-      if(
-        DATA.fearGreed !== null &&
-        DATA.fearGreed < 25
-      ){
-        score -= 5;
-      }
-
-
-      score =
-        Math.max(
-          0,
-          Math.min(100,Math.round(score))
-        );
-
-
-      let signal =
-        "WAIT";
-
-      if(score >= 75){
-        signal = "BUY";
-      }
-
-      else if(score < 40){
-        signal = "AVOID";
-      }
-
-
-      rows.push({
-        coin,
-        price:Number(t.lastPrice),
-        change:coinChange,
-        rsi:tech.rsi,
-        trend:tech.trend,
-        relative,
-        volumeRatio:tech.volumeRatio,
-        score,
-        signal
-      });
-
-
-    }catch(e){
-
-      rows.push({
-        coin,
-        error:true
-      });
-
-    }
-
-  }
-
-
-  DATA.watch =
-    rows;
-
-  renderWatchlist();
-
-}
-
-
-/* =========================================================
-   RENDER WATCHLIST
-========================================================= */
-
-function renderWatchlist(){
-
-  const body =
-    $("watchlistBody");
-
-  body.innerHTML = "";
-
-
-  DATA.watch
-    .sort(
-      (a,b)=>
-      (b.score||0) -
-      (a.score||0)
-    )
-    .forEach(row=>{
-
-      const tr =
-        document.createElement("tr");
-
-
-      if(row.error){
-
-        tr.innerHTML = `
-          <td class="coin">
-            ${row.coin}
-          </td>
-
-          <td colspan="8"
-              class="neutral-text">
-            Data unavailable
-          </td>
-        `;
-
-        body.appendChild(tr);
-
-        return;
-
-      }
-
-
-      const signalClass =
-        row.signal === "BUY"
-          ? "buy"
-          : row.signal === "AVOID"
-          ? "avoid"
-          : "wait";
-
-
-      const trendClass =
-        row.trend === "BULLISH"
-          ? "green-text"
-          : row.trend === "BEARISH"
-          ? "red-text"
-          : "yellow-text";
-
-
-      tr.innerHTML = `
-
-        <td class="coin">
-          ${row.coin}
-        </td>
-
-        <td>
-          ${fmtPrice(row.price)}
-        </td>
-
-        <td class="${cls(row.change)}">
-          ${fmtPct(row.change)}
-        </td>
-
-        <td>
-          ${row.rsi
-            ? row.rsi.toFixed(1)
-            : "--"}
-        </td>
-
-        <td class="${trendClass}">
-          ${row.trend}
-        </td>
-
-        <td class="${cls(row.relative)}">
-          ${fmtPct(row.relative)}
-        </td>
-
-        <td>
-          ${row.volumeRatio
-            ? row.volumeRatio.toFixed(2) + "x"
-            : "--"}
-        </td>
-
-        <td>
-          <span class="score">
-            ${row.score}
-          </span>
-        </td>
-
-        <td class="signal ${signalClass}">
-          ${row.signal}
-        </td>
-
-      `;
-
-      body.appendChild(tr);
+      volumeRatio:technical.volumeRatio
 
     });
 
+  return {
+
+    symbol,
+
+    price,
+
+    marketCap:cgData.marketCap || 0,
+
+    change24,
+
+    volume,
+
+    rsi:technical.rsi,
+
+    ema20:technical.ema20,
+
+    ema55:technical.ema55,
+
+    trend:technical.trend,
+
+    volumeRatio:technical.volumeRatio,
+
+    btcStrength,
+
+    score,
+
+    signal:signalFromScore(score),
+
+    rank:cgData.rank || 999999
+
+  };
+
 }
 
 
 /* =========================================================
-   MARKET MODEL
-========================================================= */
+   RENDER ROW
+   ========================================================= */
 
-function buildMarketModel(){
+function renderRow(c,index){
 
-  if(!DATA.btc){
+  const signalClass =
+    c.signal === "BUY"
+    ? "buy"
+    : c.signal === "AVOID"
+    ? "avoid"
+    : "wait";
+
+  const trendClass =
+    c.trend === "Bullish"
+    ? "green"
+    : c.trend === "Bearish"
+    ? "red"
+    : "yellow";
+
+  const rsiText =
+    c.rsi !== null
+    ? c.rsi.toFixed(1)
+    : "--";
+
+  const strength =
+    c.btcStrength !== null
+    ? `
+      <span class="${c.btcStrength >= 0 ? "green":"red"}">
+        ${c.btcStrength >= 0 ? "+" : ""}
+        ${c.btcStrength.toFixed(2)}%
+      </span>
+    `
+    : "--";
+
+  const volumeRatio =
+    c.volumeRatio
+    ? c.volumeRatio.toFixed(2) + "x"
+    : "--";
+
+  return `
+
+    <tr>
+
+      <td class="rank">${index+1}</td>
+
+      <td class="coin">
+        ${c.symbol}
+      </td>
+
+      <td class="price">
+        ${fmtPrice(c.price)}
+      </td>
+
+      <td class="mc">
+        ${fmtMarketCap(c.marketCap)}
+      </td>
+
+      <td>
+        ${pct(c.change24)}
+      </td>
+
+      <td>
+        ${rsiText}
+      </td>
+
+      <td>
+        <span class="${trendClass}">
+          ${c.trend}
+        </span>
+      </td>
+
+      <td>
+        ${fmtVolume(c.volume)}
+        <span class="muted">
+          (${volumeRatio})
+        </span>
+      </td>
+
+      <td>
+        ${strength}
+      </td>
+
+      <td>
+        <strong>${c.score}</strong>/100
+      </td>
+
+      <td>
+        <span class="signal ${signalClass}">
+          ${c.signal}
+        </span>
+      </td>
+
+    </tr>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER TABLE
+   ========================================================= */
+
+function renderTable(elementId,data){
+
+  const el =
+    document.getElementById(elementId);
+
+  if(!data.length){
+
+    el.innerHTML = `
+      <tr>
+        <td colspan="11" class="loading">
+          No market data available
+        </td>
+      </tr>
+    `;
+
     return;
-  }
-
-
-  const t15 =
-    DATA.btc.t15;
-
-  const t1h =
-    DATA.btc.t1h;
-
-  const t4h =
-    DATA.btc.t4h;
-
-
-  let score = 50;
-
-
-  /* BTC trend */
-
-  if(t15.trend === "BULLISH"){
-    score += 8;
-  }
-
-  if(t1h.trend === "BULLISH"){
-    score += 12;
-  }
-
-  if(t4h.trend === "BULLISH"){
-    score += 15;
-  }
-
-
-  if(t1h.trend === "BEARISH"){
-    score -= 12;
-  }
-
-  if(t4h.trend === "BEARISH"){
-    score -= 20;
-  }
-
-
-  /* ETH/BTC */
-
-  if(DATA.ethbtc){
-
-    if(DATA.ethbtc.change > 1){
-      score += 8;
-    }
-
-    else if(DATA.ethbtc.change < -1){
-      score -= 8;
-    }
 
   }
 
-
-  /* Funding */
-
-  if(DATA.funding !== null){
-
-    if(
-      Math.abs(DATA.funding) < .03
-    ){
-      score += 5;
-    }
-
-    if(DATA.funding > .06){
-      score -= 10;
-    }
-
-  }
-
-
-  /* Fear & Greed */
-
-  if(DATA.fearGreed !== null){
-
-    if(
-      DATA.fearGreed >= 45 &&
-      DATA.fearGreed <= 70
-    ){
-      score += 5;
-    }
-
-    if(DATA.fearGreed > 85){
-      score -= 8;
-    }
-
-  }
-
-
-  score =
-    Math.max(
-      0,
-      Math.min(100,Math.round(score))
-    );
-
-
-  let regime;
-
-  if(score >= 68){
-
-    regime = "GREEN";
-
-  }
-
-  else if(score >= 45){
-
-    regime = "YELLOW";
-
-  }
-
-  else{
-
-    regime = "RED";
-
-  }
-
-
-  const box =
-    $("regimeBox");
-
-  box.className =
-    "regime " +
-    regime.toLowerCase();
-
-
-  if(regime === "GREEN"){
-
-    $("regimeMain").textContent =
-      "🟢 GREEN — RISK-ON";
-
-    $("regimeDesc").textContent =
-      "BTC structure is constructive. Strong altcoin setups can be considered, but avoid chasing extreme pumps.";
-
-  }
-
-  else if(regime === "YELLOW"){
-
-    $("regimeMain").textContent =
-      "🟡 YELLOW — SELECTIVE";
-
-    $("regimeDesc").textContent =
-      "Market is mixed. Trade only strong setups with BTC-relative strength, volume confirmation and controlled leverage.";
-
-  }
-
-  else{
-
-    $("regimeMain").textContent =
-      "🔴 RED — RISK-OFF";
-
-    $("regimeDesc").textContent =
-      "BTC structure is weak or leverage risk is elevated. New altcoin entries should be highly selective.";
-
-  }
-
-
-  /* Momentum */
-
-  $("btcMomentum").textContent =
-    score + "/100";
-
-
-  $("btcMomentum").className =
-    "big " +
-    (
-      score >= 68
-      ? "green-text"
-      : score >= 45
-      ? "yellow-text"
-      : "red-text"
-    );
-
-
-  /* Rotation */
-
-  let rotation =
-    50;
-
-
-  if(DATA.ethbtc){
-
-    if(DATA.ethbtc.change > 2){
-      rotation += 20;
-    }
-
-    else if(DATA.ethbtc.change > 0){
-      rotation += 10;
-    }
-
-    else if(DATA.ethbtc.change < -2){
-      rotation -= 20;
-    }
-
-    else if(DATA.ethbtc.change < 0){
-      rotation -= 10;
-    }
-
-  }
-
-
-  if(DATA.btcDom !== null){
-
-    if(DATA.btcDom < 55){
-      rotation += 15;
-    }
-
-    else if(DATA.btcDom > 60){
-      rotation -= 10;
-    }
-
-  }
-
-
-  rotation =
-    Math.max(
-      0,
-      Math.min(100,Math.round(rotation))
-    );
-
-
-  $("rotationScore").textContent =
-    rotation + "/100";
-
-
-  $("rotationBar").style.width =
-    rotation + "%";
-
-
-  if(rotation >= 70){
-
-    $("altDirection").textContent =
-      "ROTATION ↑";
-
-    $("altDirection").className =
-      "green-text";
-
-    $("altEnvironment").textContent =
-      "🟢 FAVORABLE";
-
-    $("altEnvironmentDesc").textContent =
-      "ETH/ALT relative strength improving.";
-
-  }
-
-  else if(rotation >= 45){
-
-    $("altDirection").textContent =
-      "MIXED";
-
-    $("altDirection").className =
-      "yellow-text";
-
-    $("altEnvironment").textContent =
-      "🟡 SELECTIVE";
-
-    $("altEnvironmentDesc").textContent =
-      "Wait for stronger ETH/BTC and BTC confirmation.";
-
-  }
-
-  else{
-
-    $("altDirection").textContent =
-      "ALT WEAK";
-
-    $("altDirection").className =
-      "red-text";
-
-    $("altEnvironment").textContent =
-      "🔴 UNFAVORABLE";
-
-    $("altEnvironmentDesc").textContent =
-      "BTC dominance / relative weakness may pressure alts.";
-
-  }
-
-
-  /* Liquidity */
-
-  let liq = 50;
-
-
-  if(DATA.stablecoins){
-
-    liq += 10;
-
-  }
-
-
-  if(
-    DATA.fearGreed !== null &&
-    DATA.fearGreed > 40
-  ){
-    liq += 10;
-  }
-
-
-  if(DATA.funding !== null){
-
-    if(
-      Math.abs(DATA.funding) < .03
-    ){
-      liq += 10;
-    }
-
-  }
-
-
-  liq =
-    Math.max(
-      0,
-      Math.min(100,liq)
-    );
-
-
-  $("liquidityScore").textContent =
-    liq + "/100";
-
-  $("liquidityBar").style.width =
-    liq + "%";
-
-
-  /* Pullback risk */
-
-  let pullback =
-    30;
-
-
-  if(
-    DATA.fearGreed !== null &&
-    DATA.fearGreed > 80
-  ){
-    pullback += 20;
-  }
-
-
-  if(
-    DATA.funding !== null &&
-    DATA.funding > .04
-  ){
-    pullback += 20;
-  }
-
-
-  if(
-    t1h.rsi &&
-    t1h.rsi > 72
-  ){
-    pullback += 15;
-  }
-
-
-  if(
-    t4h.rsi &&
-    t4h.rsi > 72
-  ){
-    pullback += 15;
-  }
-
-
-  pullback =
-    Math.min(
-      100,
-      pullback
-    );
-
-
-  $("pullbackRisk").textContent =
-    pullback + "/100";
-
-
-  if(pullback >= 70){
-
-    $("pullbackRisk").className =
-      "big red-text";
-
-    $("pullbackDesc").textContent =
-      "High short-term correction risk.";
-
-  }
-
-  else if(pullback >= 45){
-
-    $("pullbackRisk").className =
-      "big yellow-text";
-
-    $("pullbackDesc").textContent =
-      "Moderate correction risk.";
-
-  }
-
-  else{
-
-    $("pullbackRisk").className =
-      "big green-text";
-
-    $("pullbackDesc").textContent =
-      "Pullback risk currently controlled.";
-
-  }
-
-
-  /* Leverage */
-
-  let lev =
-    "CONTROLLED";
-
-
-  if(
-    DATA.funding !== null &&
-    DATA.funding > .05
-  ){
-
-    lev =
-      "HIGH";
-
-  }
-
-  else if(
-    DATA.funding !== null &&
-    DATA.funding < -.05
-  ){
-
-    lev =
-      "SHORT CROWDED";
-
-  }
-
-
-  $("leverageRisk").textContent =
-    lev;
-
-
-  $("leverageDesc").textContent =
-    lev === "CONTROLLED"
-      ? "Funding not overheated."
-      : "Watch for squeeze / liquidation risk.";
-
-
-  /* Market alert */
-
-  if(
-    pullback >= 70
-  ){
-
-    $("marketAlert").innerHTML =
-      "🚨 <b>Pullback Warning:</b> " +
-      "Momentum is becoming overheated. Avoid chasing green candles and wait for confirmation/retest.";
-
-  }
-
-  else if(
-    regime === "RED"
-  ){
-
-    $("marketAlert").innerHTML =
-      "🔴 <b>Risk-Off:</b> BTC structure is weak. Altcoin signals should be filtered aggressively.";
-
-  }
-
-  else if(
-    regime === "GREEN" &&
-    rotation >= 70
-  ){
-
-    $("marketAlert").innerHTML =
-      "🟢 <b>Alt Rotation:</b> BTC/ETH structure and relative strength are supportive. Strong spot setups can receive higher priority.";
-
-  }
-
-  else{
-
-    $("marketAlert").innerHTML =
-      "🟡 <b>Selective Mode:</b> Market is not fully confirmed. Prioritize coins outperforming BTC with volume confirmation.";
-
-  }
+  el.innerHTML =
+    data.map((c,i)=>
+      renderRow(c,i)
+    ).join("");
 
 }
 
 
 /* =========================================================
-   REFRESH ALL
-========================================================= */
+   BTC / ETH / FEAR GREED
+   ========================================================= */
 
-async function refreshAll(){
+async function getGeneralMarket(){
 
-  $("lastUpdate").textContent =
-    "Updating...";
-
+  const result={};
 
   try{
 
-    await Promise.allSettled([
+    const btc =
+      await fetchJSON(
+        BINANCE_BASE +
+        "/api/v3/ticker/24hr?symbol=BTCUSDT"
+      );
 
-      loadBTCTechnical(),
+    result.btcPrice =
+      Number(btc.lastPrice);
 
-      loadETH(),
+    result.btcChange =
+      Number(btc.priceChangePercent);
 
-      loadETHBTC(),
+  }catch{}
 
-      loadGlobal(),
+  try{
 
-      loadFearGreed(),
+    const eth =
+      await fetchJSON(
+        BINANCE_BASE +
+        "/api/v3/ticker/24hr?symbol=ETHUSDT"
+      );
 
-      loadFunding(),
+    result.ethPrice =
+      Number(eth.lastPrice);
 
-      loadOI(),
+    result.ethChange =
+      Number(eth.priceChangePercent);
 
-      loadStablecoins()
+  }catch{}
+
+  try{
+
+    const ethbtc =
+      await fetchJSON(
+        BINANCE_BASE +
+        "/api/v3/ticker/24hr?symbol=ETHBTC"
+      );
+
+    result.ethbtc =
+      Number(ethbtc.priceChangePercent);
+
+  }catch{}
+
+  try{
+
+    const funding =
+      await fetchJSON(
+        FUTURES_BASE +
+        "/fapi/v1/premiumIndex?symbol=BTCUSDT"
+      );
+
+    result.funding =
+      Number(funding.lastFundingRate)*100;
+
+  }catch{
+
+    result.funding=null;
+
+  }
+
+  try{
+
+    const oi =
+      await fetchJSON(
+        FUTURES_BASE +
+        "/fapi/v1/openInterest?symbol=BTCUSDT"
+      );
+
+    result.oi =
+      Number(oi.openInterest);
+
+  }catch{
+
+    result.oi=null;
+
+  }
+
+  try{
+
+    const fg =
+      await fetchJSON(
+        "https://api.alternative.me/fng/?limit=1"
+      );
+
+    if(fg.data && fg.data[0]){
+
+      result.fearGreed =
+        Number(fg.data[0].value);
+
+      result.fearText =
+        fg.data[0].value_classification;
+
+    }
+
+  }catch{
+
+    result.fearGreed=null;
+
+  }
+
+  try{
+
+    const global =
+      await fetchJSON(
+        "https://api.coingecko.com/api/v3/global"
+      );
+
+    if(global.data){
+
+      result.btcDom =
+        Number(
+          global.data.market_cap_percentage.btc
+        );
+
+    }
+
+  }catch{
+
+    result.btcDom=null;
+
+  }
+
+  try{
+
+    const stable =
+      await fetchJSON(
+        "https://stablecoins.llama.fi/stablecoins?includePrices=true"
+      );
+
+    if(stable.peggedAssets){
+
+      let total=0;
+
+      stable.peggedAssets.forEach(x=>{
+
+        if(x.circulating){
+
+          total +=
+            Number(
+              x.circulating.peggedUSD || 0
+            );
+
+        }
+
+      });
+
+      result.stable=total;
+
+    }
+
+  }catch{
+
+    result.stable=null;
+
+  }
+
+  return result;
+
+}
+
+
+/* =========================================================
+   MARKET REGIME
+   ========================================================= */
+
+function calculateRegime(btc,general){
+
+  let score=50;
+
+  const trends=[
+    btc.btc15?.trend,
+    btc.btc1h?.trend,
+    btc.btc4h?.trend
+  ];
+
+  trends.forEach(t=>{
+
+    if(t==="Bullish")
+      score+=8;
+
+    if(t==="Bearish")
+      score-=8;
+
+  });
+
+  if(general.ethbtc > 0)
+    score+=5;
+
+  if(general.ethbtc < 0)
+    score-=5;
+
+  if(general.funding !== null){
+
+    if(general.funding > 0.05)
+      score-=5;
+
+    if(general.funding < 0.02)
+      score+=3;
+
+  }
+
+  if(general.fearGreed !== null){
+
+    if(
+      general.fearGreed >= 45 &&
+      general.fearGreed <= 70
+    )
+      score+=5;
+
+    if(general.fearGreed >= 80)
+      score-=5;
+
+    if(general.fearGreed < 25)
+      score-=3;
+
+  }
+
+  score =
+    Math.max(0,Math.min(100,Math.round(score)));
+
+  let name="🟡 NEUTRAL / CHOPPY";
+
+  if(score >= 68)
+    name="🟢 BULLISH";
+
+  else if(score < 45)
+    name="🔴 BEARISH / RISK-OFF";
+
+  return {
+    score,
+    name
+  };
+
+}
+
+
+/* =========================================================
+   PULLBACK RISK
+   ========================================================= */
+
+function calculatePullback(btc,general){
+
+  let risk=20;
+
+  if(
+    general.fearGreed !== null &&
+    general.fearGreed >= 80
+  )
+    risk+=25;
+
+  if(
+    general.funding !== null &&
+    general.funding >= 0.05
+  )
+    risk+=20;
+
+  if(
+    btc.btc1h &&
+    btc.btc1h.rsi !== null &&
+    btc.btc1h.rsi >= 70
+  )
+    risk+=15;
+
+  if(
+    btc.btc4h &&
+    btc.btc4h.rsi !== null &&
+    btc.btc4h.rsi >= 70
+  )
+    risk+=20;
+
+  risk =
+    Math.min(100,risk);
+
+  if(risk >= 65)
+    return {
+      text:"HIGH",
+      class:"red"
+    };
+
+  if(risk >= 40)
+    return {
+      text:"MEDIUM",
+      class:"yellow"
+    };
+
+  return {
+    text:"LOW",
+    class:"green"
+  };
+
+}
+
+
+/* =========================================================
+   UPDATE MARKET CARDS
+   ========================================================= */
+
+function updateGeneral(general){
+
+  document.getElementById("btcPrice")
+    .innerHTML =
+    fmtPrice(general.btcPrice);
+
+  document.getElementById("btcChange")
+    .innerHTML =
+    pct(general.btcChange);
+
+  document.getElementById("ethPrice")
+    .innerHTML =
+    fmtPrice(general.ethPrice);
+
+  document.getElementById("ethChange")
+    .innerHTML =
+    pct(general.ethChange);
+
+  document.getElementById("btcDom")
+    .innerHTML =
+    general.btcDom !== null
+    ? general.btcDom.toFixed(2)+"%"
+    : "--";
+
+  document.getElementById("ethbtc")
+    .innerHTML =
+    pct(general.ethbtc);
+
+  document.getElementById("funding")
+    .innerHTML =
+    general.funding !== null
+    ? general.funding.toFixed(4)+"%"
+    : "--";
+
+  document.getElementById("oi")
+    .innerHTML =
+    general.oi
+    ? Number(general.oi).toLocaleString()
+    : "--";
+
+  document.getElementById("fearGreed")
+    .innerHTML =
+    general.fearGreed !== null
+    ? general.fearGreed
+    : "--";
+
+  document.getElementById("fearText")
+    .innerHTML =
+    general.fearText || "--";
+
+  document.getElementById("stable")
+    .innerHTML =
+    general.stable
+    ? fmtMarketCap(general.stable)
+    : "--";
+
+}
+
+
+/* =========================================================
+   UPDATE BTC
+   ========================================================= */
+
+function updateBTC(btc){
+
+  const items=[
+    ["btc15","btc15"],
+    ["btc1h","btc1h"],
+    ["btc4h","btc4h"]
+  ];
+
+  items.forEach(([element,key])=>{
+
+    const x=btc[key];
+
+    if(!x){
+
+      document.getElementById(element)
+        .innerHTML="--";
+
+      return;
+
+    }
+
+    const cls =
+      colorClass(x.trend);
+
+    const rsi =
+      x.rsi !== null
+      ? " • RSI "+x.rsi.toFixed(1)
+      : "";
+
+    document.getElementById(element)
+      .innerHTML =
+      `<span class="${cls}">
+        ${x.trend}
+      </span>${rsi}`;
+
+  });
+
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD
+   ========================================================= */
+
+async function loadDashboard(){
+
+  document.getElementById("lastUpdate")
+    .innerText="Updating...";
+
+  try{
+
+    /*
+      Fetch general data and market-cap data
+      at the same time.
+    */
+
+    const [
+      cg,
+      binance,
+      general,
+      btc
+    ] = await Promise.all([
+
+      getCoinGeckoData(),
+
+      getBinance24(),
+
+      getGeneralMarket(),
+
+      getBTCData()
 
     ]);
 
 
-    buildMarketModel();
+    updateGeneral(general);
+
+    updateBTC(btc);
 
 
-    await loadWatchlist();
+    /*
+      BTC change is used for relative-strength
+    */
+
+    const btcChange =
+      general.btcChange || 0;
 
 
-    buildMarketModel();
+    /*
+      Combine both lists
+      but keep them separate afterwards.
+    */
+
+    const allSymbols =
+      [...new Set([
+        ...HOLDINGS,
+        ...WATCHLIST
+      ])];
 
 
-    $("lastUpdate").textContent =
-      new Date().toLocaleString();
+    /*
+      Analyze coins.
+      Small delay prevents excessive API burst.
+    */
+
+    const analyzed=[];
+
+    for(const symbol of allSymbols){
+
+      try{
+
+        const data =
+          await analyzeCoin(
+            symbol,
+            cg,
+            binance,
+            btcChange
+          );
+
+        analyzed.push(data);
+
+      }catch(error){
+
+        console.warn(
+          "Analysis failed:",
+          symbol,
+          error
+        );
+
+      }
+
+      await sleep(80);
+
+    }
 
 
-  }catch(e){
+    /*
+      IMPORTANT:
+      Market Cap sorting
+      Largest -> Smallest
+    */
 
-    $("lastUpdate").textContent =
-      "Partial data";
+    const holdingsData =
+      analyzed
+      .filter(x =>
+        HOLDINGS.includes(x.symbol)
+      )
+      .sort((a,b)=>
+        b.marketCap-a.marketCap
+      );
 
 
-    console.error(e);
+    const watchData =
+      analyzed
+      .filter(x =>
+        WATCHLIST.includes(x.symbol)
+      )
+      .sort((a,b)=>
+        b.marketCap-a.marketCap
+      );
+
+
+    /*
+      Render tables
+    */
+
+    renderTable(
+      "holdingsBody",
+      holdingsData
+    );
+
+    renderTable(
+      "watchBody",
+      watchData
+    );
+
+
+    /*
+      Counts
+    */
+
+    document.getElementById("holdingCount")
+      .innerText =
+      holdingsData.length + " coins";
+
+    document.getElementById("watchCount")
+      .innerText =
+      watchData.length + " coins";
+
+
+    /*
+      Market regime
+    */
+
+    const regime =
+      calculateRegime(
+        btc,
+        general
+      );
+
+    const regimeElement =
+      document.getElementById("regimeName");
+
+    regimeElement.innerHTML =
+      regime.name;
+
+    document.getElementById("regimeScore")
+      .innerText =
+      "Score: " + regime.score + "/100";
+
+
+    /*
+      Pullback risk
+    */
+
+    const pullback =
+      calculatePullback(
+        btc,
+        general
+      );
+
+    document.getElementById("pullback")
+      .innerHTML =
+      `<span class="${pullback.class}">
+        ${pullback.text}
+      </span>`;
+
+
+    /*
+      Last update
+    */
+
+    const now =
+      new Date();
+
+    document.getElementById("lastUpdate")
+      .innerText =
+      "Updated " +
+      now.toLocaleTimeString();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById("lastUpdate")
+      .innerText =
+      "Update failed — retry";
 
   }
 
@@ -2485,16 +2037,13 @@ async function refreshAll(){
 
 
 /* =========================================================
-   START
-========================================================= */
+   AUTO REFRESH
+   ========================================================= */
 
-refreshAll();
-
-
-/* Auto refresh every 60 seconds */
+loadDashboard();
 
 setInterval(
-  refreshAll,
+  loadDashboard,
   60000
 );
 
