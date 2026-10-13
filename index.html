@@ -1,87 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b0f17"><title>Q4 Crypto Market Regime Dashboard</title>
-<style>
-:root{--bg:#0b0f17;--card:#131a26;--card2:#18212f;--line:#243044;--text:#e6ecf5;--muted:#8a97ab;--green:#22c55e;--red:#ef4444;--yellow:#eab308;--blue:#3b82f6}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1250px;margin:auto;padding:12px}.header,.toolbar,.tabs{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.header{margin-bottom:12px}.header h1{font-size:18px;margin:0 0 4px}.sub,.small{font-size:12px;color:var(--muted)}button,.tab{background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 11px;cursor:pointer}.tab.active{background:var(--blue)}.tabs{margin:10px 0;overflow:auto}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:10px 0}.market-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin:10px 0}.card,.alert,.watchlist,.regime{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px}.card-title,.regime-title{font-size:11px;letter-spacing:.8px;color:var(--muted);margin-bottom:7px}.big{font-size:22px;font-weight:700}.section{font-size:15px;font-weight:700;margin:16px 0 8px}.metric{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}.metric:last-child{border:0}.green-text,.buy{color:var(--green)}.red-text,.avoid{color:var(--red)}.yellow-text,.wait{color:var(--yellow)}.muted{color:var(--muted)}.regime.green{border-color:var(--green);background:#123021}.regime.yellow{border-color:var(--yellow);background:#302a12}.regime.red{border-color:var(--red);background:#301719}.regime-main{font-size:21px;font-weight:700;margin:5px 0}.bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:8px}.bar-fill{height:100%;background:var(--blue);width:0}.watchlist{overflow:auto;padding:0}table{border-collapse:collapse;width:100%;min-width:760px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);white-space:nowrap}th{font-size:10px;color:var(--muted)}.coin{font-weight:700}.score{background:var(--card2);padding:3px 7px;border-radius:6px}.info{padding:10px;background:var(--card);border-left:3px solid var(--blue);border-radius:8px;color:var(--muted);margin:8px 0}.pill{font-size:11px;border:1px solid var(--line);border-radius:18px;padding:5px 8px;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:12px;margin:20px}.menu{position:relative}.dropdown{display:none;position:absolute;z-index:9;top:40px;background:var(--card);border:1px solid var(--line);border-radius:8px;min-width:180px}.dropdown.open{display:block}.dropdown div{padding:10px;cursor:pointer}.dropdown div:hover{background:var(--card2)}input,select{background:var(--card2);color:var(--text);border:1px solid var(--line);padding:8px;border-radius:8px}.positive{color:var(--green)}.negative{color:var(--red)}
-</style></head>
-<body><div class="wrap">
-<div class="header"><div class="menu"><button onclick="document.getElementById('dropdown').classList.toggle('open')">☰ Menu</button><div id="dropdown" class="dropdown"><div onclick="showPanel('dashboard')">📊 Market</div><div onclick="showPanel('early')">🚀 Early Pump Radar</div><div onclick="showPanel('whale')">🐋 Whale + Volume</div><div onclick="showPanel('ultimate')">🧠 Ultimate Pump</div><div onclick="showPanel('log')">🧾 Signal Log</div></div></div><div style="flex:1"><h1>🧠 Q4 Crypto Market Regime Dashboard</h1><div class="sub">Market + Early Pump + Taker Buy Ratio + Signal Result Tracking</div><div class="sub">Last update: <span id="lastUpdate">Loading…</span></div></div><button onclick="refreshAll()">🔄 Refresh</button></div>
-<div class="tabs"><div class="tab active" data-p="dashboard" onclick="showPanel('dashboard')">📊 Market</div><div class="tab" data-p="early" onclick="showPanel('early')">🚀 Early Pump Radar</div><div class="tab" data-p="whale" onclick="showPanel('whale')">🐋 Whale + Volume</div><div class="tab" data-p="ultimate" onclick="showPanel('ultimate')">🧠 Ultimate Pump</div><div class="tab" data-p="log" onclick="showPanel('log')">🧾 Signal Log</div></div>
-<section id="p-dashboard" class="panel active">
-<div id="regimeBox" class="regime yellow"><div class="regime-title">CURRENT BTC REGIME</div><div id="regimeMain" class="regime-main">🟡 LOADING</div><div id="regimeDesc" class="small">Collecting market data…</div></div>
-<div class="grid"><div class="card"><div class="card-title">BTC PRICE</div><div class="big" id="btcPrice">--</div><div class="small" id="btcChange">--</div></div><div class="card"><div class="card-title">ETH PRICE</div><div class="big" id="ethPrice">--</div><div class="small" id="ethChange">--</div></div><div class="card"><div class="card-title">BTC DOMINANCE</div><div class="big" id="btcDom">--</div></div><div class="card"><div class="card-title">FEAR & GREED</div><div class="big" id="fearGreed">--</div><div class="small" id="fearText">--</div></div></div>
-<div class="section">🧭 Market Model</div><div class="market-grid"><div class="card"><div class="card-title">BTC MOMENTUM</div><div id="btcMomentum" class="big">--</div></div><div class="card"><div class="card-title">ALT ENVIRONMENT</div><div id="altEnvironment" class="big">--</div><div id="altEnvironmentDesc" class="small"></div></div><div class="card"><div class="card-title">BTC TECHNICAL</div><div class="metric"><span>15m</span><b id="btc15">--</b></div><div class="metric"><span>1h</span><b id="btc1h">--</b></div><div class="metric"><span>4h</span><b id="btc4h">--</b></div><div class="metric"><span>RSI 1h</span><b id="btcRsi">--</b></div></div></div>
-<div class="section">💼 Holdings + Watchlist</div><div class="watchlist"><table><thead><tr><th>GROUP</th><th>COIN</th><th>PRICE</th><th>24H</th><th>RSI 1H</th><th>EMA20</th><th>EMA55</th><th>TREND</th><th>VOL RATIO</th><th>BTC REL.</th><th>SCORE</th><th>SIGNAL</th></tr></thead><tbody id="coinsBody"><tr><td colspan="12">Loading…</td></tr></tbody></table></div><div class="section">🚨 Market Alert</div><div id="marketAlert" class="alert">Loading…</div>
-</section>
-<section id="p-early" class="panel"><div class="section">🚀 EARLY PUMP RADAR</div><div class="info">৮০+ score হলে signal log-এ entry price সেভ হবে। ১h, ৪h ও ২৪h ফলাফল price return হিসেবে হিসাব হবে। ২৪h-এ +২০% এর বেশি পাম্প হলে score penalty প্রযোজ্য।</div><div class="toolbar"><button onclick="scanUniverse()">🔎 Scan Binance Spot</button><span class="pill">USDT pairs • 24h quote volume ≥ $5M • Top 15</span></div><div id="earlyStatus" class="small">Not scanned yet</div><div class="watchlist"><table><thead><tr><th>#</th><th>COIN</th><th>PRICE</th><th>24H</th><th>15M CHANGE</th><th>VOL SURGE</th><th>TAKER BUY</th><th>RSI 15M</th><th>15M TREND</th><th>BTC REGIME</th><th>SCORE</th><th>SIGNAL</th></tr></thead><tbody id="earlyBody"><tr><td colspan="12">Press Scan</td></tr></tbody></table></div></section>
-<section id="p-whale" class="panel"><div class="section">🐋 WHALE + VOLUME</div><div class="info">Taker buy ratio candle-এর aggressive market-buy volume-এর proxy; এটি wallet বা প্রকৃত whale accumulation নিশ্চিত করে না।</div><div class="toolbar"><button onclick="scanUniverse()">🔎 Scan Binance Spot</button></div><div id="whaleStatus" class="small">Not scanned yet</div><div class="watchlist"><table><thead><tr><th>#</th><th>COIN</th><th>PRICE</th><th>24H</th><th>24H QUOTE VOL</th><th>TRADES</th><th>15M VOL RATIO</th><th>TAKER BUY %</th><th>15M CHANGE</th><th>ACTIVITY SCORE</th><th>NOTE</th></tr></thead><tbody id="whaleBody"><tr><td colspan="11">Press Scan</td></tr></tbody></table></div></section>
-<section id="p-ultimate" class="panel"><div class="section">🧠 ULTIMATE PUMP SCANNER</div><div class="info">Combined score includes volume, taker-buy pressure, momentum, BTC regime and a late-pump penalty. News/unlock calendar is not automatically checked.</div><div class="toolbar"><button onclick="scanUniverse()">🔎 Run Ultimate Scan</button></div><div id="ultimateStatus" class="small">Not scanned yet</div><div class="watchlist"><table><thead><tr><th>#</th><th>COIN</th><th>PRICE</th><th>24H</th><th>15M CHANGE</th><th>VOL SURGE</th><th>TAKER BUY %</th><th>RSI 15M</th><th>1H TREND</th><th>BTC REGIME</th><th>SCORE</th><th>SIGNAL</th></tr></thead><tbody id="ultimateBody"><tr><td colspan="12">Press Scan</td></tr></tbody></table></div></section>
-<section id="p-log" class="panel"><div class="section">🧾 Signal Log + Results</div><div class="info">Signal 80+ হলে entry price/score/time localStorage-এ সেভ হয়। 1h/4h/24h return পরের refresh/scan-এ আপডেট হবে; dashboard বন্ধ থাকলে ফলাফল পরেরবার খুললে update হবে। এটি candle-close execution বা real trade P/L নয়।</div><div class="toolbar"><button onclick="updateSignalResults()">↻ Update Results</button><button onclick="exportLog()">⬇ Export CSV</button><button onclick="clearLog()">🗑 Clear Log</button><span class="pill" id="logStats">No signals yet</span></div><div class="watchlist"><table><thead><tr><th>TIME</th><th>COIN</th><th>SCORE</th><th>ENTRY</th><th>1H PRICE / %</th><th>4H PRICE / %</th><th>24H PRICE / %</th><th>BTC REGIME</th></tr></thead><tbody id="logBody"><tr><td colspan="8">No signals logged yet.</td></tr></tbody></table></div></section>
-<div class="footer">Public market data • Research signals only; no trading guarantee • Signal log stored on this browser</div></div>
-<script>
-const SPOT="https://data-api.binance.vision", FUT="https://fapi.binance.com", CG="https://api.coingecko.com/api/v3";
-const HOLDINGS=["RENDER","SUI","XRP","CORE","JUP","AVAX","LINK","ASTER","WLFI","ROSE","PYTH","SEI","ONDO","ENA"];
-const WATCH=["AAVE","UNI","ARB","INJ","LDO","PENDLE","LTC","SOL"];
-const STABLE=new Set(["USDT","USDC","FDUSD","TUSD","USDP","DAI","BUSD","USDE","USD1","EUR","TRY","BRL","JPY","GBP","AUD","USTC"]);
-const SYMBOLS=Object.fromEntries([...HOLDINGS,...WATCH].map(x=>[x,x+"USDT"]));
-let btc={price:null,change:0,regime:"YELLOW",score:50}, scanRows=[], busy=false, btcTicker=null;
-const $=id=>document.getElementById(id);
-const money=v=>!Number.isFinite(+v)?"--":(+v>=1000?"$"+(+v).toLocaleString(undefined,{maximumFractionDigits:0}):+v>=1?"$"+(+v).toFixed(2):"$"+(+v).toPrecision(5));
-const pct=v=>Number.isFinite(+v)?((v>=0?"+":"")+ (+v).toFixed(2)+"%"):"--";
-const compact=v=>{v=+v;if(!Number.isFinite(v))return"--";return v>=1e12?"$"+(v/1e12).toFixed(2)+"T":v>=1e9?"$"+(v/1e9).toFixed(2)+"B":v>=1e6?"$"+(v/1e6).toFixed(2)+"M":"$"+(v/1e3).toFixed(1)+"K"};
-const cls=v=>v>0?"green-text":v<0?"red-text":"muted";
-const trendCls=t=>t==="BULLISH"?"green-text":t==="BEARISH"?"red-text":"yellow-text";
-async function json(url){let r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);return r.json()}
-async function tick(s){return json(SPOT+"/api/v3/ticker/24hr?symbol="+encodeURIComponent(s))}
-async function kl(s,iv,n=100){return json(SPOT+`/api/v3/klines?symbol=${encodeURIComponent(s)}&interval=${iv}&limit=${n}`)}
-function ema(a,p){if(a.length<p)return null;let v=a.slice(0,p).reduce((x,y)=>x+y,0)/p,m=2/(p+1);for(let i=p;i<a.length;i++)v=(a[i]-v)*m+v;return v}
-function rsi(a,p=14){if(a.length<=p)return null;let g=0,l=0;for(let i=1;i<=p;i++){let d=a[i]-a[i-1];if(d>0)g+=d;else l-=d}let ag=g/p,al=l/p;for(let i=p+1;i<a.length;i++){let d=a[i]-a[i-1];ag=(ag*(p-1)+Math.max(d,0))/p;al=(al*(p-1)+Math.max(-d,0))/p}return al===0?100:100-100/(1+ag/al)}
-function tech(k){let c=k.slice(0,-1).map(x=>+x[4]),v=k.slice(0,-1).map(x=>+x[5]),last=c.at(-1),e20=ema(c,20),e55=ema(c,55),rr=rsi(c),base=v.slice(-21,-1),avg=base.reduce((a,b)=>a+b,0)/(base.length||1),lastK=k[k.length-2],buy=+lastK[9],total=+lastK[5];return{price:last,ema20:e20,ema55:e55,rsi:rr,volRatio:avg?+lastK[5]/avg:0,taker:total?buy/total:0.5,trend:last>e20&&e20>e55?"BULLISH":last<e20&&e20<e55?"BEARISH":"MIXED"}}
-function showPanel(n){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));$("p-"+n)?.classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.p===n));$("dropdown").classList.remove("open");if(n!=="dashboard"&&!scanRows.length)scanUniverse()}
-async function loadBTC(){let [t,a,b,c]=await Promise.all([tick("BTCUSDT"),kl("BTCUSDT","15m"),kl("BTCUSDT","1h"),kl("BTCUSDT","4h")]);btcTicker=t;btc={price:+t.lastPrice,change:+t.priceChangePercent,t15:tech(a),t1:tech(b),t4:tech(c),score:50};let s=50;for(let [z,w] of [[btc.t15,8],[btc.t1,12],[btc.t4,20]])s+=z.trend==="BULLISH"?w:z.trend==="BEARISH"?-w:0;btc.score=Math.max(0,Math.min(100,s));btc.regime=s>=65?"GREEN":s>=40?"YELLOW":"RED";$("btcPrice").textContent=money(btc.price);$("btcChange").textContent=pct(btc.change);$("btcChange").className="small "+cls(btc.change);$("btc15").textContent=btc.t15.trend;$("btc15").className=trendCls(btc.t15.trend);$("btc1h").textContent=btc.t1.trend;$("btc1h").className=trendCls(btc.t1.trend);$("btc4h").textContent=btc.t4.trend;$("btc4h").className=trendCls(btc.t4.trend);$("btcRsi").textContent=btc.t1.rsi?.toFixed(1)??"--";$("btcMomentum").textContent=btc.score+"/100";$("btcMomentum").className="big "+(btc.score>=65?"green-text":btc.score>=40?"yellow-text":"red-text");$("regimeBox").className="regime "+btc.regime.toLowerCase();$("regimeMain").textContent=btc.regime==="GREEN"?"🟢 GREEN — RISK-ON":btc.regime==="YELLOW"?"🟡 YELLOW — SELECTIVE":"🔴 RED — RISK-OFF";$("regimeDesc").textContent=btc.regime==="RED"?"BTC weak: alt scores penalized; be selective.":btc.regime==="GREEN"?"BTC structure is constructive; avoid chasing extended candles.":"Mixed BTC structure: wait for volume confirmation.";$("marketAlert").textContent=btc.regime==="RED"?"🔴 BTC RED: alt scanner scores receive a penalty.":"Wait for confirmation; scanner scores are ranking estimates, not probabilities."}
-async function loadETH(){try{let t=await tick("ETHUSDT");$("ethPrice").textContent=money(+t.lastPrice);$("ethChange").textContent=pct(+t.priceChangePercent);$("ethChange").className="small "+cls(+t.priceChangePercent)}catch(e){$("ethPrice").textContent="N/A"}}
-async function loadGlobal(){try{let d=await json(CG+"/global");$("btcDom").textContent=(+d.data.market_cap_percentage.btc).toFixed(2)+"%";}catch(e){$("btcDom").textContent="N/A"}try{let d=await json("https://api.alternative.me/fng/?limit=1");$("fearGreed").textContent=d.data[0].value;$("fearText").textContent=d.data[0].value_classification}catch(e){$("fearGreed").textContent="N/A"}}
-async function refreshAll(){if(busy)return;busy=true;$("lastUpdate").textContent="Updating…";try{await Promise.allSettled([loadBTC(),loadETH(),loadGlobal()]);await loadTrackedCoins();updateSignalResults();$("lastUpdate").textContent=new Date().toLocaleString()}catch(e){$("lastUpdate").textContent="Partial data"}finally{busy=false}}
-async function loadTrackedCoins(){let rows=[];for(let i=0;i<HOLDINGS.length+WATCH.length;i+=5){let all=[...HOLDINGS,...WATCH];let part=await Promise.all(all.slice(i,i+5).map(async c=>{try{let [t,k]=await Promise.all([tick(SYMBOLS[c]),kl(SYMBOLS[c],"1h",80)]),z=tech(k),change=+t.priceChangePercent,rel=change-(btc.change||0);let sc=50+(z.trend==="BULLISH"?15:z.trend==="BEARISH"?-15:0)+(z.rsi>=40&&z.rsi<=68?10:z.rsi>75?-12:z.rsi<30?4:0)+(rel>3?15:rel>0?8:rel< -3?-12:0)+(z.volRatio>1.5?8:z.volRatio<.6?-5:0);if(btc.regime==="RED")sc-=15;sc=Math.max(0,Math.min(100,Math.round(sc)));return{coin:c,group:HOLDINGS.includes(c)?"HOLDING":"WATCH",price:+t.lastPrice,change,rsi:z.rsi,ema20:z.ema20,ema55:z.ema55,trend:z.trend,volRatio:z.volRatio,relative:rel,score:sc,signal:sc>=75?"BUY":sc<40?"AVOID":"WAIT"}}catch(e){return{coin:c,group:HOLDINGS.includes(c)?"HOLDING":"WATCH",error:true}}}));rows.push(...part)}$("coinsBody").innerHTML=rows.map(r=>r.error?`<tr><td>${r.group}</td><td>${r.coin}</td><td colspan="10">Data unavailable</td></tr>`:`<tr><td>${r.group}</td><td class="coin">${r.coin}</td><td>${money(r.price)}</td><td class="${cls(r.change)}">${pct(r.change)}</td><td>${r.rsi?.toFixed(1)??"--"}</td><td>${money(r.ema20)}</td><td>${money(r.ema55)}</td><td class="${trendCls(r.trend)}">${r.trend}</td><td>${r.volRatio.toFixed(2)}x</td><td class="${cls(r.relative)}">${pct(r.relative)}</td><td><span class="score">${r.score}</span></td><td class="${r.signal==="BUY"?"buy":r.signal==="AVOID"?"avoid":"wait"}">${r.signal}</td></tr>`).join("")}
-async function universe(){let [info,ts]=await Promise.all([json(SPOT+"/api/v3/exchangeInfo"),json(SPOT+"/api/v3/ticker/24hr")]);let valid=new Set(info.symbols.filter(s=>s.status==="TRADING"&&s.isSpotTradingAllowed&&s.quoteAsset==="USDT"&&!STABLE.has(s.baseAsset)).map(s=>s.symbol));return ts.filter(t=>valid.has(t.symbol)&&+t.quoteVolume>=5e6).sort((a,b)=>+b.quoteVolume-+a.quoteVolume)}
-async function scanOne(t){let sym=t.symbol,coin=sym.slice(0,-4),[k15,k1]=await Promise.all([kl(sym,"15m",60),kl(sym,"1h",80)]),z=tech(k15),z1=tech(k1),c=k15.slice(0,-1),last=c.at(-1),prev=+last[1],change15=prev?(+last[4]-prev)/prev*100:0,rel=+t.priceChangePercent-(btc.change||0),highs=c.slice(-20).map(x=>+x[2]),res=Math.max(...highs),gap=res?(res-z.price)/res*100:0,change=+t.priceChangePercent;let score=0;score+=z.volRatio>=3?25:z.volRatio>=2?19:z.volRatio>=1.5?13:0;score+=z.taker>=.65?20:z.taker>=.58?14:z.taker>=.52?7:0;score+=change15>=1&&change15<=6?12:change15>6?4:change15>0?5:0;score+=z.trend==="BULLISH"?12:z.trend==="MIXED"?6:0;score+=z1.trend==="BULLISH"?10:z1.trend==="MIXED"?4:0;score+=gap>=0&&gap<=2?10:gap>2&&gap<=5?6:0;score+=rel>2?8:rel>0?4:0;if(change>20)score-=25;if(btc.regime==="RED")score-=15;else if(btc.regime==="YELLOW")score-=5;score=Math.max(0,Math.min(100,Math.round(score)));let activity=Math.round(Math.min(100,Math.min(35,Math.log10(Math.max(1,+t.quoteVolume/1e6))*12)+Math.min(35,z.volRatio*10)+Math.min(20,Math.log10(Math.max(1,+t.count))/2*20)+(z.taker>=.6?10:5)));let ultimate=Math.round(score*.7+activity*.15+(z1.trend==="BULLISH"?10:0)+(rel>3?5:0));if(change>20)ultimate-=10;if(btc.regime==="RED")ultimate-=10;ultimate=Math.max(0,Math.min(100,ultimate));return{coin,symbol:sym,price:+t.lastPrice,change,quoteVolume:+t.quoteVolume,trades:+t.count,change15,volRatio:z.volRatio,taker:z.taker,rsi:z.rsi,trend15:z.trend,trend1h:z1.trend,gap,score,activity,ultimate}}
-function signal(s){return s>=80?"HIGH WATCH":s>=65?"WATCH":s>=45?"EARLY":"LOW"}function sigClass(s){return s==="HIGH WATCH"?"buy":s==="WATCH"||s==="EARLY"?"wait":"avoid"}
-function rowHtml(r,i,mode){let sc=mode==="early"?r.score:mode==="whale"?r.activity:r.ultimate;return `<tr><td>${i+1}</td><td class="coin">${r.coin}</td><td>${money(r.price)}</td><td class="${cls(r.change)}">${pct(r.change)}</td>${mode==="whale"?`<td>${compact(r.quoteVolume)}</td><td>${r.trades.toLocaleString()}</td><td>${r.volRatio.toFixed(2)}x</td><td>${(r.taker*100).toFixed(1)}%</td><td class="${cls(r.change15)}">${pct(r.change15)}</td><td><span class="score">${sc}</span></td><td>${r.taker>=.62&&r.volRatio>=1.5?"Buy pressure + volume":"Activity watch"}</td>`:`<td>${pct(r.change15)}</td><td>${r.volRatio.toFixed(2)}x</td><td>${(r.taker*100).toFixed(1)}%</td><td>${r.rsi?.toFixed(1)??"--"}</td><td class="${trendCls(mode==="early"?r.trend15:r.trend1h)}">${mode==="early"?r.trend15:r.trend1h}</td><td>${btc.regime}</td><td><span class="score">${sc}</span></td><td class="${sigClass(signal(sc))}">${signal(sc)}</td>`}</tr>`}
-async function scanUniverse(){if(scanBusy)return;scanBusy=true;["earlyStatus","whaleStatus","ultimateStatus"].forEach(id=>$(id).textContent="Scanning Binance USDT Spot universe…");try{let ts=await universe(),out=[];for(let i=0;i<ts.length;i+=8){let batch=await Promise.all(ts.slice(i,i+8).map(t=>scanOne(t).catch(()=>null)));out.push(...batch.filter(Boolean));let msg=`Analysed ${Math.min(i+8,ts.length)} / ${ts.length} pairs…`;["earlyStatus","whaleStatus","ultimateStatus"].forEach(id=>$(id).textContent=msg)}scanRows=out;let early=[...out].sort((a,b)=>b.score-a.score),whale=[...out].sort((a,b)=>b.activity-a.activity),ult=[...out].sort((a,b)=>b.ultimate-a.ultimate);$("earlyBody").innerHTML=early.slice(0,15).map((r,i)=>rowHtml(r,i,"early")).join("")||'<tr><td colspan="12">No candidates</td></tr>';$("whaleBody").innerHTML=whale.slice(0,15).map((r,i)=>rowHtml(r,i,"whale")).join("")||'<tr><td colspan="11">No data</td></tr>';$("ultimateBody").innerHTML=ult.slice(0,15).map((r,i)=>rowHtml(r,i,"ultimate")).join("")||'<tr><td colspan="12">No candidates</td></tr>';["earlyStatus","whaleStatus","ultimateStatus"].forEach(id=>$(id).textContent=`Completed ${out.length} pairs • ${new Date().toLocaleTimeString()}`);logHighSignals(ult)}catch(e){["earlyStatus","whaleStatus","ultimateStatus"].forEach(id=>$(id).textContent="Scan failed: "+e.message+" (API/network limits may apply)")}finally{scanBusy=false}}
-let scanBusy=false;
-const LOGKEY="q4_signal_log_v2";
-function getLog(){try{return JSON.parse(localStorage.getItem(LOGKEY)||"[]")}catch(e){return[]}}
-function saveLog(a){try{localStorage.setItem(LOGKEY,JSON.stringify(a))}catch(e){alert("Browser storage full/unavailable; export your log.")}}
-function logHighSignals(rows){let logs=getLog(),now=Date.now(),recent=new Set(logs.filter(x=>now-x.time<6*3600000).map(x=>x.symbol));for(let r of rows.filter(x=>x.ultimate>=80||x.score>=80)){if(recent.has(r.symbol))continue;logs.unshift({id:r.symbol+"-"+now,symbol:r.symbol,coin:r.coin,time:now,score:Math.max(r.score,r.ultimate),entry:r.price,regime:btc.regime,results:{}});recent.add(r.symbol)}saveLog(logs.slice(0,500));updateSignalResults()}
-let resBusy=false;
-async function updateSignalResults(){
-if(resBusy){renderLog();return}
-resBusy=true;
-try{
-const now=Date.now(),found={};
-for(const x of getLog()){
-if(now-x.time>7*864e5)continue;
-for(const h of [1,4,24]){
-if(now-x.time<h*3600000||x.results[h])continue;
-try{
-const target=Math.floor((x.time+h*3600000)/60000)*60000;
-const k=await json(SPOT+`/api/v3/klines?symbol=${encodeURIComponent(x.symbol)}&interval=1m&startTime=${target}&limit=1`);
-if(k&&k.length){const price=+k[0][1];(found[x.id]=found[x.id]||{})[h]={price,ret:(price-x.entry)/x.entry*100,checked:Date.now(),target}}
-}catch(e){/* retry on next refresh */}
-}
-}
-const logs=getLog(); /* re-read so signals logged during the update are not lost */
-for(const x of logs){if(found[x.id])Object.assign(x.results,found[x.id])}
-saveLog(logs);
-}finally{resBusy=false}
-renderLog();
-}
-function renderLog(){let logs=getLog();let done=logs.filter(x=>x.results[1]);let wins=done.filter(x=>x.results[1].ret>0).length;$("logStats").textContent=`${logs.length} signals • 1h results: ${done.length} • positive: ${done.length?Math.round(wins/done.length*100):0}%`;const result=(x,h)=>x.results[h]?`${money(x.results[h].price)} / ${pct(x.results[h].ret)}`:Date.now()-x.time>=h*3600000?"Waiting for price refresh":"Pending";$("logBody").innerHTML=logs.map(x=>`<tr><td>${new Date(x.time).toLocaleString()}</td><td class="coin">${x.coin}</td><td><span class="score">${x.score}</span></td><td>${money(x.entry)}</td><td>${result(x,1)}</td><td>${result(x,4)}</td><td>${result(x,24)}</td><td>${x.regime}</td></tr>`).join("")||'<tr><td colspan="8">No signals logged yet.</td></tr>'}
-function exportLog(){let logs=getLog(),heads=["time","coin","symbol","score","entry","regime","1h_price","1h_return_pct","4h_price","4h_return_pct","24h_price","24h_return_pct"],csv=[heads.join(","),...logs.map(x=>[new Date(x.time).toISOString(),x.coin,x.symbol,x.score,x.entry,x.regime,x.results[1]?.price??"",x.results[1]?.ret??"",x.results[4]?.price??"",x.results[4]?.ret??"",x.results[24]?.price??"",x.results[24]?.ret??""].join(","))].join("\n"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="q4-signal-log.csv";a.click();URL.revokeObjectURL(a.href)}
-function clearLog(){if(confirm("Delete all saved signal history?")){localStorage.removeItem(LOGKEY);renderLog()}}
-document.addEventListener("click",e=>{if(!e.target.closest(".menu"))$("dropdown").classList.remove("open")});
-refreshAll();renderLog();setInterval(refreshAll,60000);setInterval(()=>{if(scanRows.length&&!scanBusy)scanUniverse()},300000);
-</script></body></html>
+☰ Menu
+🧠 Q4 Crypto Market Regime Dashboard
+Market + Early Pump + Taker Buy Ratio + Signal Result Tracking
+Last update: Loading…
+🔄 Refresh
+📊 Market
+🚀 Early Pump Radar
+🐋 Whale + Volume
+🧠 Ultimate Pump
+🌊 Altseason
+🧾 Signal Log
+CURRENT BTC REGIME
+🟡 LOADING
+Collecting market data…
+BTC PRICE
+--
+--
+ETH PRICE
+--
+--
+BTC DOMINANCE
+--
+FEAR & GREED
+--
+--
+🧭 Market Model
+BTC MOMENTUM
+--
+ALT ENVIRONMENT
+--
+
+BTC TECHNICAL
+15m
+--
+1h
+--
+4h
+--
+RSI 1h
+--
+💼 Holdings + Watchlist
+GROUP
+COIN
+PRICE
+24H
+RSI 1H
+EMA20
+EMA55
+TREND
+VOL RATIO
+BTC REL.
+SCORE
+SIGNAL
+Loading…
+🚨 Market Alert
+Loading…
+Public market data • Research signals only; no trading guarantee • Signal log stored on this browser
